@@ -41,7 +41,6 @@ class SettingsRequest extends FormRequest
             'value.MAIL_PASSWORD'=> 'exclude_unless:name,email|required',
             'value.MAIL_ENCRYPTION'=> 'exclude_unless:name,email|required',
             'value.MAIL_FROM_ADDRESS'=> 'exclude_unless:name,email|email|required',
-            'value.MAIL_FROM_NAME'=> 'exclude_unless:name,email|required',
 
         ];
     }
