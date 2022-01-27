@@ -16,10 +16,10 @@
         <div class="row">
             <div class="col-md-6">                    
                 <div class="form-group">
-                    <label for="MAIL_MAILER">{{ __('MAIL DRIVER*') }}</label>
+                    <label for="MAIL_MAILER">{{ __('MAIL MAILER*') }}</label>
                     <input id="MAIL_MAILER" type="text" class="form-control  @error('value.MAIL_MAILER') is-invalid @enderror" name="value[MAIL_MAILER]" 
                     @if(old('value.MAIL_MAILER')) value="{{old('value.MAIL_MAILER')}}"
-                    @else value="{{ (isset($Settings['MAIL_MAILER'])) ? $Settings['MAIL_MAILER'] : '' }}" @endif required="" placeholder="{{ __('MAIL DRIVER') }}"  autocomplete="MAIL_MAILER" autofocus>
+                    @else value="{{ (isset($Settings['MAIL_MAILER'])) ? $Settings['MAIL_MAILER'] : '' }}" @endif required="" placeholder="{{ __('MAIL MAILER') }}"  autocomplete="MAIL_MAILER" autofocus>
                     @error("value.MAIL_MAILER")
                         {{$message}}
                     @enderror
@@ -91,17 +91,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-6">                    
-                <div class="form-group">
-                    <label for="MAIL_FROM_NAME">{{ __('MAIL FROM NAME*') }}</label>
-                    <input id="MAIL_FROM_NAME" type="text" class="form-control  @error('value.MAIL_FROM_NAME') is-invalid @enderror" name="value[MAIL_FROM_NAME]" 
-                    @if(old('value.MAIL_FROM_NAME')) value="{{old('value.MAIL_FROM_NAME')}}"
-                    @else value="{{ (isset($Settings['MAIL_FROM_NAME'])) ? $Settings['MAIL_FROM_NAME'] : '' }}" @endif required="" placeholder="{{ __('MAIL FROM NAME') }}"  autocomplete="MAIL_FROM_NAME" autofocus>
-                    @error("value.MAIL_FROM_NAME")
-                        {{$message}}
-                    @enderror
-                </div>
-            </div>
+
 
         </div>
     </div>
