@@ -34,7 +34,7 @@ class SettingsRequest extends FormRequest
             // Regestration
             'value.default_role'=> 'exclude_unless:name,registration|required',
             // EMAIL
-            'value.MAIL_DRIVER'=> 'exclude_unless:name,email|required',
+            'value.MAIL_MAILER'=> 'exclude_unless:name,email|required',
             'value.MAIL_HOST'=> 'exclude_unless:name,email|required',
             'value.MAIL_PORT'=> 'exclude_unless:name,email|required',
             'value.MAIL_USERNAME'=> 'exclude_unless:name,email|email|required',
