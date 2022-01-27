@@ -16,11 +16,11 @@
         <div class="row">
             <div class="col-md-6">                    
                 <div class="form-group">
-                    <label for="MAIL_DRIVER">{{ __('MAIL DRIVER*') }}</label>
-                    <input id="MAIL_DRIVER" type="text" class="form-control  @error('value.MAIL_DRIVER') is-invalid @enderror" name="value[MAIL_DRIVER]" 
-                    @if(old('value.MAIL_DRIVER')) value="{{old('value.MAIL_DRIVER')}}"
-                    @else value="{{ (isset($Settings['MAIL_DRIVER'])) ? $Settings['MAIL_DRIVER'] : '' }}" @endif required="" placeholder="{{ __('MAIL DRIVER') }}"  autocomplete="MAIL_DRIVER" autofocus>
-                    @error("value.MAIL_DRIVER")
+                    <label for="MAIL_MAILER">{{ __('MAIL DRIVER*') }}</label>
+                    <input id="MAIL_MAILER" type="text" class="form-control  @error('value.MAIL_MAILER') is-invalid @enderror" name="value[MAIL_MAILER]" 
+                    @if(old('value.MAIL_MAILER')) value="{{old('value.MAIL_MAILER')}}"
+                    @else value="{{ (isset($Settings['MAIL_MAILER'])) ? $Settings['MAIL_MAILER'] : '' }}" @endif required="" placeholder="{{ __('MAIL DRIVER') }}"  autocomplete="MAIL_MAILER" autofocus>
+                    @error("value.MAIL_MAILER")
                         {{$message}}
                     @enderror
                 </div>

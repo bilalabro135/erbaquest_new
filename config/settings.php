@@ -61,7 +61,7 @@
                 'allow_forget_password' => false,
             ],
             'email' => [
-                'MAIL_DRIVER' => env('MAIL_DRIVER'),
+                'MAIL_MAILER' => env('MAIL_MAILER'),
                 'MAIL_HOST' => env('MAIL_HOST'),
                 'MAIL_PORT' => env('MAIL_PORT'),
                 'MAIL_USERNAME' => env('MAIL_USERNAME'),

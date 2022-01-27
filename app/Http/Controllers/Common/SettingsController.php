@@ -12,7 +12,7 @@ class SettingsController extends Controller
     public function setEnvironmentValue($envKey, $envValue)
     {
         $allowToWrite = [
-                'MAIL_DRIVER',
+                'MAIL_MAILER',
                 'MAIL_HOST',
                 'MAIL_PORT',
                 'MAIL_USERNAME',
