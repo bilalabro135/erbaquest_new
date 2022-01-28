@@ -20,8 +20,11 @@
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           <div class="form-group w-100 mb-0">
-                            
+                           <h3 class="h5 my-0">Blog Information</h3>                           
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                            <label for="title">Title</label>
                             <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Blog Name*" value="{{ (old('name')) ? old('name') : $blog->name }}">        
                                 @error('name')
                                     <div class="text-danger">
@@ -29,9 +32,6 @@
                                     </div>
                                 @endif
                             </div>
-                           
-                        </div>
-                        <div class="card-body">
                             <div class="form-group">
                             <label for="slug">Slug</label>
                             <input type="text" required="" class="form-control @error('slug') is-invalid @enderror" id="slug" aria-describedby="slug" placeholder="Enter Blog Slug" name="slug" value="{{ (old('slug')) ? old('slug') : $blog->slug }}">
@@ -127,11 +127,6 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block px-5">
-                                    {{ __('Update') }}
-                                </button>
-                            </div>
                         </div>
                     </div>
                    @if($categories->count())
@@ -194,6 +189,11 @@
                                 </div>
                             @endif
                             <a href="javascript:void(0)" class="text-danger mt-2 d-inline-block" onclick="removeImage()">Remove Image</a>
+                            <div class="form-group mt-4">
+                                <button type="submit" class="btn btn-primary btn-block px-5">
+                                    {{ __('Update') }}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

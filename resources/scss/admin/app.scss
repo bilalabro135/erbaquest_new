@@ -205,10 +205,99 @@ ol ol{
     color: #4e73df;
         margin-bottom: 1rem;
 }
+
 .file-upload img {
     max-width: 100%;
     object-position: center;
     width: auto;
     height: auto !important;
     max-height: 100% !important;
+}
+
+
+@media screen and (max-width: 767px) {
+    .container {
+      max-width: 767px;
+    }    
+    button#sidebarToggleTop {
+        position: absolute;
+        right: 15%;
+    }
+    ul#accordionSidebar {
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: scroll;
+        position: fixed;
+        top: 0;
+        z-index: 9;
+        width: auto !important;
+        transform: translateX(-200px);
+        transition: all 0.3s ease-in-out !important;
+    }
+    .table th, .table td {
+        font-size: 13px;
+    }
+    .card h6 {
+        font-size: 15px;
+    }
+    .card .btn.btn-primary {
+        font-size: 12px;
+    }
+    .dataTables_wrapper .row .col-sm-12 {
+        max-width: 50%;
+    }
+    .dataTables_wrapper label {
+        font-size: 13px;
+        align-items: center;
+    }
+    .dataTables_wrapper .row:nth-child(2) .col-sm-12 {
+        max-width: 100%;
+    }
+    .table td a.btn-sm {
+        border: none;
+        display: inherit;
+        font-size: 10px;
+    }
+    .dataTables_info {
+        font-size: 13px;
+    }
+    ul.pagination li {
+        font-size: 13px;
+    }
+    .topbar #sidebarToggleTop {
+        box-shadow: none;
+    }
+    .form-control {
+        height: 40px;
+        font-size: 14px;
+        padding: 0 16px;
+        border-radius: 4px;
+    }
+    textarea.form-control {padding: 12px 16px;}
+    .form-group label {
+        font-size: 14px;
+    }
+    .sidebar-toggled ul#accordionSidebar.sidebar {transform: none;}
+    .sidebar .nav-item .collapse {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+    .sidebar .nav-item .nav-link {
+        width: 100%;
+    }
+    .sidebar .nav-item .collapse .collapse-inner .collapse-item, 
+    .sidebar .nav-item .collapsing .collapse-inner .collapse-item {
+        text-align: center;
+    }
+    .sidebar .sidebar-brand .sidebar-brand-text {
+      display: block;
+    }
+}
+
+
+@media screen and (max-width: 440px) {
+    .container {
+    padding: 0;
+    }
 }
