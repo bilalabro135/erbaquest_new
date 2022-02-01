@@ -24,18 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">                    
-                <div class="form-group">
 
-                    <div class="custom-control custom-checkbox small">
-                        <input id="allow_registrstion" type="checkbox" class=" custom-control-input @error('value.allow_registrstion') is-invalid @enderror" name="value[allow_registrstion]" value="1" @if(old('value.allow_registrstion')) checked="checked"  @else {{ (isset($Settings['allow_registrstion'])) ? 'checked="checked"' : '' }}" @endif >
-                        <label for="allow_registrstion" class="custom-control-label">{{ __('Allow Registration') }}</label>
-                            @error("value.allow_registrstion")
-                                {{$message}}
-                            @enderror
-                    </div>
-                </div>
-            </div>
             <div class="col-md-6">                    
                 <div class="form-group">
 
@@ -48,25 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                @if(Bouncer::can('addRoles') || Bouncer::can('viewRoles'))              
-                <div class="form-group">
-                    <select class="form-control  @error('value.default_role') is-invalid @enderror" name="value[default_role]">
-                        <option value="">Select Default Role</option>
-                        @if(!empty($roles))
-                            @foreach ($roles as $role)
-                            <option {{(isset($Settings['default_role']) && $Settings['default_role'] == $role) ? 'selected' : ''}} value="{{$role}}">{{$role}}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                    @error("value.default_role")
-                        {{$message}}
-                    @enderror
-                </div>
-                @else
-                <input type="hidden" name="value[default_role]" value="{{$Settings['default_role']}}">
-                @endif
-            </div>
+
         </div>
 
         </div>

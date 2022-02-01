@@ -55,9 +55,7 @@
                 'home_page' => 'default',
             ],
             'registration' => [
-                'default_role' => 'Admin',
                 'email_verification_on_reg' => 1,
-                'allow_registrstion' => 1,
                 'allow_forget_password' => false,
             ],
             'email' => [

@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@gmail.com';
+        $user->username = 'admin';
         $user->password = Hash::make('@Admin!23#');
         $user->email_verified_at = date("Y-m-d",time());
         $user->save();

@@ -32,7 +32,6 @@ class SettingsRequest extends FormRequest
                 new FavIcon()
             ],
             // Regestration
-            'value.default_role'=> 'exclude_unless:name,registration|required',
             // EMAIL
             'value.MAIL_MAILER'=> 'exclude_unless:name,email|required',
             'value.MAIL_HOST'=> 'exclude_unless:name,email|required',
