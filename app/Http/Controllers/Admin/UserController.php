@@ -87,6 +87,7 @@ class UserController extends Controller
         $user->address = $userData['address'];
         $user->phone = $userData['phone'];
         $user->username = $userData['username'];
+        $user->profile_image = $userData['profile_image'];
         if($request->hasPassword()){
             $user->password = $userData['password'];
         }
