@@ -29,6 +29,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'email|unique:users|required|max:255',
+            'profile_image' => 'max:255',
             'username' => 'unique:users|required|max:255',
             'phone' => ['required', new Telephone()],
             'password' => 'required|max:255',
@@ -50,6 +51,7 @@ class UserRequest extends FormRequest
             'phone' => $this->get('phone'),
             'password' =>  Hash::make($this->get('password')),
             'email_verified_at' => ($this->get('email_verified_at') == 'verified') ?  $date->format('U') : null,
+            'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,
        ];
     }
     public function shouldSendVerificationEmail()

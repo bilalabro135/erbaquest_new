@@ -61,6 +61,7 @@ class UserController extends Controller
         $user->phone = $userData['phone'];
         $user->username = $userData['username'];
         $user->email_verified_at = $userData['email_verified_at'];
+        $user->profile_image = $userData['profile_image'];
         $user->save();
         if ($request->shouldSendVerificationEmail()) {
             $user->sendEmailVerificationNotification();
