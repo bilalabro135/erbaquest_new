@@ -35,9 +35,9 @@
                                     <form class="user" method="POST" action="{{ route('authenticate') }}">
                                          @csrf
                                         <div class="form-group">
-                                                <input id="email" type="email"
-                                           class="form-control form-control-user @error('email') is-invalid @enderror" name="email"
-                                           value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}" required autocomplete="email" autofocus>
+                                                <input id="username" type="text"
+                                           class="form-control form-control-user @error('username') is-invalid @enderror" name="username"
+                                           value="{{ old('username') }}" placeholder="{{ __('E-Mail Address Or Username') }}" required autocomplete="username" autofocus>
 
               
                                         </div>
@@ -70,9 +70,7 @@
                                         @endif
                                     </div>
                                     <div class="text-center">
-                                      @if (isset($Settings['allow_registrstion']) && $Settings['allow_registrstion'] == 1)
                                             <a class="small" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                      @endif
                                     </div>
                                 </div>
                             </div>

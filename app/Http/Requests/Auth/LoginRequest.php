@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|max:255',
+            'username' => 'required|max:255',
             'password' => 'required|max:255'
         ];
     }
@@ -34,7 +34,7 @@ class LoginRequest extends FormRequest
     {
 
         return [
-            'email' => $this->get('email'),
+            'username' => $this->get('username'),
             'password' => $this->get('password')
         ];
     }

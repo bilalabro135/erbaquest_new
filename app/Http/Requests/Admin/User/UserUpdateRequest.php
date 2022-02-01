@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Hash;
+use App\Rules\Telephone;
 class UserUpdateRequest extends FormRequest
 {
     /**
@@ -27,6 +28,9 @@ class UserUpdateRequest extends FormRequest
             'id' => 'required',
             'name' => 'required|max:255',
             'email' => 'email|required|max:255',
+            'phone' => ['required', new Telephone()],
+            'username' => 'required|max:255',
+            'address' => 'max:255',
             'role' => 'required',
         ];
     }
@@ -38,6 +42,9 @@ class UserUpdateRequest extends FormRequest
             'name' => $this->get('name'),
             'role' => $this->get('role'),
             'email' => $this->get('email'),
+            'username' => $this->get('username'),
+            'address' =>( $this->has('address')) ? $this->get('address') : null,
+            'phone' => $this->get('phone'),
        ];
        if ($this->has('password')) {        
              $data['password'] =  Hash::make($this->get('password'));

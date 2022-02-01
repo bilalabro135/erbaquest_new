@@ -39,7 +39,33 @@
                                 </div>
                             @endif
                             </div>
-
+                            <div class="form-group">
+                            <label for="username">Username*</label>
+                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="username" value="{{ (old('username')) ? old('username') : $user->username }}">
+                            @error('username')
+                                <div class="text-danger">
+                                    {{$message}}                                            
+                                </div>
+                            @endif
+                            </div>
+                            <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text"  class="form-control @error('address') is-invalid @enderror" id="address" placeholder="Address" name="address" value="{{ (old('address')) ? old('address') : $user->address }}">
+                            @error('address')
+                                <div class="text-danger">
+                                    {{$message}}                                            
+                                </div>
+                            @endif
+                            </div>
+                            <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text"  class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="{{ (old('phone')) ? old('phone') : $user->phone }}">
+                            @error('phone')
+                                <div class="text-danger">
+                                    {{$message}}                                            
+                                </div>
+                            @endif
+                            </div>
                             <div class="form-group">
                             <label for="exampleInputPassword1">Password*</label>
                             <input type="password"  class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Password" name="password" value="">

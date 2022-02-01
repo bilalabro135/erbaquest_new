@@ -49,10 +49,8 @@ Route::get('/reset-password/{token}', [AuthController::class, 'resetPaassword'])
 Route::post('/reset-password',[AuthController::class, 'paasswordUpdate'])->middleware(['guest', 'shouldPasswordReset'])->name('password.update');
 
 // Registration
-Route::middleware(['AllowedRegistration'])->group( function () {
-    Route::view('/register','auth.register')->name('register');
+    Route::get('/register', [AuthController::class, 'signup'])->name('register');
     Route::post('/user/register',[AuthController::class, 'register'])->name('register.user');
-});
 
 // File manager
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {

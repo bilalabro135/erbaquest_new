@@ -13,6 +13,7 @@ use App\Models\Settings;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Bouncer;
 class AuthController extends Controller
 {
     public function dashboard(){
@@ -22,8 +23,10 @@ class AuthController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->getCredentials();
+        $fieldType = filter_var($credentials['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        
 
-        if (Auth::attempt($credentials, request()->has('remember') )) {
+        if (Auth::attempt(array($fieldType => $credentials['username'], 'password' => $credentials['password']), request()->has('remember'))) {
             $request->session()->regenerate();
 
             return redirect()->intended('admin');
@@ -55,22 +58,30 @@ class AuthController extends Controller
         $user = new User;
         $user->name = $userData['name'];
         $user->email = $userData['email'];
+        $user->username = $userData['username'];
+        $user->address = $userData['address'];
         $user->password = $userData['password'];
+        $user->phone = $userData['phone'];
 
         if(!isset($Settings['email_verification_on_reg']) || $Settings['email_verification_on_reg'] != 1){
             $user->email_verified_at = $userData['email_verified_at'];
             $user->save();
-            $user->assign($Settings['default_role']);
+            $user->assign($userData['role']);
             Auth::loginUsingId($user->id);
             return Redirect::route('admin')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
         }
         else{
             $user->save();
-            $user->assign($Settings['default_role']);
+            $user->assign($userData['role']);
             Auth::loginUsingId($user->id);   
             $user->sendEmailVerificationNotification();
-            return Redirect::route('verification.notice')->with(['msg' => 'User added', 'msg_type' => 'success']);
+            return Redirect::route('verification.notice')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
         }
+    }
+    public function signup()
+    {
+        $roles = Bouncer::role()->where('name', 'Organizer')->orWhere('name', 'Vendor')->pluck('name');
+        return view('auth.register', compact('roles'));
     }
     public function forgetPassword()
     {

@@ -33,7 +33,7 @@ class RoleController extends Controller
                 if(Bouncer::can('updateRoles') && $row->id != 1){
                     $actionBtn .='<a href="' . route('roles.edit', ['id' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
                 }
-                if(Bouncer::can('deleteUsers') && $row->id != 1){
+                if(Bouncer::can('deleteUsers') && $row->id != 1 && $row->id != 2 && $row->id != 3){
                 $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('roles.delete', ['id' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
                 }
                 return $actionBtn;
@@ -108,7 +108,7 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        if ($id != 1) {
+        if ($id != 1 && $id != 2 && $id != 3) {
             Bouncer::role()->find($id)->delete();
             return Redirect::route('roles')->with(['msg' => 'Roles Deleted', 'msg_type' => 'success']);
         }

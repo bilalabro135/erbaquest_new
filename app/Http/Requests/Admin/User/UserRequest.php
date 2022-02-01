@@ -5,6 +5,7 @@ namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Hash;
+use App\Rules\Telephone;
 
 class UserRequest extends FormRequest
 {
@@ -28,9 +29,12 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'email|unique:users|required|max:255',
+            'username' => 'unique:users|required|max:255',
+            'phone' => ['required', new Telephone()],
             'password' => 'required|max:255',
             'email_verified_at' => 'required',
             'role' => 'required',
+            'address' => 'max:255',
         ];
     }
 
@@ -41,6 +45,9 @@ class UserRequest extends FormRequest
             'name' => $this->get('name'),
             'email' => $this->get('email'),
             'role' => $this->get('role'),
+            'username' => $this->get('username'),
+            'address' =>( $this->has('address')) ? $this->get('address') : null,
+            'phone' => $this->get('phone'),
             'password' =>  Hash::make($this->get('password')),
             'email_verified_at' => ($this->get('email_verified_at') == 'verified') ?  $date->format('U') : null,
        ];
