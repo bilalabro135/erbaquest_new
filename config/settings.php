@@ -36,6 +36,7 @@
                 'Add Users' =>'addUsers',
                 'Update Users' =>'updateUsers',
                 'Delete Users' =>'deleteUsers',
+                'Edit Itself' =>'editItself',
             ],            
             'Roles' => [
                 'View Roles' =>'viewRoles',
