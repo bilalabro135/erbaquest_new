@@ -13,6 +13,8 @@
         <form action="{{route('users.update')}}" method="POST" autocomplete="off">
                @csrf
                <input type="hidden" name="id" value="{{$user->id}}">
+               <input type="hidden" name="old_email" value="{{$user->email}}">
+               <input type="hidden" name="old_username" value="{{$user->username}}">
             <div class="row">
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
