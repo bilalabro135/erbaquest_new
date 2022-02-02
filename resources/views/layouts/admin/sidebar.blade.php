@@ -39,6 +39,7 @@
                     </div>
                 </li>
                 @endif
+
                 @if (Bouncer::can('viewCategories') || Bouncer::can('addCategories'))
                 <li class="nav-item {{(request()->is('admin/categories/*') || request()->is('admin/categories') ) ? 'active' : ''}}">
                     <a class="nav-link {{(request()->is('admin/categories/*') || request()->is('admin/categories') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#categories"
@@ -57,6 +58,57 @@
                 <hr class="sidebar-divider">
             @endif
 
+
+             @if (Bouncer::can('viewAreas') || Bouncer::can('addAreas'))
+            <div class="sidebar-heading">
+                Areas 
+            </div>
+                <li class="nav-item {{(request()->is('admin/areas') || request()->is('admin/areas/*')) ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('areas') }}">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Areas</span></a>
+                </li> 
+            <hr class="sidebar-divider">
+
+            @endif
+
+            @if (Bouncer::can('viewAmenities') || Bouncer::can('addAmenities'))
+            <div class="sidebar-heading">
+                Amenities 
+            </div>
+                <li class="nav-item {{(request()->is('admin/amenities') || request()->is('admin/amenities/*')) ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('amenities') }}">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Amenities</span></a>
+                </li> 
+            <hr class="sidebar-divider">
+
+            @endif
+
+
+            @if ( Bouncer::can('viewPackages') || Bouncer::can('addPackages') )
+                <div class="sidebar-heading">
+                    packages
+                </div>
+                <li class="nav-item {{(request()->is('admin/packages/*') || request()->is('admin/packages') ) ? 'active' : ''}}">
+                    <a class="nav-link {{(request()->is('admin/packages/*') || request()->is('admin/packages') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#packages"
+                        aria-expanded="true" aria-controls="packages">
+                        <i class="fas fa-file"></i>
+                        <span>Packages</span>
+                    </a>
+                    <div id="packages" class="collapse {{(request()->is('admin/packages/*') || request()->is('admin/packages') ) ? 'show' : ''}}" aria-labelledby="All packages" data-parent="#accordionSidebar">
+                        <div class="bg-primary py-2 collapse-inner rounded">
+                            @can('viewPackages')
+                            <a class="collapse-item text-light" href="{{route('packages')}}">All Packages</a>
+                            @endcan
+                            @can('addPackages')
+                            <a class="collapse-item text-light" href="{{route('packages.add')}}">Add Package</a>
+                            @endcan
+                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider">
+            @endif
 
 
             @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') )
