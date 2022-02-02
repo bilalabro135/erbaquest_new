@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Login', 'sidebar' => false, 'topbar' => false])
+@extends('layouts.admin.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Register', 'sidebar' => false, 'topbar' => false])
 
 
 @section('content')
@@ -7,37 +7,24 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
+                <div class="row form_area">
+                    <div class="col-lg-4 d-none d-lg-block">
+                        <div class="logo_area">
+                            {!! ($globalsettings->getValue('site_logo')) ? '<img src="' .$globalsettings->getValue('site_logo') . '">' : config('app.name', 'Laravel') !!}    
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4 vc_head">Create an Account!</h1>
                             </div>
                             <form class="user" method="POST" action="{{ route('register.user') }}">
                                 @csrf
+                                <input type="hidden" name="role" value="event_orgranizer">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus placeholder="Name*">
                                         @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input id="phone" type="text" class="form-control  form-control-user @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone">
-                                        @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus placeholder="Username*">
-                                        @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -52,18 +39,27 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        @foreach($roles as $roleI => $role)
-                                            <label><input type="radio" {{($roleI == 0) ? 'checked' : ''}} name="role" value="{{$role}}">{{$role}}</label>
-                                        @endforeach
-                                          @error('role')
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input id="phone" type="text" class="form-control  form-control-user @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone">
+                                        @error('phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus placeholder="Username*">
+                                        @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>                                    
+                                </div>
+                                <div class="row form-group">
+                                    
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input id="address" type="text" class="form-control form-control-user @error('address') is-invalid @enderror" name="address" value="{{ old('username') }}" autocomplete="address" autofocus placeholder="Address">
                                         @error('address')
                                         <span class="invalid-feedback" role="alert">
@@ -91,8 +87,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <label>
-                                    <input type="checkbox" name="terms_and_condition" ="" value="1">I Agree With Terms & Conditon
+                                <label class="checkmark">
+                                    <input type="checkbox" name="terms_and_condition" value="1">I Agree With Terms & Conditon
                                 </label>
                                 @error('terms_and_condition')
                                         <span class="invalid-feedback" role="alert">

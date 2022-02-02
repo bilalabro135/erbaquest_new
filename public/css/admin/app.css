@@ -11645,3 +11645,133 @@ ol ol {
     padding: 0;
   }
 }
+.form_area .logo_area {
+  background: #000;
+  padding: 20px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form.user .form-control-user {
+  height: 62px;
+  width: 100%;
+  padding: 0 18px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  box-shadow: none;
+  outline: none;
+  color: #7c7c7c;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.vc_head {
+  font-size: 40px;
+  font-weight: 800;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.vc_head:after {
+  content: "";
+  height: 5px;
+  width: 100px;
+  background: #2f8f44;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.form_area form.user .btn-user {
+  width: 286px;
+  height: 54px;
+  border-radius: 40px;
+  background: #2c9044 !important;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 2px;
+  border-color: #2c9044;
+  margin: 20px auto;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.form_area form.user .btn-user:hover {
+  background: transparent !important;
+  color: #2c9044;
+}
+
+.form_area a.small {
+  color: #2c9044;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+#wrapper #content-wrapper {
+  height: 100vh;
+}
+
+#wrapper #content-wrapper #content {
+  display: flex;
+  align-items: center;
+}
+
+label.checkmark input {
+  height: 0;
+  width: 0;
+  clip: auto;
+}
+
+label.checkmark {
+  padding-left: 38px;
+  position: relative;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+label.checkmark input:before {
+  content: "";
+  height: 24px;
+  width: 24px;
+  border: 1px solid #2c9044;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all 0.3s ease-in-out !important;
+}
+
+label.checkmark input:after {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: #fff;
+  font-size: 12px;
+  background: #2c9044;
+  padding: 4px 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out !important;
+}
+
+label.checkmark input:checked:after {
+  opacity: 1;
+  visibility: visible;
+}
+
+label.checkmark input:checked:before {
+  opacity: 0;
+  visibility: hidden;
+}

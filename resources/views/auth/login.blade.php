@@ -15,12 +15,16 @@
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
+                        <div class="row form_area">
+                            <div class="col-lg-4 d-none d-lg-block">
+                                <div class="logo_area">
+                                    {!! ($globalsettings->getValue('site_logo')) ? '<img src="' .$globalsettings->getValue('site_logo') . '">' : config('app.name', 'Laravel') !!}    
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4 vc_head">Welcome Back!</h1>
                                         @if(session('msg'))
                                         <div class="alert alert-{{session('msg_type')}}">
                                             {{session('msg')}}                                            
