@@ -6,6 +6,7 @@
 
         <title>Laravel</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="firebase_ip" content="{{ route('notification.store') }}" >
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
