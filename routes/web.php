@@ -11,6 +11,7 @@ use App\Http\Controllers\Common\PagesController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\SendNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +113,13 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/categories/add', [CategoryController::class, 'store'])->name('categories.store')->middleware('role:addCategories');
     Route::get('/categories/{category:id}/edit/', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('role:updateCategories');
     Route::post('/categories/{category:id}/update/', [CategoryController::class, 'update'])->name('categories.update')->middleware('role:updateCategories');
-    Route::get('/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('role:deleteCategories');
+    Route::get('/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('role:deleteCategories');    
+
+    //Notification 
+    Route::get('/notification/', [SendNotification::class, 'index'])->name('notification')->middleware('role:allowNotifications');
+    Route::post('/notification/send', [SendNotification::class, 'send'])->name('notification.send')->middleware('role:allowNotifications');
 });
 
+// Store User IP
+ 
+    Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('role:allowNotifications');

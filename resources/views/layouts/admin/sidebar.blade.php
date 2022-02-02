@@ -15,7 +15,18 @@
                     <span>Dashboard</span></a>
             </li>
             <hr class="sidebar-divider">
+            @can ('allowNotifications')
+            <div class="sidebar-heading">
+                Notification 
+            </div>
+                <li class="nav-item {{(request()->is('admin/notification') || request()->is('admin/notification/*')) ? 'active' : ''}}">
+                    <a class="nav-link" href="{{ route('notification') }}">
+                        <i class="fas fa-bell"></i>
+                        <span>Send Notification</span></a>
+                </li> 
+            <hr class="sidebar-divider">
 
+            @endcan
             @if ( Bouncer::can('viewBlogs') || Bouncer::can('addBlogs') || Bouncer::can('viewCategories') || Bouncer::can('addCategories') )
                 <div class="sidebar-heading">
                     Blogs & Categories

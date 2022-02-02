@@ -49,6 +49,9 @@
                 'Access Settings' =>'accessSettings',
                 'Access Dashboard' =>'accessDashboard',
             ],
+            'Notifications' => [
+                'Allow Sending Notifications' =>'allowNotifications',
+            ],
         ],
         'settings' => [
             'general' => [
