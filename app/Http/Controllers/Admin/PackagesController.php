@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\PackagesRequest;
 
 use App\Models\Package;
 use DataTables;
@@ -38,5 +39,46 @@ class PackagesController extends Controller
     public function create()
     {
         return view('admin.packages.add');
+    }
+
+    public function store(PackagesRequest $request)
+    {
+        $package = new Package();
+        $package->name = $request->name;
+        $package->description = $request->description;
+        $package->short_description = $request->short_description;
+        $package->price = $request->price;
+        $package->reccuring_every = $request->reccuring_every;
+        $package->duration = $request->duration;
+        $package->save();
+        return Redirect::route('packages')->with(['msg' => 'Package Inserted', 'msg_type' => 'success']);
+    }
+
+    public function edit(Package $package)
+    {
+        return view('admin.packages.edit', compact('package'));
+    }
+
+    public function update(PackagesRequest $request, Package $package)
+    {
+        $package->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'short_description' => $request->short_description,
+            'price' => $request->price,
+            'reccuring_every' => $request->reccuring_every,
+            'duration' => $request->duration,
+        ]);
+
+        return Redirect::route('packages')->with(['msg' => 'Package Updated', 'msg_type' => 'success']);
+    }
+
+    public function destroy($id)
+    {
+        $package = Package::where('id', $id)->delete();
+        if ($package) {
+            return Redirect::back()->with(['msg' => 'Package deleted', 'msg_type' => 'success']);
+        }
+        abort(404);
     }
 }

@@ -26,8 +26,7 @@ class PackagesRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'short_description' => [
-                'max:255',
-                new ShortDescription(),
+                'max:255'
             ]
         ];
     }

@@ -16,7 +16,7 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">All Packages</h6>
                 @can('addPackages')
-                <a href="{{route('blogs.add')}}" class="btn btn-primary">Add New</a>
+                <a href="{{route('packages.add')}}" class="btn btn-primary">Add New</a>
                 @endcan
             </div>
             <div class="card-body">
@@ -26,7 +26,6 @@
 	                        <tr>
                             <th scope="col">ID</th>
 					      <th scope="col">Package Name</th>
-					      <th scope="col">Author</th>
 					      <th scope="col">Price</th>
 					      <th scope="col">Duration</th>
 					      <th scope="col">Action</th>
@@ -36,7 +35,6 @@
 	                        <tr>
                             <th scope="col">ID</th>
 					      <th scope="col">Package Name</th>
-					      <th scope="col">Author</th>
 					      <th scope="col">Price</th>
 					      <th scope="col">Duration</th>
 					      <th scope="col">Action</th>
@@ -69,7 +67,6 @@
 		         columns: [
 		                  { data: 'id', name: 'id', 'visible': false},
 		                  { data: 'name', name: 'name' },
-		                  { data: 'author', name: 'author' },
 		                  { data: 'price', name: 'price' },
 		                  { data: 'duration', name: 'duration' },
 		                  { data: 'action', name: 'action', orderable: true,searchable: true}
