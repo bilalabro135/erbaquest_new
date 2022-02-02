@@ -84,5 +84,12 @@
                 $(this).parents('.role-permission').find('input[type="checkbox"]').prop('checked', false);
             }
         })
+
+        $('.role-permission').each(function(index,item){
+         let len = $(item).children('.form-group').find('input[type="checkbox"]').length;
+         if($(item).children('.form-group').find('input[type="checkbox"]:checked').length == len){
+             $(item).children('h4').find('input[type="checkbox"]').prop('checked', true);
+         }
+        })
     </script>
 @endsection
