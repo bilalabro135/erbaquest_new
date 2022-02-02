@@ -105,7 +105,7 @@
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            @if(Bouncer::can('addRoles') || Bouncer::can('viewRoles'))
+                            @if((Bouncer::can('addRoles') || Bouncer::can('viewRoles')) &&  Bouncer::can('changeUserRole'))
                             <div class="form-group">
                                 <label for="role">Select Role*</label>
                                 <select name="role" id="role" required="" class="form-control">
