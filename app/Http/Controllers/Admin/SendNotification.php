@@ -48,4 +48,20 @@ class SendNotification extends Controller
 
         return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']); 
     }
+    public function store(Request $request){
+        $validation = Validator::make($request->all(),[
+          'currentToken' => 'required',
+        ]);
+        if ($validation->fails())
+        {
+            return response()->json(['error', 'Sorry we got an error in storing your IP!']);
+        }
+        else{
+            auth()->user()->update([
+                'ip_key' => $request->currentToken;
+            ]);
+        }
+
+        return response()->json(['ResponseCode' => 1, 'ResponseText' => 'IP stored'], 200);
+    }
 }
