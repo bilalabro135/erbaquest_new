@@ -11,6 +11,9 @@ use App\Http\Controllers\Common\PagesController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\AreaController;
+use App\Http\Controllers\Admin\AmenitiesController;
+use App\Http\Controllers\Admin\PackagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,5 +116,33 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/categories/{category:id}/edit/', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('role:updateCategories');
     Route::post('/categories/{category:id}/update/', [CategoryController::class, 'update'])->name('categories.update')->middleware('role:updateCategories');
     Route::get('/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('role:deleteCategories');
+
+
+    // Areas
+    Route::get('/areas', [AreaController::class, 'index'])->name('areas')->middleware('role:viewAreas');
+    Route::get('/areas/get', [AreaController::class, 'getAreas'])->name('areas.get')->middleware('role:viewAreas');
+    Route::get('/areas/add', [AreaController::class, 'create'])->name('areas.add')->middleware('role:addAreas');
+    Route::post('/areas/add', [AreaController::class, 'store'])->name('areas.store')->middleware('role:addAreas');
+    Route::get('/areas/{area:id}/edit/', [AreaController::class, 'edit'])->name('areas.edit')->middleware('role:updateAreas');
+    Route::post('/areas/{area:id}/update/', [AreaController::class, 'update'])->name('areas.update')->middleware('role:updateAreas');
+    Route::get('/areas/{area:id}/delete', [AreaController::class, 'destroy'])->name('areas.delete')->middleware('role:deleteAreas');
+
+    // Amenities
+    Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities')->middleware('role:viewAmenities');
+    Route::get('/amenities/get', [AmenitiesController::class, 'getAmenities'])->name('amenities.get')->middleware('role:viewAmenities');
+    Route::get('/amenities/add', [AmenitiesController::class, 'create'])->name('amenities.add')->middleware('role:addAmenities');
+    Route::post('/amenities/add', [AmenitiesController::class, 'store'])->name('amenities.store')->middleware('role:addAmenities');
+    Route::get('/amenities/{amenity:id}/edit/', [AmenitiesController::class, 'edit'])->name('amenities.edit')->middleware('role:updateAmenities');
+    Route::post('/amenities/{amenity:id}/update/', [AmenitiesController::class, 'update'])->name('amenities.update')->middleware('role:updateAmenities');
+    Route::get('/amenities/{amenity:id}/delete', [AmenitiesController::class, 'destroy'])->name('amenities.delete')->middleware('role:deleteAmenities');
+
+    // Packages
+    Route::get('/packages', [PackagesController::class, 'index'])->name('packages')->middleware('role:viewPackages');
+    Route::get('/packages/get', [PackagesController::class, 'getPackages'])->name('packages.get')->middleware('role:viewPackages');
+    Route::get('/packages/add', [PackagesController::class, 'create'])->name('packages.add')->middleware('role:addPackages');
+    Route::post('/packages/add', [PackagesController::class, 'store'])->name('packages.store')->middleware('role:addPackages');
+    Route::get('/packages/{package:id}/edit/', [PackagesController::class, 'edit'])->name('packages.edit')->middleware('role:updatePackages');
+    Route::post('/packages/{package:id}/update/', [PackagesController::class, 'update'])->name('packages.update')->middleware('role:updatePackages');
+    Route::get('/packages/{package:id}/delete', [PackagesController::class, 'destroy'])->name('packages.delete')->middleware('role:deletePackages');
 });
 

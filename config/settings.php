@@ -31,6 +31,24 @@
                 'Update Categories' =>'updateCategories',
                 'Delete Categories' =>'deleteCategories',
             ],
+            'Areas' => [
+                'View Areas' =>'viewAreas',
+                'Add Area' =>'addAreas',
+                'Update Area' =>'updateAreas',
+                'Delete Area' =>'deleteAreas',
+            ],
+            'Amenities' => [
+                'View Amenities' =>'viewAmenities',
+                'Add Amenity' =>'addAmenities',
+                'Update Amenity' =>'updateAmenities',
+                'Delete Amenity' =>'deleteAmenities',
+            ],
+            'Packages' => [
+                'View Packages' =>'viewPackages',
+                'Add Package' =>'addPackages',
+                'Update Package' =>'updatePackages',
+                'Delete Package' =>'deletePackages',
+            ],
             'Users' => [
                 'View Users' =>'viewUsers',
                 'Add Users' =>'addUsers',
