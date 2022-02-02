@@ -35,6 +35,9 @@ class UserController extends Controller
                 
                 return $actionBtn;
         })
+        ->addColumn('role', function ($row){
+            return $row->getRoles()[0];
+        })
         ->rawColumns(['action'])
 
         ->toJson();
@@ -54,7 +57,11 @@ class UserController extends Controller
         $user->name = $userData['name'];
         $user->email = $userData['email'];
         $user->password = $userData['password'];
+        $user->address = $userData['address'];
+        $user->phone = $userData['phone'];
+        $user->username = $userData['username'];
         $user->email_verified_at = $userData['email_verified_at'];
+        $user->profile_image = $userData['profile_image'];
         $user->save();
         if ($request->shouldSendVerificationEmail()) {
             $user->sendEmailVerificationNotification();
@@ -78,6 +85,10 @@ class UserController extends Controller
         $user->id = $userData['id'];
         $user->name = $userData['name'];
         $user->email = $userData['email'];
+        $user->address = $userData['address'];
+        $user->phone = $userData['phone'];
+        $user->username = $userData['username'];
+        $user->profile_image = $userData['profile_image'];
         if($request->hasPassword()){
             $user->password = $userData['password'];
         }

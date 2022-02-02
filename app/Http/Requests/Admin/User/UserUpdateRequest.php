@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Hash;
+use App\Rules\Telephone;
 class UserUpdateRequest extends FormRequest
 {
     /**
@@ -16,6 +17,16 @@ class UserUpdateRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+        if($this->get('old_email') != $this->get('email')){
+            $this->merge(['email_verified_at' => 'unverified']);
+        }
+
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +37,11 @@ class UserUpdateRequest extends FormRequest
         return [
             'id' => 'required',
             'name' => 'required|max:255',
-            'email' => 'email|required|max:255',
+            'profile_image' => 'max:255',
+            'username' => 'unique:users,username,'.$this->get('id').'|required|max:255',
+            'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
+            'phone' => ['required', new Telephone()],
+            'address' => 'max:255',
             'role' => 'required',
         ];
     }
@@ -38,6 +53,10 @@ class UserUpdateRequest extends FormRequest
             'name' => $this->get('name'),
             'role' => $this->get('role'),
             'email' => $this->get('email'),
+            'username' => $this->get('username'),
+            'address' =>( $this->has('address')) ? $this->get('address') : null,
+            'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,
+            'phone' => $this->get('phone'),
        ];
        if ($this->has('password')) {        
              $data['password'] =  Hash::make($this->get('password'));

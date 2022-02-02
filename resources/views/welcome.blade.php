@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -127,6 +128,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
+        <script src="{{ asset('js/admin/jquery/jquery.min.js') }}"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging-compat.js"></script>
+        <script src="{{ asset('js/pushnotification.js') }}"></script>
     </body>
 </html>

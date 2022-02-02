@@ -13,7 +13,7 @@ class DefaultRoleSeeder extends Seeder
      */
     public function run()
     {
-        Bouncer::allow('Vendor')->to('noPermission');
-        Bouncer::allow('Organizer')->to('noPermission');
+        Bouncer::allow('Vendor')->to('editItself');
+        Bouncer::allow('Organizer')->to('editItself');
     }
 }

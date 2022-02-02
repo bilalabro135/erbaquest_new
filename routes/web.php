@@ -52,10 +52,8 @@ Route::get('/reset-password/{token}', [AuthController::class, 'resetPaassword'])
 Route::post('/reset-password',[AuthController::class, 'paasswordUpdate'])->middleware(['guest', 'shouldPasswordReset'])->name('password.update');
 
 // Registration
-Route::middleware(['AllowedRegistration'])->group( function () {
-    Route::view('/register','auth.register')->name('register');
+    Route::get('/register', [AuthController::class, 'signup'])->name('register');
     Route::post('/user/register',[AuthController::class, 'register'])->name('register.user');
-});
 
 // File manager
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -76,8 +74,8 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/users/get', [UserController::class, 'getUsers'])->name('users.get')->middleware('role:viewUsers');
     Route::get('/users/add', [UserController::class, 'addUsers'])->name('users.add')->middleware('role:addUsers');
     Route::post('/users/store', [UserController::class, 'storeUser'])->name('users.store')->middleware('role:addUsers');    
-    Route::get('/users/{user:id}/edit', [UserController::class, 'editUsers'])->name('users.edit')->middleware('role:updateUsers');
-    Route::post('/users/update', [UserController::class, 'updateUsers'])->name('users.update')->middleware('role:updateUsers');
+    Route::get('/users/{user:id}/edit', [UserController::class, 'editUsers'])->name('users.edit')->middleware('role:updateUsers,editItself');
+    Route::post('/users/update', [UserController::class, 'updateUsers'])->name('users.update')->middleware('role:updateUsers,editItself');
     Route::get('/users/{id}/delete', [UserController::class, 'deleteuser'])->name('users.delete')->middleware('role:deleteUsers');
 
     // Roles
