@@ -153,4 +153,4 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
 
 // Store User IP
  
-    Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('role:allowNotifications');
+    Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');;

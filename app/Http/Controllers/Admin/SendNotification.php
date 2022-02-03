@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Settings;
 use Bouncer;
+use Validator;
 use App\Http\Requests\Admin\SendNotificationRequest;
 use App\Notifications\PushNotification;
 use Illuminate\Support\Facades\Notification;
@@ -58,7 +59,7 @@ class SendNotification extends Controller
         }
         else{
             auth()->user()->update([
-                'ip_key' => $request->currentToken;
+                'ip_key' => $request->currentToken
             ]);
         }
 
