@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Str;
+use Auth;
 class Handler extends ExceptionHandler
 {
     /**
@@ -44,7 +45,7 @@ class Handler extends ExceptionHandler
         $adminErrorView = "admin.errors.{$e->getStatusCode()}";
 
         if (Str::is('admin*', request()->path())) {
-            if (view()->exists($adminErrorView)) {
+            if (view()->exists($adminErrorView) && Auth::check()) {
                 return $adminErrorView;
             }
         }
