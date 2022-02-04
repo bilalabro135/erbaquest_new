@@ -121,6 +121,30 @@
                 <hr class="sidebar-divider">
             @endif
 
+            @if ( Bouncer::can('viewEvents') || Bouncer::can('addEvents') )
+                <div class="sidebar-heading">
+                    Events
+                </div>
+                <li class="nav-item {{(request()->is('admin/events/*') || request()->is('admin/events') ) ? 'active' : ''}}">
+                    <a class="nav-link {{(request()->is('admin/events/*') || request()->is('admin/events') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#events"
+                        aria-expanded="true" aria-controls="events">
+                        <i class="fas fa-file"></i>
+                        <span>Events</span>
+                    </a>
+                    <div id="events" class="collapse {{(request()->is('admin/events/*') || request()->is('admin/events') ) ? 'show' : ''}}" aria-labelledby="All events" data-parent="#accordionSidebar">
+                        <div class="bg-primary py-2 collapse-inner rounded">
+                            @can('viewEvents')
+                            <a class="collapse-item text-light" href="{{route('events')}}">All Events</a>
+                            @endcan
+                            @can('addEvents')
+                            <a class="collapse-item text-light" href="{{route('events.add')}}">Add Event</a>
+                            @endcan
+                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider">
+            @endif
+
 
             @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') )
                 <div class="sidebar-heading">
