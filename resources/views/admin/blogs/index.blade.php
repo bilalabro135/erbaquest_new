@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'All Blogs'])
+@extends('layouts.admin.app', ['title' => 'All Media'])
 
 
 
@@ -9,12 +9,12 @@
             {{session('msg')}}                                            
         </div>
         @endif
-         <h1 class="h3 mb-4 text-gray-800">All Blogs</h1>
+         <h1 class="h3 mb-4 text-gray-800">All Media</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">All Blogs</h6>
+                <h6 class="m-0 font-weight-bold text-primary">All Media</h6>
                 @can('addBlogs')
                 <a href="{{route('blogs.add')}}" class="btn btn-primary">Add New</a>
                 @endcan
@@ -25,7 +25,7 @@
                         <thead class="bg-primary text-light">
 	                        <tr>
                             <th scope="col">ID</th>
-					      <th scope="col">Blog Name</th>
+					      <th scope="col">Media Name</th>
 					      <th scope="col">Author</th>
 					      <th scope="col">Status</th>
 					      <th scope="col">Action</th>
@@ -34,7 +34,7 @@
                         <tfoot class="bg-primary text-light">
 	                        <tr>
                             <th scope="col">ID</th>
-					      <th scope="col">Blog Name</th>
+					      <th scope="col">Media Name</th>
 					      <th scope="col">Author</th>
 					      <th scope="col">Status</th>
 					      <th scope="col">Action</th>

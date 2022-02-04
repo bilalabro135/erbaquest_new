@@ -1,5 +1,5 @@
 
-@extends('layouts.admin.app', ['title' => 'Edit Blog'])
+@extends('layouts.admin.app', ['title' => 'Edit Media'])
 
 
 
@@ -11,7 +11,7 @@
         </div>
         @endif
    
-         <h1 class="h3 mb-4 text-gray-800">Edit Blog</h1>
+         <h1 class="h3 mb-4 text-gray-800">Edit Media</h1>
 
         <form action="{{route('blogs.update', ['blog'=> request('blog') ])}}" method="POST" autocomplete="off" class="user">
             <input type="hidden" name="old_slug" value="{{$blog->slug}}">
@@ -20,12 +20,12 @@
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           <h3 class="h5 my-0">Blog Information</h3>                           
+                           <h3 class="h5 my-0">Media Information</h3>                           
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Blog Name*" value="{{ (old('name')) ? old('name') : $blog->name }}">        
+                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Media Name*" value="{{ (old('name')) ? old('name') : $blog->name }}">        
                                 @error('name')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-group">
                             <label for="slug">Slug</label>
-                            <input type="text" required="" class="form-control @error('slug') is-invalid @enderror" id="slug" aria-describedby="slug" placeholder="Enter Blog Slug" name="slug" value="{{ (old('slug')) ? old('slug') : $blog->slug }}">
+                            <input type="text" required="" class="form-control @error('slug') is-invalid @enderror" id="slug" aria-describedby="slug" placeholder="Enter Media Slug" name="slug" value="{{ (old('slug')) ? old('slug') : $blog->slug }}">
                             @error('slug')
                                 <div class="text-danger">
                                     {{$message}}                                            
@@ -62,7 +62,40 @@
                             </div>
                         </div>
                     </div>
-                    
+                                    <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 my-0">Gallery</h3>
+                    </div>
+                     <div class="card-body gallery">
+                        <div class="gallery_images">
+                            @php 
+                                $count = 0;
+                                $images = (!empty($blog->gallery)) ? unserialize($blog->gallery) : array();
+                            @endphp
+                            @foreach($images as $key => $image)
+                                <div class="gallery_image">
+                                    <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
+                                    <input type="hidden" name="gallery[{{$key}}][url]" id="gallery-{{$key}}" value="{{(isset($image['url'])) ? $image['url'] : ''}}" />
+                                    <div class="image lfm" id="lfm-{{$key}}" data-input="gallery-{{$key}}" data-preview="lfm-{{$key}}">
+                                        <img src="{{(isset($image['url'])) ? $image['url'] : ''}}" style="height: 5rem;">
+                                    </div>
+                                    <input type="text" name="gallery[{{$key}}][alt]" value="{{(isset($image['url'])) ? $image['alt'] : ''}}" placeholder="Alt Text"> 
+                                </div>
+                                @php
+                                   $count = $key; 
+                                @endphp
+                            @endforeach
+                            <div class="add_image" onclick="addGalleryImage()">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        @error('gallery')
+                                <div class="text-danger">
+                                    {{$message}}                                            
+                                </div>
+                            @endif
+                     </div>
+                </div>
                 <div class="card shadow mb-4">
                      <div class="card-body">
                            <div class="form-group">
@@ -175,7 +208,7 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" id="featured_image" value="{{$blog->featured_image}}" name="featured_image">
-                            <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
+                            <div class="file-upload lfm" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 @empty($blog->featured_image)
                                     Upload Image
                                 @else
@@ -219,10 +252,24 @@
         CKEDITOR.replace('ckeditor1',  options)
     })
     var route_prefix = "{{route('unisharp.lfm.show')}}";
-    $('#lfm').filemanager('image', {prefix: route_prefix});
+    $('.lfm').filemanager('image', {prefix: route_prefix});
     function removeImage() {
         $('#featured_image').val('');
-        $('#lfm').html('Upload Image')
+        $('#lfm').html('Upload')
+    }
+    let counter ={{$count + 1}};
+    function addGalleryImage(){
+        $(`<div class="gallery_image">
+            <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
+            <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
+            <div class="image lfm" id="lfm-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfm-`+counter+`">
+            </div>
+            <input type="text" name="gallery[`+counter+`][alt]" value="" placeholder="Alt Text"> 
+            </div>
+        `).insertBefore('.add_image');
+        $('.lfm').filemanager('image', {prefix: route_prefix});
+        $(`#lfm-`+counter).trigger('click');
+        counter++;
     }
         $('#name').blur(function (e) {
             if ($('#slug').val() == '') {

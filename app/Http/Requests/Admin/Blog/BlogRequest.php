@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Blog;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\ShortDescription;
+use App\Rules\GalleryRule;
 class BlogRequest extends FormRequest
 {
     /**
@@ -38,6 +39,9 @@ class BlogRequest extends FormRequest
             'featured_image' => 'max:255',
             'status' => 'required',
             'user_id' => 'required',
+            'gallery' => [
+                new GalleryRule()
+            ],
             'short_description' => [
                 'max:255',
                 new ShortDescription(),
@@ -59,6 +63,7 @@ class BlogRequest extends FormRequest
             'status' => $this->get('status'),
             'description' => ($this->has('description')) ? $this->get('description') : null ,
             'short_description' => ($this->has('short_description')) ? $this->get('short_description') : null,
+            'gallery' => ($this->has('gallery')) ? serialize(array_values($this->get('gallery'))) : null,
             'user_id' => $this->get('user_id') ,
             'featured_image' => ($this->has('featured_image')) ? $this->get('featured_image') : null ,
             'meta_title' => ($this->has('meta_title')) ? $this->get('meta_title') : null ,

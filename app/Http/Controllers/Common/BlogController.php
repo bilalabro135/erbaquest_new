@@ -75,6 +75,7 @@ class BlogController extends Controller
         $blog->status = $blogDetail['status'];
         $blog->description = $blogDetail['description'];
         $blog->short_description = $blogDetail['short_description'];
+        $blog->gallery = $blogDetail['gallery'];
         $blog->meta_title = $blogDetail['meta_title'];
         $blog->meta_keyword = $blogDetail['meta_keyword'];
         $blog->meta_description = $blogDetail['meta_description'];
@@ -116,6 +117,7 @@ class BlogController extends Controller
             'status' => $blogDetail['status'],
             'description' => $blogDetail['description'],
             'short_description' => $blogDetail['short_description'],
+            'gallery' => $blogDetail['gallery'],
             'meta_title' => $blogDetail['meta_title'],
             'meta_keyword' => $blogDetail['meta_keyword'],
             'meta_description' => $blogDetail['meta_description'],
