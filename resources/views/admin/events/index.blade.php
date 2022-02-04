@@ -26,7 +26,7 @@
 	                        <tr>
                             <th scope="col">ID</th>
 					      <th scope="col">Event Name</th>
-					      <th scope="col">Author</th>
+					      <th scope="col">Organizer</th>
 					      <th scope="col">Status</th>
 					      <th scope="col">Action</th>
 						    </tr>
@@ -35,7 +35,7 @@
 	                        <tr>
                             <th scope="col">ID</th>
 					      <th scope="col">Event Name</th>
-					      <th scope="col">Author</th>
+					      <th scope="col">Organizer</th>
 					      <th scope="col">Status</th>
 					      <th scope="col">Action</th>
 						    </tr>
@@ -67,7 +67,7 @@
 		         columns: [
 		                  { data: 'id', name: 'id', 'visible': false},
 		                  { data: 'name', name: 'name' },
-		                  { data: 'author', name: 'author' },
+		                  { data: 'organizer', name: 'organizer' },
 		                  { data: 'status', name: 'status' },
 		                  { data: 'action', name: 'action', orderable: true,searchable: true}
 		               ],

@@ -33,7 +33,7 @@ class EventRequest extends FormRequest
      */
     public function rules()
     {
-        eturn [
+        return [
             'name' => 'required|max:255',
             'slug' => 'max:255',
             'featured_image' => 'required|max:255',
@@ -49,7 +49,7 @@ class EventRequest extends FormRequest
             'capacity' => 'max:255',
             'ATM_on_site' => 'max:255',
             'tickiting_number' => 'max:255',
-            'vendor_number' => 'required', new Telephone()],
+            'vendor_number' => ['required', new Telephone()],
             'user_number' => ['required', new Telephone()],
             'website_link' => 'max:255',
             'facebook' => 'max:255',
@@ -88,8 +88,14 @@ class EventRequest extends FormRequest
             'facebook' => ($this->has('facebook')) ? $this->get('facebook') : null ,
             'twitter' => ($this->has('twitter')) ? $this->get('twitter') : null ,
             'linkedin' => ($this->has('linkedin')) ? $this->get('linkedin') : null ,
+            'address' => ($this->has('address')) ? $this->get('address') : null ,
+            'vendor_space_available' => ($this->has('vendor_space_available')) ? $this->get('vendor_space_available') : null ,
+            'cost_of_vendor' => ($this->has('cost_of_vendor')) ? $this->get('cost_of_vendor') : null ,
+            'height' => ($this->has('height')) ? $this->get('height') : null ,
             'instagram' => ($this->has('instagram')) ? $this->get('instagram') : null ,
+            'type' => ($this->has('type')) ? $this->get('type') : null ,
             'youtube' => ($this->has('youtube')) ? $this->get('youtube') : null ,
+            'status' => ($this->has('status')) ? $this->get('status') : null ,
             'vip_perk' => $this->get('vip_perk'),
             'charity' => $this->get('charity'),
             'user_id' => $this->get('user_id') ,

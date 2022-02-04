@@ -11715,7 +11715,7 @@ form.user .form-control-user {
   text-decoration: none;
 }
 
-#wrapper #content-wrapper {
+.ht_100 #wrapper #content-wrapper {
   height: 100vh;
 }
 
@@ -11769,4 +11769,78 @@ label.checkmark input:checked:after {
 label.checkmark input:checked:before {
   opacity: 0;
   visibility: hidden;
+}
+
+.gallery_images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery_images .gallery_image {
+  height: 125px;
+  width: 125px;
+  border: dashed 2px #ccc;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 25px;
+  margin: 5px;
+  position: relative;
+}
+
+.gallery_image span.remove {
+  position: absolute;
+  top: -9px;
+  right: -7px;
+  background: #c60000;
+  line-height: 21px;
+  font-size: 18px;
+  border-radius: 100%;
+  padding: 0px 5px;
+}
+
+span.remove {
+  line-height: 21px;
+  font-size: 14px;
+  border-radius: 100%;
+  padding: 0px 5px;
+  border: solid #c60000 1px;
+  cursor: pointer;
+}
+
+.gallery_image input[type=text] {
+  width: 90%;
+  height: 21px;
+  font-size: 14px;
+  margin-top: 6px;
+  border: solid 1px #ccc;
+  outline: none;
+  border-radius: 3px;
+}
+
+.ImagePreviewBox td {
+  font-size: 0px;
+}
+
+.card-body.gallery .add_image {
+  height: 125px;
+  width: 125px;
+  border: dashed 2px #ccc;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 25px;
+  margin: 5px;
+}
+
+.ht_100 div#content {
+  display: flex;
+  align-items: center;
 }
