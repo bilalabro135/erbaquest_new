@@ -23,6 +23,8 @@ class GalleryRule implements Rule
      * @param  mixed  $value
      * @return bool
      */
+    public $msg = '';
+
     public function passes($attribute, $value)
     {
         $ret = true;

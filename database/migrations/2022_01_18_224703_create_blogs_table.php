@@ -19,6 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('slug',  255)->unique();
             $table->longText('description')->nullable();
             $table->string('short_description', 255)->nullable();
+            $table->longText('gallery')->nullable();
             $table->string('meta_title', 100)->nullable();
             $table->string('meta_keyword', 255)->nullable();
             $table->string('meta_description', 200)->nullable();

@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'Add New Blog'])
+@extends('layouts.admin.app', ['title' => 'Add New Media'])
 
 
 
@@ -10,7 +10,7 @@
         </div>
         @endif
    
-         <h1 class="h3 mb-4 text-gray-800">Add New Blog</h1>
+         <h1 class="h3 mb-4 text-gray-800">Add New Media</h1>
 
         <form action="{{route('blogs.store')}}" method="POST" autocomplete="off" class="user">
                @csrf
@@ -18,12 +18,12 @@
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                           <h3 class="h5 my-0">Blog Information</h3>                           
+                           <h3 class="h5 my-0">Media Information</h3>                           
                         </div>
                         <div class="card-body">
                             <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Blog Name*" value="{{old('name')}}">        
+                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Media Name*" value="{{old('name')}}">        
                                 @error('name')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -49,7 +49,24 @@
                             @endif
                             </div>
                         </div>
+                    </div>                
+                    <div class="card shadow mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 my-0">Gallery</h3>
                     </div>
+                     <div class="card-body gallery">
+                        <div class="gallery_images">
+                            <div class="add_image" onclick="addGalleryImage()">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        @error('gallery')
+                                <div class="text-danger">
+                                    {{$message}}                                            
+                                </div>
+                            @endif
+                     </div>
+                </div>
 
                 <div class="card shadow mb-4">
                      <div class="card-body">
@@ -162,7 +179,7 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" id="featured_image" name="featured_image">
-                            <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
+                            <div class="file-upload lfm" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 Upload Image
                             </div>
                             @error('featured_image')
@@ -199,11 +216,26 @@
     $(document).ready(function(){
         CKEDITOR.replace('ckeditor1',  options)
     })
+
     var route_prefix = "{{route('unisharp.lfm.show')}}";
-    $('#lfm').filemanager('image', {prefix: route_prefix});
+    $('.lfm').filemanager('image', {prefix: route_prefix});
     function removeImage() {
         $('#featured_image').val('');
         $('#lfm').html('Upload')
+    }
+    let counter = 0;
+    function addGalleryImage(){
+        $(`<div class="gallery_image">
+            <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
+            <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
+            <div class="image lfm" id="lfm-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfm-`+counter+`">
+            </div>
+            <input type="text" name="gallery[`+counter+`][alt]" value="" placeholder="Alt Text"> 
+            </div>
+        `).insertBefore('.add_image');
+        $('.lfm').filemanager('image', {prefix: route_prefix});
+        $(`#lfm-`+counter).trigger('click');
+        counter++;
     }
 </script>
 @endsection

@@ -29,22 +29,22 @@
             @endcan
             @if ( Bouncer::can('viewBlogs') || Bouncer::can('addBlogs') || Bouncer::can('viewCategories') || Bouncer::can('addCategories') )
                 <div class="sidebar-heading">
-                    Blogs & Categories
+                    Media & Categories
                 </div>
                 @if (Bouncer::can('viewBlogs') || Bouncer::can('addBlogs'))
                 <li class="nav-item {{(request()->is('admin/blogs/*') || request()->is('admin/blogs') ) ? 'active' : ''}}">
                     <a class="nav-link {{(request()->is('admin/blogs/*') || request()->is('admin/blogs') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#blogs"
-                        aria-expanded="true" aria-controls="blogs">
+                        aria-expanded="true" aria-controls="Media">
                         <i class="fas fa-sticky-note"></i>
-                        <span>Blogs</span>
+                        <span>Media</span>
                     </a>
                     <div id="blogs" class="collapse {{(request()->is('admin/blogs/*') || request()->is('admin/blogs') ) ? 'show' : ''}}" aria-labelledby="All Blogs" data-parent="#accordionSidebar">
                         <div class="bg-primary py-2 collapse-inner rounded">
                             @can('viewBlogs')
-                            <a class="collapse-item text-light" href="{{route('blogs')}}">All Blogs</a>
+                            <a class="collapse-item text-light" href="{{route('blogs')}}">All Media</a>
                             @endcan
                             @can('addBlogs')
-                            <a class="collapse-item text-light" href="{{route('blogs.add')}}">Add Blog</a>
+                            <a class="collapse-item text-light" href="{{route('blogs.add')}}">Add Media</a>
                             @endcan
                         </div>
                     </div>

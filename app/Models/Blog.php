@@ -18,6 +18,7 @@ class Blog extends Model
         'featured_image',
         'description',
         'short_description',
+        'gallery',
         'meta_title',
         'meta_keyword',
         'meta_description',
