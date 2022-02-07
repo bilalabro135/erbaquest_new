@@ -24,6 +24,7 @@ class GalleryRule implements Rule
      * @return bool
      */
     public $msg = '';
+
     public function passes($attribute, $value)
     {
         $ret = true;

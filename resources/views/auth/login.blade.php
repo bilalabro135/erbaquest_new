@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Login', 'sidebar' => false, 'topbar' => false])
+@extends('layouts.admin.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Login', 'sidebar' => false, 'topbar' => false, 'body_class' => 'ht_100'])
 
 
 

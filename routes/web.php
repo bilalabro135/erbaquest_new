@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SendNotification;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PackagesController;
+use App\Http\Controllers\Admin\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -149,6 +150,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/packages/{package:id}/edit/', [PackagesController::class, 'edit'])->name('packages.edit')->middleware('role:updatePackages');
     Route::post('/packages/{package:id}/update/', [PackagesController::class, 'update'])->name('packages.update')->middleware('role:updatePackages');
     Route::get('/packages/{package:id}/delete', [PackagesController::class, 'destroy'])->name('packages.delete')->middleware('role:deletePackages');
+
+    // Events
+    Route::get('/events', [EventController::class, 'index'])->name('events')->middleware('role:viewEvents');
+    Route::get('/events/get', [EventController::class, 'getEvents'])->name('events.get')->middleware('role:viewEvents');
+    Route::get('/events/add', [EventController::class, 'create'])->name('events.add')->middleware('role:addEvents');
+    Route::post('/events/add', [EventController::class, 'store'])->name('events.store')->middleware('role:addEvents');
+    Route::get('/events/{event:id}/edit/', [EventController::class, 'edit'])->name('events.edit')->middleware('role:updateEvents');
+    Route::post('/events/{event:id}/update/', [EventController::class, 'update'])->name('events.update')->middleware('role:updateEvents');
+    Route::get('/events/{event:id}/delete', [EventController::class, 'destroy'])->name('events.delete')->middleware('role:deleteEvents');
 });
 
 // Store User IP

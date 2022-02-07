@@ -37,6 +37,12 @@
                 'Update Area' =>'updateAreas',
                 'Delete Area' =>'deleteAreas',
             ],
+            'Events' => [
+                'View Events' =>'viewEvents',
+                'Add Event' =>'addEvents',
+                'Update Event' =>'updateEvents',
+                'Delete Event' =>'deleteEvents',
+            ],
             'Amenities' => [
                 'View Amenities' =>'viewAmenities',
                 'Add Amenity' =>'addAmenities',
