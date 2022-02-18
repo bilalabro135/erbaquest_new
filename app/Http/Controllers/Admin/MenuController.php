@@ -15,7 +15,6 @@ class MenuController extends Controller
 {
     public function index($type)
     {
-
         $menusArray = config('settings.menus');
         if (!in_array($type, $menusArray)) {
             abort(404, 'Menu not exists');
@@ -79,7 +78,6 @@ class MenuController extends Controller
     public function store(MenuRequest $request)
     {
         $menu = json_decode($request->menu, true);
-        // dd($menu);
         $this->add($menu, $request->menu_type);
         return Redirect::route('menus', ['type'=>$request->menu_type ])->with(['msg' => 'Menu Updated', 'msg_type' => 'success']);
     }

@@ -80,8 +80,9 @@ class AuthController extends Controller
     }
     public function signup()
     {
+        $settings = Settings::get('registration');
         $roles = Bouncer::role()->where('name', 'Organizer')->orWhere('name', 'Vendor')->pluck('name');
-        return view('auth.register', compact('roles'));
+        return view('auth.register', compact('roles', 'settings'));
     }
     public function forgetPassword()
     {

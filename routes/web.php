@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\SendNotification;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PackagesController;
+use App\Http\Controllers\Admin\ComponenetController;
+
 use App\Http\Controllers\Admin\EventController;
 
 /*
@@ -28,9 +30,7 @@ use App\Http\Controllers\Admin\EventController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 // Auth
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -70,6 +70,9 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     // Settings
     Route::get('/settings/{type}', [SettingsController::class, 'index'])->name('settings')->middleware('role:accessSettings');
     Route::post('/settings/save', [SettingsController::class, 'save'])->name('settings.save')->middleware('role:accessSettings');
+    // Components
+    Route::get('/components/{type}', [ComponenetController::class, 'index'])->name('components')->middleware('role:editPageComponents');
+    Route::post('/components/save', [ComponenetController::class, 'save'])->name('components.save')->middleware('role:editPageComponents');
 
     // Users
     Route::get('/users', [UserController::class, 'index'])->name('users')->middleware('role:viewUsers');
@@ -164,3 +167,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
 // Store User IP
  
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
+
+Route::group(['front'],  function () {
+    Route::get('/', [PagesController::class, 'home'])->name('home');
+});

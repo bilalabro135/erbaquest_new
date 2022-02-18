@@ -9,26 +9,6 @@ use App\Models\Pages;
 use Bouncer;
 class SettingsController extends Controller
 {    
-    public function setEnvironmentValue($envKey, $envValue)
-    {
-        $allowToWrite = [
-                'MAIL_MAILER',
-                'MAIL_HOST',
-                'MAIL_PORT',
-                'MAIL_USERNAME',
-                'MAIL_PASSWORD',
-                'MAIL_ENCRYPTION',
-                'MAIL_FROM_ADDRESS',
-                'MAIL_FROM_NAME',
-        ];
-        if (in_array($envKey, $allowToWrite)) {            
-            file_put_contents(app()->environmentFilePath(), str_replace(
-                $envKey . '=' . env($envKey),
-                $envKey . '=' . $envValue,
-                file_get_contents(app()->environmentFilePath())
-            ));
-        }
-    }
     public function index(Request $request)
     {    
         $type = $request->type;
@@ -58,11 +38,6 @@ class SettingsController extends Controller
             $Settings->value = $settingData['value'];            
             $Settings->save();
             $msg = 'Setting Inserted';
-        }
-        if ($request->has('write_on_env') && $request->write_on_env) {
-            foreach ($request->value as $key => $setting){
-                $this->setEnvironmentValue($key, $setting);
-            }
         }
         return back()->with(['msg' => $msg, 'msg_type' => 'success']);
     }

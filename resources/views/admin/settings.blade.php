@@ -31,9 +31,6 @@
                       <li class="nav-item">
                         <a class="nav-link {{($type =='socialmedia') ? 'active' : ''}}"  href="{{route('settings' , ['type' => 'socialmedia'])}}">Social Media</a>
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link {{($type =='email') ? 'active' : ''}}"  href="{{route('settings' , ['type' => 'email'])}}">Email</a>
-                      </li>
                     </ul>
                 </div>
             </div>

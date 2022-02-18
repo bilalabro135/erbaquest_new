@@ -10,6 +10,7 @@ use App\Models\Pages;
 use App\Models\User;
 use Redirect;
 use DataTables;
+use App\Models\Settings;
 use Bouncer;
 use Route;
 class PagesController extends Controller
@@ -154,5 +155,19 @@ class PagesController extends Controller
             return Redirect::back()->with(['msg' => 'Page deleted', 'msg_type' => 'success']);
         }
         abort(404);
+    }
+    public function home(){
+        $Settings = Settings::get('general');
+        if (isset($Settings['home_page']) && $Settings['home_page'] != 'default' && !empty($Settings['home_page'])) {
+            $pages = Pages::where('slug', $Settings['home_page'])->first();
+
+            if ($Settings['home_page'] == $Settings['blog_page']) 
+                return view('front.index', compact('pages'));
+
+            if(isset($pages->template) && view()->exists("templates.{$pages->template}"))
+                return view("templates.{$pages->template}", compact('pages')); 
+        }
+        
+        return view('front.index');
     }
 }

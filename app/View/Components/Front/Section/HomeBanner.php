@@ -1,9 +1,9 @@
 <?php
 
-namespace App\View\Components\Front;
+namespace App\View\Components\Front\Section;
 
 use Illuminate\View\Component;
-
+use App\Models\Components;
 class HomeBanner extends Component
 {
     /**
@@ -11,6 +11,9 @@ class HomeBanner extends Component
      *
      * @return void
      */
+
+    public $sponsors;
+    public $fields;
     public function __construct()
     {
         //
@@ -23,6 +26,9 @@ class HomeBanner extends Component
      */
     public function render()
     {
-        return view('components.front.home-banner');
+        $component = Components::where('name', 'home-banner')->first();
+        $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
+        if (!empty($component)) 
+            return view('components.front.section.home-banner');
     }
 }

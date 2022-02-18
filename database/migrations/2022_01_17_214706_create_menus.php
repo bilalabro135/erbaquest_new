@@ -17,7 +17,7 @@ class CreateMenus extends Migration
             $table->id();
             $table->string('title', 100);
             $table->string('link');
-            $table->enum('type', config('settings.menus'))->index();
+            $table->string('type', 100)->index();
             $table->string('attr_class', 80)->nullable();
             $table->string('attr_id', 80)->nullable();
             $table->bigInteger('parent_id')->unsigned()->nullable();

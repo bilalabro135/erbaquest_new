@@ -417,7 +417,7 @@
                                 <select name="user_id" id="user_id" required="" class="form-control">
                                     <option value="">Select Author</option>
                                     @foreach($users as $user)
-                                        <option value="{{$user->id}}" >{{$user->name}}</option>
+                                        <option value="{{$user->id}}" {{($user->id == $event->user_id) ? 'selected="selected"' : '' }} >{{$user->name}}</option>
                                     @endforeach
                                 </select>
                                 

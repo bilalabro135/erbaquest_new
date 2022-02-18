@@ -51,7 +51,21 @@
 
                 </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">                    
+                <div class="form-group">
+                    <label for="blog_page">{{ __('Blog Page*') }}</label>
+
+                    <select class="form-control" id="blog_page" name="value[blog_page]"><option value="" >Default</option>
+                        @foreach($pages as $page)
+                            <option value="{{$page->slug}}" {{ (isset($Settings['blog_page']) && $Settings['blog_page'] == $page->slug) ? 'selected="selected"' : '' }}>{{$page->name}}</option>
+                        @endforeach
+                    </select>
+                    @error("value.blog_page")
+                        {{$message}}
+                    @enderror
+
+                </div>
+            </div>
             <div class="col-md-6">                    
                 <div class="form-group">
                     <label for="site_logo_preview">Site Logo (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#site_logo', '#site_logo_preview', 'Logo');">Remove</a></small>)</label>

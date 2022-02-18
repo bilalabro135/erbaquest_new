@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Settings;
+use App\Models\Menu;
 use App\Models\GlobalSettings;
 use View;
 use Illuminate\Support\Facades\Schema;
@@ -34,6 +35,18 @@ class SettingsProvider extends ServiceProvider
         if (Schema::hasTable('settings')) {   
             $settinsInstance = new GlobalSettings(Settings::where('id', '=', 1 )->first());
             View::share('globalsettings', $settinsInstance);
+
+            $route = explode('/',$this->app->request->getRequestUri());
+            if (!in_array('admin', $route)) {
+                 $primarymenu = Menu::where('type', 'primary')->orderBy('order', 'ASC')->get();
+                 View::share('primarymenu', $primarymenu);
+                 $topbar = Menu::where('type', 'topbar')->orderBy('order', 'ASC')->get();
+                 View::share('topbar', $topbar);
+                 $quicklinks = Menu::where('type', 'quicklinks')->orderBy('order', 'ASC')->get();
+                 View::share('quicklinks', $quicklinks);
+                 $socialmedia = new GlobalSettings(Settings::where('name', '=', 'socialmedia' )->first());
+                 View::share('socialmedialinks', $socialmedia);
+            }
         }
     }
 }

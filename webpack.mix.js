@@ -17,3 +17,4 @@ const mix = require('laravel-mix');
 //     ]);
 
 mix.sass('resources/scss/admin/app.scss', 'public/css/admin/app.css');
+mix.sass('resources/scss/front/app.scss', 'public/css/front/style.css');

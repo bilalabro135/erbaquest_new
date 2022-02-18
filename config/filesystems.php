@@ -55,6 +55,10 @@ return [
         'templates' => [            
             'driver' => 'local',
             'root' => base_path('resources/views/templates'),
+        ],
+        'sections' => [            
+            'driver' => 'local',
+            'root' => base_path('resources/views/admin/component/forms'),
         ]
 
     ],

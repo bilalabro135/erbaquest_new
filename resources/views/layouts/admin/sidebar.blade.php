@@ -146,10 +146,11 @@
             @endif
 
 
-            @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') )
+            @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') || Bouncer::can('editPageComponents') )
                 <div class="sidebar-heading">
                     Pages
                 </div>
+                @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') )
                 <li class="nav-item {{(request()->is('admin/pages/*') || request()->is('admin/pages') ) ? 'active' : ''}}">
                     <a class="nav-link {{(request()->is('admin/pages/*') || request()->is('admin/pages') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#pages"
                         aria-expanded="true" aria-controls="pages">
@@ -167,6 +168,14 @@
                         </div>
                     </div>
                 </li>
+                @endif
+                @can ('editPageComponents')
+                    <li class="nav-item {{(request()->is('admin/components') || request()->is('admin/components/*')) ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('components', ['type' => 'home-banner']) }}">
+                            <i class="fas fa-file"></i>
+                            <span>Components</span></a>
+                    </li> 
+                @endcan
                 <hr class="sidebar-divider">
             @endif
             @if ( Bouncer::can('viewMenus') )

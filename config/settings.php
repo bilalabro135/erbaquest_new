@@ -7,6 +7,8 @@
 	return [
 		'menus' => [
 			'Primary' => 'primary',
+            'Topbar' => 'topbar',
+            'Quick Links' => 'quicklinks',
 		],
 		'permissions' => [
             'Pages' =>[
@@ -14,6 +16,7 @@
                 'Add Pages' =>'addPages',
                 'Update Pages' =>'updatePages',
                 'Delete Pages' =>'deletePages',
+                'Edit Page Components' =>'editPageComponents',
             ],
             'Menus' => [
                 'View Menus' =>'viewMenus',
@@ -82,20 +85,11 @@
                 'site_name' => env('APP_NAME', 'Laravel App'),
                 'site_title' => env('APP_NAME', 'Laravel App'),
                 'home_page' => 'default',
+                'blog_page' => 'default',
             ],
             'registration' => [
                 'email_verification_on_reg' => 1,
                 'allow_forget_password' => false,
-            ],
-            'email' => [
-                'MAIL_MAILER' => env('MAIL_MAILER'),
-                'MAIL_HOST' => env('MAIL_HOST'),
-                'MAIL_PORT' => env('MAIL_PORT'),
-                'MAIL_USERNAME' => env('MAIL_USERNAME'),
-                'MAIL_PASSWORD' => env('MAIL_PASSWORD'),
-                'MAIL_ENCRYPTION' => env('MAIL_ENCRYPTION'),
-                'MAIL_FROM_ADDRESS' => env('MAIL_FROM_ADDRESS'),
-                'MAIL_FROM_NAME' => env('MAIL_FROM_NAME'),
             ],
         ],
 	];

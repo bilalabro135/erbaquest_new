@@ -32,14 +32,8 @@ class SettingsRequest extends FormRequest
                 new FavIcon()
             ],
             // Regestration
-            // EMAIL
-            'value.MAIL_MAILER'=> 'exclude_unless:name,email|required',
-            'value.MAIL_HOST'=> 'exclude_unless:name,email|required',
-            'value.MAIL_PORT'=> 'exclude_unless:name,email|required',
-            'value.MAIL_USERNAME'=> 'exclude_unless:name,email|email|required',
-            'value.MAIL_PASSWORD'=> 'exclude_unless:name,email|required',
-            'value.MAIL_ENCRYPTION'=> 'exclude_unless:name,email|required',
-            'value.MAIL_FROM_ADDRESS'=> 'exclude_unless:name,email|email|required',
+            'value.page_title' => 'exclude_unless:name,registration|required|max:255',
+            'value.signup_banner' => 'exclude_unless:name,registration|required|max:255',
 
         ];
     }
