@@ -2,8 +2,8 @@
 
 namespace App\View\Components\Front\Section;
 
-use Illuminate\View\Component;
 use App\Models\Components;
+use Illuminate\View\Component;
 
 class Newsletter extends Component
 {

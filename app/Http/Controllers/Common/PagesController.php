@@ -89,16 +89,7 @@ class PagesController extends Controller
          return Redirect::route('pages')->with(['msg' => 'Page added', 'msg_type' => 'success']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -169,5 +160,9 @@ class PagesController extends Controller
         }
         
         return view('front.index');
+    }
+    public function show(Pages $pages)
+    {
+        return view("templates.{$pages->template}", compact('pages'));
     }
 }

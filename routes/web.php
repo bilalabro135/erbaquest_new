@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\ComponenetController;
 
-use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Common\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\EventController;
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 // Email Verification
 Route::get('/verification', [AuthController::class, 'verificationNotice'])->name('verification.notice')->middleware(['auth', 'shouldVerifyEmail']);
@@ -164,10 +165,10 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/events/{event:id}/delete', [EventController::class, 'destroy'])->name('events.delete')->middleware('role:deleteEvents');
 });
 
-// Store User IP
- 
-    Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
 
 Route::group(['front'],  function () {
+    Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
     Route::get('/', [PagesController::class, 'home'])->name('home');
+    Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
+    Route::get('/eventsloadmore', [EventController::class, 'loadmore'])->name('events.loadmore');
 });

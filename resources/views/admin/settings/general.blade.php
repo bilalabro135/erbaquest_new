@@ -99,6 +99,35 @@
             </div>
             <div class="col-md-12">                    
                 <div class="form-group">
+                    <label for="address">{{ __('Address') }}</label>
+                    <textarea style="height: 150px" name="value[address]" id="address" class="form-control  @error('value.address') is-invalid @enderror" >@if(old('value.address')){{old('value.address')}}@else{{ (isset($Settings['address'])) ? $Settings['address'] : '' }}@endif</textarea>
+                    @error("value.address")
+                        {{$message}}
+                    @enderror
+                </div>
+            </div>            
+            <div class="col-md-6">                    
+                <div class="form-group">
+                    <label for="telephone">{{ __('Telephone') }}</label>
+                    <input id="telephone" type="text" class="form-control  @error('value.telephone') is-invalid @enderror" name="value[telephone]" @if(old('value.telephone')) value="{{old('value.telephone')}}"
+                    @else value="{{ (isset($Settings['telephone'])) ? $Settings['telephone'] : '' }}"  @endif placeholder="{{ __('Telephone') }}"  autocomplete="telephone"  autofocus>
+                    @error("value.telephone")
+                        {{$message}}
+                    @enderror
+                </div>
+            </div>            
+            <div class="col-md-6">                    
+                <div class="form-group">
+                    <label for="Email">{{ __('Email') }}</label>
+                    <input id="Email" type="email" class="form-control  @error('value.email') is-invalid @enderror" name="value[email]" @if(old('value.email')) value="{{old('value.email')}}"
+                    @else value="{{ (isset($Settings['email'])) ? $Settings['email'] : '' }}"  @endif placeholder="{{ __('email') }}"  autocomplete="email"  autofocus>
+                    @error("value.email")
+                        {{$message}}
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-12">                    
+                <div class="form-group">
                     <label for="header_scripts">{{ __('Header Scripts*') }}</label>
                     <textarea style="height: 150px" name="value[header_scripts]" id="header_scripts" class="form-control  @error('value.header_scripts') is-invalid @enderror" >@if(old('value.header_scripts')){{old('value.header_scripts')}}@else{{ (isset($Settings['header_scripts'])) ? $Settings['header_scripts'] : '' }}@endif</textarea>
                     @error("value.header_scripts")
