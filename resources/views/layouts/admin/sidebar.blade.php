@@ -121,6 +121,30 @@
                 <hr class="sidebar-divider">
             @endif
 
+            @if ( Bouncer::can('viewSponsors') || Bouncer::can('addSponsors') )
+                <div class="sidebar-heading">
+                    Sponsors
+                </div>
+                <li class="nav-item {{(request()->is('admin/sponsors/*') || request()->is('admin/sponsors') ) ? 'active' : ''}}">
+                    <a class="nav-link {{(request()->is('admin/sponsors/*') || request()->is('admin/sponsors') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#sponsors"
+                        aria-expanded="true" aria-controls="sponsors">
+                        <i class="fas fa-file"></i>
+                        <span>Sponsors</span>
+                    </a>
+                    <div id="sponsors" class="collapse {{(request()->is('admin/sponsors/*') || request()->is('admin/sponsors') ) ? 'show' : ''}}" aria-labelledby="All sponsors" data-parent="#accordionSidebar">
+                        <div class="bg-primary py-2 collapse-inner rounded">
+                            @can('viewSponsors')
+                            <a class="collapse-item text-light" href="{{route('sponsors')}}">All Sponsors</a>
+                            @endcan
+                            @can('addSponsors')
+                            <a class="collapse-item text-light" href="{{route('sponsors.add')}}">Add Sponsor</a>
+                            @endcan
+                        </div>
+                    </div>
+                </li>
+                <hr class="sidebar-divider">
+            @endif
+
             @if ( Bouncer::can('viewEvents') || Bouncer::can('addEvents') )
                 <div class="sidebar-heading">
                     Events
