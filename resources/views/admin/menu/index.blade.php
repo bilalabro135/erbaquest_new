@@ -104,6 +104,67 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card  widget-card shadow mb-4" id="">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h3 class="h5 m-0">Authenticate Pages</h3>
+                        </div>
+                        <div class="card-body ">
+                            <div class="card widget-card mb-2">
+                                <a href="#pagesignup" class="d-block card-header py-3 collapsed " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pagesignup">
+                                    <h6 class="m-0 font-weight-bold text-primary">Register</h6>
+                                </a>
+                                <div class="collapse" id="pagesignup" style="">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="link">Link</label>
+                                            <input type="text" readonly="" class="form-control title" name="link" value="{{ route('register') }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="javascript:void(0)" class="btn btn-info" onclick="addLink('Signup', `{{ route('register') }}`)">
+                                                Add to Menu
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card widget-card mb-2">
+                                <a href="#pagelogin" class="d-block card-header py-3 collapsed " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pagelogin">
+                                    <h6 class="m-0 font-weight-bold text-primary">Login</h6>
+                                </a>
+                                <div class="collapse" id="pagelogin" style="">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="link">Link</label>
+                                            <input type="text" readonly="" class="form-control title" name="link" value="{{ route('login') }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="javascript:void(0)" class="btn btn-info" onclick="addLink('Login', `{{ route('login') }}`)">
+                                                Add to Menu
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card widget-card mb-2">
+                                <a href="#pagelogout" class="d-block card-header py-3 collapsed " data-toggle="collapse" role="button" aria-expanded="false" aria-controls="pagelogout">
+                                    <h6 class="m-0 font-weight-bold text-primary">Logout</h6>
+                                </a>
+                                <div class="collapse" id="pagelogout" style="">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="link">Link</label>
+                                            <input type="text" readonly="" class="form-control title" name="link" value="{{ route('logout') }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <a href="javascript:void(0)" class="btn btn-info" onclick="addLink('Logout', `{{ route('logout') }}`)">
+                                                Add to Menu
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @can('viewPages')
                     <div class="card  widget-card shadow mb-4" id="">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -119,10 +180,10 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="link">Link</label>
-                                            <input type="text" readonly="" class="form-control title" name="link" value="{{$page->slug}}">
+                                            <input type="text" readonly="" class="form-control title" name="link" value="{{ route('pages.show', ['pages' => $page->slug]) }}">
                                         </div>
                                         <div class="form-group">
-                                            <a href="javascript:void(0)" class="btn btn-info" onclick="addLink('{{$page->name}}', '{{$page->slug}}')">
+                                            <a href="javascript:void(0)" class="btn btn-info" onclick="addLink('{{$page->name}}', `{{ route('pages.show', ['pages' => $page->slug]) }}`)">
                                                 Add to Menu
                                             </a>
                                         </div>

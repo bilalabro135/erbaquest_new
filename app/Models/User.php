@@ -52,4 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         $this->notify(new VerifyApiEmail);
     }
+    public function vendors(){
+        $user = new User(); 
+        return $user->whereIs('Vendor');
+    }
 }

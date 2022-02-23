@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,10 +8,11 @@ use App\Http\Requests\Admin\EventRequest;
 
 use App\Models\User;
 use App\Models\Event;
+use Validator;
 use DataTables;
 use Bouncer;
 use Redirect; 
-
+use View;
 class EventController extends Controller
 {
     public function index(){
@@ -41,7 +42,7 @@ class EventController extends Controller
 
     public function create()
     {
-        $users = User::whereIs('Admin', 'Organizer', 'Dev')->get();
+        $users = User::whereIs('Admin', 'Organizer')->get();
         return view('admin.events.add', compact('users'));
     }
 
@@ -134,5 +135,35 @@ class EventController extends Controller
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
         abort(404);
+    }
+
+    public function loadmore(Request $request)
+    {
+        $validation = Validator::make($request->all(),[
+          'offset' => 'required|integer',
+          'limit' => 'integer',
+        ]);
+        if ($validation->fails())
+        {
+            return response()->json(['error', 'Paramaters Validation Failed']);
+        }
+        $events = Event::where('status', 'published');
+
+        if (isset($request->featured) && $request->featured != 'false') {
+            $events->where('is_featured', 1);
+        }
+
+
+        $count = $events->count();
+        $request->limit = ($request->limit) ? $request->limit : 9; 
+        $events = $events->offset($request->offset)->limit($request->limit)->get();
+        $loadmore = false;
+        $data['loadmore'] = false;
+        if ($count > ($request->offset + $request->limit)) {
+            $data['loadmore'] = true;
+        }
+
+        $data['html'] = view('components.front.events.listing',  compact('events', 'loadmore'))->render();
+        return response()->json($data);
     }
 }

@@ -3,16 +3,19 @@
 if (!function_exists('getRouteArray')) {
 	function getRouteArray()
 	{
-		$slugs  = [];
+        $slugs  = ['admin'];
         $routes = Route::getRoutes();
 
         foreach ($routes as $route)
         {
             $parts = explode('/', $route->uri());
-            foreach ($parts as $part)
-            {               
-                $slugs[] = $part;
+            if (!in_array('admin', $parts)) {
+                foreach ($parts as $part)
+                {               
+                    $slugs[] = $part;
+                }
             }
+
         }
         return $slugs;
 	}

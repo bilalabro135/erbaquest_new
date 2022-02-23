@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Erba Quest</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="manifest" href="manifest.json" />
     <!-- ios support -->
@@ -93,29 +94,48 @@
           <div class="col-sm-12 col-md-3">
             <h3 class="ft-blanka clr-white">Contact Us</h3>
             <ul class="ct-list">
+              @if($globalsettings->getValue('address'))
               <li>
-                <i class="fas fa-map-marker-alt"></i>Office No. 101 & 102,  <br>
-                First Floor Plot No. 1/1-B
+                <i class="fas fa-map-marker-alt"></i>{{$globalsettings->getValue('address')}}
               </li>
+              @endif
+              @if($globalsettings->getValue('telephone'))
               <li>
-                <i class="fas fa-phone-volume"></i>
-                (012) 34567890
+                <a href="tel:{{$globalsettings->getValue('telephone')}}">
+                <i class="fas fa-phone-volume"></i>{{$globalsettings->getValue('telephone')}}</a>                
               </li>
+              @endif
+              @if($globalsettings->getValue('email'))
               <li>
+                <a href="mailto:{{$globalsettings->getValue('email')}}">
                 <i class="far fa-envelope"></i>
-                erbaquest@gmail.com
+                {{$globalsettings->getValue('email')}}</a>
               </li>
+              @endif
             </ul>
           </div>
           <div class="col-sm-12 col-md-3">
             <h3 class="ft-blanka clr-white">Social Media</h3>
+            @php
+              $socialmedia = array(
+                'facebook' => 'fab fa-facebook-f',
+                'instagram' => 'fab fa-instagram',
+                'twitter' => 'fab fa-twitter',
+                'linkedin' => 'fab fa-linkedin',
+                'youtube' => 'fab fa-youtube',
+                'vimeo' => 'fab fa-vimeo',
+              );
+            @endphp
             <ul class="social-list">
-              <li><i class="fab fa-instagram"></i> Instagram</li>
-              <li><i class="fab fa-facebook-f"></i> Facebook</li>
-              <li><i class="fab fa-patreon"></i> Patreon</li>
-              <li><i class="fab fa-twitter"></i> Twitter</li>
-              <li><i class="fab fa-youtube"></i> Youtube</li>
-              <li><i class="fab fa-discord"></i> Discord</li>
+                @foreach($socialmedia as $socialmedianame => $socialmediaicon)
+                  @if($socialmedialinks->getValue($socialmedianame))
+                    <li>
+                      <a href="{{$socialmedialinks->getValue($socialmedianame)}}">
+                        <i class="{{$socialmediaicon}}"></i>{{$socialmedianame}}
+                      </a>
+                    </li>
+                  @endif
+                @endforeach
             </ul>
           </div>
         </div>

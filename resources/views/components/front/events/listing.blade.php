@@ -27,8 +27,45 @@
   </div>
 </div>
 @endforeach
+@if($loadmore)
 <div class="col-sm-12">
   <div class="loadMore">
-    <button class="btn-custom" type="button">Load More</button>
+    <button class="btn-custom load-more" type="button"><span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Load More</button>
   </div>
 </div>
+@endif
+@if($loadmore)
+@push('scripts')
+  <script type="text/javascript">
+    var limit = {{$limit}};
+    var offset = {{$offset}};
+    $('.load-more').on('click', function(){
+      let elem = $(this);
+      offset+= limit;
+      $.ajax({
+        type: "GET",
+        url: "{{route('events.loadmore')}}",
+        data: {'offset': offset, 'limit': limit, 'upcoming': {{($upcoming)?$upcoming:'false'}}, 'featured': {{($featured) ? $featured : 'false'}} },
+        cache: false,
+        beforeSend: function(){
+           $('.load-more span').fadeIn();
+        },
+        success: function(data){
+          if(data['html'] != ''){
+            $(data['html']).insertBefore($(elem).parents('section').find('.col-sm-12:not(.col-md-6)'));
+          }
+          if (!data['loadmore']) {
+            $(elem).parents('section').find('.load-more').attr('disabled', 'disabled');
+            $(elem).parents('section').find('.load-more').text('No More Data To Load');
+            $(elem).parents('section').find('.load-more').css({'opacity': '60%', 'pointer-events': 'none'});
+          }
+        }
+      }).done(function(){        
+           $(elem).parents('section').find('.load-more span').fadeOut();
+      });
+    })
+
+
+  </script>
+@endpush
+@endif
