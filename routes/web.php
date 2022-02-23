@@ -16,8 +16,8 @@ use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AmenitiesController;
 use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\ComponenetController;
-
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\SponsorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -162,6 +162,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/events/{event:id}/edit/', [EventController::class, 'edit'])->name('events.edit')->middleware('role:updateEvents');
     Route::post('/events/{event:id}/update/', [EventController::class, 'update'])->name('events.update')->middleware('role:updateEvents');
     Route::get('/events/{event:id}/delete', [EventController::class, 'destroy'])->name('events.delete')->middleware('role:deleteEvents');
+
+    // Sponsors
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors')->middleware('role:viewSponsors');
+    Route::get('/getsponsors/get', [SponsorController::class, 'getsponsors'])->name('sponsors.get')->middleware('role:viewSponsors');
+    Route::get('/sponsors/add', [SponsorController::class, 'create'])->name('sponsors.add')->middleware('role:addSponsors');
+    Route::post('/sponsors/add', [SponsorController::class, 'store'])->name('sponsors.store')->middleware('role:addSponsors');
+    Route::get('/sponsors/{sponsor:id}/edit/', [SponsorController::class, 'edit'])->name('sponsors.edit')->middleware('role:updateSponsors');
+    Route::post('/sponsors/{sponsor:id}/update/', [SponsorController::class, 'update'])->name('sponsors.update')->middleware('role:updateSponsors');
+    Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
 
 // Store User IP

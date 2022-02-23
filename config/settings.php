@@ -58,6 +58,12 @@
                 'Update Package' =>'updatePackages',
                 'Delete Package' =>'deletePackages',
             ],
+            'Sponsors' => [
+                'View Sponsors' =>'viewSponsors',
+                'Add Sponsor' =>'addSponsors',
+                'Update Sponsor' =>'updateSponsors',
+                'Delete Sponsor' =>'deleteSponsors',
+            ],
             'Users' => [
                 'View Users' =>'viewUsers',
                 'Add Users' =>'addUsers',
