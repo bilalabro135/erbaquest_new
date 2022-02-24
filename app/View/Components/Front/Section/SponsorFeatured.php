@@ -3,14 +3,16 @@
 namespace App\View\Components\Front\Section;
 
 use Illuminate\View\Component;
+use App\Models\Sponsor;
 
-class Sponsor extends Component
+class SponsorFeatured extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
+    public $sponsors;
     public function __construct()
     {
 
@@ -23,6 +25,8 @@ class Sponsor extends Component
      */
     public function render()
     {
-        return view('components.front.section.sponsor');
+        $this->sponsors = Sponsor::orderBy('order', 'ASC')->get();
+        if (count($this->sponsors)) 
+            return view('components.front.section.sponsor-featured');
     }
 }

@@ -23,7 +23,9 @@
                 <div class="txt">
                   <p>{!!$event->description!!}</p>
                 </div>
-                <a href="javascript:;" class="link">DETAIL</a>
+                @if($pageSlug != '')
+                <a href="{{route('event.show', ['pages' => $pageSlug, 'event' => $event->id])}}" class="link">Details</a>
+                @endif
               </div>
             </div>
           </div>

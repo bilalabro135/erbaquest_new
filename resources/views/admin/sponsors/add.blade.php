@@ -46,7 +46,7 @@
 
                             <div class="form-group">
                             <label for="order">Order</label>
-                            <input type="number"  required="" id="order" class="form-control  @error('order') is-invalid @enderror" name="order" placeholder="Enter Order*" value="{{old('order')}}">        
+                            <input type="number" id="order" class="form-control  @error('order') is-invalid @enderror" name="order" placeholder="Enter Order" value="{{old('order')}}">        
                                 @error('order')
                                     <div class="text-danger">
                                         {{$message}}                                            

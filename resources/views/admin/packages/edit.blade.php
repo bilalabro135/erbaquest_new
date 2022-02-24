@@ -53,10 +53,27 @@
                         </div>
                     </div>
                     
-                <div class="card shadow mb-4">
-                     <div class="card-body">
 
+                </div>
+                <div class="col-md-3">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
                             <div class="form-group">
+                                <label for="reccuring_every">Select Recurring*</label>
+                                <select name="reccuring_every" id="reccuring_every" required="" class="form-control">
+                                    <option value="">Select Reccuring</option>
+                                    <option value="Day" {{ ($package->reccuring_every == 'Day') ? 'selected="selected"' : ''}} >Day</option>
+                                    <option {{ ($package->reccuring_every == 'Month') ? 'selected="selected"' : ''}} value="Month">Month</option>
+                                    <option {{ ($package->reccuring_every == 'Year') ? 'selected="selected"' : ''}} value="Year">Year</option>
+                                </select>
+                                
+                                @error('reccuring_every')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+                                                        <div class="form-group">
                             <label for="price">Price</label>
 
                             <input type="number"  id="price" class="form-control  @error('price') is-invalid @enderror" name="price" placeholder="Meta Title" value="{{ (old('price')) ? old('price') : $package->price }}"> 
@@ -79,29 +96,8 @@
                                 @endif
                             </div>
 
-                     </div>
-                </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="reccuring_every">Select Recurring*</label>
-                                <select name="reccuring_every" id="reccuring_every" required="" class="form-control">
-                                    <option value="">Select Reccuring</option>
-                                    <option value="Day" {{ ($package->reccuring_every == 'Day') ? 'selected="selected"' : ''}} >Day</option>
-                                    <option {{ ($package->reccuring_every == 'Month') ? 'selected="selected"' : ''}} value="Month">Month</option>
-                                    <option {{ ($package->reccuring_every == 'Year') ? 'selected="selected"' : ''}} value="Year">Year</option>
-                                </select>
-                                
-                                @error('reccuring_every')
-                                    <div class="text-danger">
-                                        {{$message}}                                            
-                                    </div>
-                                @endif
-                            </div>
 
-                        </div>
+                    
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary btn-block px-5">
                                 {{ __('Update') }}

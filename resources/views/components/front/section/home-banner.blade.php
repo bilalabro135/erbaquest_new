@@ -34,6 +34,7 @@
       <a class="btn-custom" href="{{$fields['cta_action']}}">{{ (isset($fields['cta_text'])) ? $fields['cta_text'] : $fields['cta_action'] }}</a>
       @endif
     </div>
+    @if(count($sponsors))
     <div class="banner-sponsors">
       <div class="text">
         <h3 class="ft-blanka">SPONSORS <span class="arrow-right">
@@ -42,23 +43,14 @@
       </div>
       <div class="logos">
         <ul class="owl-carousel owl-theme">
+          @foreach($sponsors as $sponsor)
           <li class="item">
-            <img src="images/sponsor-1.png">
+            <img src="{{$sponsor->featured_image}}" alt="{{$sponsor->featured_image}}">
           </li>
-          <li class="item">
-            <img src="images/sponsor-2.png">
-          </li>
-          <li class="item">
-            <img src="images/sponsor-3.png">
-          </li>
-          <li class="item">
-            <img src="images/sponsor-4.png">
-          </li>
-          <li class="item">
-            <img src="images/sponsor-5.png">
-          </li>
+          @endforeach
         </ul>
       </div>
     </div>
+    @endif
   </div>
 </section>

@@ -49,25 +49,7 @@
                             @endif
                             </div>
 
-                            <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="number"  required="" id="price" class="form-control  @error('price') is-invalid @enderror" name="price" placeholder="Enter Price*" value="{{old('name')}}">        
-                                @error('price')
-                                    <div class="text-danger">
-                                        {{$message}}                                            
-                                    </div>
-                                @endif
-                            </div>
 
-                            <div class="form-group">
-                            <label for="duration">Duration</label>
-                            <input type="number"  required="" id="duration" class="form-control  @error('duration') is-invalid @enderror" name="duration" placeholder="Enter duration*" value="{{old('name')}}">        
-                                @error('duration')
-                                    <div class="text-danger">
-                                        {{$message}}                                            
-                                    </div>
-                                @endif
-                            </div>
 
                         </div>
                 </div>
@@ -85,6 +67,25 @@
                                 </select>
                                 
                                 @error('reccuring_every')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number"  required="" id="price" class="form-control  @error('price') is-invalid @enderror" name="price" placeholder="Enter Price*" value="{{old('name')}}">        
+                                @error('price')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <input type="number"  required="" id="duration" class="form-control  @error('duration') is-invalid @enderror" name="duration" placeholder="Enter duration*" value="{{old('name')}}">        
+                                @error('duration')
                                     <div class="text-danger">
                                         {{$message}}                                            
                                     </div>

@@ -4,6 +4,7 @@ namespace App\View\Components\Front\Section;
 
 use Illuminate\View\Component;
 use App\Models\Event;
+use App\Models\Pages;
 
 class EventsAll extends Component
 {
@@ -13,6 +14,7 @@ class EventsAll extends Component
      * @return void
      */
     public $events;
+    public $pageSlug;
     public function __construct()
     {
         //
@@ -26,6 +28,7 @@ class EventsAll extends Component
     public function render()
     {
         $this->events = Event::where('status', 'published')->get();
+        $this->pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
         return view('components.front.section.events-all');
     }
 }

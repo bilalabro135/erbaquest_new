@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Package Name*" value="{{ (old('name')) ? old('name') : $sponsor->name }}">        
+                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Sponsor Name*" value="{{ (old('name')) ? old('name') : $sponsor->name }}">        
                                 @error('name')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -52,7 +52,7 @@
                             <div class="form-group">
                             <label for="order">Order</label>
 
-                            <input type="number"  id="order" class="form-control  @error('order') is-invalid @enderror" name="order" placeholder="Meta Title" value="{{ (old('order')) ? old('order') : $sponsor->order }}"> 
+                            <input type="number"  id="order" class="form-control  @error('order') is-invalid @enderror" name="order" placeholder="Order" value="{{ (old('order')) ? old('order') : $sponsor->order }}"> 
 
                                 @error('order')
                                     <div class="text-danger">

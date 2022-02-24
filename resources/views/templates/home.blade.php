@@ -8,7 +8,7 @@
 	<x-front.section.home-banner />
 	<x-front.section.events-search />
 	<x-front.section.events-featured />
-	<x-front.section.sponsor />
+	<x-front.section.sponsor-featured />
 	<x-front.section.become-sponsor />
 	<x-front.section.events-upcoming />
 	<x-front.section.vendors-recent />
