@@ -40,11 +40,13 @@
         @endif
           <nav class="navbar navbar-expand-xl p-0">
               <div class="navbar-brand">
+                <a href="{{route('home')}}"> 
                 @if($globalsettings->getValue('site_logo'))
                     <img src="{{ $globalsettings->getValue('site_logo') }}"  alt="{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}">
                   @else
                     {{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}
                   @endif
+                </a>
               </div>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -70,9 +72,13 @@
         <div class="row">
           <div class="col-sm-12 col-md-3">
             <div class="ft-logo">
+              @if($globalsettings->getValue('site_logo'))
               <figure class="ft-logo">
-                <img src="images/ft-logo.png">
+                <img src="{{ $globalsettings->getValue('site_logo') }}"  alt="{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}">
               </figure>
+              @else
+                <h3 class="text-light mb-0">{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}</h3>
+              @endif
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
                  tempor incididunt ut labore et dolore  magna aliqua. </p>
             </div>
@@ -147,6 +153,21 @@
       </div>
     </footer>
  <script src="{{ asset('js/front/app.js' ) }}"></script>
+ <script type="text/javascript">
+         $(document).ready(function(){
+
+      setTimeout(function(){ 
+        $(window).scroll(function(){
+              var sticky = $('#masthead'),
+                  scroll = $(window).scrollTop();
+
+              if (scroll >= 100) sticky.addClass('fixed');
+              else sticky.removeClass('fixed');
+            });
+       }, 3000);
+
+      });
+ </script>
   @stack('scripts')
   </body>
 </html>

@@ -32,10 +32,10 @@ use App\Http\Controllers\Common\EventController;
 
 
 // Auth
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate')->middleware('guest');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 // Email Verification
 Route::get('/verification', [AuthController::class, 'verificationNotice'])->name('verification.notice')->middleware(['auth', 'shouldVerifyEmail']);
@@ -55,8 +55,8 @@ Route::get('/reset-password/{token}', [AuthController::class, 'resetPaassword'])
 Route::post('/reset-password',[AuthController::class, 'paasswordUpdate'])->middleware(['guest', 'shouldPasswordReset'])->name('password.update');
 
 // Registration
-    Route::get('/register', [AuthController::class, 'signup'])->name('register');
-    Route::post('/user/register',[AuthController::class, 'register'])->name('register.user');
+    Route::get('/register', [AuthController::class, 'signup'])->name('register')->middleware('guest');
+    Route::post('/user/register',[AuthController::class, 'register'])->name('register.user')->middleware('guest');
 
 // File manager
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -180,4 +180,5 @@ Route::group(['front'],  function () {
     Route::get('/', [PagesController::class, 'home'])->name('home');
     Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
     Route::get('/eventsloadmore', [EventController::class, 'loadmore'])->name('events.loadmore');
+    Route::get('/{pages:slug}/{event:id}', [PagesController::class, 'show'])->name('event.show');
 });

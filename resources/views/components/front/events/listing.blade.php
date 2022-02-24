@@ -12,15 +12,15 @@
           {{$event->event_date}}
         </p>
         <p class="tags">
-          <span>Dummy</span>
-          <span>Dummy</span>
         </p>
       </div>
       <div class="text">
         {!!$event->description!!}
       </div>
       <div class="ev-info">
-        <a href="javascript:;">Details</a>
+        @if($pageSlug != '')
+        <a href="{{route('event.show', ['pages' => $pageSlug, 'event' => $event->id])}}">Details</a>
+        @endif
         <h5>{{$event->organizer->name}} <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}"></h5>
       </div>
     </div>

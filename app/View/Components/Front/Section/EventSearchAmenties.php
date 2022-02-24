@@ -4,8 +4,9 @@ namespace App\View\Components\Front\Section;
 
 use Illuminate\View\Component;
 use App\Models\Components;
+use App\Models\Amenity;
 
-class EventsSearch extends Component
+class EventSearchAmenties extends Component
 {
     /**
      * Create a new component instance.
@@ -13,10 +14,10 @@ class EventsSearch extends Component
      * @return void
      */
     public $fields;
-    public $isEvent;
-    public function __construct($isEvent = false)
+    public $amenities;
+    public function __construct()
     {
-        $this->isEvent = $isEvent;
+        //
     }
 
     /**
@@ -26,9 +27,11 @@ class EventsSearch extends Component
      */
     public function render()
     {
-        $component = Components::where('name', 'events-search')->first();
+
+        $component = Components::where('name', 'event-search-amenties')->first();
         $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
-        if (!empty($component)) 
-            return view('components.front.section.events-search');
+        $this->amenities = Amenity::all();
+        if (count($this->amenities)) 
+            return view('components.front.section.event-search-amenties');
     }
 }

@@ -4,6 +4,7 @@ namespace App\View\Components\Front\Events;
 
 use Illuminate\View\Component;
 use App\Models\Event;
+use App\Models\Pages;
 class Listing extends Component
 {
     public $events;
@@ -13,6 +14,7 @@ class Listing extends Component
     public $loadmore;
     public $upcoming;
     public $past;
+    public $pageSlug;
     public function __construct($featured = false, $offset = 0, $limit = 9, $loadmore = false, $upcoming = false, $past = false)
     {
         $this->featured = $featured;
@@ -47,6 +49,8 @@ class Listing extends Component
 
         if($count > ($this->offset + $this->limit))
             $this->loadmore = true;
+
+        $this->pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
 
         $this->events = $events->get();
         if (count($this->events)) 

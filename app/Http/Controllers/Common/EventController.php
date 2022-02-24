@@ -152,6 +152,11 @@ class EventController extends Controller
         if (isset($request->featured) && $request->featured != 'false') {
             $events->where('is_featured', 1);
         }
+        if(isset($request->upcoming) && $request->upcoming  != 'false')
+            $events->whereDate('event_date', '>', $now) ;
+
+        if(isset($request->past) && $request->past  != 'false')
+            $events->whereDate('event_date', '<', $now) ;
 
 
         $count = $events->count();
