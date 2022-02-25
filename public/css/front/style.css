@@ -282,6 +282,7 @@ header#masthead.fixed .topbar {
   color: #fff;
   font-weight: 600;
   transition: all 0.3s ease-in-out !important;
+  text-transform: uppercase;
 }
 
 .navbar-expand-xl .navbar-nav .nav-item {
@@ -569,7 +570,7 @@ h3.vc_heading.vc_heading-green:before {
 .event-box figure img {
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .event-box .detail {
@@ -964,7 +965,7 @@ h3.vc_heading.vc_heading-green:before {
   text-align: center;
   height: 358px;
   background: url("http://localhost/erba/images/inner-banner.jpg");
-  background-size: cover;
+  background-size: cover !important;
 }
 
 .inner-banner h1 {
@@ -972,6 +973,7 @@ h3.vc_heading.vc_heading-green:before {
   font-size: 40px;
   margin-bottom: 0;
   margin-top: 60px;
+  font-family: "Blanka";
 }
 
 .secSignup h3, .secSignup p {
@@ -1053,6 +1055,11 @@ h3.vc_heading.vc_heading-green:before {
   top: 9px;
 }
 
+.input-field.input-checkbox label.active:after {
+  opacity: 1;
+  visibility: visible;
+}
+
 .input-field.input-checkbox label {
   display: inline-block;
   position: relative;
@@ -1093,9 +1100,12 @@ h3.vc_heading.vc_heading-green:before {
   font-size: 12px;
   background: #2c9044;
   padding: 4px 6px;
+  opacity: 0;
+  visibility: hidden;
 }
 
-.input-field.input-submit input {
+.input-field.input-submit input,
+.input-field.input-submit button {
   width: 286px;
   height: 57px;
   border-radius: 40px;
@@ -1112,7 +1122,8 @@ h3.vc_heading.vc_heading-green:before {
   margin-bottom: 0;
 }
 
-.input-field.input-submit input:hover {
+.input-field.input-submit input:hover,
+.input-field.input-submit button:hover {
   background: transparent;
   color: #2c9044;
 }
@@ -1124,8 +1135,8 @@ h3.vc_heading.vc_heading-green:before {
   padding: 30px 28px;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
-  box-shadow: none;
-  outline: none;
+  box-shadow: none !important;
+  outline: none !important;
   color: #7c7c7c;
   font-weight: 500;
 }
@@ -1374,7 +1385,7 @@ h3.vc_heading.vc_heading-green:before {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .podcast-box figure .dtPodcast {
@@ -1534,8 +1545,8 @@ h3.vc_heading.vc_heading-green:before {
 }
 
 .amenties_filter ul li {
-  max-width: 25%;
-  flex: 25%;
+  /* max-width: 25%; */
+  /* flex: 25%; */
   padding: 0 10px;
   margin: 10px 0;
 }
@@ -1543,20 +1554,36 @@ h3.vc_heading.vc_heading-green:before {
 .amenties_filter ul li label {
   border: 1px solid #d6d5d5;
   display: block;
-  padding: 18px 20px;
+  padding: 18px 44px;
   padding-left: 52px;
   border-radius: 8px;
   position: relative;
+  cursor: pointer;
 }
 
 .amenties_filter ul li label .text {
-  font-size: 19px;
+  font-size: 16px;
 }
 
 .amenties_filter ul li label figure {
   margin: 0;
   position: absolute;
   left: 20px;
+}
+
+.amenties_filter ul li label.selected:after {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  color: #fff;
+  font-size: 11px;
+  background: #2c9044;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .amenties_filter ul li label:after {
@@ -1589,7 +1616,7 @@ h3.vc_heading.vc_heading-green:before {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .event-box_list figure .wishlist {
@@ -1786,7 +1813,7 @@ h3.vc_heading.vc_heading-green:before {
 ul.vipGuest {
   display: block;
   -moz-column-count: 2;
-       column-count: 2;
+  column-count: 2;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -1805,7 +1832,7 @@ ul.vipGuest li {
 .vendor-box ul {
   display: block;
   -moz-column-count: 2;
-       column-count: 2;
+  column-count: 2;
   list-style: none;
   padding: 0;
 }
@@ -2498,7 +2525,7 @@ input.vendor_list {
   height: 100%;
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .podcast-ft figure .pdcs-info {
@@ -2729,7 +2756,7 @@ input.vendor_list {
 .VendorListing .ft-grids ul li img {
   height: 100%;
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
 }
 
 .head-socialIcons ul li a {
@@ -2745,6 +2772,20 @@ input.vendor_list {
   width: 28px;
   border-radius: 100%;
   margin-left: 7px;
+}
+
+.footer_widget ul.ct-list li a, .footer_widget ul.social-list li a {
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out !important;
+}
+
+.footer_widget ul.ct-list li a:hover, .footer_widget ul.social-list li a:hover {
+  padding-left: 12px;
+}
+
+.signupForm a.small {
+  color: #2c9044;
+  font-weight: 600;
 }
 
 /*-------------- Media Queries -----------*/
@@ -3034,7 +3075,7 @@ input.vendor_list {
   .footer_widget ul.menu {
     display: block;
     -moz-column-count: 3;
-         column-count: 3;
+    column-count: 3;
     padding: 0 14px;
   }
 
@@ -3050,7 +3091,7 @@ input.vendor_list {
     text-align: left;
     display: block;
     -moz-column-count: 2;
-         column-count: 2;
+    column-count: 2;
     padding: 0 40px;
   }
 
