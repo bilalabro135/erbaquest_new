@@ -191,8 +191,7 @@
         filebrowserBrowseUrl: '{{ route("unisharp.lfm.show", ["type" => "Files"])}}',
         filebrowserUploadUrl: '{{ route("unisharp.lfm.upload", ["type" => "Files", "_token" => ''])}}'
     };
-    $(document).ready(function(){
-        $('#template option:nth-child(2)').attr('selected', 'selected');        
+    $(document).ready(function(){  
         $('#name').blur(function (e) {
             if ($('#slug').val() == '') {
                 $('#slug').val(

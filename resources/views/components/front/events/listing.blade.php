@@ -19,7 +19,7 @@
       </div>
       <div class="ev-info">
         @if($pageSlug != '')
-        <a href="{{route('event.show', ['pages' => $pageSlug, 'event' => $event->id])}}">Details</a>
+        <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}">Details</a>
         @endif
         <h5>{{$event->organizer->name}} <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}"></h5>
       </div>
@@ -64,8 +64,6 @@
            $(elem).parents('section').find('.load-more span').fadeOut();
       });
     })
-
-
   </script>
 @endpush
 @endif

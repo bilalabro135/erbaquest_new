@@ -10,13 +10,13 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
       <h3 class="ft-blanka vc_heading">Newsletter</h3>      
     @endif
     <div class="searchEvent">
-      <form class="searchEventForm" action="" method="post">
+      <form class="searchEventForm" action="{{route('pages.show', ['pages' => $action])}}" method="GET">
         <div class="input-field">
-          <input type="text" name="search" required="required" placeholder="SEARCH">
+          <input type="text" name="search" value="{{$search}}"  placeholder="SEARCH">
         </div>
         <div class="input-field drop-arrow">
           <select name="location">
-            <option selected="selected">Location</option>
+            <option value="" selected="selected">Location</option>
             @foreach($countries as $country)
             <option value="{{$country}}">{{$country}}</option>
             @endforeach
@@ -31,40 +31,37 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
 </section>
 @else
 <section class="secSearchEventListing pt-65 pb-65">
+  <form class="" action="{{route('pages.show', ['pages' => $action])}}" method="GET">
   <div class="container">
     <div class="searchEvent">
-      <form class="searchEventForm" action="" method="post">
+      <div class="searchEventForm">
         <div class="input-field">
-          <input type="text" name="search" required="required" placeholder="WHAT ARE YOU LOOKING FOR?">
+          <input type="text" name="search" value="{{$search}}"  placeholder="WHAT ARE YOU LOOKING FOR?">
         </div>
         <div class="input-field drop-arrow">
           <select name="location">
-            <option selected="selected">Location</option>
-            <option>Location 1</option>
-            <option>Location 2</option>
-            <option>Location 3</option>
-            <option>Location 4</option>
-            <option>Location 5</option>
+            <option value="" selected="selected">Location</option>
+            @foreach($countries as $country)
+              <option {{($location != '' && $country == $location) ? 'selected="selected"' : ''}} value="{{$country}}">{{$country}}</option>
+            @endforeach
           </select>
         </div>
         <div class="input-field">
-          <input type="submit" name="submit" value="SEARCH">
+          <input type="submit" value="SEARCH">
         </div>
-      </form>
+        </div>
     </div>
     <div class="SortFilter">
-      <p>41 Results Found (Showing 1-25)</p>
+      <p>{{$events_count}} Result{{ ($events_count > 1) ? 's' : '' }} found</p>
       <div class="input-field customDropdown">
-        <select class="sortDropdown">
-          <option>SORT BY</option>
-          <option>Filter 1</option>
-          <option>Filter 2</option>
-          <option>Filter 3</option>
-          <option>Filter 4</option>
-          <option>Filter 5</option>
+        <select class="sortDropdown" name="sort">
+          <option value="">SORT BY</option>
+          <option {{($sort != '' && $sort == 'latest') ? 'selected="selected"' : ''}} value="latest">Latest</option>
+          <option {{($sort != '' && $sort == 'name') ? 'selected="selected"' : ''}} value="name">Name</option>
         </select>
       </div>
     </div>
   </div>
+  </form>
 </section>
 @endif

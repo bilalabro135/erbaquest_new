@@ -50,7 +50,7 @@ class Listing extends Component
         if($count > ($this->offset + $this->limit))
             $this->loadmore = true;
 
-        $this->pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
+        $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
 
         $this->events = $events->get();
         if (count($this->events)) 

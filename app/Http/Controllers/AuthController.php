@@ -9,6 +9,7 @@ use App\Models\User;
 use Redirect;
 use Hash;
 use Str;
+use App\Models\Package;
 use App\Models\Settings;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Password;
@@ -82,7 +83,8 @@ class AuthController extends Controller
     {
         $settings = Settings::get('registration');
         $roles = Bouncer::role()->where('name', 'Organizer')->orWhere('name', 'Vendor')->pluck('name');
-        return view('auth.register', compact('roles', 'settings'));
+        $packages = Package::all();
+        return view('auth.register', compact('roles', 'settings', 'packages'));
     }
     public function forgetPassword()
     {

@@ -11,9 +11,9 @@
                 </div>
                 <img src="{{$event->featured_image}}" alt="{{$event->name}}">
                 <div class="author">
-                  <p>San Diego. CA</p>
+                  <p>{{$event->area}}</p>
                   <div class="figure">
-                    <img src="{{$event->organizer->profile_image}}" alt="{{$event->organizer->name}}">
+                    <img src="{{($event->organizer->profile_image != '') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
                   </div>
                 </div>
               </figure>
@@ -24,7 +24,7 @@
                   <p>{!!$event->description!!}</p>
                 </div>
                 @if($pageSlug != '')
-                <a href="{{route('event.show', ['pages' => $pageSlug, 'event' => $event->id])}}" class="link">Details</a>
+                <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}" class="link">Details</a>
                 @endif
               </div>
             </div>

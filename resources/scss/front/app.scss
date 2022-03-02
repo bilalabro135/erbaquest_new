@@ -1707,7 +1707,10 @@ h3.vc_heading.vc_heading-green:before {
 .evGallery {
   margin-top: 50px;
 }
-
+.evGallery.nav_arrow img {
+    height: 250px;
+    object-fit: cover;
+}
 .align-center {
   align-items: center;
 }
@@ -1865,7 +1868,12 @@ ul.vipGuest li {
   font-weight: 600;
   letter-spacing: 1px;
 }
-
+.vendor-box ul img{
+    border-radius: 100%;
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+}
 .social-box {
   border: 1px solid #eee;
   border-radius: 10px;
@@ -2159,7 +2167,7 @@ button#uploadImg span.clr-green {
 }
 
 .pckg-box .price-info h2 .txt {
-  font-size: 94px;
+  font-size: 50px;
   font-weight: 800;
 }
 
@@ -2188,20 +2196,20 @@ button#uploadImg span.clr-green {
   font-size: 16px;
 }
 
-.pckg-box .pkg-list {
+.pckg-box ul {
   list-style: none;
   padding: 30px 0;
   margin: 0;
 }
 
-.pckg-box .pkg-list li {
+.pckg-box ul li {
   font-weight: 500;
   padding: 18px 40px;
   position: relative;
   border-bottom: 1px solid #d5d3d3;
 }
 
-.pckg-box .pkg-list li .figure {
+.pckg-box ul li .figure {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -2214,7 +2222,7 @@ button#uploadImg span.clr-green {
   transition: all 0.3s ease-in-out !important;
 }
 
-.pckg-box .pkg-list li:last-child {
+.pckg-box ul li:last-child {
   border: none;
 }
 
@@ -3161,4 +3169,17 @@ input.vendor_list {
   .banner-text {
     margin-top: -70px;
   }
+}
+div#card-element {
+    display: flex;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 26px;
+}
+
+.__PrivateStripeElement {
+    width: 100%;
 }

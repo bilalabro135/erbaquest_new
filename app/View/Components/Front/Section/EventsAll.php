@@ -27,8 +27,27 @@ class EventsAll extends Component
      */
     public function render()
     {
-        $this->events = Event::where('status', 'published')->get();
-        $this->pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
+        $search    = (app('request')->input('search')) ? app('request')->input('search') : '';
+        $location    = (app('request')->input('location')) ? app('request')->input('location') : '';
+        $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
+        $event = Event::where('status', 'published');
+        if ($search != '') 
+            $event->where('name', 'LIKE', "%{$search}%");
+
+        if ($location != '') 
+            $event->where('area', $location);
+
+        if ($sort != '') {
+            if($sort == 'latest'){
+                $event->orderBy('id', 'ASC');
+            }
+            else{
+                $event->orderBy($sort, 'ASC');
+            }
+        }
+        
+        $this->events = $event->get();
+        $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         return view('components.front.section.events-all');
     }
 }

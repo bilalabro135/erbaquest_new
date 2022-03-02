@@ -16,3 +16,72 @@
 	<x-front.section.contact-form />
 	<x-front.section.newsletter />
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.ft-grids ul').owlCarousel({
+            loop:true,
+            margin:10,
+            autoplay: true,
+            nav:false,
+            responsive:{
+                0:{
+                    items:2,
+                    stagePadding: 60
+                },
+                600:{
+                    items:5
+                },
+                1000:{
+                    items:7
+                }
+            }
+        });
+
+         $('.banner-sponsors .logos ul').owlCarousel({
+            loop:true,
+            margin:10,
+            autoplay: true,
+            nav:false,
+            responsive:{
+                0:{
+                    items:3
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        });
+
+        $('button.navbar-toggler').on("click",function() {
+          $('div#main-nav').slideToggle('collapse');
+        });
+
+
+        var wdt = $(window).width();
+
+        if (wdt < 767) {
+
+          $('.rcVendor-list ul').addClass('owl-carousel');
+          $('.rcVendor-list ul').addClass('owl-theme');
+
+        $('.rcVendor-list ul').owlCarousel({
+            loop:true,
+            margin:0,
+            nav:false,
+            touchDrag: false,
+            responsive:{
+                0:{
+                    items:3
+                }
+            }
+        });
+
+      }
+    });
+    </script>
+@endpush

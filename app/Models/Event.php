@@ -46,4 +46,12 @@ class Event extends Model
     public function organizer(){
         return $this->hasOne(User::class,'id', 'user_id' );
     }
+    public function vendors()
+    {
+        return $this->belongsToMany(User::class, 'vendors', 'event_id', 'user_id');
+    }
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenity::class, 'event_amenities', 'event_id', 'amenity_id');
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\ShortDescription;
 class PackagesRequest extends FormRequest
 {
     /**
@@ -26,8 +26,12 @@ class PackagesRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'short_description' => [
-                'max:255'
-            ]
+                'max:255',
+                 new ShortDescription(),
+            ],
+            'reccuring_every' => 'required',
+            'price' => 'required',
+            'duration' => 'required',
         ];
     }
 }

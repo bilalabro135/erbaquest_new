@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EventRequest;
 
 use App\Models\User;
+use App\Models\Pages;
 use App\Models\Event;
+use App\Models\Amenity;
 use Validator;
 use DataTables;
 use Bouncer;
@@ -43,7 +45,9 @@ class EventController extends Controller
     public function create()
     {
         $users = User::whereIs('Admin', 'Organizer')->get();
-        return view('admin.events.add', compact('users'));
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        return view('admin.events.add', compact('users', 'vendors', 'amenities'));
     }
 
     public function store(EventRequest $request)
@@ -81,13 +85,22 @@ class EventController extends Controller
         $event->youtube = $eventDetail['youtube'];
         $event->status = $eventDetail['status'];
         $event->save();
+
+        if($request->has('vendors'))
+            $event->vendors()->attach($request->vendors);
+
+        if($request->has('amenities'))
+            $event->amenities()->attach($request->amenities);
+
         return Redirect::route('events')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
     }
 
     public function edit(Event $event)
     {
-        $users = User::whereIs('Admin', 'Organizer', 'Dev')->get();
-        return view('admin.events.edit', compact('users', 'event'));
+        $users = User::whereIs('Admin', 'Organizer')->get();
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -125,6 +138,16 @@ class EventController extends Controller
             'status' =>  $eventDetail['status'],
         ]);
 
+        if($request->has('vendors'))
+            $event->vendors()->sync($request->vendors);
+        else
+            $event->vendors()->sync(array());
+        
+        if($request->has('amenities'))
+            $event->amenities()->sync($request->amenities);
+        else
+            $event->amenities()->sync(array());
+        
         return Redirect::route('events')->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
@@ -167,8 +190,16 @@ class EventController extends Controller
         if ($count > ($request->offset + $request->limit)) {
             $data['loadmore'] = true;
         }
-
-        $data['html'] = view('components.front.events.listing',  compact('events', 'loadmore'))->render();
+        $pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
+        $data['html'] = view('components.front.events.listing',  compact('events', 'loadmore', 'pageSlug'))->render();
         return response()->json($data);
+    }
+    public function show(Pages $pages, $id)
+    {
+        $event = Event::where('id', $id)->first();
+        if ($event != null) {
+            return view('front.event.show', compact('event', 'pages'));
+        }
+        abort(404);
     }
 }

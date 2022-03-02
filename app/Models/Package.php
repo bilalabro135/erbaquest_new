@@ -17,5 +17,7 @@ class Package extends Model
         'price',
         'reccuring_every',
         'duration',
+        'product_id',
+        'plan_id',
     ];
 }

@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\ComponenetController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
+use App\Http\Controllers\Front\SubscriptionController;
+use App\Http\Controllers\LoadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -178,7 +180,8 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
     Route::get('/', [PagesController::class, 'home'])->name('home');
-    Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
     Route::get('/eventsloadmore', [EventController::class, 'loadmore'])->name('events.loadmore');
-    Route::get('/{pages:slug}/{event:id}', [PagesController::class, 'show'])->name('event.show');
+    Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
+    Route::get('/{pages:slug}/{id}', [LoadController::class, 'index'])->name('posts.show');
+    Route::post('/subscription/create/', [SubscriptionController::class, 'create'])->name('subscription.create');
 });
