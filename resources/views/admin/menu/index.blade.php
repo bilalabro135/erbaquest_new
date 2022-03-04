@@ -67,6 +67,16 @@
                                                     </label>
                                                 </p>
                                                 <p>
+                                                    <label for="">Only Visible for Authenticated Users
+                                                        <input {{($menu->visible_for_auth == 1) ? 'checked="checked"' : ''}} type="checkbox" name="visible_for_auth" value="1">
+                                                    </label>
+                                                </p>
+                                                <p>
+                                                    <label for="">Only Visible for Guest Users
+                                                        <input {{($menu->visible_for_guest == 1) ? 'checked="checked"' : ''}} type="checkbox" name="visible_for_guest" value="1">
+                                                    </label>
+                                                </p>
+                                                <p>
                                                     <a class="item-delete" href="javascript:;">Remove</a> |
                                                     <a class="item-close" href="javascript:;">Close</a>
                                                 </p>

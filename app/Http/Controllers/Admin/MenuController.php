@@ -52,16 +52,20 @@ class MenuController extends Controller
                             'parent_id' => $parent,
                             'attr_class' => (!isset($value['attr_class']) || empty($value['attr_class'])) ? '' : $value['attr_class'],
                             'attr_id' => (!isset($value['attr_id']) ||empty($value['attr_id'])) ? '' : $value['attr_id'],
+                            'visible_for_guest' => (isset($value['visible_for_guest'])) ? $value['visible_for_guest'] : 0,
+                            'visible_for_auth' => (isset($value['visible_for_auth'])) ? $value['visible_for_auth'] : 0,
                         ]);
                     }
                 }
                 else{            
                     $addMenu = new Menu;
                     $addMenu->title = $label;
-                    $addMenu->link = $url;
+                    $addMenu->link = str_replace(env('APP_URL'), '', $url);
                     $addMenu->type = $type;
                     $addMenu->order = $key;
                     $addMenu->parent_id = $parent;
+                    $addMenu->visible_for_guest = (isset($value['visible_for_guest'])) ? $value['visible_for_guest'] : 0;
+                    $addMenu->visible_for_auth = (isset($value['visible_for_auth'])) ? $value['visible_for_auth'] : 0;
                     $addMenu->attr_class =  (!isset($value['attr_class']) || empty($value['attr_class'])) ? '' : $value['attr_class'];
                     $addMenu->attr_id =  (!isset($value['attr_id']) ||empty($value['attr_id'])) ? '' : $value['attr_id'];
                     $addMenu->save();

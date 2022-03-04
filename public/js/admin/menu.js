@@ -23,6 +23,23 @@
     $("body").delegate("input[name='attr_id']", "change paste keyup", function (e) {
         $(this).closest(".dd-item").data("attr_id", $(this).val());
     });
+    $("body").delegate("input[name='visible_for_auth']", "click", function (e) {
+        if($(this).is(':checked')){
+            $(this).closest(".dd-item").data("visible_for_auth", '1');
+        }
+        else{
+            $(this).closest(".dd-item").data("visible_for_auth", '0');
+        }
+    });
+    $("body").delegate("input[name='visible_for_guest']", "click", function (e) {
+        if($(this).is(':checked')){
+            $(this).closest(".dd-item").data("visible_for_guest", '1');
+        }
+        else{
+            $(this).closest(".dd-item").data("visible_for_guest", '0');
+        }
+        console.log('s1');
+    });
     $("body").delegate(".item-delete", "click", function (e) {
         let res = true;
         if ($(this).closest(".dd-item").find('ol').length > 0)
@@ -49,8 +66,10 @@
             '<div class="item-settings d-none">' +
             '<p><label for="">Navigation Label<br><input class="form-control" type="text" name="navigation_label" value="' + label + '"></label></p>' +
             '<p><label for="">Navigation Url<br><input class="form-control" type="text" name="navigation_url" value="' + url + '"></label></p>' +
-            '<p><label for="">Custom Class<br><input type="text" class="form-control" name="attr_class" value=""></label></p>'+
+            '<p><label for="">Custom Class (Add "btn-custom" to make it button)<br><input type="text" class="form-control" name="attr_class" value=""></label></p>'+
             '<p><label for="">Custom ID<br><input type="text" class="form-control" name="attr_id" value=""></label></p>'+
+            '<p><label for="">Only Visible for Authenticated Users<input type="checkbox" name="visible_for_auth" value="1"></label></p>'+
+            '<p><label for="">Only Visible for Guest Users<input type="checkbox" name="visible_for_guest" value="1"></label></p>'+
             '<p><a class="item-delete" href="javascript:;">Remove</a> |' +
             '<a class="item-close" href="javascript:;">Close</a></p>' +
             '</div>' +

@@ -31,9 +31,24 @@
         <div class="topbar">
           <ul class="topbar-list">
             @foreach($topbar as $menu)  
-              <li class="" id="{{$menu->attr_id}}">
-                <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
-              </li>
+              @if(Auth::check())
+                @if($menu->visible_for_auth == 1)
+                  <li class="" id="{{$menu->attr_id}}">
+                    <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
+                  </li>
+                @endif
+              @elseif(!Auth::check())
+                @if($menu->visible_for_guest == 1)
+                  <li class="" id="{{$menu->attr_id}}">
+                    <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
+                  </li>
+                @endif
+              @endif
+              @if($menu->visible_for_guest == 0 && $menu->visible_for_auth == 0)
+                <li class="" id="{{$menu->attr_id}}">
+                  <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
+                </li>
+              @endif
             @endforeach
           </ul>
         </div>
