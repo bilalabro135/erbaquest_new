@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Bouncer;
 use Auth;
+use Redirect;
 class IsOrganizer
 {
     /**
@@ -23,7 +24,7 @@ class IsOrganizer
                 return $next($request);
             }
         }
-        abort(401, 'You are not organizer');
+        return Redirect::route('admin');
        
     }
 }

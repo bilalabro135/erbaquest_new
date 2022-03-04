@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Bouncer;
 use Auth;
+use Redirect;
 class IsVendor
 {
     /**
@@ -23,6 +24,6 @@ class IsVendor
                 return $next($request);
             }
         }
-        abort(401, 'You are not Vendor');
+       return Redirect::route('admin');
     }
 }
