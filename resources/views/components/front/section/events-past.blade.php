@@ -1,4 +1,4 @@
-<section class="pastEvents pt-65 pb-65" style="background-image: url('{{(isset($fields['background']) ) ? $fields['background'] : '' }}');">
+<section class="pastEvents pt-65 pb-65" style="background-image: url('{{(isset($fields['background']) ) ? asset($fields['background']) : '' }}');">
   <div class="container">
     @if(isset($fields['heading']))
       <h3 class="ft-blanka vc_heading text-center clr-white">{!! $fields['heading'] !!}</h3>

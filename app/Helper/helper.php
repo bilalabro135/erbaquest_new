@@ -44,3 +44,22 @@ if (!function_exists('prepareSlug')) {
         return $slug;
 	}
 }
+
+if (!function_exists('get_url')) {
+    function get_url($url)
+    {
+        if ($url != '' && $url != '#' ) {
+            if(strpos($url, 'http') !== false){
+
+            }
+            else if(strpos($url, 'www') !== false){
+
+            }
+            else{
+                $url = env('APP_URL') . $url;
+            }
+            
+        }
+        return $url;
+    }
+}

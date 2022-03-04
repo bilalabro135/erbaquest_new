@@ -36,7 +36,7 @@ class EventRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'max:255',
-            'featured_image' => 'required|max:255',
+            'featured_image' => 'required',
             'gallery' => [
                 new GalleryRule()
             ],
@@ -67,7 +67,14 @@ class EventRequest extends FormRequest
         if (($this->has('old_slug') && $this->get('old_slug') != $this->get('slug')) || !$this->has('old_slug')) {
             $this->merge(['slug' => prepareSlug(app('App\Models\Event'), $this->get('slug'))]);
         }
-
+        $gallery = array();
+        if($this->has('gallery')){
+            foreach($this->get('gallery') as $k => $g){
+                $gallery[$k]['alt'] = $g['alt'];
+                $gallery[$k]['url'] =  str_replace(env('APP_URL'),'',$g['url']);
+            }
+            $this->merge(['gallery' => $gallery]);
+        }
 
         return [
             'name' => $this->get('name'),

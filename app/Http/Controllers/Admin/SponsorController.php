@@ -45,7 +45,7 @@ class SponsorController extends Controller
     {
         $sponsor = new Sponsor();
         $sponsor->name = $request->name;
-        $sponsor->featured_image = $request->featured_image;
+        $sponsor->featured_image = str_replace(env('APP_URL'),"",$request->featured_image) ;
         $sponsor->order = $request->order;
         $sponsor->save();
         return Redirect::route('sponsors')->with(['msg' => 'Sponsor Inserted', 'msg_type' => 'success']);
@@ -60,7 +60,7 @@ class SponsorController extends Controller
     {
         $sponsor->update([
             'name' => $request->name,
-            'featured_image' => $request->featured_image,
+            'featured_image' => str_replace(env('APP_URL'),"",$request->featured_image),
             'order' => $request->order,
         ]);
 

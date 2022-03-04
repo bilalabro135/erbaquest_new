@@ -1,4 +1,4 @@
-<section class="sec-Banner" style="background-image: url('{{(isset($fields['background']) ) ? $fields['background'] : '' }}');">
+<section class="sec-Banner" style="background-image: url('{{(isset($fields['background']) ) ? asset($fields['background']) : '' }}');">
   <div class="container">
     <div class="head-socialIcons">
           @php
@@ -45,7 +45,7 @@
         <ul class="owl-carousel owl-theme">
           @foreach($sponsors as $sponsor)
           <li class="item">
-            <img src="{{$sponsor->featured_image}}" alt="{{$sponsor->featured_image}}">
+            <img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}">
           </li>
           @endforeach
         </ul>

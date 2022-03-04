@@ -57,7 +57,7 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
-        $event->featured_image = $eventDetail['featured_image'];
+        $event->featured_image =  str_replace(env('APP_URL'),"",$eventDetail['featured_image']) ;
         $event->gallery = $eventDetail['gallery'];
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
@@ -109,7 +109,7 @@ class EventController extends Controller
         $event->update([
             'name' =>  $eventDetail['name'],
             'slug' =>  $eventDetail['slug'],
-            'featured_image' =>  $eventDetail['featured_image'],
+            'featured_image' =>  str_replace(env('APP_URL'),"",$eventDetail['featured_image'])  ,
             'gallery' =>  $eventDetail['gallery'],
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],

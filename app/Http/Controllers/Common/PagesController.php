@@ -83,7 +83,7 @@ class PagesController extends Controller
         $page->meta_keyword = $pageDetail['meta_keyword'];
         $page->meta_description = $pageDetail['meta_description'];
         $page->user_id = $pageDetail['user_id'];
-        $page->featured_image = $pageDetail['featured_image'];
+        $page->featured_image = str_replace(env('APP_URL'),"",$pageDetail['featured_image']) ;
         $page->save();
 
          return Redirect::route('pages')->with(['msg' => 'Page added', 'msg_type' => 'success']);
@@ -128,7 +128,7 @@ class PagesController extends Controller
             'meta_keyword' => $pageDetail['meta_keyword'],
             'meta_description' => $pageDetail['meta_description'],
             'user_id' => $pageDetail['user_id'],
-            'featured_image' => $pageDetail['featured_image']
+            'featured_image' =>str_replace(env('APP_URL'),"",$pageDetail['featured_image'])  
         ]);
         return Redirect::route('pages')->with(['msg' => 'Page Updated', 'msg_type' => 'success']);
     }

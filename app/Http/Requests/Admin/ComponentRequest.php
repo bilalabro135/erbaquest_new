@@ -36,6 +36,11 @@ class ComponentRequest extends FormRequest
 
     public function getComponentSettings()
     {
+        $fields = array();
+        foreach($this->get('fields') as $k => $v){
+            $fields[$k] = str_replace(env('APP_URL'), '', $v);
+        }
+        $this->merge(['fields' => $fields]);
         return [
             'name' => $this->get('name'),
             'fields' => ($this->has('fields')) ? serialize($this->get('fields')) : null,

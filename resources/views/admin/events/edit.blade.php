@@ -81,12 +81,12 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                         <label for="featured_image">Featured Image</label>
-                                        <input type="hidden" id="featured_image" value="{{$event->featured_image}}" name="featured_image">
+                                        <input type="hidden" id="featured_image" value="{{asset($event->featured_image)}}" name="featured_image">
                                         <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
                                             @empty($event->featured_image)
                                                 Upload Image
                                             @else
-                                                 <img src="{{$event->featured_image}}" style="height: 5rem;">
+                                                 <img src="{{asset($event->featured_image)}}" style="height: 5rem;">
                                             @endif
                                            
                                         </div>
@@ -112,9 +112,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                                                     @foreach($images as $key => $image)
                                                     <div class="gallery_image">
                                                         <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
-                                                        <input type="hidden" name="gallery[{{$key}}][url]" id="gallery-{{$key}}" value="{{(isset($image['url'])) ? $image['url'] : ''}}" />
+                                                        <input type="hidden" name="gallery[{{$key}}][url]" id="gallery-{{$key}}" value="{{(isset($image['url'])) ? asset($image['url']) : ''}}" />
                                                         <div class="image lfm" id="lfm-{{$key}}" data-input="gallery-{{$key}}" data-preview="lfm-{{$key}}">
-                                                            <img src="{{(isset($image['url'])) ? $image['url'] : ''}}" style="height: 5rem;">
+                                                            <img src="{{(isset($image['url'])) ? asset($image['url']) : ''}}" style="height: 5rem;">
                                                         </div>
                                                         <input type="text" name="gallery[{{$key}}][alt]" value="{{(isset($image['url'])) ? $image['alt'] : ''}}" placeholder="Alt Text"> 
                                                     </div>

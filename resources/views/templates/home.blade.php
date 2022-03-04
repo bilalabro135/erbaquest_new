@@ -2,7 +2,7 @@
 
 @section('content')
 	@if(isset($pages) && isset($pages->featured_image))
-		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{$pages->featured_image}}"/>
+		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
 	@endif
 	{!!$pages->description!!}
 	<x-front.section.home-banner />

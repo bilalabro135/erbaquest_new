@@ -9,7 +9,7 @@
                   <a href="javascript:;" class="heart-link"><i class="far fa-heart"></i></a>
                   <p class="ft-tag">Featured</p>
                 </div>
-                <img src="{{$event->featured_image}}" alt="{{$event->name}}">
+                <img src="{{asset($event->featured_image)}}" alt="{{$event->name}}">
                 <div class="author">
                   <p>{{$event->area}}</p>
                   <div class="figure">

@@ -71,7 +71,7 @@ class BlogController extends Controller
         $blog = new Blog;
         $blog->name = $blogDetail['name'];
         $blog->slug = $blogDetail['slug'];
-        $blog->featured_image = $blogDetail['featured_image'];
+        $blog->featured_image =  str_replace(env('APP_URL'),"",$blogDetail['featured_image']) ;
         $blog->status = $blogDetail['status'];
         $blog->description = $blogDetail['description'];
         $blog->short_description = $blogDetail['short_description'];
@@ -113,7 +113,7 @@ class BlogController extends Controller
         $blog->update([
             'name' => $blogDetail['name'],
             'slug' => $blogDetail['slug'],
-            'featured_image' => $blogDetail['featured_image'],
+            'featured_image' =>  str_replace(env('APP_URL'),"",$blogDetail['featured_image']),
             'status' => $blogDetail['status'],
             'description' => $blogDetail['description'],
             'short_description' => $blogDetail['short_description'],

@@ -22,7 +22,7 @@ class CreatePagesTables extends Migration
             $table->string('meta_title', 100)->nullable();
             $table->string('meta_keyword', 255)->nullable();
             $table->string('meta_description', 200)->nullable();
-            $table->string('featured_image')->nullable();
+            $table->longText('featured_image')->nullable();
             $table->string('template', 50);
             $table->enum('status', array('published', 'draft'))->default('draft');
             $table->bigInteger('user_id')->unsigned()->nullable();

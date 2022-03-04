@@ -53,7 +53,7 @@
                                                 </p>
                                                 <p>
                                                     <label for="">Navigation Url<br>
-                                                        <input type="text" class="form-control" name="navigation_url" value="{{$menu->link}}">
+                                                        <input type="text" class="form-control" name="navigation_url" value="{{get_url($menu->link)}}">
                                                     </label>
                                                 </p>
                                                 <p>

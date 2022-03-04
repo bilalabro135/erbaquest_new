@@ -7,7 +7,7 @@
       <ul class="owl-carousel owl-theme">
         @foreach($sponsors as $sponsor)
          <li class="item">
-            <img src="{{$sponsor->featured_image}}" alt="{{$sponsor->featured_image}}">
+            <img src="{{$sponsor->featured_image}}" alt="{{asset($sponsor->featured_image)}}">
           </li>
         @endforeach
       </ul>

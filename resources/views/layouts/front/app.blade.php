@@ -32,7 +32,7 @@
           <ul class="topbar-list">
             @foreach($topbar as $menu)  
               <li class="" id="{{$menu->attr_id}}">
-                <a href="{{$menu->link}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
+                <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
               </li>
             @endforeach
           </ul>
@@ -56,7 +56,7 @@
                 <ul id="menu-main-menu" class="navbar-nav">
                   @foreach($primarymenu as $menu)
                   <li class="nav-item {{$menu->attr_class}}" id="{{$menu->attr_id}}">
-                    <a href="{{$menu->link}}" class="nav-link">{{$menu->title}}</a>
+                    <a href="{{get_url($menu->link)}}" class="nav-link">{{$menu->title}}</a>
                   </li>
                   @endforeach
                 </ul>
@@ -91,7 +91,7 @@
             <ul class="menu">
               @foreach($quicklinks as $menu)
               <li>
-                <a href="{{$menu->link}}">{{$menu->title}}</a>
+                <a href="{{get_url($menu->link)}}">{{$menu->title}}</a>
               </li>
               @endforeach
             </ul>

@@ -32,9 +32,7 @@ class PageRequest extends FormRequest
                 'slug' => 'required|max:255',
                 'meta_title' => 'max:100',
                 'meta_keyword' => 'max:255',
-                'meta_description' => 'max:200',
-                'featured_image' => 'max:255',
-                'template' => 'required|max:50',
+                'meta_description' => 'max:200',                'template' => 'required|max:50',
                 'status' => 'required',
                 'user_id' => 'required',
                 'short_description' => [

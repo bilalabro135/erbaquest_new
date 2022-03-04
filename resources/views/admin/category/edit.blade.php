@@ -56,12 +56,12 @@
 			            			{{$message}}
 			            		@enderror
 			            	</div>
-			            	<input type="hidden" id="featured_image" value="{{$category->featured_image}}" name="featured_image">
+			            	<input type="hidden" id="featured_image" value="{{asset($category->featured_image)}}" name="featured_image">
                             <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 @empty($category->featured_image)
                                     Upload Image
                                 @else
-                                     <img src="{{$category->featured_image}}" style="height: 5rem;">
+                                     <img src="{{asset($category->featured_image)}}" style="height: 5rem;">
                                 @endif
                                
                             </div>

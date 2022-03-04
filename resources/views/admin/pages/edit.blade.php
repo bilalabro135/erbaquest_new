@@ -150,12 +150,12 @@
                             <h1 class="h5  text-gray-800 m-0">Featured Image</h1>
                         </div>
                         <div class="card-body">
-                            <input type="hidden" id="featured_image" value="{{$pages->featured_image}}" name="featured_image">
+                            <input type="hidden" id="featured_image" value="{{asset($pages->featured_image)}}" name="featured_image">
                             <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 @empty($pages->featured_image)
                                     Upload Image
                                 @else
-                                     <img src="{{$pages->featured_image}}" style="height: 5rem;">
+                                     <img src="{{asset($pages->featured_image)}}" style="height: 5rem;">
                                 @endif
                                
                             </div>

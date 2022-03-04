@@ -47,7 +47,7 @@ class MenuController extends Controller
                     else{
                         $updateMenu = Menu::where('id', $value['id'])->update([
                             'title' => $label,
-                            'link' => $url,
+                            'link' => str_replace(env('APP_URL'), '', $url),
                             'order' => $key,
                             'parent_id' => $parent,
                             'attr_class' => (!isset($value['attr_class']) || empty($value['attr_class'])) ? '' : $value['attr_class'],

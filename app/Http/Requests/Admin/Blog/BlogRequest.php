@@ -36,7 +36,6 @@ class BlogRequest extends FormRequest
             'meta_title' => 'max:100',
             'meta_keyword' => 'max:255',
             'meta_description' => 'max:200',
-            'featured_image' => 'max:255',
             'status' => 'required',
             'user_id' => 'required',
             'gallery' => [
@@ -54,7 +53,14 @@ class BlogRequest extends FormRequest
         if (($this->has('old_slug') && $this->get('old_slug') != $this->get('slug')) || !$this->has('old_slug')) {
             $this->merge(['slug' => prepareSlug(app('App\Models\Blog'), $this->get('slug'))]);
         }
-
+        $gallery = array();
+        if($this->has('gallery')){
+            foreach($this->get('gallery') as $k => $g){
+                $gallery[$k]['alt'] = $g['alt'];
+                $gallery[$k]['url'] =  str_replace(env('APP_URL'),'',$g['url']);
+            }
+            $this->merge(['gallery' => $gallery]);
+        }
 
         return [
             'name' => $this->get('name'),

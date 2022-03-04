@@ -51,7 +51,7 @@
                     <label for="background_preview">Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#background', '#background_preview', 'Image');">Remove</a></small>)</label>
                     <div class="lfm file-upload" id="background_preview" data-input="background" data-preview="background_preview">
                     @if(isset($fields['background']))
-                    <img src="{{$fields['background']}}" style="height: 5rem;">
+                    <img src="{{asset($fields['background'])}}" style="height: 5rem;">
                     @else
                     Image
                     @endif

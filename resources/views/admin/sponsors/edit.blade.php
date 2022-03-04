@@ -33,12 +33,12 @@
                             </div>
                             <div class="form-group">
                             <label for="featured_image">Featured Image</label>
-                            <input type="hidden" id="featured_image" value="{{$sponsor->featured_image}}" name="featured_image">
+                            <input type="hidden" id="featured_image" value="{{asset($sponsor->featured_image)}}" name="featured_image">
                             <div class="file-upload" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 @empty($sponsor->featured_image)
                                     Upload Image
                                 @else
-                                     <img src="{{$sponsor->featured_image}}" style="height: 5rem;">
+                                     <img src="{{asset($sponsor->featured_image)}}" style="height: 5rem;">
                                 @endif
                                
                             </div>

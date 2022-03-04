@@ -55,7 +55,7 @@ class CategoryController extends Controller
         $Category->name = $CategoryRequest['name'];
         $Category->slug = $CategoryRequest['slug'];
         $Category->description = $CategoryRequest['description'];
-        $Category->featured_image = $CategoryRequest['featured_image'];
+        $Category->featured_image = str_replace(env('APP_URL'),"",$CategoryRequest['featured_image']) ;
         $Category->parent_id = $CategoryRequest['parent_id'];
         $Category->save();
         return Redirect::route('categories')->with(['msg' => 'Category added', 'msg_type' => 'success']);
@@ -93,7 +93,7 @@ class CategoryController extends Controller
             'name' => $CategoryRequest['name'],
             'slug' => $CategoryRequest['slug'],
             'description' => $CategoryRequest['description'],
-            'featured_image' => $CategoryRequest['featured_image'],
+            'featured_image' => str_replace(env('APP_URL'),"",$CategoryRequest['featured_image']) ,
         ]);
         return Redirect::route('categories')->with(['msg' => 'Category Updated', 'msg_type' => 'success']);
     }

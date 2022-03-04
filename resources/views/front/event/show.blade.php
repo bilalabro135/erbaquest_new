@@ -2,7 +2,7 @@
 
 @section('content')
 	@if(isset($pages) && isset($pages->featured_image))
-		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{$pages->featured_image}}"/>
+		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
 	@endif
 
     <section class="event-inner pt-100 pb-100">
@@ -16,7 +16,7 @@
           </div>
           <div class="col-sm-12 col-md-6">
             <figure class="m-0">
-              <img src="{{$event->featured_image}}">
+              <img src="{{asset($event->featured_image)}}">
             </figure>
           </div>
         </div>
@@ -30,7 +30,7 @@
           	@foreach($gallery as $gal)
 	            <li class="item">
 	              <div class="figure">
-	                <img src="{{$gal['url']}}" alt="{{$gal['alt']}}">
+	                <img src="{{asset($gal['url'])}}" alt="{{$gal['alt']}}">
 	              </div>
 	            </li>
           	@endforeach

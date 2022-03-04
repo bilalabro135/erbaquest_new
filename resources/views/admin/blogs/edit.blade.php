@@ -75,9 +75,9 @@
                             @foreach($images as $key => $image)
                                 <div class="gallery_image">
                                     <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
-                                    <input type="hidden" name="gallery[{{$key}}][url]" id="gallery-{{$key}}" value="{{(isset($image['url'])) ? $image['url'] : ''}}" />
+                                    <input type="hidden" name="gallery[{{$key}}][url]" id="gallery-{{$key}}" value="{{(isset($image['url'])) ? asset($image['url']) : ''}}" />
                                     <div class="image lfm" id="lfm-{{$key}}" data-input="gallery-{{$key}}" data-preview="lfm-{{$key}}">
-                                        <img src="{{(isset($image['url'])) ? $image['url'] : ''}}" style="height: 5rem;">
+                                        <img src="{{(isset($image['url'])) ? asset($image['url']) : ''}}" style="height: 5rem;">
                                     </div>
                                     <input type="text" name="gallery[{{$key}}][alt]" value="{{(isset($image['url'])) ? $image['alt'] : ''}}" placeholder="Alt Text"> 
                                 </div>
@@ -207,12 +207,12 @@
                             <h1 class="h5  text-gray-800 m-0">Featured Image</h1>
                         </div>
                         <div class="card-body">
-                            <input type="hidden" id="featured_image" value="{{$blog->featured_image}}" name="featured_image">
+                            <input type="hidden" id="featured_image" value="{{asset($blog->featured_image)}}" name="featured_image">
                             <div class="file-upload lfm" id="lfm" data-input="featured_image" data-preview="lfm" >
                                 @empty($blog->featured_image)
                                     Upload Image
                                 @else
-                                     <img src="{{$blog->featured_image}}" style="height: 5rem;">
+                                     <img src="{{asset($blog->featured_image)}}" style="height: 5rem;">
                                 @endif
                                
                             </div>

@@ -2,7 +2,7 @@
 <div class="col-sm-12 col-md-6">
   <div class="event-box">
     <figure>
-      <img src="{{$event->featured_image}}">
+      <img src="{{asset($event->featured_image)}}">
     </figure>
     <div class="detail">
       <h4>{{$event->name}}</h4>
