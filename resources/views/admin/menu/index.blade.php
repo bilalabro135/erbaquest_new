@@ -36,7 +36,7 @@
                             <div class="dd" id="nestable">
                                 <ol class="dd-list">                                
                                     @foreach($menus as $menuIndex => $menu) 
-                                        <li data-id="{{$menu->id}}" data-label="{{$menu->title}}" class="dd-item dd3-item" data-url="{{$menu->link}}" data-visible_for_auth="{{$menu_child->visible_for_auth }}" data-visible_for_guest="{{$menu_child->visible_for_guest }}" data-attr_class="{{$menu->attr_class}}" data-attr_id="{{$menu->attr_id}}">
+                                        <li data-id="{{$menu->id}}" data-label="{{$menu->title}}" class="dd-item dd3-item" data-url="{{$menu->link}}" data-visible_for_auth="{{$menu->visible_for_auth }}" data-visible_for_guest="{{$menu->visible_for_guest }}" data-attr_class="{{$menu->attr_class}}" data-attr_id="{{$menu->attr_id}}">
 
                                             <div class="dd-handle dd3-handle">
                                                 Drag
