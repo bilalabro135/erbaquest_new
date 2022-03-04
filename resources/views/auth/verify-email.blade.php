@@ -8,9 +8,9 @@
                     <div class="card-header"><strong>{{auth()->user()->name}}</strong> {{ __('Verify Your Email Address First') }}</div>
 
                     <div class="card-body">
-                        @if (session('resent'))
+                        @if (session('message'))
                             <div class="alert alert-success" role="alert">
-                                {{ __('A fresh verification link has been sent to your email address.') }}
+                                {{ session('message') }}
                             </div>
                         @endif
 

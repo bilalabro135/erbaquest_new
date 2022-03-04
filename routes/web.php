@@ -47,7 +47,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed', 'shouldVerifyEmail'])->name('verification.verify');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
+    return back()->with('message', 'A fresh verification link has been sent to your email address.');
 })->middleware(['auth', 'throttle:6,1', 'shouldVerifyEmail'])->name('verification.send');
 
 // Forogot Password

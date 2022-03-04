@@ -42,7 +42,7 @@
               <div class="navbar-brand">
                 <a href="{{route('home')}}"> 
                 @if($globalsettings->getValue('site_logo'))
-                    <img src="{{ $globalsettings->getValue('site_logo') }}"  alt="{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}">
+                    <img src="{{ $globalsettings->getValue('site_logo') }}"  alt="{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}" >
                   @else
                     {{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}
                   @endif
@@ -148,9 +148,18 @@
       </div>
     </div>
     <footer class="footer">
-      <div class="ft-text">
-        <p>Copyright © 2021 erbaquest - All rights reserved</p>
-      </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex align-center">
+                    <p>Copyright © 2021 erbaquest - All rights reserved</p>
+                </div>
+                <div class="col-md-6" style="
+    text-align: right;
+">
+                    <img src="{{asset('images/Minimal-Credit-Card-Icons.png')}}" style="width: 200px">
+                </div>
+            </div>
+        </div>
     </footer>
  <script src="{{ asset('js/front/app.js' ) }}"></script>
  <script type="text/javascript">

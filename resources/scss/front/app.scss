@@ -3183,3 +3183,19 @@ div#card-element {
 .__PrivateStripeElement {
     width: 100%;
 }
+.cms-content h2,.cms-content h3 {
+    font-family: "Blanka";
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+.cms-content p {
+    font-size: 17px;
+    line-height: 29px;
+}
+.cms-content ul,.cms-content ol {
+    padding-left: 15px;
+}
+.cms-content ul li, .cms-content ol li {
+    color: #7c7c7c;
+    margin: 10px 0;
+}

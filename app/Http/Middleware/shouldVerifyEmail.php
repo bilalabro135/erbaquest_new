@@ -17,7 +17,7 @@ class shouldVerifyEmail
     public function handle(Request $request, Closure $next)
     {
         $allow = Settings::get('registration');
-        if(isset($allow['allow_forget_password']) && $allow['allow_forget_password'] == 1){ 
+        if(isset($allow['email_verification_on_reg']) && $allow['email_verification_on_reg'] == 1){ 
             return $next($request);   
         }
         else{

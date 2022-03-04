@@ -4,5 +4,7 @@
 	@if(isset($pages) && isset($pages->featured_image))
 		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{$pages->featured_image}}"/>
 	@endif
-	{!!$pages->description!!}
+	<div class="container cms-content pt-100 pb-100">
+	    {!!$pages->description!!}
+	</div>
 @endsection
