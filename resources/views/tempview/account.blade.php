@@ -34,7 +34,7 @@
                         <a href="javascript:;">Upcoming Event</a>
                       </li>
                       <li class="item">
-                        <a href="javascript:;">Edit Event</a>
+                        <a href="{{route('edit.event')}}">Edit Event</a>
                       </li>
                       <li class="item">
                         <a href="javascript:;">Draft</a>
@@ -52,7 +52,7 @@
                         <a href="javascript:;">Upcoming Event</a>
                       </li>
                       <li class="item">
-                        <a href="javascript:;">Edit Event</a>
+                        <a href="{{route('edit.event')}}">Edit Event</a>
                       </li>
                       <li class="item">
                         <a href="javascript:;">Draft</a>
@@ -70,7 +70,7 @@
                         <a href="javascript:;">Upcoming Event</a>
                       </li>
                       <li class="item">
-                        <a href="javascript:;">Edit Event</a>
+                        <a href="{{route('edit.event')}}">Edit Event</a>
                       </li>
                       <li class="item">
                         <a href="javascript:;">Draft</a>
@@ -151,3 +151,14 @@
     </section>
 
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+	
+        $('ul.menu_list li .down-icon').on('click',function(){
+          $(this).parent('li').toggleClass('current');
+          $(this).parent('li').find('ul.sub-menu').slideToggle();
+        })
+</script>
+
+@endpush
