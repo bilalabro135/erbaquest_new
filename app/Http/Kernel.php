@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'CanAccessDashboard' => \App\Http\Middleware\CanAccessDashboard::class,        
         'shouldVerifyEmail' => \App\Http\Middleware\shouldVerifyEmail::class,
         'shouldPasswordReset' => \App\Http\Middleware\shouldPasswordReset::class,
+        'isOrganizer' => \App\Http\Middleware\IsOrganizer::class,
+        'isVendor' => \App\Http\Middleware\IsVendor::class,
     ];
 }

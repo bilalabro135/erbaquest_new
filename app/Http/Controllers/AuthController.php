@@ -29,8 +29,8 @@ class AuthController extends Controller
 
         if (Auth::attempt(array($fieldType => $credentials['username'], 'password' => $credentials['password']), request()->has('remember'))) {
             $request->session()->regenerate();
-
             return redirect()->intended('admin');
+
         }
 
         return back()->withErrors([

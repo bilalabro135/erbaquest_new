@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Bouncer;
 use Auth;
-use Redirect;
-class CanAccessDashboard
+class IsOrganizer
 {
     /**
      * Handle an incoming request.
@@ -18,19 +17,13 @@ class CanAccessDashboard
      */
     public function handle(Request $request, Closure $next)
     {
-
-        $user= Auth::user();
-        if(Bouncer::can('accessDashboard')){
-              return $next($request);
+        if(Auth::check()) { 
+            $user= Auth::user();
+            if (Bouncer::is($user)->an('Organizer')) {
+                return $next($request);
+            }
         }
-        else if(Bouncer::is($user)->an('Organizer')){
-            return Redirect::route('organizer.account');
-        }
-        else if(Bouncer::is($user)->an('Vendor')) {
-            return Redirect::route('vendor.account');
-        }
-        else{
-            return Redirect::route('home');
-        }
+        abort(401, 'You are not organizer');
+       
     }
 }

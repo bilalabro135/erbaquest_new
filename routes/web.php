@@ -177,6 +177,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
 });
 
 
+Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
+Route::view('events/edit', 'tempview.edit-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
+Route::view('contact', 'tempview.contact')->name('events.create');
+Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
+Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');
+Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('events.create');
+
+
+
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
     Route::get('/', [PagesController::class, 'home'])->name('home');
@@ -184,4 +193,5 @@ Route::group(['front'],  function () {
     Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
     Route::get('/{pages:slug}/{id}', [LoadController::class, 'index'])->name('posts.show');
     Route::post('/subscription/create/', [SubscriptionController::class, 'create'])->name('subscription.create');
+
 });

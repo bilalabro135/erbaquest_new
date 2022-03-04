@@ -1,4 +1,4 @@
-<section class="secNewsletter">
+<section class="secNewsletter" style="background-image: url('{{(isset($fields['background']) ) ? asset($fields['background']) : '' }}');">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-6">

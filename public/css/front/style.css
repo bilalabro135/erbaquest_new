@@ -3209,3 +3209,19 @@ div#card-element {
   color: #7c7c7c;
   margin: 10px 0;
 }
+
+.rcVendor-list ul li img {
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+}
+
+.topbar ul li a {
+  text-transform: uppercase;
+}
+
+.event-box_list .detail a.link {
+  text-transform: uppercase;
+}

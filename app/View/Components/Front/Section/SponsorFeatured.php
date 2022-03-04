@@ -4,6 +4,8 @@ namespace App\View\Components\Front\Section;
 
 use Illuminate\View\Component;
 use App\Models\Sponsor;
+use App\Models\Components;
+
 
 class SponsorFeatured extends Component
 {
@@ -12,6 +14,7 @@ class SponsorFeatured extends Component
      *
      * @return void
      */
+    public $fields;
     public $sponsors;
     public function __construct()
     {
@@ -25,6 +28,8 @@ class SponsorFeatured extends Component
      */
     public function render()
     {
+        $component = Components::where('name', 'newsletter')->first();
+        $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
         $this->sponsors = Sponsor::orderBy('order', 'ASC')->get();
         if (count($this->sponsors)) 
             return view('components.front.section.sponsor-featured');
