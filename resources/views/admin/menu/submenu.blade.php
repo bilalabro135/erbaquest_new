@@ -1,5 +1,5 @@
 @foreach($menu->children()->orderBy('order', 'asc')->get() as $menuchildIndex => $menu_child) 
-<li data-id="{{$menu_child->id}}" data-label="{{$menu_child->title}}" class="dd-item dd3-item" data-url="{{$menu_child->link}}" data-attr_class="{{$menu_child->attr_class}}" data-attr_id="{{$menu_child->attr_id}}">
+<li data-id="{{$menu_child->id}}" data-label="{{$menu_child->title}}" class="dd-item dd3-item" data-url="{{$menu_child->link}}" data-attr_class="{{$menu_child->attr_class}}" data-visible_for_auth="{{$menu_child->visible_for_auth }}" data-visible_for_guest="{{$menu_child->visible_for_guest }}" data-attr_id="{{$menu_child->attr_id}}">
 	<div class="dd-handle dd3-handle">
         Drag
     </div>
