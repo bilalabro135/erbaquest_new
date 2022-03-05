@@ -135,3 +135,15 @@
     </section>
 
 @endsection
+
+
+@push('scripts')
+<script type="text/javascript">
+  
+        $('ul.menu_list li .down-icon').on('click',function(){
+          $(this).parent('li').toggleClass('current');
+          $(this).parent('li').find('ul.sub-menu').slideToggle();
+        })
+</script>
+
+@endpush
