@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\ComponenetController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
 use App\Http\Controllers\Front\SubscriptionController;
+
+use App\Http\Controllers\Front\AccountController;
 use App\Http\Controllers\LoadController;
 
 /*
@@ -176,15 +178,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
 
-// There is multipule events.create Name
-Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('event.create');
+Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
 Route::view('events/edit', 'tempview.edit-event')->middleware('auth', 'isOrganizer', 'verified')->name('edit.event');
-Route::view('contact', 'tempview.contact')->name('events.create');
+Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
 Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');
-Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('events.create');
+Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('account.setting');
 
-
+// 
+Route::get('/account/edit/', [AccountController::class, 'edit'])->name('account.edit');
 
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
@@ -193,5 +195,4 @@ Route::group(['front'],  function () {
     Route::get('/{pages:slug}', [PagesController::class, 'show'])->name('pages.show');
     Route::get('/{pages:slug}/{id}', [LoadController::class, 'index'])->name('posts.show');
     Route::post('/subscription/create/', [SubscriptionController::class, 'create'])->name('subscription.create');
-
 });

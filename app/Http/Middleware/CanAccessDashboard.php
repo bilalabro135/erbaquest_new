@@ -24,7 +24,7 @@ class CanAccessDashboard
               return $next($request);
         }
         else if(Bouncer::is($user)->an('Organizer')){
-            return Redirect::route('event.create');
+            return Redirect::route('events.create');
         }
         else if(Bouncer::is($user)->an('Vendor')) {
             return Redirect::route('vendor.account');

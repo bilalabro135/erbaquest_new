@@ -3,12 +3,12 @@
 @if (! empty($greeting))
     # {{ $greeting }}
 @else
-     Hello {{ auth()->user()->name }},
+    # Hello {{ auth()->user()->name }},
 @endif
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
-    {{ $line }}
+   <p> {{ $line }} </p>
 @endforeach
 
 {{-- Action Button --}}
@@ -39,8 +39,9 @@
 {{ $salutation }}
 @else
 @lang('Regards'),<br>
-{{ config('app.name') }} Admin
+{{ config('app.name') }} Admin<br>
 @endif
+<img src="https://erba-quest.geeksroot.net/storage/photos/1/logoo.png" alt="logo" />
 
 {{-- Subcopy --}}
 @isset($actionText)
