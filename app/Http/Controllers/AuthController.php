@@ -55,7 +55,9 @@ class AuthController extends Controller
         $Settings = Settings::get('registration');
 
         $userData= $request->getUserData();
-
+        // echo "<pre>";
+        // print_r($userData);
+        // exit();
         $user = new User;
         $user->name = $userData['name'];
         $user->email = $userData['email'];
@@ -63,6 +65,7 @@ class AuthController extends Controller
         $user->address = $userData['address'];
         $user->password = $userData['password'];
         $user->phone = $userData['phone'];
+
 
         if(!isset($Settings['email_verification_on_reg']) || $Settings['email_verification_on_reg'] != 1){
             $user->email_verified_at = $userData['email_verified_at'];
@@ -75,7 +78,7 @@ class AuthController extends Controller
             $user->save();
             $user->assign($userData['role']);
             Auth::loginUsingId($user->id);   
-            $user->sendEmailVerificationNotification();
+            $user->sendEmailVerificationNotification($user);
             return Redirect::route('verification.notice')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
         }
     }

@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Verify Email', 'sidebar' => false, 'topbar' => false])
+@extends('layouts.front.app', ['body_class' => 'bg-gradient-primary', 'title' => 'Verify Email', 'sidebar' => false, 'topbar' => false])
 
 @section('content')
     <div class="container">

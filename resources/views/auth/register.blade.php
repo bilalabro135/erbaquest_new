@@ -12,9 +12,9 @@
                   SignUp
                 </h3>
                 <div class="sign_btns text-center mb-40">
-                  <a href="javascript:;" class="btn-custom showEventSignup">Event Organizer</a>
+                  <a href="javascript:;" class="btn-custom active_style showEventSignup">Event Organizer</a>
                   @if(count($packages))
-                  <a href="javascript:;" class="btn-custom btn-custom-alter showvendorSignup">Vendor</a>
+                  <a href="javascript:;" class="btn-custom showvendorSignup">Vendor</a>
                   @endif
                 </div>
                 <!-- Nested Row within Card Body -->
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="input-field input-checkbox">
                                     <label class="checkmark">
-                                        <input type="checkbox" name="terms_and_condition" value="1">I Agree With Terms & Conditon
+                                        <input type="checkbox" name="terms_and_condition" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
                                     </label>
                                     @error('terms_and_condition')
                                     <span class="invalid-feedback" role="alert">
@@ -390,6 +390,7 @@ function stripeTokenHandler(token) {
       });
 
       $('.showEventSignup').on('click',function(){
+        $(this).addClass('active_style');
         $('.secSignup-vendor').addClass('d-none');
         $('.secSignup').addClass('d-none');
         $('.personal_div').addClass('d-none');
@@ -397,6 +398,16 @@ function stripeTokenHandler(token) {
         $('.secSponsor').addClass('pb-100');
         $('.card').addClass('pb-100');
       });
+
+        $('.sign_btns .btn-custom').on('click',function(){
+            $(this).removeClass('active_style');
+            $(this).addClass('active_style');
+        });
+
+        $('.sign_btns .btn-custom').on('click', function(){
+            $('.sign_btns .btn-custom.active_style').removeClass('active_style');
+            $(this).addClass('active_style');
+        });
 
       $('.select-plan').click(function(){
         // $('.secSponsor').addClass('d-none');

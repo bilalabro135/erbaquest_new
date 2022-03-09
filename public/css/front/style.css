@@ -2708,7 +2708,8 @@ input.vendor_list {
   color: #fff;
 }
 
-.btn-custom-alter {
+.btn-custom-alter,
+.active_style {
   background: #247338;
   color: #fff;
 }
@@ -3228,4 +3229,9 @@ div#card-element {
 
 .navbar-expand-xl .navbar-nav .nav-link:focus {
   color: #fff;
+}
+
+/*AG*/
+.input-checkbox .checkmark a {
+  color: #7c7c7c;
 }

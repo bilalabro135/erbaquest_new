@@ -10,7 +10,7 @@ class Settings extends Model
     use HasFactory;
     protected $table='settings';
 
-    public function get($name)
+    public static function get($name)
     {
         $data  = Settings::where('name', '=', $name)->first();
         $settings = (isset($data->value) && $data->value != null) ? unserialize($data->value) : array();

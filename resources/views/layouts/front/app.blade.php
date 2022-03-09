@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Erba Quest</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="{{$globalsettings->getValue('site_fav')}}">
     <link rel="manifest" href="manifest.json" />
     <!-- ios support -->
 

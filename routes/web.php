@@ -176,8 +176,8 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
 
-
-Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
+// There is multipule events.create Name
+Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('event.create');
 Route::view('events/edit', 'tempview.edit-event')->middleware('auth', 'isOrganizer', 'verified')->name('edit.event');
 Route::view('contact', 'tempview.contact')->name('events.create');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
