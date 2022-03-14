@@ -178,15 +178,19 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
 
-Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
-Route::view('events/edit', 'tempview.edit-event')->middleware('auth', 'isOrganizer', 'verified')->name('edit.event');
+// Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
+Route::get('/event', [EventController::class, 'frontindex'])->name('front.events')->middleware('role:viewEvents');
+Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
+Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
+Route::view('events/edit', 'tempview.edit-event')->name('edit.event');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
 Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');
 Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('account.setting');
 
 // 
-Route::get('/account/edit/', [AccountController::class, 'edit'])->name('account.edit');
+Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth', 'isOrganizer', 'verified');
+Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
 
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');

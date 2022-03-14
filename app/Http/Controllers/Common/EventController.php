@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EventRequest;
+use App\Http\Requests\Common\FrontEventRequest;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Pages;
@@ -19,6 +21,9 @@ class EventController extends Controller
 {
     public function index(){
         return view('admin.events.index');
+    }
+    public function frontindex(){
+        return view('components.front.section.events-all');
     }
 
     public function getevents()
@@ -50,10 +55,17 @@ class EventController extends Controller
         return view('admin.events.add', compact('users', 'vendors', 'amenities'));
     }
 
+    public function frontcreate()
+    {
+        $users = User::whereIs('Admin', 'Organizer')->get();
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities'));
+    }
+
     public function store(EventRequest $request)
     {
         $eventDetail = $request->getEventData();
-
         $event = new Event();
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
@@ -93,6 +105,59 @@ class EventController extends Controller
             $event->amenities()->attach($request->amenities);
 
         return Redirect::route('events')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+    }
+
+    public function frontstore(FrontEventRequest $request)
+    {
+        $eventDetail = $request->getEventData();
+        // dd($eventDetail);
+        $gallery_img = array();
+        $event = new Event();
+        $event->name = $eventDetail['name'] ;
+        $event->slug = $eventDetail['slug'] ;
+        $event->featured_image = $request->file('featured_image')->store('public/images');
+
+        // $event->gallery[] = $request->file('gallery')->store('public/images');
+        // dd($gallery);
+
+        $event->description = $eventDetail['description'];
+        $event->event_date = $eventDetail['event_date'];
+        $event->address = $eventDetail['address'];
+        $event->type = $eventDetail['type'];
+        $event->door_dontation = $eventDetail['door_dontation'];
+        $event->vip_dontation = $eventDetail['vip_dontation'];
+        $event->vip_perk = $eventDetail['vip_perk'];
+        $event->charity = $eventDetail['charity'];
+        $event->cost_of_vendor = $eventDetail['cost_of_vendor'];
+        $event->vendor_space_available = $eventDetail['vendor_space_available'];
+        $event->area = $eventDetail['area'];
+        $event->height = $eventDetail['height'];
+        $event->capacity = $eventDetail['capacity'];
+        $event->ATM_on_site = $eventDetail['ATM_on_site'];
+        $event->tickiting_number = $eventDetail['tickiting_number'];
+        $event->vendor_number = $eventDetail['vendor_number'];
+        $event->user_number = $eventDetail['user_number'];
+        $event->website_link = $eventDetail['website_link'];
+        $event->facebook = $eventDetail['facebook'];
+        $event->twitter = $eventDetail['twitter'];
+        $event->linkedin = $eventDetail['linkedin'];
+        $event->instagram = $eventDetail['instagram'];
+        $event->youtube = $eventDetail['youtube'];
+        $event->status = $eventDetail['status'];
+
+        $user = Auth::user();
+        $event->user_id = $user->id;
+        $event->save();
+
+        // echo '<pre>'; print_r($request->vendors); echo '</pre>'; exit;
+
+        if($request->has('vendors'))
+            $event->vendors()->attach($request->vendors);
+
+        if($request->has('amenities'))
+            $event->amenities()->attach($request->amenities);
+
+        return Redirect::route('front.events')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
     }
 
     public function edit(Event $event)

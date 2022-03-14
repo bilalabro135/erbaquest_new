@@ -15,130 +15,125 @@
     <section class="secAccount pt-100 pb-100">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-4">
-            <div class="sidebar">
-              <h3 class="clr-white text-center">DASHBORD</h3>
-              <div class="sidebar-menu">
-                <ul class="menu_list">
-                  <li class="current">
-                    <a href="javascript:;">Account Setting</a>
-                  </li>
-                  <li class="have_child-items">
-                    <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">My Events</a>
-                    <ul class="sub-menu">
-                      <li class="item">
-                        <a href="javascript:;">Add Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="{{route('edit.event')}}">Edit Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Draft</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="have_child-items">
-                    <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">My Order</a>
-                    <ul class="sub-menu">
-                      <li class="item">
-                        <a href="javascript:;">Add Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="{{route('edit.event')}}">Edit Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Draft</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="have_child-items">
-                    <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">Paymeny History</a>
-                    <ul class="sub-menu">
-                      <li class="item">
-                        <a href="javascript:;">Add Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="{{route('edit.event')}}">Edit Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Draft</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="javascript:;">Logout</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          @include( 'tempview/sidebar' )
           <div class="col-sm-12 col-md-8">
             <div class="profile_info">
               <figure>
                 <img src="{{asset('images/profilePic.png')}}">
               </figure>
               <div class="dt">
-                <h3>LOREM IPSUM</h3>
-                <p>Lorem Ipsum</p>
+                <!-- <h3>LOREM IPSUM</h3> -->
+                <h3>{{ $users->name }}</h3>
+                <p>{{ $users->user_name }}</p>
               </div>
               <a href="javascript:;" class="edit_btn"><span class="figure"><img src="{{asset('images/edit-icon.png')}}"></span></a>
             </div>
             <div class="account_editForm">
-              <form class="" action="" method="post" enctype="multipart/form-data">
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+              @endif
+              @if(session('msg'))
+              <div class="alert alert-{{session('msg_type')}}">
+                  {{session('msg')}}                                            
+              </div>
+              @endif
+              <form class="" method="POST" action="{{ route('account.update') }}" enctype="multipart/form-data">
+                 @csrf
+                 <input type="hidden" name="username" value="{{ $users->user_name }}">
+                 <input type="hidden" name="id" value="{{ $users->id }}">
                 <div class="input-field">
                   <label>NAME:</label>
-                  <input type="text" name="name" placeholder="NAME:" required="required" value="LOREM IPSUM">
+                  <input type="text" name="name" placeholder="NAME:" required="required" value="{{ $users->name }}">
+                  @error('name')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>EMAIL:</label>
-                  <input type="email" name="email" placeholder="EMAIL:" required="required" value="erbaquest@gmail.com">
+                  <input type="email" name="email" placeholder="EMAIL:" required="required" value="{{ $users->email }}">
+                  @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>PHONE:</label>
-                  <input type="tel" name="phone" placeholder="PHONE:" value="+(123)4567890">
+                  <input type="tel" name="phone" placeholder="PHONE:" value="{{ $users->phone }}">
+                  @error('phone')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field input-file">
                   <label>UPLOAD PICTURE: </label>
-                  <input type="file" id="myFile" name="filename">
+                  <input type="file" id="myFile123" name="filename">
                   <div class="preview"></div>
                   <button type="button" id="uploadImg">
                     <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                     <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                   </button>
+                  @error('filename')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>ADDRESS:</label>
-                  <input type="text" name="address" placeholder="ADDRESS:" required="required" value="Keas 69 Str. 15234, Chalandri">
+                  <input type="text" name="address" placeholder="ADDRESS:" required="required" value="{{ $users->address }}">
+                  @error('address')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>DESCRIPTION:</label>
                   <textarea name="description" placeholder="DESCRIPTION.."></textarea>
+                  @error('description')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>PASSWORD:</label>
-                  <input type="text" name="password" placeholder="PASSWORD:" required="required">
+                  <input type="text" name="password" placeholder="PASSWORD:" >
+                  @error('password')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field">
                   <label>Confirm PASSWORD:</label>
-                  <input type="text" name="password1" placeholder="Confirm PASSWORD:" required="required">
+                  <input type="text" name="password1" placeholder="CONFIRM PASSWORD:" >
+                  @error('password1')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field input-checkbox">
                   <label>
-                    <input type="checkbox" name="agreement" required="required">
+                    <input type="checkbox" name="agreement" >
                     I agree Terms & Conditions
                   </label>
+                  @error('agreement')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
                 <div class="input-field input-submit">
                   <input type="submit" name="submit" value="UPDATE">

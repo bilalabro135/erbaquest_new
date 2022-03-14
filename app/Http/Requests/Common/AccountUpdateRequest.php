@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\User;
+namespace App\Http\Requests\Common;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Hash;
 use App\Rules\Telephone;
-class UserUpdateRequest extends FormRequest
+
+class AccountUpdateRequest extends FormRequest 
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,12 +38,13 @@ class UserUpdateRequest extends FormRequest
         return [
             'id' => 'required',
             'name' => 'required|max:255',
-            'profile_image' => 'max:255',
+            'filename' => 'max:255',
             'username' => 'unique:users,username,'.$this->get('id').'|required|max:255',
             'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
             'phone' => ['required', new Telephone()],
             'address' => 'max:255',
-            'role' => 'required',
+            'password' => 'max:255',
+            'password_confirmation' => 'same:password|max:255',
         ];
     }
     public function getUserData()
@@ -55,10 +57,10 @@ class UserUpdateRequest extends FormRequest
             'email' => $this->get('email'),
             'username' => $this->get('username'),
             'address' =>( $this->has('address')) ? $this->get('address') : null,
-            'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,
+            'filename' =>( $this->has('filename')) ? $this->get('filename') : null,
             'phone' => $this->get('phone'),
        ];
-       if ($this->has('password') && $this->get('password') != null ) {        
+       if ($this->has('password') && $this->get('password') != null && $this->get('password') != 'null') {        
              $data['password'] =  Hash::make($this->get('password'));
            
        }
@@ -69,7 +71,7 @@ class UserUpdateRequest extends FormRequest
        return $data;
     }
     public function hasPassword(){
-       return ($this->has('password') && $this->get('password') != null);
+       return ($this->has('password') && $this->get('password') != null  && $this->get('password') != 'null');
     }
     public function shouldUpdateVerifiacation(){
        return ($this->has('email_verified_at') && $this->get('email_verified_at') != '' ) ? true : false;

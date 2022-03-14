@@ -1,4 +1,9 @@
 @foreach($events as $event)
+<?php  
+// echo "<pre>";
+// print_r($event);
+// exit();
+?>
 <div class="col-sm-12 col-md-6">
   <div class="event-box">
     <figure>
@@ -21,7 +26,9 @@
         @if($pageSlug != '')
         <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}">Details</a>
         @endif
+        @if(!empty($event->organizer->name))
         <h5>{{$event->organizer->name}} <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}"></h5>
+        @endif
       </div>
     </div>
   </div>

@@ -168,9 +168,7 @@
                 <div class="col-md-6 d-flex align-center">
                     <p>Copyright © 2021 erbaquest - All rights reserved</p>
                 </div>
-                <div class="col-md-6" style="
-    text-align: right;
-">
+                <div class="col-md-6" style="text-align: right;">
                     <img src="{{asset('images/Minimal-Credit-Card-Icons.png')}}" style="width: 200px">
                 </div>
             </div>
@@ -183,7 +181,7 @@
       setTimeout(function(){ 
         $(window).scroll(function(){
               var sticky = $('#masthead'),
-                  scroll = $(window).scrollTop();
+              scroll = $(window).scrollTop();
 
               if (scroll >= 100) sticky.addClass('fixed');
               else sticky.removeClass('fixed');
@@ -191,6 +189,51 @@
        }, 3000);
 
       });
+
+      $( ".upload_img_btn" ).click(function() {
+        $(this).parent().find(".upload_file").trigger("click");
+      });
+      $( ".AmentieList .checkRight" ).click(function() {
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        )
+        // $('.AmentieList .checkRight label').removeClass('click');
+        $(this).children().toggleClass('click');
+      });
+      $(".submit_btn").click(function(){
+        $(".event_status").val("published");
+        $(".front_event_create").submit();
+      });
+      $(".preview_btn").click(function(){
+        $(".event_status").val("draft");
+      });
+
+      myFile.onchange = evt => {
+        const [file] = myFile.files
+        if (file) {
+          preview_img.src = URL.createObjectURL(file)
+        }
+      }
+      $(function() {
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+            if (input.files) {
+                var filesAmount = input.files.length;
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+        };
+        $('#myFile1').on('change', function() {
+            imagesPreview(this, '.preview1');
+        });
+    });
  </script>
   @stack('scripts')
   </body>

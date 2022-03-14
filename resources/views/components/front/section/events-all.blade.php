@@ -9,12 +9,14 @@
                   <a href="javascript:;" class="heart-link"><i class="far fa-heart"></i></a>
                   <p class="ft-tag">Featured</p>
                 </div>
-                <img src="{{asset($event->featured_image)}}" alt="{{$event->name}}">
+                  <img src="{{asset($event->featured_image)}}" alt="{{$event->name}}">
                 <div class="author">
                   <p>{{$event->area}}</p>
+                  @if(!empty($event->organizer->profile_image))
                   <div class="figure">
-                    <img src="{{($event->organizer->profile_image != '') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
+                    <img src="{{($event->organizer->profile_image != 'null') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
                   </div>
+                  @endif
                 </div>
               </figure>
               <div class="detail">
