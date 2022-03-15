@@ -179,12 +179,11 @@ class EventController extends Controller
         return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
     }
 
-    public function frontedit(Event $front_event)
+    public function frontedit(Event $event)
     {
-        $users = User::whereIs('Admin', 'Organizer')->get();
-        $vendors = User::whereIs('Vendor')->get();
-        $amenities = Amenity::all();
-        return view('tempview.edit-event', compact('users', 'vendors', 'front_event', 'amenities'));
+        $events = Event::where('user_id', Auth::user()->id)->get();
+        // dd($events);
+        return view('tempview.edit-event', compact('events'));
     }
 
     public function update(EventRequest $request, Event $event)
