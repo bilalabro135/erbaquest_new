@@ -23,7 +23,9 @@ class EventController extends Controller
         return view('admin.events.index');
     }
     public function frontindex(){
-        return view('components.front.section.events-all');
+        $events = Event::all();
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        return view('components.front.section.events-all', compact('events', 'pageSlug'));
     }
 
     public function getevents()
@@ -115,10 +117,18 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
-        $event->featured_image = $request->file('featured_image')->store('public/images');
-
-        // $event->gallery[] = $request->file('gallery')->store('public/images');
-        // dd($gallery);
+         $fname = $request->file('featured_image')->getClientOriginalName();
+            $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+        $event->featured_image =  'uploads/' . $fname;
+        
+         $image_names = [];
+        // loop through images and save to /uploads directory
+        foreach ($request->file('gallery') as $image) {
+            $name = $image->getClientOriginalName();
+            $image->move(public_path().'/uploads/', $name);  
+            $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+        }
+        $event->gallery = serialize($image_names);
 
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
@@ -157,7 +167,8 @@ class EventController extends Controller
         if($request->has('amenities'))
             $event->amenities()->attach($request->amenities);
 
-        return Redirect::route('front.events')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        return Redirect::route('pages.show', ['pages' => $pageSlug])->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
     }
 
     public function edit(Event $event)
@@ -166,6 +177,14 @@ class EventController extends Controller
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
         return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
+    }
+
+    public function frontedit(Event $front_event)
+    {
+        $users = User::whereIs('Admin', 'Organizer')->get();
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        return view('tempview.edit-event', compact('users', 'vendors', 'front_event', 'amenities'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -255,7 +274,7 @@ class EventController extends Controller
         if ($count > ($request->offset + $request->limit)) {
             $data['loadmore'] = true;
         }
-        $pageSlug = Pages::where('template', 'events')->where('status', 'published')->value('slug');
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         $data['html'] = view('components.front.events.listing',  compact('events', 'loadmore', 'pageSlug'))->render();
         return response()->json($data);
     }

@@ -21,8 +21,9 @@
           </div>
         </div>
         <?php
-        	$gallery = unserialize($event->gallery);
-        	$gallery = ($gallery != '' && $gallery != null && !empty($gallery)) ? $gallery : array();
+        	$gallery = $event->gallery;
+        	$gallery = ($gallery != '' && $gallery != null && !empty($gallery)) ? unserialize($gallery) : array();
+          // dd(unserialize($event->gallery));
         ?>
         @if(!empty($gallery))
         <div class="evGallery nav_arrow">
@@ -30,7 +31,7 @@
           	@foreach($gallery as $gal)
 	            <li class="item">
 	              <div class="figure">
-	                <img src="{{asset($gal['url'])}}" alt="{{$gal['alt']}}">
+	                <img src="{{asset('/uploads/' . $gal['url'])}}" alt="{{$gal['alt']}}">
 	              </div>
 	            </li>
           	@endforeach

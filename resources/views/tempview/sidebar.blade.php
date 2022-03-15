@@ -4,7 +4,7 @@
               <div class="sidebar-menu">
                 <ul class="menu_list">
                   <li class="current">
-                    <a href="javascript:;">Account Setting</a>
+                    <a href="{{route('account.edit')}}">Account Setting</a>
                   </li>
                   <li class="have_child-items">
                     <span class="down-icon"><i class="fas fa-chevron-down"></i></span>

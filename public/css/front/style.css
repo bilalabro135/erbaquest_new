@@ -241,7 +241,7 @@ p {
   line-height: 1;
 }
 
-.topbar ul {
+.topbar > ul {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -3257,4 +3257,32 @@ div#card-element {
   height: 25px;
   margin: 0px 5px;
   object-fit: cover;
+}
+.AmentieList .checkRight.checked label:before,
+.VendorList .checkRight.checked label:before {
+	content: "\f00c";
+	font-family: "Font Awesome 5 Free";
+    color: #fff;
+    font-size: 16px;
+    background: #2c9044;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.topbar-list li.dropdown a.nav-link {
+	padding: 0px;
+}
+.topbar-list li.dropdown ul.dropdown-menu {
+	left: 0px;
+  right: 0px;
+  margin: 10px 5px;
+}
+.topbar-list li.dropdown ul.dropdown-menu li a.dropdown-item {
+	color: #000;
+}
+.topbar-list li.dropdown ul.dropdown-menu li {
+	padding: 0px;
+}
+.topbar-list li.dropdown ul.dropdown_toggle {
+  display: block;
 }

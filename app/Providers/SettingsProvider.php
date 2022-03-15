@@ -40,7 +40,7 @@ class SettingsProvider extends ServiceProvider
             if (!in_array('admin', $route)) {
                  $primarymenu = Menu::where('type', 'primary')->orderBy('order', 'ASC')->get();
                  View::share('primarymenu', $primarymenu);
-                 $topbar = Menu::where('type', 'topbar')->orderBy('order', 'ASC')->get();
+                 $topbar = Menu::where('type', 'topbar')->where('parent_id', null)->orderBy('order', 'ASC')->get();
                  View::share('topbar', $topbar);
                  $quicklinks = Menu::where('type', 'quicklinks')->orderBy('order', 'ASC')->get();
                  View::share('quicklinks', $quicklinks);

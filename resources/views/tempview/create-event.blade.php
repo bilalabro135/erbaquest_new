@@ -176,7 +176,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                           <div class="input-field input-checkbox checkRight">
                             <label>
                               <span class="figure"><img src="{{$vendor->icon}}"></span>{{$vendor->name}}
-                              <input type="checkbox" name="vendors[]" value="{{$vendor->id}}" required="required">
+                              <input type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required">
                             </label>
                           </div>
                         </li>
@@ -193,6 +193,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
                       <li>
+                        <span>Lorem Ipsum</span> <i class="fas fa-times"></i>
+                      </li>
+                      <!-- <li>
                         Lorem Ipsum <i class="fas fa-times"></i>
                       </li>
                       <li>
@@ -200,10 +203,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                       </li>
                       <li>
                         Lorem Ipsum <i class="fas fa-times"></i>
-                      </li>
-                      <li>
-                        Lorem Ipsum <i class="fas fa-times"></i>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">

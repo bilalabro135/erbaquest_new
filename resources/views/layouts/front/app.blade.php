@@ -16,8 +16,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{asset('css/front/style.css') }}" />
-    <script src="{{ asset('js/front/bootstrap.min.js' ) }}" type="text/javascript"></script>
     <script src="{{ asset('js/front/jquery.min.js' ) }}" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/front/bootstrap.min.js' ) }}" type="text/javascript"></script>
     <script src="{{ asset('js/front/owl.carousel.min.js' ) }}" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/bf7b09a514.js" crossorigin="anonymous"></script>
   </head>
@@ -30,11 +31,23 @@
         @if(isset($topbar) && !empty($topbar))
         <div class="topbar">
           <ul class="topbar-list">
-            @foreach($topbar as $menu)  
+            @foreach($topbar as $i => $menu)  
               @if(Auth::check())
                 @if($menu->visible_for_auth == 1)
-                  <li class="" id="{{$menu->attr_id}}">
-                    <a href="{{get_url($menu->link)}}" class="{{$menu->attr_class}}">{{$menu->title}}</a>
+                  <li class="{{(count($menu->children)) ? 'nav-item dropdown' : ''}}" id="{{$menu->attr_id}}">
+                    <a href="{{ (count($menu->children)) ? '#' : get_url($menu->link)}}" class="{{$menu->attr_class}} {{ (count($menu->children)) ? 'nav-link dropdown-toggle' : '' }}" {{ (count($menu->children) ) ? 'id="navbarDropdown'.$i.'" role="button" data-bs-toggle="dropdown" aria-expanded="false"' : '' }}>@if($menu->title =='[[auth_user]]')
+                      {{ Auth::user()->name }}
+                    @else
+                      {{$menu->title}}
+                      @endif
+                  </a>
+                     @if(count($menu->children))
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @foreach($menu->children as $menuchild)
+                             <li id="{{$menuchild->attr_id}}"><a class="dropdown-item {{$menuchild->attr_class}}" href="{{get_url($menuchild->link)}}">{{$menuchild->title}}</a></li>
+                        @endforeach
+                      </ul>
+                     @endif
                   </li>
                 @endif
               @elseif(!Auth::check())
@@ -190,18 +203,35 @@
 
       });
 
-      $( ".upload_img_btn" ).click(function() {
-        $(this).parent().find(".upload_file").trigger("click");
-      });
-      $( ".AmentieList .checkRight" ).click(function() {
-        Swal.fire(
-          'Good job!',
-          'You clicked the button!',
-          'success'
-        )
-        // $('.AmentieList .checkRight label').removeClass('click');
-        $(this).children().toggleClass('click');
-      });
+      	$( ".upload_img_btn" ).click(function() {
+        	$(this).parent().find(".upload_file").trigger("click");
+      	});
+      	// create event form Amenite checkbox
+      	$('.AmentieList .checkRight input:checkbox').change(function(){
+          	if($(this).is(":checked")) {
+              	$('.AmentieList .checkRight').addClass("checked");
+          	} else {
+            	$('.AmentieList .checkRight').removeClass("checked");
+          	}
+      	});
+      	// create event form vendor checkbox
+      	$('.VendorList .checkRight input:checkbox').change(function(){
+          if($(this).is(":checked")) {
+              	$(this).parent().parent().addClass("checked");
+              	$(':checkbox:checked').map(function() {
+              		var get_checkbox = $(this).data("name");
+              		$( ".vendorTags li" ).each(function( index ) {
+					  // console.log( index + ": " + $( this ).text() );
+					  $( this ).append().text();
+					});
+              		$('.vendorTags li').text(get_checkbox);
+      				// return $(this).data("name");
+      			}).get();
+          	} else {
+              	$(this).parent().parent().removeClass("checked");
+          	}
+      	});
+
       $(".submit_btn").click(function(){
         $(".event_status").val("published");
         $(".front_event_create").submit();
@@ -209,13 +239,14 @@
       $(".preview_btn").click(function(){
         $(".event_status").val("draft");
       });
-
+    if(typeof myFile !== 'undefined'){
       myFile.onchange = evt => {
         const [file] = myFile.files
         if (file) {
           preview_img.src = URL.createObjectURL(file)
         }
       }
+    }
       $(function() {
         // Multiple images preview in browser
         var imagesPreview = function(input, placeToInsertImagePreview) {
@@ -233,6 +264,9 @@
         $('#myFile1').on('change', function() {
             imagesPreview(this, '.preview1');
         });
+    });
+    $(".topbar .dropdown-toggle").click(function(){
+      $(this).siblings().toggleClass("dropdown_toggle");
     });
  </script>
   @stack('scripts')
