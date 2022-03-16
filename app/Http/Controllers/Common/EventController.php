@@ -301,6 +301,14 @@ class EventController extends Controller
         }
         abort(404);
     }
+    public function frontdestroy($id)
+    {
+        $event = Event::where('id', $id)->delete();
+        if ($event) {
+            return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
+        }
+        abort(404);
+    }
 
     public function loadmore(Request $request)
     {

@@ -31,7 +31,7 @@
           	@foreach($gallery as $gal)
 	            <li class="item">
 	              <div class="figure">
-	                <img src="{{asset('/uploads/' . $gal['url'])}}" alt="{{$gal['alt']}}">
+	                <img src="{{asset('/' . $gal['url'])}}" alt="{{$gal['alt']}}">
 	              </div>
 	            </li>
           	@endforeach

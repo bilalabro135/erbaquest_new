@@ -28,6 +28,7 @@
 	                  	<h3>{{$event->name}}</h3>
 	                  	<p>{!!$event->description!!}</p>
 	                  	<a href="<?php echo $event->id;?>/edit" class="md-link">EDIT</a>
+                      <a href="{{route('front.events.delete', ['event'=> $event->id])}}" class="delete-event">DELETE</a>
 	                </div>
 	              	</div>
 	              	@endforeach
