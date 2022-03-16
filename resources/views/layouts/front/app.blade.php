@@ -215,22 +215,39 @@
           	}
       	});
       	// create event form vendor checkbox
-      	$('.VendorList .checkRight input:checkbox').change(function(){
-          if($(this).is(":checked")) {
-              	$(this).parent().parent().addClass("checked");
-              	$(':checkbox:checked').map(function() {
-              		var get_checkbox = $(this).data("name");
-              		$( ".vendorTags li" ).each(function( index ) {
-					  // console.log( index + ": " + $( this ).text() );
-					  $( this ).append().text();
-					});
-              		$('.vendorTags li').text(get_checkbox);
-      				// return $(this).data("name");
-      			}).get();
-          	} else {
-              	$(this).parent().parent().removeClass("checked");
-          	}
-      	});
+
+      	// $('.VendorList .checkRight input:checkbox').change(function(){
+       //    if($(this).is(":checked")) {
+       //        	$(this).parent().parent().addClass("checked");
+       //          var vendorName = $(this).attr("data-name");
+       //          var vendorVal  =  $(this).val();
+       //          $(".vendorTags").append('<li class="vendor_'+vendorVal+'"><span>'+ vendorName +'</span> <i class="fas fa-times"></i></li>');
+
+       //    	} else {
+       //        	$(this).parent().parent().removeClass("checked");
+       //          var vendorVal  =  $(this).val();
+       //          $(".vendorTags").remove('.vendor_'+vendorVal);
+       //      }
+      	// });
+
+
+       function myVendorsTags(vendorClass){
+          if($("#"+vendorClass).is(":checked")) {
+              $("#"+vendorClass).parent().parent().addClass("checked");
+              var vendorName = $("#"+vendorClass).attr("data-name");
+              var vendorVal  =  $("#"+vendorClass).val();
+              $(".vendorTags").append('<li class="vendor_'+vendorVal+'"><span>'+ vendorName +'</span> <a href="javascript:void(0);" onclick="$(\'.vendor_'+vendorVal+'\').remove();$(\'#vendor_'+vendorVal+'\').parent().parent().removeClass(\'checked\');$(\'#vendor_'+vendorVal+'\').prop(\'checked\',false);"><i class="fas fa-times"></i></a></li>');
+
+          } else {
+              $("#"+vendorClass).parent().parent().removeClass("checked");
+              var vendorVal  =  $("#"+vendorClass).val();
+              $('.vendor_'+vendorVal).remove();
+          }
+       }
+
+      
+
+
 
       $(".submit_btn").click(function(){
         $(".event_status").val("published");
@@ -238,6 +255,11 @@
       });
       $(".preview_btn").click(function(){
         $(".event_status").val("draft");
+        $(".front_event_create").submit();
+      });
+      $(".update_submit_btn").click(function(){
+        $(".event_status").val("published");
+        $(".front_event_update").submit();
       });
     if(typeof myFile !== 'undefined'){
       myFile.onchange = evt => {

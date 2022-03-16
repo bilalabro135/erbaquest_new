@@ -36,8 +36,8 @@ class FrontEventRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'max:255',
-            'featured_image' => 'required',
-            'gallery' => 'required',
+            'featured_image' => 'exclude_if:checkevent,update|required',
+            'gallery' => 'exclude_if:checkevent,update|required',
             'event_date' => 'required|date',
             'door_dontation' => 'required',
             'vip_dontation' => 'required',

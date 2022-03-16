@@ -7,7 +7,7 @@
     <section class="inner-banner">
       <div class="container">
         <h1 class="ft-blanka">
-          CREATE EVENT
+          EDIT EVENT
         </h1>
       </div>
     </section>
@@ -31,10 +31,11 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
         <div class="row">
           <div class="col-sm-12">
             <div class="createEventForm margin-tb">
-              {!! Form::model($data, ['method' => 'PATCH','id'=>'form','enctype'=>'multipart/form-data','route' => ['front.events.frontupdate', $data->id]]) !!}
+              <form class="front_event_update" action="{{ route('front.events.frontupdate', $data->id) }}" method="post" enctype="multipart/form-data">
               <!-- <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data"> -->
                 <?php //echo"<pre>";print_r($data); ?>
                 @csrf
+                <input type="hidden" name="checkevent" value="update">
                 <div class="row">
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>NAME OF QUEST:</label>
@@ -79,8 +80,17 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file">
-                    <label>PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file" multiple>
+                    <label>PICTURE: 
+                      <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
+                      <div class="preview1">
+                        @if($data->gallery)
+                        <img id="preview_img" src="{{asset($data->gallery)}}">
+                        @else
+                        <img id="preview_img" src="">
+                        @endif
+                      </div>
+                    </label>
+                    <input type="file" id="myFile1" name="gallery[]" class="upload_file" value="{{ $data->gallery }}" multiple>
                     <button type="button" class="upload_img_btn" id="uploadImg1">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
@@ -115,12 +125,11 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT:</label>
                     <select name="type">
-                      <option selected="selected">Type:</option>
-                      <option>Event</option>
-                      <option>Event</option>
-                      <option>Event</option>
-                      <option>Event</option>
-                    </select>
+                        <option value="" selected="selected" {{(isset($event->type) && $event->type == "") ? 'selected="selected"' : ''}}>Type Of Event</option>
+                        <option value="Type1" {{(isset($event->type) && $event->type == "Type1") ? 'selected="selected"' : ''}}>Type1</option>
+                        <option value="Type2" {{(isset($event->type) && $event->type == "Type2") ? 'selected="selected"' : ''}}>type2</option>
+                        <option value="Type3" {{(isset($event->type) && $event->type == "Type3") ? 'selected="selected"' : ''}}>Type3</option>
+                    </select> 
                     @error('type')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -189,7 +198,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                           <div class="input-field input-checkbox checkRight">
                             <label>
                               <span class="figure"><img src="{{$vendor->icon}}"></span>{{$vendor->name}}
-                              <input type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required">
+                              <input id="vendor_{{$vendor->id}}" type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required" onclick="myVendorsTags('vendor_{{$vendor->id}}');">
                             </label>
                           </div>
                         </li>
@@ -205,9 +214,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
-                      <li>
+                      <!-- <li>
                         <span>Lorem Ipsum</span> <i class="fas fa-times"></i>
-                      </li>
+                      </li> -->
                       <!-- <li>
                         Lorem Ipsum <i class="fas fa-times"></i>
                       </li>
@@ -264,12 +273,13 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>HEIGHT:</label>
+
                     <select name="height">
-                      <option selected="selected">Height:</option>
-                      <option>10</option>
-                      <option>100</option>
-                      <option>500</option>
-                    </select>
+                        <option value="" selected="selected" {{(isset($event->height) && $event->height == "") ? 'selected="selected"' : ''}}>Select Height</option>
+                        <option value="10" {{(isset($event->height) && $event->height == "10") ? 'selected="selected"' : ''}}>10ft</option>
+                        <option value="100" {{(isset($event->height) && $event->height == "100") ? 'selected="selected"' : ''}}>100ft</option>
+                        <option value="500" {{(isset($event->height) && $event->height == "500") ? 'selected="selected"' : ''}}>500ft</option>
+                    </select> 
                     @error('height')
                       <div class="text-danger">
                           {{$message}}                                            
@@ -279,10 +289,11 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>CAPACITY:</label>
                     <select name="capacity">
-                      <option selected="selected">Capacity:</option>
-                      <option>Capacity1</option>
-                      <option>Capacity2</option>
-                    </select>
+                        <option value="" selected="selected" {{(isset($event->capacity) && $event->capacity == "") ? 'selected="selected"' : ''}}>Select Capactiy</option>
+                        <option value="Capacity1" {{(isset($event->capacity) && $event->capacity == "Capacity1") ? 'selected="selected"' : ''}}>Capacity1</option>
+                        <option value="Capacity2" {{(isset($event->capacity) && $event->capacity == "Capacity2") ? 'selected="selected"' : ''}}>Capacity2</option>
+                        <option value="Capacity3" {{(isset($event->capacity) && $event->capacity == "Capacity3") ? 'selected="selected"' : ''}}>Capacity3</option>
+                    </select> 
                     @error('capacity')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -291,11 +302,10 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>ATM ON SITE:</label>
-                    <select name="ATM_on_site">
-                      <option selected="selected">ATM ON SITE:</option>
-                      <option>Yes</option>
-                      <option>No</option>
-                    </select>
+                    <select name="ATM_on_site" id="ATM_on_site" required="" class="form-control">
+                        <option value="Yes" selected {{(isset($event->ATM_on_site) && $event->ATM_on_site == "Yes") ? 'selected="selected"' : ''}}>Yes</option>
+                        <option value="No" {{(isset($event->ATM_on_site) && $event->ATM_on_site == "No") ? 'selected="selected"' : ''}}>No</option>
+                    </select> 
                     @error('ATM_on_site')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -304,7 +314,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TICKETING NUMBER:</label>
-                    <input type="text" name="tickiting_number" value="{{old('tickiting_number')}}" placeholder="Ticket Number:" value="{{old('tickiting_number')}}" value="{{ old('tickiting_number') }}">
+                    <input type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ $data->tickiting_number }}">
                     @error('tickiting_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -313,7 +323,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>VENDOR NUMBER:</label>
-                    <input type="text" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}">
+                    <input type="text" name="vendor_number" placeholder="Vendor Number:" value="{{ $data->vendor_number }}">
                     @error('vendor_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -322,7 +332,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>USER NUMBER:</label>
-                    <input type="text" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" >
+                    <input type="text" name="user_number" placeholder="User Number:" value="{{ $data->user_number }}" >
                     @error('user_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -331,7 +341,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>WEBSITE LINK:</label>
-                    <input type="url" name="website_link" placeholder="http://" value="{{old('website_link')}}">
+                    <input type="url" name="website_link" placeholder="http://" value="{{ $data->website_link }}">
                     @error('website_link')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -340,7 +350,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>FACEBOOK LINK:</label>
-                    <input type="url" name="facebook" placeholder="http://" value="{{old('facebook')}}">
+                    <input type="url" name="facebook" placeholder="http://" value="{{ $data->facebook }}">
                     @error('facebook')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -349,7 +359,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TWITTER LINK:</label>
-                    <input type="url" name="twitter" placeholder="http://"  value="{{old('twitter')}}">
+                    <input type="url" name="twitter" placeholder="http://"  value="{{ $data->twitter }}">
                     @error('twitter')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -358,7 +368,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>LINKEDIN LINK:</label>
-                    <input type="url" name="linkedin" placeholder="http://" value="{{old('linkedin')}}">
+                    <input type="url" name="linkedin" placeholder="http://" value="{{ $data->linkedin }}">
                     @error('linkedin')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -367,7 +377,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>INSTAGRAM LINK:</label>
-                    <input type="url" name="instagram" placeholder="http://" value="{{old('instagram')}}">
+                    <input type="url" name="instagram" placeholder="http://" value="{{ $data->instagram }}">
                     @error('twitter')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -376,7 +386,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>YOUTUBE LINK:</label>
-                    <input type="url" name="youtube" placeholder="http://" value="{{old('youtube')}}">
+                    <input type="url" name="youtube" placeholder="http://" value="{{ $data->youtube }}">
                     @error('youtube')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -386,7 +396,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="input-field input-submit">
                     <input class="event_status" type="hidden" name="status" value="">
                     <button class="btn-custom preview_btn" type="button">PREVIEW</button>
-                    <button class="btn-custom submit_btn" type="button">SUBMIT</button>
+                    <button class="btn-custom update_submit_btn" type="button">SUBMIT</button>
                   </div>
                 </div>
               <!-- </form> -->

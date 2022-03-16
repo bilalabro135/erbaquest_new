@@ -2491,6 +2491,9 @@ input.vendor_list {
   flex-wrap: wrap;
   margin-top: 20px;
 }
+.vendorTags li a {
+  color: #fff;
+}
 
 .vendorTags li {
   padding: 10px 22px;
@@ -3241,18 +3244,22 @@ div#card-element {
   object-fit: cover;
   border-radius: 70px;
 }
-.front_event_create .input-file {
+.front_event_create .input-file,
+.front_event_update .input-file {
   position: relative;
 }
-.front_event_create .input-file .preview {
+.front_event_create .input-file .preview,
+.front_event_update .input-file .preview {
   width: 30px;
   display: inline-block;
   margin-left: 10px;
 }
-.front_event_create .input-file .preview1 {
+.front_event_create .input-file .preview1,
+.front_event_update .input-file .preview1 {
   display: inline-block;
 }
-.front_event_create .input-file .preview1 img {
+.front_event_create .input-file .preview1 img,
+.front_event_update .input-file .preview1 img {
   width: 35px;
   height: 25px;
   margin: 0px 5px;

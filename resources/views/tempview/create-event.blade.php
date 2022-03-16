@@ -104,10 +104,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                     <label>TYPE OF EVENT:</label>
                     <select name="type">
                       <option selected="selected">Type:</option>
-                      <option>Event</option>
-                      <option>Event</option>
-                      <option>Event</option>
-                      <option>Event</option>
+                      <option value="10">10ft</option>
+                      <option value="100">100ft</option>
+                      <option value="500">500ft</option>
                     </select>
                     @error('type')
                         <div class="text-danger">
@@ -177,7 +176,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                           <div class="input-field input-checkbox checkRight">
                             <label>
                               <span class="figure"><img src="{{$vendor->icon}}"></span>{{$vendor->name}}
-                              <input type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required">
+                              <input id="vendor_{{$vendor->id}}" type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required" onclick="myVendorsTags('vendor_{{$vendor->id}}');">
                             </label>
                           </div>
                         </li>
@@ -193,18 +192,6 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
-                      <li>
-                        <span>Lorem Ipsum</span> <i class="fas fa-times"></i>
-                      </li>
-                      <!-- <li>
-                        Lorem Ipsum <i class="fas fa-times"></i>
-                      </li>
-                      <li>
-                        Lorem Ipsum <i class="fas fa-times"></i>
-                      </li>
-                      <li>
-                        Lorem Ipsum <i class="fas fa-times"></i>
-                      </li> -->
                     </ul>
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">

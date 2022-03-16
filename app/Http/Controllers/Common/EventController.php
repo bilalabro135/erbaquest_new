@@ -195,9 +195,54 @@ class EventController extends Controller
         // dd($data);
         return view('tempview.update-event', compact('data', 'vendors', 'amenities'));
     }
-    public function frontupdate(EventRequest $request, $id)
+    public function frontupdate(FrontEventRequest $request, Event $event)
     {
-        dd("Test");
+        $eventDetail = $request->getEventData();
+        $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
+        $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
+        $event->update([
+            'name' =>  $eventDetail['name'],
+            'slug' =>  $eventDetail['slug'],
+            'featured_image' =>  $featured_image  ,
+            'gallery' =>  $gallery,
+            'description' =>  $eventDetail['description'],
+            'event_date' =>  $eventDetail['event_date'],
+            'address' =>  $eventDetail['address'],
+            'type' =>  $eventDetail['type'],
+            'door_dontation' =>  $eventDetail['door_dontation'],
+            'vip_dontation' =>  $eventDetail['vip_dontation'],
+            'vip_perk' =>  $eventDetail['vip_perk'],
+            'charity' =>  $eventDetail['charity'],
+            'cost_of_vendor' =>  $eventDetail['cost_of_vendor'],
+            'vendor_space_available' =>  $eventDetail['vendor_space_available'],
+            'area' =>  $eventDetail['area'],
+            'height' =>  $eventDetail['height'],
+            'capacity' =>  $eventDetail['capacity'],
+            'ATM_on_site' =>  $eventDetail['ATM_on_site'],
+            'tickiting_number' =>  $eventDetail['tickiting_number'],
+            'vendor_number' =>  $eventDetail['vendor_number'],
+            'user_number' =>  $eventDetail['user_number'],
+            'website_link' =>  $eventDetail['website_link'],
+            // 'user_id' =>  $eventDetail['user_id'],
+            'facebook' =>  $eventDetail['facebook'],
+            'twitter' =>  $eventDetail['twitter'],
+            'linkedin' =>  $eventDetail['linkedin'],
+            'instagram' =>  $eventDetail['instagram'],
+            'youtube' =>  $eventDetail['youtube'],
+            'status' =>  $eventDetail['status'],
+        ]);
+
+        if($request->has('vendors'))
+            $event->vendors()->sync($request->vendors);
+        else
+            $event->vendors()->sync(array());
+        
+        if($request->has('amenities'))
+            $event->amenities()->sync($request->amenities);
+        else
+            $event->amenities()->sync(array());
+        
+        return Redirect::route('pages.show', ['pages' => 'events'])->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
     public function update(EventRequest $request, Event $event)

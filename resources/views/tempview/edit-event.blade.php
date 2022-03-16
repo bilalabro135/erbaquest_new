@@ -22,7 +22,7 @@
 	              	<div class="col-sm-12 col-md-6">
 	                <div class="media-box">
 	                	<figure>
-	                    	<img src="{{asset('images/media-1.jpg')}}">
+	                    	<img src="{{asset($event->featured_image)}}">
 	                  	</figure>
 	                  	<h5 class="cat">{{$event->area}}</h5>
 	                  	<h3>{{$event->name}}</h3>
