@@ -28,7 +28,25 @@
 	                  	<h3>{{$event->name}}</h3>
 	                  	<p>{!!$event->description!!}</p>
 	                  	<a href="<?php echo $event->id;?>/edit" class="md-link">EDIT</a>
-                      <a href="{{route('front.events.delete', ['event'=> $event->id])}}" class="delete-event">DELETE</a>
+                      <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        DELETE
+                      </button>
+                      <!-- Modal -->
+                      <div class="modal fade delete_event_popup" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="popup_close">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Are you sure?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="{{route('front.events.delete', ['event'=> $event->id])}}" class="btn btn-primary">Confirm</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 	                </div>
 	              	</div>
 	              	@endforeach
