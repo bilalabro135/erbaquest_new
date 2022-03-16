@@ -24,10 +24,10 @@
 	                	<figure>
 	                    	<img src="{{asset('images/media-1.jpg')}}">
 	                  	</figure>
-	                  	<h5 class="cat">THE LIFESTYLE SHOW</h5>
+	                  	<h5 class="cat">{{$event->area}}</h5>
 	                  	<h3>{{$event->name}}</h3>
-	                  	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-	                  	<a href="javascript:;" class="md-link">EDIT</a>
+	                  	<p>{!!$event->description!!}</p>
+	                  	<a href="<?php echo $event->id;?>/edit" class="md-link">EDIT</a>
 	                </div>
 	              	</div>
 	              	@endforeach

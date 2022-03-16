@@ -182,6 +182,8 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
 Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
 Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.event')->middleware('role:updateEvents');
+Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');
+Route::match(['put', 'patch'], '/events/frontupdate/{id}',[EventController::class, 'frontupdate']);
 // Route::view('events/edit', 'tempview.edit-event')->name('edit.event');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');

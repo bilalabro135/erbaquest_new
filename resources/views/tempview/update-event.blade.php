@@ -1,9 +1,9 @@
 @extends('layouts.front.app')
 
 @section('content')
-	@if(isset($pages) && isset($pages->featured_image))
-		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
-	@endif
+  @if(isset($pages) && isset($pages->featured_image))
+    <x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
+  @endif
     <section class="inner-banner">
       <div class="container">
         <h1 class="ft-blanka">
@@ -31,12 +31,14 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
         <div class="row">
           <div class="col-sm-12">
             <div class="createEventForm margin-tb">
-              <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data">
+              {!! Form::model($data, ['method' => 'PATCH','id'=>'form','enctype'=>'multipart/form-data','route' => ['front.events.frontupdate', $data->id]]) !!}
+              <!-- <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data"> -->
+                <?php //echo"<pre>";print_r($data); ?>
                 @csrf
                 <div class="row">
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>NAME OF QUEST:</label>
-                    <input type="text" name="name" placeholder="NAME:" required="required" value="{{ old('name') }}">
+                    <input type="text" name="name" placeholder="NAME:" required="required" value="{{ $data->name }}">
                     @error('name')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -44,8 +46,17 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file">
-                    <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file">
+                    <label>FEATURED PICTURE: 
+                      <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
+                      <div class="preview">
+                        @if($data->featured_image)
+                        <img id="preview_img" src="{{asset($data->featured_image)}}">
+                        @else
+                        <img id="preview_img" src="">
+                        @endif
+                      </div>
+                    </label>
+                    <input type="file" id="myFile" name="featured_image" class="upload_file" value="{{ $data->featured_image }}">
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
@@ -58,8 +69,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 input-field">
                     <label>DESCRIPTION:</label>
-                   <!--  <textarea name="description" placeholder="DESCRIPTION.."></textarea> -->
-                   {!! Form::textarea('description', null, array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
+                    <!-- <textarea name="description" placeholder="DESCRIPTION..">{{ $data->description }}</textarea> -->
+                    {!! Form::textarea('description', null, array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
+
                     @error('description')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -81,7 +93,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-date">
                     <label>DATE:</label>
-                    <input type="date" name="event_date">
+                    <input type="date" name="event_date" value="{{ $data->event_date }}">
                     @error('event_date')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -90,7 +102,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>ADDRESS:</label>
-                    <input type="text" name="address" placeholder="Search Address:" required="required" value="{{ old('address') }}">
+                    <input type="text" name="address" placeholder="Search Address:" required="required" value="{{ $data->address }}">
                     @error('address')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -117,7 +129,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                     <div class="donation">
                       <div class="input-field input-full">
                         <label>EXPECTED DOOR DONATION:</label>
-                        <input type="text" name="door_dontation" placeholder="$10.0" required="required" value="{{ old('door_dontation') }}">
+                        <input type="text" name="door_dontation" placeholder="$10.0" required="required" value="{{ $data->door_dontation }}">
                         @error('door_dontation')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -126,7 +138,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                       </div>
                       <div class="input-field input-half">
                         <label>VIP DONATION:</label>
-                        <input type="text" name="vip_dontation" placeholder="$500.0" required="required" value="{{ old('vip_dontation') }}">
+                        <input type="text" name="vip_dontation" placeholder="$500.0" required="required" value="{{ $data->vip_dontation }}">
                         @error('vip_dontation')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -135,7 +147,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                       </div>
                       <div class="input-field input-half">
                         <label>VIP PERKS:</label>
-                        <input type="text" name="vip_perk" placeholder="$50.0" required="required" value="{{ old('vip_perk') }}">
+                        <input type="text" name="vip_perk" placeholder="$50.0" required="required" value="{{ $data->vip_perk }}">
                         @error('vip_perk')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -144,7 +156,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                       </div>
                       <div class="input-field input-half">
                         <label>CHARITY:</label>
-                        <input type="text" name="charity" placeholder="$10.0" required="required" value="{{ old('charity') }}">
+                        <input type="text" name="charity" placeholder="$10.0" required="required" value="{{ $data->charity }}">
                         @error('charity')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -153,7 +165,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                       </div>
                       <div class="input-field input-half">
                         <label>COST TO VEND:</label>
-                        <input type="text" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
+                        <input type="text" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ $data->cost_of_vendor }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -164,7 +176,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR:</label>
-                    <input type="text" class="vendor_list" name="vendor_list" placeholder="VENDOR:" readonly="readonly" value="{{ old('vendor_list') }}">
+                    <input type="text" class="vendor_list" name="vendor_list" placeholder="VENDOR:" readonly="readonly" value="{{ $data->vendor_list }}">
                     @error('vendor_list')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -209,7 +221,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>VENDOR SPACES AVAILABLE:</label>
-                    <input type="number" name="vendor_space_available" value="1" value="{{ old('vendor_space_available') }}">
+                    <input type="number" name="vendor_space_available" value="1" value="{{ $data->vendor_space_available }}">
                     @error('vendor_space_available')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -377,7 +389,8 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                     <button class="btn-custom submit_btn" type="button">SUBMIT</button>
                   </div>
                 </div>
-              </form>
+              <!-- </form> -->
+              {!! Form::close() !!}
             </div>
           </div>
         </div>

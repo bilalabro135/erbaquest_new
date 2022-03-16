@@ -112,7 +112,7 @@ class EventController extends Controller
     public function frontstore(FrontEventRequest $request)
     {
         $eventDetail = $request->getEventData();
-        // dd($eventDetail);
+        // dd($request);
         $gallery_img = array();
         $event = new Event();
         $event->name = $eventDetail['name'] ;
@@ -184,6 +184,20 @@ class EventController extends Controller
         $events = Event::where('user_id', Auth::user()->id)->get();
         // dd($events);
         return view('tempview.edit-event', compact('events'));
+    }
+
+    public function updateevent($id)
+    {
+        
+        $data  =  Event::findorFail($id);
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        // dd($data);
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities'));
+    }
+    public function frontupdate(EventRequest $request, $id)
+    {
+        dd("Test");
     }
 
     public function update(EventRequest $request, Event $event)
