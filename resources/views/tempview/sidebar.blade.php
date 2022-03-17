@@ -22,6 +22,9 @@
                       <li class="item">
                         <a href="javascript:;">Draft Event</a>
                       </li>
+                      <li class="item">
+                        <a href="{{route('wishlist')}}">Wishlist</a>
+                      </li>
                     </ul>
                   </li>
                   <li class="have_child-items">

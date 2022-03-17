@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\ComponenetController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
+use App\Http\Controllers\Common\WishlistsController;
 use App\Http\Controllers\Front\SubscriptionController;
 
 use App\Http\Controllers\Front\AccountController;
@@ -195,6 +196,9 @@ Route::view('account/setting', 'tempview.account-setting')->middleware('auth', '
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
 
+Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist')->middleware('auth', 'isOrganizer', 'verified');
+Route::get('/wishlist',[WishlistsController::class, 'view'])->name('wishlist');
+
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
     Route::get('/', [PagesController::class, 'home'])->name('home');
@@ -203,3 +207,6 @@ Route::group(['front'],  function () {
     Route::get('/{pages:slug}/{id}', [LoadController::class, 'index'])->name('posts.show');
     Route::post('/subscription/create/', [SubscriptionController::class, 'create'])->name('subscription.create');
 });
+
+
+

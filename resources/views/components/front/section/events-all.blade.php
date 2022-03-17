@@ -6,6 +6,7 @@
             <div class="event-box_list">
               <figure>
                 <div class="wishlist">
+                  <input type="hidden" value="{{$event->id}}" name="event_id" class="event_wish">
                   <a href="javascript:;" class="heart-link"><i class="far fa-heart"></i></a>
                   <p class="ft-tag">Featured</p>
                 </div>
@@ -20,6 +21,7 @@
                 </div>
               </figure>
               <div class="detail">
+              	
                 <h3>{{$event->name}}</h3>
                 <p class="date"><i class="far fa-calendar-alt"></i>{{$event->event_date}}</p>
                 <div class="txt">
@@ -35,3 +37,21 @@
         </div>
       </div>
 </section>
+<script>
+$(".heart-link").click(function() {
+	$.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    }
+	});
+  var event_id = $(this).prev(".event_wish").val(); 
+	$.ajax({
+	   url:'{{route("add.wishlist")}}',
+	   type:'POST',
+     data:'event_id='+event_id,
+	   success:function(data) {
+	     alert(data.msg);
+	   }
+	});
+});
+</script>
