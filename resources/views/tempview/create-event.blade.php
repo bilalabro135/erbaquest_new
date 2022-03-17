@@ -88,16 +88,27 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>ADDRESS:</label>
-                    <input type="text" name="address" placeholder="Search Address:" required="required" value="{{ old('address') }}">
-                    @error('address')
+                  <div class="col-sm-12 col-md-6">
+                    <div class="input-field input-locate">
+                        <label for="pac-input">Address:</label>
+                        <input id="pac-input" class="form-control mb-3 " type="text" placeholder="Enter a location" />
+                        <div id="googlemap" style="height: 300px"></div>
+                        <input type="hidden" name="latitude" id="latitude">
+                        <input type="hidden" name="longitude" id="longitude">
+                        <div id="infowindow-content">
+                          <span id="place-name" class="title"></span><br />
+                          <span id="place-address"></span>
+                        </div>
+                        @error('latitude')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
-                    @endif
-                    <div class="mapFrame">
-                      <img src="{{asset('images/map.jpg')}}">
+                        @endif
+                        @error('longitude')
+                        <div class="text-danger">
+                            {{$message}}                                            
+                        </div>
+                        @endif
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
@@ -163,7 +174,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR:</label>
-                    <input type="text" class="vendor_list" name="vendor_list" placeholder="VENDOR:" readonly="readonly" value="{{ old('vendor_list') }}">
+                    <input type="text" class="vendor_list" name="vendor_list" placeholder="VENDOR:" value="{{ old('vendor_list') }}">
                     @error('vendor_list')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -237,27 +248,18 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field customDropdown">
+                  <div class="col-sm-12 col-md-6 input-field">
                     <label>HEIGHT:</label>
-                    <select name="height">
-                      <option selected="selected">Height:</option>
-                      <option>10</option>
-                      <option>100</option>
-                      <option>500</option>
-                    </select>
+                    <input type="text" name="height" value="{{ old('height') }}" placeholder="100ft">
                     @error('height')
                       <div class="text-danger">
                           {{$message}}                                            
                       </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field customDropdown">
+                  <div class="col-sm-12 col-md-6 input-field">
                     <label>CAPACITY:</label>
-                    <select name="capacity">
-                      <option selected="selected">Capacity:</option>
-                      <option>Capacity1</option>
-                      <option>Capacity2</option>
-                    </select>
+                    <input type="number" name="capacity" value="{{ old('capacity') }}" placeholder="Capacity">
                     @error('capacity')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -279,7 +281,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TICKETING NUMBER:</label>
-                    <input type="text" name="tickiting_number" value="{{old('tickiting_number')}}" placeholder="Ticket Number:" value="{{old('tickiting_number')}}" value="{{ old('tickiting_number') }}">
+                    <input type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}">
                     @error('tickiting_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -370,4 +372,5 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
         </div>
       </div>
     </section>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
 @endsection

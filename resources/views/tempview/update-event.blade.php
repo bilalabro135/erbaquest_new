@@ -271,29 +271,18 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field customDropdown">
+                  <div class="col-sm-12 col-md-6 input-field">
                     <label>HEIGHT:</label>
-
-                    <select name="height">
-                        <option value="" selected="selected" {{(isset($event->height) && $event->height == "") ? 'selected="selected"' : ''}}>Select Height</option>
-                        <option value="10" {{(isset($event->height) && $event->height == "10") ? 'selected="selected"' : ''}}>10ft</option>
-                        <option value="100" {{(isset($event->height) && $event->height == "100") ? 'selected="selected"' : ''}}>100ft</option>
-                        <option value="500" {{(isset($event->height) && $event->height == "500") ? 'selected="selected"' : ''}}>500ft</option>
-                    </select> 
+                    <input type="text" name="height" value="{{ $data->height }}" placeholder="100ft" required="required">
                     @error('height')
                       <div class="text-danger">
                           {{$message}}                                            
                       </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field customDropdown">
+                  <div class="col-sm-12 col-md-6 input-field">
                     <label>CAPACITY:</label>
-                    <select name="capacity">
-                        <option value="" selected="selected" {{(isset($event->capacity) && $event->capacity == "") ? 'selected="selected"' : ''}}>Select Capactiy</option>
-                        <option value="Capacity1" {{(isset($event->capacity) && $event->capacity == "Capacity1") ? 'selected="selected"' : ''}}>Capacity1</option>
-                        <option value="Capacity2" {{(isset($event->capacity) && $event->capacity == "Capacity2") ? 'selected="selected"' : ''}}>Capacity2</option>
-                        <option value="Capacity3" {{(isset($event->capacity) && $event->capacity == "Capacity3") ? 'selected="selected"' : ''}}>Capacity3</option>
-                    </select> 
+                    <input type="number" name="capacity" value="{{ $data->capacity }}" placeholder="Capacity">
                     @error('capacity')
                         <div class="text-danger">
                             {{$message}}                                            

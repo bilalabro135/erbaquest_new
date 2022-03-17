@@ -2413,7 +2413,10 @@ button#uploadImg span.clr-green {
 }
 
 .VendorList {
-  /*display: none;*/
+  display: none;
+}
+.VendorList.vendor_dropdown {
+  display: block;
 }
 
 .VendorList ul, .AmentieList ul {

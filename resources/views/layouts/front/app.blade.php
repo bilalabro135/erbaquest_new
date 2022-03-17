@@ -21,6 +21,7 @@
     <script src="{{ asset('js/front/bootstrap.min.js' ) }}" type="text/javascript"></script>
     <script src="{{ asset('js/front/owl.carousel.min.js' ) }}" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/bf7b09a514.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/front/custom.js') }}"></script>
   </head>
 
   <body>
@@ -216,21 +217,6 @@
       	});
       	// create event form vendor checkbox
 
-      	// $('.VendorList .checkRight input:checkbox').change(function(){
-       //    if($(this).is(":checked")) {
-       //        	$(this).parent().parent().addClass("checked");
-       //          var vendorName = $(this).attr("data-name");
-       //          var vendorVal  =  $(this).val();
-       //          $(".vendorTags").append('<li class="vendor_'+vendorVal+'"><span>'+ vendorName +'</span> <i class="fas fa-times"></i></li>');
-
-       //    	} else {
-       //        	$(this).parent().parent().removeClass("checked");
-       //          var vendorVal  =  $(this).val();
-       //          $(".vendorTags").remove('.vendor_'+vendorVal);
-       //      }
-      	// });
-
-
        function myVendorsTags(vendorClass){
           if($("#"+vendorClass).is(":checked")) {
               $("#"+vendorClass).parent().parent().addClass("checked");
@@ -244,10 +230,6 @@
               $('.vendor_'+vendorVal).remove();
           }
        }
-
-      
-
-
 
       $(".submit_btn").click(function(){
         $(".event_status").val("published");
@@ -289,6 +271,10 @@
     });
     $(".topbar .dropdown-toggle").click(function(){
       $(this).siblings().toggleClass("dropdown_toggle");
+    });
+
+    $(".vendor_list").click(function(){
+      $('.VendorList').toggleClass('vendor_dropdown');
     });
  </script>
   @stack('scripts')

@@ -46,7 +46,7 @@ class FrontEventRequest extends FormRequest
             'area' => 'max:100',
             'capacity' => 'max:255',
             'ATM_on_site' => 'max:255',
-            'tickiting_number' => 'max:255',
+            'tickiting_number' => ['required', new Telephone()],
             'vendor_number' => ['required', new Telephone()],
             'user_number' => ['required', new Telephone()],
             'website_link' => 'max:255',
