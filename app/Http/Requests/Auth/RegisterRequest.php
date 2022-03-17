@@ -32,7 +32,7 @@ class RegisterRequest extends FormRequest
             'email' => 'email|unique:users|required|max:255',
             'username' => 'unique:users|required|max:255',
             'address' => 'max:255',
-            'password' => 'required|max:255',
+            'password' => 'required|min:6|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|confirmed',
             'password_confirmation' => 'required|same:password|max:255',
         ];
     }

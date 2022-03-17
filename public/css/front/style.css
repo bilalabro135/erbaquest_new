@@ -3239,7 +3239,8 @@ div#card-element {
 
 /*AG*/
 .input-checkbox .checkmark a {
-  color: #7c7c7c;
+  color: #2c9044;
+  text-decoration: underline;
 }
 .AmentieList .checkRight .figure img {
   width: 100%;
