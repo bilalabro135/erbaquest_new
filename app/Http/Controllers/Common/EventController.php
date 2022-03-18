@@ -21,13 +21,9 @@ use Redirect;
 use View;
 class EventController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('admin.events.index');
-    }
-    public function frontindex(){
-        $events = Event::all();
-        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
-        return view('components.front.section.events-all', compact('events', 'pageSlug'));
     }
 
     public function getevents()
@@ -57,15 +53,6 @@ class EventController extends Controller
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
         return view('admin.events.add', compact('users', 'vendors', 'amenities'));
-    }
-
-    public function frontcreate()
-    {
-        $users = User::whereIs('Admin', 'Organizer')->get();
-        $vendors = User::whereIs('Vendor')->get();
-        $amenities = Amenity::all();
-        $tyoesOfEvents = EventType::all();
-        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents'));
     }
 
     public function store(EventRequest $request)
@@ -110,6 +97,78 @@ class EventController extends Controller
             $event->amenities()->attach($request->amenities);
 
         return Redirect::route('events')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+    }
+
+    public function edit(Event $event)
+    {
+        $users = User::whereIs('Admin', 'Organizer')->get();
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
+    }
+
+    public function update(EventRequest $request, Event $event)
+    {
+        $eventDetail = $request->getEventData();
+        $event->update([
+            'name' =>  $eventDetail['name'],
+            'slug' =>  $eventDetail['slug'],
+            'featured_image' =>  str_replace(env('APP_URL'),"",$eventDetail['featured_image'])  ,
+            'gallery' =>  $eventDetail['gallery'],
+            'description' =>  $eventDetail['description'],
+            'event_date' =>  $eventDetail['event_date'],
+            'address' =>  $eventDetail['address'],
+            'type' =>  $eventDetail['type'],
+            'door_dontation' =>  $eventDetail['door_dontation'],
+            'vip_dontation' =>  $eventDetail['vip_dontation'],
+            'vip_perk' =>  $eventDetail['vip_perk'],
+            'charity' =>  $eventDetail['charity'],
+            'cost_of_vendor' =>  $eventDetail['cost_of_vendor'],
+            'vendor_space_available' =>  $eventDetail['vendor_space_available'],
+            'area' =>  $eventDetail['area'],
+            'height' =>  $eventDetail['height'],
+            'capacity' =>  $eventDetail['capacity'],
+            'ATM_on_site' =>  $eventDetail['ATM_on_site'],
+            'tickiting_number' =>  $eventDetail['tickiting_number'],
+            'vendor_number' =>  $eventDetail['vendor_number'],
+            'user_number' =>  $eventDetail['user_number'],
+            'website_link' =>  $eventDetail['website_link'],
+            'user_id' =>  $eventDetail['user_id'],
+            'facebook' =>  $eventDetail['facebook'],
+            'twitter' =>  $eventDetail['twitter'],
+            'linkedin' =>  $eventDetail['linkedin'],
+            'instagram' =>  $eventDetail['instagram'],
+            'youtube' =>  $eventDetail['youtube'],
+            'status' =>  $eventDetail['status'],
+        ]);
+
+        if($request->has('vendors'))
+            $event->vendors()->sync($request->vendors);
+        else
+            $event->vendors()->sync(array());
+        
+        if($request->has('amenities'))
+            $event->amenities()->sync($request->amenities);
+        else
+            $event->amenities()->sync(array());
+        
+        return Redirect::route('events')->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
+    }
+
+    public function frontindex()
+    {
+        $events = Event::all();
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        return view('components.front.section.events-all', compact('events', 'pageSlug'));
+    }
+
+    public function frontcreate()
+    {
+        $users = User::whereIs('Admin', 'Organizer')->get();
+        $vendors = User::whereIs('Vendor')->get();
+        $amenities = Amenity::all();
+        $tyoesOfEvents = EventType::all();
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents'));
     }
 
     public function frontstore(FrontEventRequest $request)
@@ -174,14 +233,6 @@ class EventController extends Controller
         return Redirect::route('pages.show', ['pages' => $pageSlug])->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
     }
 
-    public function edit(Event $event)
-    {
-        $users = User::whereIs('Admin', 'Organizer')->get();
-        $vendors = User::whereIs('Vendor')->get();
-        $amenities = Amenity::all();
-        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
-    }
-
     public function frontedit(Event $event)
     {
         $events = Event::where('user_id', Auth::user()->id)->get();
@@ -195,8 +246,9 @@ class EventController extends Controller
         $data  =  Event::findorFail($id);
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
+        $tyoesOfEvents = EventType::all();
         // dd($data);
-        return view('tempview.update-event', compact('data', 'vendors', 'amenities'));
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
     {
@@ -246,54 +298,6 @@ class EventController extends Controller
             $event->amenities()->sync(array());
         
         return Redirect::route('pages.show', ['pages' => 'events'])->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
-    }
-
-    public function update(EventRequest $request, Event $event)
-    {
-        $eventDetail = $request->getEventData();
-        $event->update([
-            'name' =>  $eventDetail['name'],
-            'slug' =>  $eventDetail['slug'],
-            'featured_image' =>  str_replace(env('APP_URL'),"",$eventDetail['featured_image'])  ,
-            'gallery' =>  $eventDetail['gallery'],
-            'description' =>  $eventDetail['description'],
-            'event_date' =>  $eventDetail['event_date'],
-            'address' =>  $eventDetail['address'],
-            'type' =>  $eventDetail['type'],
-            'door_dontation' =>  $eventDetail['door_dontation'],
-            'vip_dontation' =>  $eventDetail['vip_dontation'],
-            'vip_perk' =>  $eventDetail['vip_perk'],
-            'charity' =>  $eventDetail['charity'],
-            'cost_of_vendor' =>  $eventDetail['cost_of_vendor'],
-            'vendor_space_available' =>  $eventDetail['vendor_space_available'],
-            'area' =>  $eventDetail['area'],
-            'height' =>  $eventDetail['height'],
-            'capacity' =>  $eventDetail['capacity'],
-            'ATM_on_site' =>  $eventDetail['ATM_on_site'],
-            'tickiting_number' =>  $eventDetail['tickiting_number'],
-            'vendor_number' =>  $eventDetail['vendor_number'],
-            'user_number' =>  $eventDetail['user_number'],
-            'website_link' =>  $eventDetail['website_link'],
-            'user_id' =>  $eventDetail['user_id'],
-            'facebook' =>  $eventDetail['facebook'],
-            'twitter' =>  $eventDetail['twitter'],
-            'linkedin' =>  $eventDetail['linkedin'],
-            'instagram' =>  $eventDetail['instagram'],
-            'youtube' =>  $eventDetail['youtube'],
-            'status' =>  $eventDetail['status'],
-        ]);
-
-        if($request->has('vendors'))
-            $event->vendors()->sync($request->vendors);
-        else
-            $event->vendors()->sync(array());
-        
-        if($request->has('amenities'))
-            $event->amenities()->sync($request->amenities);
-        else
-            $event->amenities()->sync(array());
-        
-        return Redirect::route('events')->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
     public function destroy($id)

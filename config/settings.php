@@ -40,6 +40,12 @@
                 'Update Area' =>'updateAreas',
                 'Delete Area' =>'deleteAreas',
             ],
+            'Event Type' => [
+                'View Event Type' =>'viewEventType',
+                'Add Event Type' =>'addEventType',
+                'Update Event Type' =>'updateEventType',
+                'Delete Event Type' =>'deleteEventType',
+            ],
             'Events' => [
                 'View Events' =>'viewEvents',
                 'Add Event' =>'addEvents',

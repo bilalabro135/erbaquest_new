@@ -114,10 +114,10 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT:</label>
                     <select name="type" required="required">
-                      <option selected="selected">Type:</option>
-                      @foreach($tyoesOfEvents as $tyoesOfEvent)
+                        <option selected="selected">Type:</option>
+                        @foreach($tyoesOfEvents as $tyoesOfEvent)
                         <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
-                      @endforeach
+                        @endforeach
                     </select>
                     @error('type')
                         <div class="text-danger">

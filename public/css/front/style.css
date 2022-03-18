@@ -3351,6 +3351,7 @@ button.delete-event:hover:after {
   text-align: center;
   font-size: 20px;
 }
-.front_event_create .error {
+.front_event_create .error,
+.front_event_update .error {
   color: #d52323;
 }

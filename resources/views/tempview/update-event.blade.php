@@ -135,11 +135,12 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT:</label>
-                    <select name="type">
-                        <option value="" selected="selected" {{(isset($event->type) && $event->type == "") ? 'selected="selected"' : ''}}>Type Of Event</option>
-                        <option value="Type1" {{(isset($event->type) && $event->type == "Type1") ? 'selected="selected"' : ''}}>Type1</option>
-                        <option value="Type2" {{(isset($event->type) && $event->type == "Type2") ? 'selected="selected"' : ''}}>type2</option>
-                        <option value="Type3" {{(isset($event->type) && $event->type == "Type3") ? 'selected="selected"' : ''}}>Type3</option>
+
+                    <select name="type" required="required">
+                        <option selected="selected">Type:</option>
+                        @foreach($tyoesOfEvents as $tyoesOfEvent)
+                        <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
+                        @endforeach
                     </select> 
                     @error('type')
                         <div class="text-danger">

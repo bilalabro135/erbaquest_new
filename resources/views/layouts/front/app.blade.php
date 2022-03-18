@@ -279,11 +279,6 @@
     $(".vendor_list").click(function(){
       $('.VendorList').toggleClass('vendor_dropdown');
     });
-
-      // Form Validation
-
-
-    // Drag and Drop Featured Image
  
 
  </script>
