@@ -184,7 +184,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/sponsors/{sponsor:id}/update/', [SponsorController::class, 'update'])->name('sponsors.update')->middleware('role:updateSponsors');
     Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
-
+// Front Events
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
 Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
 Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.event')->middleware('role:updateEvents');

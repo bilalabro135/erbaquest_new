@@ -22,10 +22,10 @@
                       <li class="item">
                         <a href="javascript:;">Draft Event</a>
                       </li>
-                      <li class="item">
-                        <a href="{{route('wishlist')}}">Wishlist</a>
-                      </li>
                     </ul>
+                  </li>
+                  <li>
+                    <a href="{{route('wishlist')}}">Wishlist</a>
                   </li>
                   <li class="have_child-items">
                     <span class="down-icon"><i class="fas fa-chevron-down"></i></span>

@@ -173,6 +173,7 @@ class EventController extends Controller
 
     public function frontstore(FrontEventRequest $request)
     {
+
         $eventDetail = $request->getEventData();
         // dd($request);
         $gallery_img = array();
@@ -195,6 +196,7 @@ class EventController extends Controller
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
         $event->address = $eventDetail['address'];
+
         $event->type = $eventDetail['type'];
         $event->door_dontation = $eventDetail['door_dontation'];
         $event->vip_dontation = $eventDetail['vip_dontation'];
@@ -223,6 +225,11 @@ class EventController extends Controller
 
         // echo '<pre>'; print_r($request->vendors); echo '</pre>'; exit;
 
+        if ($eventDetail['status'] == 'draft') {
+            $baseUrl = config('app.url')."events/".$event->id;
+            return redirect($baseUrl);
+        }
+
         if($request->has('vendors'))
             $event->vendors()->attach($request->vendors);
 
@@ -242,7 +249,6 @@ class EventController extends Controller
 
     public function updateevent($id)
     {
-        
         $data  =  Event::findorFail($id);
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
@@ -308,6 +314,7 @@ class EventController extends Controller
         }
         abort(404);
     }
+
     public function frontdestroy($id)
     {
         $event = Event::where('id', $id)->delete();
@@ -351,6 +358,7 @@ class EventController extends Controller
         $data['html'] = view('components.front.events.listing',  compact('events', 'loadmore', 'pageSlug'))->render();
         return response()->json($data);
     }
+
     public function show(Pages $pages, $id)
     {
         $event = Event::where('id', $id)->first();
@@ -411,4 +419,11 @@ class EventController extends Controller
         }
         abort(404);
     }
+
+    // public function frontdraftindex()
+    // {
+    //     $events = Event::all();
+    //     $pageSlug = Pages::where('template', 'event')->where('status', 'draft')->value('slug');
+    //     return view('components.front.section.events-all', compact('events', 'pageSlug'));
+    // }
 }
