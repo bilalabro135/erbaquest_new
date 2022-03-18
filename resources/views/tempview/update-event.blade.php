@@ -110,16 +110,27 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>ADDRESS:</label>
-                    <input type="text" name="address" placeholder="Search Address:" required="required" value="{{ $data->address }}">
-                    @error('address')
+                  <div class="col-sm-12 col-md-6">
+                    <div class="input-field input-locate">
+                        <label for="pac-input">Address:</label>
+                        <input id="edit_pac-input" class="form-control mb-3 " name="map_address" type="text" placeholder="Enter a location" required="required"/>
+                        <div id="edit_googlemap" style="height: 300px"></div>
+                        <input type="hidden" name="latitude" id="edit_latitude">
+                        <input type="hidden" name="longitude" id="edit_longitude">
+                        <div id="edit_infowindow-content">
+                          <span id="edit_place-name" class="title"></span><br />
+                          <span id="edit_place-address"></span>
+                        </div>
+                        @error('latitude')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
-                    @endif
-                    <div class="mapFrame">
-                      <img src="{{asset('images/map.jpg')}}">
+                        @endif
+                        @error('longitude')
+                        <div class="text-danger">
+                            {{$message}}                                            
+                        </div>
+                        @endif
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
@@ -395,4 +406,5 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
         </div>
       </div>
     </section>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=editMap"></script>
 @endsection

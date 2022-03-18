@@ -168,6 +168,12 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/events/{event:id}/edit/', [EventController::class, 'edit'])->name('events.edit')->middleware('role:updateEvents');
     Route::post('/events/{event:id}/update/', [EventController::class, 'update'])->name('events.update')->middleware('role:updateEvents');
     Route::get('/events/{event:id}/delete', [EventController::class, 'destroy'])->name('events.delete')->middleware('role:deleteEvents');
+    // Type Event
+    Route::get('/events/type-event', [EventController::class, 'typeeventindex'])->name('event.type')->middleware('role:viewEvents');
+    Route::get('/events/type-event/get', [EventController::class, 'geteventtype'])->name('event.type.get')->middleware('role:viewEvents');
+    Route::post('/events/type-event/add', [EventController::class, 'storeeventtype'])->name('event.type.store')->middleware('role:addAreas');
+    Route::get('/events/{event_type:id}/edit/', [EventController::class, 'editeventtype'])->name('event.type.edit')->middleware('role:updateEventType');
+    Route::get('/events/{event_type:id}/delete', [EventController::class, 'destroy'])->name('event.type.delete')->middleware('role:deleteEventType');
 
     // Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors')->middleware('role:viewSponsors');
@@ -179,14 +185,12 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/sponsors/{sponsor:id}/delete', [SponsorController::class, 'destroy'])->name('sponsors.delete')->middleware('role:deleteSponsors');
 });
 
-// Route::view('events/create', 'tempview.create-event')->middleware('auth', 'isOrganizer', 'verified')->name('events.create');
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
 Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
 Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.event')->middleware('role:updateEvents');
 Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');
 Route::post('/events/frontupdate/{event:id}',[EventController::class,'frontupdate'])->name('front.events.frontupdate')->middleware('role:updateEvents');
 Route::get('/events/delete/{event:id}', [EventController::class, 'frontdestroy'])->name('front.events.delete')->middleware('role:deleteEvents');
-// Route::view('events/edit', 'tempview.edit-event')->name('edit.event');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
 Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');

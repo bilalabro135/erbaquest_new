@@ -21,6 +21,8 @@
     <script src="{{ asset('js/front/bootstrap.min.js' ) }}" type="text/javascript"></script>
     <script src="{{ asset('js/front/owl.carousel.min.js' ) }}" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/bf7b09a514.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="{{asset('js/front/custom.js') }}"></script>
   </head>
 
@@ -232,6 +234,7 @@
        }
 
       $(".submit_btn").click(function(){
+
         $(".event_status").val("published");
         $(".front_event_create").submit();
       });
@@ -276,6 +279,13 @@
     $(".vendor_list").click(function(){
       $('.VendorList').toggleClass('vendor_dropdown');
     });
+
+      // Form Validation
+
+
+    // Drag and Drop Featured Image
+ 
+
  </script>
   @stack('scripts')
   </body>

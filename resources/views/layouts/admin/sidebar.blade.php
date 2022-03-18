@@ -163,6 +163,7 @@
                             @can('addEvents')
                             <a class="collapse-item text-light" href="{{route('events.add')}}">Add Event</a>
                             @endcan
+                            <a class="collapse-item text-light" href="{{route('event.type')}}">Type of Event</a>
                         </div>
                     </div>
                 </li>

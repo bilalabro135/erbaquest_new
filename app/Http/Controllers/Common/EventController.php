@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EventRequest;
+use App\Http\Requests\Admin\EventTypeRequest;
 use App\Http\Requests\Common\FrontEventRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 use App\Models\Pages;
 use App\Models\Event;
+use App\Models\EventType;
 use App\Models\Amenity;
 use Validator;
 use DataTables;
@@ -62,7 +64,8 @@ class EventController extends Controller
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
-        return view('tempview/create-event', compact('users', 'vendors', 'amenities'));
+        $tyoesOfEvents = EventType::all();
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents'));
     }
 
     public function store(EventRequest $request)
@@ -349,6 +352,58 @@ class EventController extends Controller
         $event = Event::where('id', $id)->first();
         if ($event != null) {
             return view('front.event.show', compact('event', 'pages'));
+        }
+        abort(404);
+    }
+
+    public function typeeventindex(){
+        return view('admin.events.event-type');
+    }
+
+    public function geteventtype()
+    {
+        $model = EventType::query();
+        return DataTables::eloquent($model)
+        ->addColumn('action', function($row){
+             $actionBtn = '';
+                if(Bouncer::can('updateEventType')){
+                    $actionBtn .='<a href="' . route('event.type.edit', ['event_type' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
+                }
+                if(Bouncer::can('deleteEventType')){
+                $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('event.type.delete', ['event_type' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
+                }
+                return $actionBtn;
+        })
+
+        ->rawColumns(['action'])
+        ->toJson();
+    }
+
+    public function storeeventtype(EventTypeRequest $request)
+    {
+        $event_type = new EventType();
+        $event_type->name = $request->name;
+        $event_type->save();
+        return back()->with(['msg' => 'Event Type Inserted', 'msg_type' => 'success']);
+    }
+
+    public function editeventtype(EventType $EventType)
+    {
+        return view('admin.events.edit-event-type', compact('event_type'));
+    }
+
+    public function updateeventtype(EventTypeRequest $request, EventType $EventType)
+    {
+        $event_type->update([
+            'name' => $request->name,
+        ]);
+        return Redirect::route('event.type')->with(['msg' => 'Event Type Updated', 'msg_type' => 'success']);
+    }
+    public function destroyeeventtype($id)
+    {
+        $event_type = EventType::where('id', $id)->delete();
+        if ($event_type) {
+            return Redirect::route('event.type')->with(['msg' => 'Event Type deleted', 'msg_type' => 'success']);
         }
         abort(404);
     }
