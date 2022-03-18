@@ -200,8 +200,11 @@ Route::view('account/setting', 'tempview.account-setting')->middleware('auth', '
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
 
-Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist')->middleware('auth', 'isOrganizer', 'verified');
-Route::get('/wishlist',[WishlistsController::class, 'view'])->name('wishlist');
+Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist');
+Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('remove.wishlist')->middleware('auth','verified');
+Route::get('/account/wishlist',[WishlistsController::class, 'view'])->name('wishlist');
+Route::get('/eventReminder',[WishlistsController::class, 'reminder'])->name('reminder.wishlist');
+Route::get('/redirectEvent',[WishlistsController::class, 'redirect'])->name('redirect.wishlist');
 
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');

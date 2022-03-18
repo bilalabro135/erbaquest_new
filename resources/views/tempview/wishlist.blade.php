@@ -18,15 +18,17 @@
           @include( 'tempview/sidebar' )
           	<div class="col-sm-12 col-md-8 UpcomingEvent">
 	            <div class="row">
-	            	@foreach($events as $event)
-
-                  <!--  -->
-                    <div class="col-sm-12 col-md-6">
+                <div class="alert alert-danger" style="display: none;">
+                   msg
+                </div>
+                @if($events)
+  	            	@foreach($events as $event)
+                    <div class="col-sm-12 col-md-6" id="event_{{$event['id']}}">
                       <div class="event-box_list">
                         <figure>
                           <div class="wishlist">
                             <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
-                            <a href="javascript:;" class="heart-link"><i class="far fa-heart"></i></a>
+                            <a href="javascript:;" class="heart-link removeWishlist"><i class="fas fa-times"></i> </a>
                             <p class="ft-tag">Featured</p>
                           </div>
                             <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
@@ -49,9 +51,10 @@
                         </div>
                       </div>
                     </div>
-                  <!--  -->
-
-	              	@endforeach
+  	              @endforeach
+                @else
+                  <p>No Events In Wishlists.</p>
+                @endif
             	</div>
           	</div>
         </div>
@@ -62,11 +65,34 @@
 
 @push('scripts')
 <script type="text/javascript">
-  
-        $('ul.menu_list li .down-icon').on('click',function(){
-          $(this).parent('li').toggleClass('current');
-          $(this).parent('li').find('ul.sub-menu').slideToggle();
-        })
+  $(".removeWishlist").click(function() {
+    if (confirm('Are You Sure You Want Remove The Event From Wishlist?')) {
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      var event_id = $(this).prev(".event_wish").val(); 
+      $.ajax({
+         url:'{{route("remove.wishlist")}}',
+         type:'POST',
+         data:'event_id='+event_id,
+         success:function(data) {
+          $("#event_"+event_id).remove();
+          $(".alert-danger").text(data.msg);
+          $(".alert-danger").show();
+          $('html, body').animate({
+            scrollTop: 0
+          }, 800);
+          setTimeout(location.reload.bind(location), 2000);
+        }
+      });
+    }
+  });    
+  $('ul.menu_list li .down-icon').on('click',function(){
+    $(this).parent('li').toggleClass('current');
+    $(this).parent('li').find('ul.sub-menu').slideToggle();
+  });
 </script>
 
 @endpush

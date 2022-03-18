@@ -55,9 +55,7 @@ class AuthController extends Controller
         $Settings = Settings::get('registration');
 
         $userData= $request->getUserData();
-        // echo "<pre>";
-        // print_r($userData);
-        // exit();
+
         $user = new User;
         $user->name = $userData['name'];
         $user->email = $userData['email'];
