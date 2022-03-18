@@ -245,7 +245,11 @@
         $(".event_status").val("published");
         $(".front_event_update").submit();
       });
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 457cb19ee48828fa4321cad921e6e6e288f89ea3
     $(".topbar .dropdown-toggle").click(function(){
       $(this).siblings().toggleClass("dropdown_toggle");
     });
