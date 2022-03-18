@@ -246,32 +246,7 @@
         $(".event_status").val("published");
         $(".front_event_update").submit();
       });
-    if(typeof myFile !== 'undefined'){
-      myFile.onchange = evt => {
-        const [file] = myFile.files
-        if (file) {
-          preview_img.src = URL.createObjectURL(file)
-        }
-      }
-    }
-      $(function() {
-        // Multiple images preview in browser
-        var imagesPreview = function(input, placeToInsertImagePreview) {
-            if (input.files) {
-                var filesAmount = input.files.length;
-                for (i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-                    reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-                    }
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-        };
-        $('#myFile1').on('change', function() {
-            imagesPreview(this, '.preview1');
-        });
-    });
+   
     $(".topbar .dropdown-toggle").click(function(){
       $(this).siblings().toggleClass("dropdown_toggle");
     });

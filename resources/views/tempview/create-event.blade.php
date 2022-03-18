@@ -43,9 +43,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field input-file featured_image_main">
+                  <div class="col-sm-12 col-md-6 input-field input-file featured_image_main drop-zone">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file" required="required">
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" required="required">
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
@@ -66,9 +66,9 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field input-file">
+                  <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
                     <label>PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file" multiple required="required">
+                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple required="required">
                     <button type="button" class="upload_img_btn" id="uploadImg1">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
@@ -91,7 +91,7 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
                         <label for="pac-input">Address:</label>
-                        <input id="pac-input" class="form-control mb-3 " name="map_address" type="text" placeholder="Enter a location" required="required"/>
+                        <input id="pac-input" class="form-control mb-3 " name="address" type="text" placeholder="Enter a location" required="required"/>
                         <div id="googlemap" style="height: 300px"></div>
                         <input type="hidden" name="latitude" id="latitude">
                         <input type="hidden" name="longitude" id="longitude">
@@ -373,4 +373,137 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
       </div>
     </section>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
+
+<script>
+    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+      const dropZoneElement = inputElement.closest(".drop-zone");
+
+      dropZoneElement.addEventListener("click", (e) => {
+        inputElement.click();
+      });
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnail(dropZoneElement, inputElement.files[0]);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("drop-zone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("drop-zone--over");
+        });
+      });
+
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
+          updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+        }
+
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    /**
+     * Updates the thumbnail on a drop zone element.
+     *
+     * @param {HTMLElement} dropZoneElement
+     * @param {File} file
+     */
+    function updateThumbnail(dropZoneElement, file) {
+
+      // First time - remove the prompt
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
+
+      // Show thumbnail for image files
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          $("#preview_img").attr("src",`${reader.result}`);
+        };
+      } else {
+        $("#preview_img").attr("src","");
+      }
+    }
+
+  </script>
+
+  <script>
+    document.querySelectorAll(".upload_file_multi").forEach((inputElement) => {
+      const dropZoneElement = inputElement.closest(".drop-zonemul");
+
+      dropZoneElement.addEventListener("click", (e) => {
+        inputElement.click();
+      });
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnailMulti(dropZoneElement, inputElement.files);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("drop-zone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("drop-zone--over");
+        });
+      });
+
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
+          updateThumbnailMulti(dropZoneElement, e.dataTransfer.files);
+        }
+
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    function updateThumbnailMulti(dropZoneElement, file) {
+
+     
+      
+
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
+
+      var i;
+      for (i = 0; i < file.length; ++i) {
+
+      
+        if (file[i].type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.readAsDataURL(file[i]);
+          reader.onload = () => {
+            console.log(`${reader.result}`);
+            $(".preview1").append("<img src='"+`${reader.result}`+"' />");
+          };
+        } else {
+          $(".preview1").html();
+        }
+      }
+
+
+    }
+
+  </script>
 @endsection
