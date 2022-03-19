@@ -174,37 +174,21 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR:</label>
-                    <input type="text" class="vendor_list" name="vendor_list" required="required" placeholder="VENDOR:" value="{{ old('vendor_list') }}">
-                    @error('vendor_list')
+                    <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple" required="required">
+                      @foreach($vendors as $vendor)
+                        <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                      @endforeach
+                      @error('vendor')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
-                    @endif
-                    <div class="VendorList">
-                      <ul>
-                        @foreach($vendors as $vendor)
-                        <li>
-                          <div class="input-field input-checkbox checkRight">
-                            <label>
-                              <span class="figure"><img src="{{$vendor->icon}}"></span>{{$vendor->name}}
-                              <input id="vendor_{{$vendor->id}}" type="checkbox" data-name="{{$vendor->name}}" name="vendors[]" value="{{$vendor->id}}" required="required" onclick="myVendorsTags('vendor_{{$vendor->id}}');">
-                            </label>
-                          </div>
-                        </li>
-                        @endforeach
-                        @error('vendor')
-                          <div class="text-danger">
-                              {{$message}}                                            
-                          </div>
-                        @endif
-                      </ul>
-                      <p>Can’t find vendor? <a href="javascript:;">ASK to join</a> </p>
-                    </div>
+                      @endif
+                    </select>
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field inputTags">
+                  <!-- <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
                     </ul>
-                  </div>
+                  </div> -->
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>VENDOR SPACES AVAILABLE:</label>
                     <input type="number" name="vendor_space_available" value="1" value="{{ old('vendor_space_available') }}" required="required">
@@ -501,9 +485,10 @@ $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andor
           $(".preview1").html();
         }
       }
-
-
     }
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+    });
 
   </script>
 @endsection

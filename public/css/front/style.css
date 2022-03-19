@@ -2385,6 +2385,7 @@ button#uploadImg span.clr-green {
   right: 36px;
   top: 70px;
   pointer-events: none;
+  z-index: 9;
 }
 
 .createEventForm .mapFrame img {
@@ -3354,4 +3355,46 @@ button.delete-event:hover:after {
 .front_event_create .error,
 .front_event_update .error {
   color: #d52323;
+}
+/*Select2 Css*/
+.select2-container--default .select2-selection--multiple {
+  height: 85px !important;
+  width: 100% !important;
+  padding: 0 28px !important;
+  border: 1px solid #dcdcdc !important;
+  border-radius: 10px;
+  box-shadow: none;
+  outline: none;
+  color: #7c7c7c;
+  font-weight: 500;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+/*  display: flex;
+  align-items: center;
+  height: 100%;*/
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #1e783b;
+  color: #fff;
+  border-color: #1e783b;
+  padding: 8px;
+  padding-left: 20px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+  color: #fff;
+  font-size: 20px;
+  border: 0px;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  background-color: #1e783b;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+  background-color: #1e783b;
+  color: #fff;
 }

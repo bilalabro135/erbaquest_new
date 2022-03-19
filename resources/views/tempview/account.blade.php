@@ -76,9 +76,9 @@
                 </div>
                 <div class="input-field input-file">
                   <label>UPLOAD PICTURE: </label>
-                  <input type="file" id="myFile123" name="filename">
+                  <input type="file" id="myFile123" class="upload_file" name="filename">
                   <div class="preview"></div>
-                  <button type="button" id="uploadImg">
+                  <button type="button" class="upload_img_btn" id="uploadImg">
                     <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                     <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                   </button>
