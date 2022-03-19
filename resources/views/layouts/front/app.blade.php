@@ -208,9 +208,6 @@
 
       });
 
-      	$( ".upload_img_btn" ).click(function() {
-        	$(this).parent().find(".upload_file").trigger("click");
-      	});
       	// create event form Amenite checkbox
       	$('.AmentieList .checkRight input:checkbox').change(function(){
           	if($(this).is(":checked")) {
@@ -220,7 +217,6 @@
           	}
       	});
       	// create event form vendor checkbox
-
        function myVendorsTags(vendorClass){
           if($("#"+vendorClass).is(":checked")) {
               $("#"+vendorClass).parent().parent().addClass("checked");

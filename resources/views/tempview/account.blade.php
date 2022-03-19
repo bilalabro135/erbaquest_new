@@ -19,7 +19,9 @@
           <div class="col-sm-12 col-md-8">
             <div class="profile_info">
               <figure>
-                <img src="{{asset('images/profilePic.png')}}">
+                @isset($users->profile_image)
+                  <img src="{{ $users->profile_image }}">
+                @endisset
               </figure>
               <div class="dt">
                 <!-- <h3>LOREM IPSUM</h3> -->
@@ -67,26 +69,25 @@
                 </div>
                 <div class="input-field">
                   <label>PHONE:</label>
-                  <input type="tel" name="phone" placeholder="PHONE:" value="{{ $users->phone }}">
+                  <input type="tel" name="phone" placeholder="PHONE:" required="required" value="{{ $users->phone }}">
                   @error('phone')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
                   @enderror
                 </div>
-                <div class="input-field input-file">
-                  <label>UPLOAD PICTURE: </label>
-                  <input type="file" id="myFile123" class="upload_file" name="filename">
-                  <div class="preview"></div>
-                  <button type="button" class="upload_img_btn" id="uploadImg">
-                    <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
-                    <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
-                  </button>
-                  @error('filename')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+                <div class="input-field input-file drop-zone asd">
+                  <label>UPLOAD PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
+                <input type="file" id="myFile" name="profile_image" class="upload_file drop-zone__input" required="required">
+                <button type="button" class="upload_img_btn" id="uploadImg">
+                  <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
+                  <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
+                </button>
+                @error('filename')
+                    <div class="text-danger">
+                        {{$message}}                                            
+                    </div>
+                @endif
                 </div>
                 <div class="input-field">
                   <label>ADDRESS:</label>
@@ -125,9 +126,8 @@
                   @enderror
                 </div>
                 <div class="input-field input-checkbox">
-                  <label>
-                    <input type="checkbox" name="agreement" >
-                    I agree Terms & Conditions
+                  <label class="checkmark">
+                      <input type="checkbox" name="agreement" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
                   </label>
                   @error('agreement')
                   <span class="invalid-feedback" role="alert">
@@ -149,11 +149,86 @@
 
 @push('scripts')
 <script type="text/javascript">
-	
+	     
+      $(document).ready(function() {
+       $('.input-field .checkmark input').on('change',function () {
+        if($(this).is(':checked'))
+            {
+              $(this).parent('label').addClass('active');
+            }else
+            {
+             $(this).parent('label').removeClass('active');
+            }
+           
+       });
+      });
+
         $('ul.menu_list li .down-icon').on('click',function(){
           $(this).parent('li').toggleClass('current');
           $(this).parent('li').find('ul.sub-menu').slideToggle();
         })
+
+      document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+      const dropZoneElement = inputElement.closest(".drop-zone");
+
+      dropZoneElement.addEventListener("click", (e) => {
+        inputElement.click();
+      });
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnail(dropZoneElement, inputElement.files[0]);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("drop-zone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("drop-zone--over");
+        });
+      });
+
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
+          updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+        }
+
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    /**
+     * Updates the thumbnail on a drop zone element.
+     *
+     * @param {HTMLElement} dropZoneElement
+     * @param {File} file
+     */
+    function updateThumbnail(dropZoneElement, file) {
+
+      // First time - remove the prompt
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
+
+      // Show thumbnail for image files
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          $("#preview_img").attr("src",`${reader.result}`);
+        };
+      } else {
+        $("#preview_img").attr("src","");
+      }
+    }
 </script>
 
 @endpush

@@ -38,7 +38,7 @@ class AccountUpdateRequest extends FormRequest
         return [
             'id' => 'required',
             'name' => 'required|max:255',
-            'filename' => 'max:255',
+            'profile_image' => 'required|image',
             'username' => 'unique:users,username,'.$this->get('id').'|required|max:255',
             'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
             'phone' => ['required', new Telephone()],
@@ -57,7 +57,7 @@ class AccountUpdateRequest extends FormRequest
             'email' => $this->get('email'),
             'username' => $this->get('username'),
             'address' =>( $this->has('address')) ? $this->get('address') : null,
-            'filename' =>( $this->has('filename')) ? $this->get('filename') : null,
+            'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,
             'phone' => $this->get('phone'),
        ];
        if ($this->has('password') && $this->get('password') != null && $this->get('password') != 'null') {        

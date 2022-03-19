@@ -3398,3 +3398,8 @@ button.delete-event:hover:after {
   background-color: #1e783b;
   color: #fff;
 }
+.profile_info figure img {
+  border-radius: 150px;
+    width: 150px;
+    height: 150px;
+}
