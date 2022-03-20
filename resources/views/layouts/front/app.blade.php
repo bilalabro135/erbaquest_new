@@ -49,7 +49,7 @@
                      @if(count($menu->children))
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @foreach($menu->children as $menuchild)
-                             <li id="{{$menuchild->attr_id}}"><a class="dropdown-item {{$menuchild->attr_class}}" href="{{get_url($menuchild->link)}}">{{$menuchild->title}}</a></li>
+                             <li id="{{$menuchild->attr_id}}" class="{{$menuchild->order}}"><a class="dropdown-item {{$menuchild->attr_class}}" href="{{get_url($menuchild->link)}}">{{$menuchild->title}}</a></li>
                         @endforeach
                       </ul>
                      @endif
@@ -256,7 +256,14 @@
       $('.VendorList').toggleClass('vendor_dropdown');
     });
  
+    $(function(){
+       var elem = $('.dropdown-menu').find('li').sort(sortMe);
+       $('.dropdown-menu').append(elem);
+    });
 
+    function sortMe(a, b) {
+      return a.className > b.className;
+    }
  </script>
   @stack('scripts')
   </body>

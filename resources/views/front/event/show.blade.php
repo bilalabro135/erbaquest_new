@@ -352,6 +352,22 @@
                 <div class="">
                     <a href="{{ $action_status }}" class="action_publish">Publish</a>
                     <a href="{{ $action_edit }}" class="action_edit">Edit</a>
+                    <a href="javascript:void(0);" class="action_delete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                </div>
+              </div>
+              <div class="modal fade delete_event_popup" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="popup_close">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="{{ $action_delete }}" class="btn btn-primary">Confirm</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             @endif

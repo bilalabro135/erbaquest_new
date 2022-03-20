@@ -191,6 +191,9 @@ Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.e
 Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');
 Route::post('/events/frontupdate/{event:id}',[EventController::class,'frontupdate'])->name('front.events.frontupdate')->middleware('role:updateEvents');
 Route::get('/events/delete/{event:id}', [EventController::class, 'frontdestroy'])->name('front.events.delete')->middleware('role:deleteEvents');
+
+Route::get('/events-draft/delete/{event:id}', [EventController::class, 'frontDraftDestroy'])->name('front.events-draft.delete')->middleware('role:deleteEvents');
+
 Route::get('/events/publish/{event:id}', [EventController::class, 'publishDraft'])->name('front.events.publist');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
@@ -198,6 +201,7 @@ Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'is
 Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('account.setting');
 
 // 
+Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.account.edit')->middleware('auth', 'verified');
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
 

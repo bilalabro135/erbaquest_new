@@ -15,6 +15,8 @@ class MenuController extends Controller
 {
     public function index($type)
     {
+
+
         $menusArray = config('settings.menus');
         if (!in_array($type, $menusArray)) {
             abort(404, 'Menu not exists');
