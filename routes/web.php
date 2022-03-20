@@ -191,6 +191,7 @@ Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.e
 Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');
 Route::post('/events/frontupdate/{event:id}',[EventController::class,'frontupdate'])->name('front.events.frontupdate')->middleware('role:updateEvents');
 Route::get('/events/delete/{event:id}', [EventController::class, 'frontdestroy'])->name('front.events.delete')->middleware('role:deleteEvents');
+Route::get('/events/publish/{event:id}', [EventController::class, 'publishDraft'])->name('front.events.publist');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
 Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');
@@ -205,6 +206,9 @@ Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('rem
 Route::get('/account/wishlist',[WishlistsController::class, 'view'])->name('wishlist');
 Route::get('/eventReminder',[WishlistsController::class, 'reminder'])->name('reminder.wishlist');
 Route::get('/redirectEvent',[WishlistsController::class, 'redirect'])->name('redirect.wishlist');
+
+Route::get('/account/upcoming-event',[EventController::class, 'upcomingEvent'])->name('upcomming.account')->middleware('auth','verified');
+Route::get('/account/draft-events',[EventController::class, 'draftEvent'])->name('draft.account')->middleware('auth','verified');
 
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');

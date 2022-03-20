@@ -346,6 +346,16 @@
                 @endif
               </ul>
             </div>
+            @if($event->status == 'draft')
+              <div class="social-box">
+                <h4>Action:</h4>
+                <div class="">
+                    <a href="{{ $action_status }}" class="action_publish">Publish</a>
+                    <a href="{{ $action_edit }}" class="action_edit">Edit</a>
+                </div>
+              </div>
+            @endif
+
           </div>
         </div>
       </div>

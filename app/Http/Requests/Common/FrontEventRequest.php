@@ -87,6 +87,7 @@ class FrontEventRequest extends FormRequest
             'ATM_on_site' => ($this->has('ATM_on_site')) ? $this->get('ATM_on_site') : null ,
             'tickiting_number' => ($this->has('tickiting_number')) ? $this->get('tickiting_number') : null ,
             'vendor_number' => ($this->has('vendor_number')) ? $this->get('vendor_number') : null ,
+            'vendor_list' => ($this->has('vendor_list')) ? $this->get('vendor_list') : null ,
             'user_number' => ($this->has('user_number')) ? $this->get('user_number') : null ,
             'website_link' => ($this->has('website_link')) ? $this->get('website_link') : null ,
             'facebook' => ($this->has('facebook')) ? $this->get('facebook') : null ,

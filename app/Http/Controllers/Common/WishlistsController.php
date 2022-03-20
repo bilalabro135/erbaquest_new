@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Common\WishlistRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use App\Models\WishLists;
 use App\Models\User;
@@ -72,30 +73,30 @@ class WishlistsController extends Controller
       return redirect()->route('login')->with('msg', 'Please login first before add to wishlist!');
   }
 
-  public function reminder() {    
+  public function reminder() {
+  dd("1");    
     $now = Carbon::tomorrow();
     $tomorrowDate = $now->format('Y-m-d');    
-    $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->get();
-
+    dd($tomorrowDate);
+    $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
     $wishlistUser = array();
     if(count($getTomorrowEvents)){
       foreach ($getTomorrowEvents as $getTomorrowEvent) {
-        $event_id = $getTomorrowEvent['id'];
-        $getwishlistsData = WishLists::where('event_id', '=', $getTomorrowEvent['id'])
-        ->leftJoin('users', 'users.id', '=', 'WishLists.user_id')
-        ->get(); 
-         foreach ($getwishlistsData as $getwishlistData) {
-          echo "<pre>";
-          dd($getwishlistData);
-
-           //wishlistUser[$getwishlistData['id']] = $getwishlistData['email'];    
-         }
-      }
+        $sendEmailUser = array();
+        $getWishlistUsers = wishlists::where("event_id","=",$getTomorrowEvent['id'])
+          ->leftJoin('users', 'wishlists.user_id', '=', 'users.id')->get();
+        if(count($getWishlistUsers)){
+          foreach ($getWishlistUsers as $getWishlistUser) {
+            $wishlistUser[] = $getWishlistUser['email']; 
+          }
+        } 
+        if(!empty($wishlistUser)){
+            $details = array();
+            Mail::to($wishlistUser)->send(new \App\Mail\eventReminder($details));
+        }     
+      } 
     }
-    if(!empty($wishlistUser)){
 
-
-    }
     return;
     
   }

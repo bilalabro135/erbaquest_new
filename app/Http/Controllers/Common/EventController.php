@@ -14,6 +14,8 @@ use App\Models\Pages;
 use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Amenity;
+use App\Models\Vendor;
+use App\Models\Area;
 use Validator;
 use DataTables;
 use Bouncer;
@@ -52,7 +54,9 @@ class EventController extends Controller
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
-        return view('admin.events.add', compact('users', 'vendors', 'amenities'));
+        $tyoesOfEvents = EventType::all();
+        $countries = Area::all();
+        return view('admin.events.add', compact('users', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
     }
 
     public function store(EventRequest $request)
@@ -104,7 +108,9 @@ class EventController extends Controller
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
-        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities'));
+        $tyoesOfEvents = EventType::all();
+        $countries = Area::all();
+        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -168,14 +174,14 @@ class EventController extends Controller
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
-        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents'));
+        $countries = Area::all();
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents','countries'));
     }
 
     public function frontstore(FrontEventRequest $request)
     {
-
         $eventDetail = $request->getEventData();
-        // dd($request);
+        
         $gallery_img = array();
         $event = new Event();
         $event->name = $eventDetail['name'] ;
@@ -223,7 +229,13 @@ class EventController extends Controller
         $event->user_id = $user->id;
         $event->save();
 
-        // echo '<pre>'; print_r($request->vendors); echo '</pre>'; exit;
+        //adding vendor id and event id in in vendor table
+        foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
+            $vendor = new Vendor();
+            $vendor->event_id = $event->id;
+            $vendor->user_id = $vendorId;
+            $vendor->save();
+        } 
 
         if ($eventDetail['status'] == 'draft') {
             $baseUrl = config('app.url')."events/".$event->id;
@@ -249,22 +261,90 @@ class EventController extends Controller
 
     public function updateevent($id)
     {
-        $data  =  Event::findorFail($id);
-        $vendors = User::whereIs('Vendor')->get();
+        $getevents  =  Event::findorFail($id);
+        $data = array();
+        if($getevents){
+            $gallery_data = unserialize($getevents['gallery']);
+            $data = array(
+                'id' => $getevents['id'],
+                'name' => $getevents['name'],
+                'slug' => $getevents['slug'],
+                'featured_image' => $getevents['featured_image'],
+                'description' => $getevents['description'],
+                'gallery' => $gallery_data,
+                'event_date' => $getevents['event_date'],
+                'address' => $getevents['address'],
+                'type' => $getevents['type'],
+                'door_dontation' => $getevents['door_dontation'],
+                'vip_dontation' => $getevents['vip_dontation'],
+                'vip_perk' => $getevents['vip_perk'],
+                'charity' => $getevents['charity'],
+                'cost_of_vendor' => $getevents['cost_of_vendor'],
+                'vendor_space_available' => $getevents['vendor_space_available'],
+                'area' => $getevents['area'],
+                'height' => $getevents['height'],
+                'capacity' => $getevents['capacity'],
+                'ATM_on_site' => $getevents['ATM_on_site'],
+                'tickiting_number' => $getevents['tickiting_number'],
+                'vendor_number' => $getevents['vendor_number'],
+                'user_number' => $getevents['user_number'],
+                'website_link' => $getevents['website_link'],
+                'facebook' => $getevents['facebook'],
+                'twitter' => $getevents['twitter'],
+                'linkedin' => $getevents['linkedin'],
+                'instagram' => $getevents['instagram'],
+                'youtube' => $getevents['youtube'],
+                'status' => $getevents['status'],
+                'user_id' => $getevents['user_id'],
+                'created_at' => $getevents['created_at'],
+                'updated_at' => $getevents['updated_at'],
+                'deleted_at' => $getevents['deleted_at'],
+            );
+        };
+
+        $getSelectedVendorIds = Vendor::where("event_id",$getevents['id'])->get();
+        $setectedvendor = array();
+        if(count($getSelectedVendorIds)){
+            foreach ($getSelectedVendorIds as $getSelectedVendorId) {
+                 $setectedvendor[] = $getSelectedVendorId['user_id'];
+            }
+        }
+        $getvendors = User::whereIs('Vendor')->get();
+        $vendors = array();
+        if(count($getvendors)){
+            foreach ($getvendors as $getvendor) {
+                $selected = 0;
+                if( in_array($getvendor['id'], $setectedvendor) ){
+                    $selected = 1;
+                } 
+                $vendors[] = array(
+                    'id'   => $getvendor['id'],
+                    'name' => $getvendor['name'],
+                    'selected' => $selected,
+                );
+            }
+        }    
+
+
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
-        // dd($data);
-        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents'));
+        $countries = Area::all();
+
+
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
     {
+        
         $eventDetail = $request->getEventData();
+        
         $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
         $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
+
         $event->update([
             'name' =>  $eventDetail['name'],
             'slug' =>  $eventDetail['slug'],
-            'featured_image' =>  $featured_image  ,
+            'featured_image' =>  $featured_image,
             'gallery' =>  $gallery,
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],
@@ -284,7 +364,6 @@ class EventController extends Controller
             'vendor_number' =>  $eventDetail['vendor_number'],
             'user_number' =>  $eventDetail['user_number'],
             'website_link' =>  $eventDetail['website_link'],
-            // 'user_id' =>  $eventDetail['user_id'],
             'facebook' =>  $eventDetail['facebook'],
             'twitter' =>  $eventDetail['twitter'],
             'linkedin' =>  $eventDetail['linkedin'],
@@ -293,16 +372,28 @@ class EventController extends Controller
             'status' =>  $eventDetail['status'],
         ]);
 
-        if($request->has('vendors'))
-            $event->vendors()->sync($request->vendors);
-        else
-            $event->vendors()->sync(array());
+        //adding vendor id and event id in in vendor table
+        Vendor::where('event_id', $event->id)->delete();
+        foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
+            $vendor = new Vendor();
+            $vendor->event_id = $event->id;
+            $vendor->user_id = $vendorId;
+            $vendor->save();
+        } 
+
+
         
         if($request->has('amenities'))
             $event->amenities()->sync($request->amenities);
         else
             $event->amenities()->sync(array());
         
+        
+        if ($eventDetail['status'] == 'draft') {
+            $baseUrl = config('app.url')."events/".$event->id;
+            return redirect($baseUrl);
+        }
+
         return Redirect::route('pages.show', ['pages' => 'events'])->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
@@ -362,8 +453,12 @@ class EventController extends Controller
     public function show(Pages $pages, $id)
     {
         $event = Event::where('id', $id)->first();
+        
+        $action_edit = url("/events/{$id}/edit");
+        $action_status = url("/events/publish/{$id}");
+        
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status'));
         }
         abort(404);
     }
@@ -420,10 +515,25 @@ class EventController extends Controller
         abort(404);
     }
 
-    // public function frontdraftindex()
-    // {
-    //     $events = Event::all();
-    //     $pageSlug = Pages::where('template', 'event')->where('status', 'draft')->value('slug');
-    //     return view('components.front.section.events-all', compact('events', 'pageSlug'));
-    // }
+    public function publishDraft($id)
+    {
+        Event::where('id', $id)
+       ->update([
+           'status' => 'published'
+        ]);
+
+        return Redirect("/events")->with(['msg' => 'Event Updated', 'msg_type' => 'success']);    
+   }
+
+   public function upcomingEvent()
+   {
+        $now = date('Y-m-d');
+        $events = Event::where('status', 'published')->whereDate('event_date', '>', $now)->get();
+        return view('tempview.upcoming-event', compact('events'));   
+   }
+   public function draftEvent()
+   {
+        $events = Event::where('status', 'draft')->get();
+        return view('tempview.draft-event', compact('events'));   
+   }
 }

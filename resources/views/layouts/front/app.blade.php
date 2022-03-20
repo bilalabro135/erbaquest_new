@@ -243,6 +243,10 @@
         $(".event_status").val("published");
         $(".front_event_update").submit();
       });
+      $(".preview_btn").click(function(){
+        $(".event_status").val("draft");
+        $(".front_event_update").submit();
+      });
       //js
     $(".topbar .dropdown-toggle").click(function(){
       $(this).siblings().toggleClass("dropdown_toggle");
