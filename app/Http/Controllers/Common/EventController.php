@@ -164,6 +164,7 @@ class EventController extends Controller
     public function frontindex()
     {
         $events = Event::all();
+        dd($events);
         $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         return view('components.front.section.events-all', compact('events', 'pageSlug'));
     }
@@ -181,7 +182,6 @@ class EventController extends Controller
     public function frontstore(FrontEventRequest $request)
     {
         $eventDetail = $request->getEventData();
-        
         $gallery_img = array();
         $event = new Event();
         $event->name = $eventDetail['name'] ;
@@ -254,9 +254,16 @@ class EventController extends Controller
 
     public function frontedit(Event $event)
     {
-        $events = Event::where('user_id', Auth::user()->id)->get();
-        // dd($events);
-        return view('tempview.edit-event', compact('events'));
+        $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->get();
+        $user = Auth::user();
+        
+        if($user->profile_image){
+            $profile_image = env('APP_URL') .$user['profile_image'];
+        }else{
+            $profile_image = "";
+        }
+
+        return view('tempview.edit-event', compact('events','profile_image'));
     }
 
     public function updateevent($id)
@@ -456,9 +463,19 @@ class EventController extends Controller
         
         $action_edit = url("/events/{$id}/edit");
         $action_status = url("/events/publish/{$id}");
+        $action_delete = url("/events-draft/delete/{$id}");
         
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete'));
+        }
+        abort(404);
+    }
+
+    public function frontDraftDestroy($id)
+    {
+        $event = Event::where('id', $id)->delete();
+        if ($event) {
+            return Redirect::route('edit.event')->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
         abort(404);
     }

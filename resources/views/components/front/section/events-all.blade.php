@@ -11,7 +11,7 @@
           </div>
           @if($events)
             @foreach($events as $event)
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 asd">
               <div class="event-box_list" id="event_{{$event['id']}}">
                 <figure>
                   <div class="wishlist">
@@ -30,9 +30,13 @@
                     <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
                   <div class="author">
                     <p>{{$event['area']}}</p>
-                    @if(!empty($event->organizer->profile_image))
+                    @if(!empty($event['user_profile']))
                     <div class="figure">
-                      <img src="{{($event->organizer->profile_image != 'null') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
+                      <img src="{{ $event['user_profile'] }}" >
+                    </div>
+                    @else
+                    <div class="figure">
+                      <img src="{{asset('images/avatar.png')}}">
                     </div>
                     @endif
                   </div>

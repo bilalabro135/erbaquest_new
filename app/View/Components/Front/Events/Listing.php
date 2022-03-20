@@ -5,6 +5,7 @@ namespace App\View\Components\Front\Events;
 use Illuminate\View\Component;
 use App\Models\Event;
 use App\Models\Pages;
+use App\Models\User;
 class Listing extends Component
 {
     public $events;
@@ -53,6 +54,7 @@ class Listing extends Component
         $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
 
         $this->events = $events->get();
+        
         if (count($this->events)) 
             return view('components.front.events.listing');
     }

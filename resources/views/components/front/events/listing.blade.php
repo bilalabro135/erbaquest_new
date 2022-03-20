@@ -27,7 +27,11 @@
         <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}">Details</a>
         @endif
         @if(!empty($event->organizer->name))
-        <h5>{{$event->organizer->name}} <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}"></h5>
+        <h5>
+          {{$event->organizer->name}} 
+
+          <img src="{{(isset($event->organizer->profile_image)) ? env('APP_URL').$event->organizer->profile_image : asset('/images/avatar.png')}}">
+        </h5>
         @endif
       </div>
     </div>

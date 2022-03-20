@@ -1284,7 +1284,7 @@ h3.vc_heading.vc_heading-green:before {
   font-size: 16px;
 }
 
-.media-box a.md-link {
+.event-box_list a.md-link {
   color: #2c9044;
   font-weight: 600;
   font-size: 18px;
@@ -1300,7 +1300,7 @@ h3.vc_heading.vc_heading-green:before {
   margin-bottom: 28px;
 }
 
-.media-box a.md-link:after {
+.event-box_list a.md-link:after {
   content: "";
   height: 3px;
   width: 0%;
@@ -1311,7 +1311,7 @@ h3.vc_heading.vc_heading-green:before {
   transition: all 0.3s ease-in-out !important;
 }
 
-.media-box a.md-link:hover:after {
+.event-box_list a.md-link:hover:after {
   width: 100%;
 }
 

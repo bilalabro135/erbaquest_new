@@ -62,6 +62,13 @@ class EventsAll extends Component
                         $isWishList = 1;
                     }
                 }
+                $user_data = User::where("id","=",$getevent['user_id'])->first();
+                if($user_data['profile_image']){
+                    $profile_image = env('APP_URL') .$user_data['profile_image'];
+                }else{
+                    $profile_image = "";
+                }
+                
                 $events[] = array(
                     'id' => $getevent['id'],
                     'name' => $getevent['name'],
@@ -71,12 +78,14 @@ class EventsAll extends Component
                     'description' => $getevent['description'],
                     'event_date' => $getevent['event_date'],
                     'area' => $getevent['area'],
+                    'user_profile' => $profile_image,
                 );
             }
         }
         
         $this->events = $events;
         $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        // dd($events);
         return view('components.front.section.events-all');
     }
 }

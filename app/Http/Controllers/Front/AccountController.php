@@ -10,9 +10,8 @@ use Auth;
 class AccountController extends Controller
 {
     public function edit(Request $request) {
+        
     	$userData = Auth::user();
-        //dd($userData);
-
     	$users = new User;
         $users->name = $userData['name'];
         $users->user_name = $userData['username'];
@@ -20,23 +19,17 @@ class AccountController extends Controller
         $users->phone = $userData['phone'];
         $users->address = $userData['address'];
         $users->profile_image = env('APP_URL').$userData['profile_image'];
-
-        
-
-        // if($request->hasFile('profile_image')){
-        //     $filename = $request->image->getClientOriginalName();
-        //     $request->image->save( public_path('/uploads/' . $filename ) );
-        //     Auth()->user()->update(['image'=>$filename]);
-        // }
         $users->id = $userData['id'];
+
         return view('tempview/account', compact('users'));
     }
 
     public function update(AccountUpdateRequest $request) {
     	$userData= $request->getUserData();
-        // dd($userData);
+        
         $fname = $request->file('profile_image')->getClientOriginalName();
-            $request->file('profile_image')->move(public_path().'/uploads/', $fname);
+        $request->file('profile_image')->move(public_path().'/uploads/', $fname);
+        
         $users = User::where('id', $userData['id'])->update([
         	'name' => $userData['name'],
         	'email' => $userData['email'],
@@ -51,5 +44,11 @@ class AccountController extends Controller
         }
 
         return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
+    }
+
+    public function redirect() {
+
+        return redirect()->route('account.edit');
+
     }
 }
