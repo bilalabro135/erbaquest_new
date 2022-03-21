@@ -50,7 +50,7 @@
                      @if(count($menu->children))
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @foreach($menu->children as $menuchild)
-                             <li id="{{$menuchild->attr_id}}" class="{{$menuchild->order}}"><a class="dropdown-item {{$menuchild->attr_class}}" href="{{get_url($menuchild->link)}}">{{$menuchild->title}}</a></li>
+                             <li id="{{$menuchild->attr_id}}" data-order="{{$menuchild->order}}"><a class="dropdown-item {{$menuchild->attr_class}}" href="{{get_url($menuchild->link)}}">{{$menuchild->title}}</a></li>
                         @endforeach
                       </ul>
                      @endif
@@ -256,15 +256,13 @@
     $(".vendor_list").click(function(){
       $('.VendorList').toggleClass('vendor_dropdown');
     });
- 
-    $(function(){
-       var elem = $('.dropdown-menu').find('li').sort(sortMe);
-       $('.dropdown-menu').append(elem);
-    });
 
-    function sortMe(a, b) {
-      return a.className > b.className;
-    }
+    var $ul = $('.dropdown-menu');
+    var $lis = $ul.find('li').sort(function(a, b) {
+      return $(a).data('order') - $(b).data('order');
+    });
+    $lis.appendTo($ul);
+
  </script>
   @stack('scripts')
   </body>
