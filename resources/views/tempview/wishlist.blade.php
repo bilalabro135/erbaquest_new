@@ -27,7 +27,8 @@
                       <div class="event-box_list">
                         <figure>
                           <div class="wishlist">
-                            <a href="javascript:;" class="heart-link" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$event['id']}}"><i class="fas fa-times"></i> </a>
+                            <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
+                            <a href="javascript:;" class="heart-link removeWishlist"><i class="fas fa-times"></i> </a>
                             <p class="ft-tag">Featured</p>
                           </div>
                             <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
@@ -50,24 +51,6 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="modal fade delete_event_popup" id="exampleModal_{{$event['id']}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="popup_close">
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p>Are you sure?</p>
-                            </div>
-                            <div class="modal-footer">
-                              <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
-                              <a href="javascript:void(0);" class="btn btn-primary removeWishlist">Confirm</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
   	              @endforeach
                 @else
                   <p>No Events In Wishlists.</p>
@@ -94,7 +77,6 @@
          type:'POST',
          data:'event_id='+event_id,
          success:function(data) {
-          $(".delete_event_popup").modal('hide');
           $("#event_"+event_id).remove();
           $(".alert-danger").text(data.msg);
           $(".alert-danger").show();

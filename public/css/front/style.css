@@ -3572,3 +3572,32 @@ button.delete-event:hover:after {
   background-color: #2c8841;
   color: #fff;
 }
+
+  .date_head{
+    float: left;
+  }
+  .wishlistIcon{
+    float: right;
+  }
+  .wishlistIcon i{
+    color: #2c9044;
+    font-size: 24px;
+    margin-top: -3px;
+  }
+
+    .close_sucesss{
+    float: right;
+    font-weight: bold;
+  }
+  .ft-event .alert{
+    display: none;
+  }
+  .ft-event .alert-success a{
+    color: #0f5132; 
+  }
+  .ft-event .alert-danger a{
+    color: #842029;
+  }
+  .disabled-link{
+    pointer-events: none;
+  }

@@ -11,7 +11,7 @@
           </div>
           @if($events)
             @foreach($events as $event)
-            <div class="col-sm-12 col-md-4 asd">
+            <div class="col-sm-12 col-md-4">
               <div class="event-box_list" id="event_{{$event['id']}}">
                 <figure>
                   <div class="wishlist">
@@ -71,12 +71,6 @@ $(".heart-link").click(function() {
       }
   });
   var event_id = $(this).prev(".event_wish").val(); 
-  
-  if($(".event_wish").hasClass('addedwishlist')){
-    alert("supp");
-  }else{
-    alert("f");
-  }
   $.ajax({
     url:'{{route("add.wishlist")}}',
     type:'POST',
@@ -111,29 +105,8 @@ $(".heart-link").click(function() {
   });
 });
 
-
-
 $(".close_sucesss").click(function() {
   event.preventDefault();
   $(this).parent().hide();
 });
 </script>
-
-<style type="text/css">
-  .close_sucesss{
-    float: right;
-    font-weight: bold;
-  }
-  .ft-event .alert{
-    display: none;
-  }
-  .ft-event .alert-success a{
-    color: #0f5132; 
-  }
-  .ft-event .alert-danger a{
-    color: #842029;
-  }
-  .disabled-link{
-    pointer-events: none;
-  }
-</style>

@@ -166,7 +166,6 @@ class EventController extends Controller
     public function frontindex()
     {
         $events = Event::all();
-        dd($events);
         $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         return view('components.front.section.events-all', compact('events', 'pageSlug'));
     }
@@ -505,13 +504,21 @@ class EventController extends Controller
     public function show(Pages $pages, $id)
     {
         $event = Event::where('id', $id)->first();
-        
+
+        $user = Auth::user();
+        $InWishList = 0;
+        if($user){
+            $wishlistExist = WishLists::where('event_id', '=', $id)->where('user_id', '=', $user->id)->get();
+            if(count($wishlistExist)){
+                $InWishList = 1;
+            }
+        }
         $action_edit = url("/events/{$id}/edit");
         $action_status = url("/events/publish/{$id}");
         $action_delete = url("/events-draft/delete/{$id}");
         
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList'));
         }
         abort(404);
     }

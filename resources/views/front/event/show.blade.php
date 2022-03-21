@@ -38,8 +38,16 @@
           </ul>
         </div>
         @endif
-        <div class="row event-detail">
-          <div class="col-sm-12 col-md-7">
+        <div class="row event-detail ">
+          <div class="col-sm-12 col-md-7 ft-event">
+            <div class="alert alert-success">
+               Added To <a href='{{route("wishlist")}}'>WishLists</a>
+               <a href="#" class="close_sucesss">x</a>
+            </div>
+            <div class="alert alert-danger">
+               Event has been removed from Wishlist!
+               <a href="#" class="close_sucesss">x</a>
+            </div>
             <div class="detail">
               @if($event->vendor_space_available != null)
               <h4>VENDOR SPACES AVAILABLE:</h4>
@@ -257,7 +265,14 @@
           </div>
           <div class="col-sm-12 col-md-5">
             <div class="loct-box">
-              <h4>DATE: <i class="far fa-calendar-alt"></i></h4>
+              <h4 class="date_head">DATE: <i class="far fa-calendar-alt"></i></h4>
+              <div class="wishlistIcon">
+                <input type="hidden" class="event_wish" name="event_id" value="{{$event->id}}">
+                <a class="heart-link" href="javascript:void(0);">
+                  <i class=" @if($InWishList) fas @else far @endif fa-heart" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div style="clear: both;"></div>
               <p><span class="dt-tag">{{$event->event_date}}</span></p>
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
@@ -396,6 +411,52 @@
                     items:4
                 }
             }
+        });
+        $(".heart-link").click(function() {
+          $(".alert").hide();
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+          var event_id = $(this).prev(".event_wish").val(); 
+          $.ajax({
+            url:'{{route("add.wishlist")}}',
+            type:'POST',
+            data:'event_id='+event_id,
+            beforeSend: function() {
+              $(".heart-link").addClass('disabled-link');
+            },
+            success:function(data) {
+              console.log(data);
+              if(data){
+                if(data.action == "add"){
+                  $(".event_wish").addClass("addedwishlist");
+                  $('.wishlistIcon').find('.fa-heart').removeClass('far');
+                  $('.wishlistIcon').find('.fa-heart').addClass('fas');
+                  $(".alert-success").show();
+                }else if(data.action == "remove"){
+                  $(".event_wish").removeClass("addedwishlist");
+                  $('.wishlistIcon').find('.fa-heart').removeClass('fas');
+                  $('.wishlistIcon').find('.fa-heart').addClass('far');
+                  $(".alert-danger").show();
+                }else if(data.action == "redirect"){
+                  //console.log(data.action);
+                   window.location=data.url;
+                }
+
+                setTimeout(function() {
+                  $(".alert").hide();
+                }, 2500);
+              }
+              $(".heart-link").removeClass('disabled-link');
+             }
+          });
+        });
+
+        $(".close_sucesss").click(function() {
+          event.preventDefault();
+          $(this).parent().hide();
         });
     </script>
 @endpush
