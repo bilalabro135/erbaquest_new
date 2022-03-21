@@ -3512,7 +3512,7 @@ button.delete-event:hover:after {
 }
 #vendor_select-error {
   position: absolute;
-  bottom: 0px;
+  top: 130px;
   right: 0;
 }
 #myFile-error,
@@ -3571,4 +3571,7 @@ button.delete-event:hover:after {
 .email_template_card .d-inline button.btn-link:hover {
   background-color: #2c8841;
   color: #fff;
+}
+.event-inner figure.m-0 img {
+  width: 100%;
 }
