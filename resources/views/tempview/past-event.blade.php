@@ -18,6 +18,11 @@
           @include( 'tempview/sidebar' )
           	<div class="col-sm-12 col-md-8 UpcomingEvent">
 	            <div class="row">
+                @if(session('msg'))
+                  <div class="alert alert-{{session('msg_type')}}">
+                      {{session('msg')}}                                            
+                  </div>
+                  @endif
                 <div class="alert alert-danger" style="display: none;">
                    msg
                 </div>

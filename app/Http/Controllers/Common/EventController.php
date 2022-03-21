@@ -256,7 +256,8 @@ class EventController extends Controller
 
     public function frontedit(Event $event)
     {
-        $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->get();
+        $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
+
         $user = Auth::user();
         
         if($user->profile_image){
