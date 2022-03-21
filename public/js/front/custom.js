@@ -297,3 +297,26 @@ $(function() {
     }
   });
 });
+
+//account
+$(function() {
+  $(".account_form_val").validate({
+    rules: {
+      name: "required",
+      field: {
+        required: true,
+        email: true
+      },
+      phone: 'required',
+      address: "required",
+    },
+    messages: {
+      name: "The name field is required.",
+      phone: "The phone field is required.",
+      address: "The Address field is required.",
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});

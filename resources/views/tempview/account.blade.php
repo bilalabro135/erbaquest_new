@@ -45,12 +45,12 @@
                   {{session('msg')}}                                            
               </div>
               @endif
-              <form class="" method="POST" action="{{ route('account.update') }}" enctype="multipart/form-data">
+              <form class="account_form_val" method="POST" action="{{ route('account.update') }}" enctype="multipart/form-data">
                  @csrf
                  <input type="hidden" name="username" value="{{ $users->user_name }}">
                  <input type="hidden" name="id" value="{{ $users->id }}">
                 <div class="input-field">
-                  <label>NAME:</label>
+                  <label class="">NAME:</label>
                   <input type="text" name="name" placeholder="NAME:" required="required" value="{{ $users->name }}">
                   @error('name')
                   <span class="invalid-feedback" role="alert">
@@ -76,13 +76,13 @@
                   </span>
                   @enderror
                 </div>
-                <div class="input-field input-file drop-zone asd">
+                <div class="input-field input-file drop-zone">
                   <label>UPLOAD PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
-                <input type="file" id="myFile" name="profile_image" class="upload_file drop-zone__input" required="required">
                 <button type="button" class="upload_img_btn" id="uploadImg">
                   <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                   <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                 </button>
+                <input type="file" id="myFile" name="profile_image" class="upload_file drop-zone__input">
                 @error('filename')
                     <div class="text-danger">
                         {{$message}}                                            
@@ -127,7 +127,7 @@
                 </div>
                 <div class="input-field input-checkbox">
                   <label class="checkmark">
-                      <input type="checkbox" name="agreement" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
+                      <input type="checkbox" name="agreement" value="1" required="required"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
                   </label>
                   @error('agreement')
                   <span class="invalid-feedback" role="alert">
@@ -230,5 +230,23 @@
       }
     }
 </script>
-
+<style type="text/css">
+  .account_form_val .error{
+    color: #ed1c1c !important;
+    font-size: 15px;
+  }
+  .account_form_val #agreement-error::before{
+    display: none;
+  }
+  .account_form_val #agreement-error::after{
+    display: none;
+  }
+  .account_form_val #agreement-error{
+    position: absolute;
+    bottom: -24px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+    left: 0;
+  }
+</style>
 @endpush
