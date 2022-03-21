@@ -238,17 +238,13 @@ class EventController extends Controller
             $vendor->save();
         } 
 
+        if($request->has('amenities'))
+            $event->amenities()->attach($request->amenities);
+
         if ($eventDetail['status'] == 'draft') {
             $baseUrl = config('app.url')."events/".$event->id;
             return redirect($baseUrl);
         }
-
-        if($request->has('vendors'))
-            $event->vendors()->attach($request->vendors);
-
-        if($request->has('amenities'))
-            $event->amenities()->attach($request->amenities);
-
         $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         return Redirect::route('pages.show', ['pages' => $pageSlug])->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
     }
