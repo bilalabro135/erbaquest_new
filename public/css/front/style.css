@@ -3512,7 +3512,7 @@ button.delete-event:hover:after {
 }
 #vendor_select-error {
   position: absolute;
-  bottom: 0px;
+  top: 130px;
   right: 0;
 }
 #myFile-error,
@@ -3601,3 +3601,6 @@ button.delete-event:hover:after {
   .disabled-link{
     pointer-events: none;
   }
+.event-inner figure.m-0 img {
+  width: 100%;
+}
