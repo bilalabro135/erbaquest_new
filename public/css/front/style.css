@@ -1997,7 +1997,6 @@ h5.time_ago {
   width: 0;
   opacity: 0;
   visibility: hidden;
-  display: none;
 }
 
 button#uploadImg, button#uploadImg1 {
@@ -2543,6 +2542,7 @@ input.vendor_list {
   background-image: none;
   background-color: transparent;
   border: 0px;
+  padding-top: 0px;
 }
 .Socialshare ul li a i {
   margin-right: 10px;
@@ -3471,4 +3471,24 @@ button.delete-event:hover:after {
   border-radius: 150px;
     width: 150px;
     height: 150px;
+}
+.action_publish,
+.action_edit,
+.action_delete {
+  color: #fff;
+  background: #2c9044;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-top: 10px;
+  display: inline-block;
+}
+.action_publish:hover,
+.action_edit:hover,
+.action_delete:hover {
+  color: #fff;
+  text-decoration: none;
 }

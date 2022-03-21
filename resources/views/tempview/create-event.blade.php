@@ -42,11 +42,12 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file featured_image_main drop-zone">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" required="required">
+                    
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" required="required">
                     @error('featured_image')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -65,11 +66,11 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
                     <label>PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple required="required">
                     <button type="button" class="upload_img_btn" id="uploadImg1">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
+                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple required="required">
                     @error('gallery')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -124,7 +125,7 @@
                     <div class="donation">
                       <div class="input-field input-full">
                         <label>EXPECTED DOOR DONATION:</label>
-                        <input type="text" name="door_dontation" placeholder="$10.0" required="required" value="{{ old('door_dontation') }}">
+                        <input type="number" name="door_dontation" placeholder="$10.0" required="required" value="{{ old('door_dontation') }}">
                         @error('door_dontation')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -133,7 +134,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>VIP DONATION:</label>
-                        <input type="text" name="vip_dontation" placeholder="$500.0" required="required" value="{{ old('vip_dontation') }}">
+                        <input type="number" name="vip_dontation" placeholder="$500.0" required="required" value="{{ old('vip_dontation') }}">
                         @error('vip_dontation')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -160,7 +161,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>COST TO VEND:</label>
-                        <input type="text" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
+                        <input type="number" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -198,13 +199,7 @@
                         </li>
                         
                         <li class="example">
-
                           <a href="javascript:void(0)" class="btn" data-clipboard-demo data-clipboard-action="copy" data-clipboard-text="https://erba-quest.geeksroot.net/login"><i class="fas fa-copy"></i> Copy Link</a>
-
-
-
-                          <!-- <a href="javascript:void(0)" onclick="linkCopy($(this))" ><i class="fas fa-copy"></i>Copy Link <span id="copied-success" class="copied">Copied!</span></a>
-                          <input id="copyClipboard" type="hidden" name="copyClipboard" value="https://www.bugra.work"> -->
                         </li>
                       </ul>
                     </div>
@@ -289,7 +284,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TICKETING NUMBER:</label>
-                    <input type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
+                    <input type="number" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
                     @error('tickiting_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -298,7 +293,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>VENDOR NUMBER:</label>
-                    <input type="text" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required">
+                    <input type="number" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required">
                     @error('vendor_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -307,7 +302,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>USER NUMBER:</label>
-                    <input type="text" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" required="required">
+                    <input type="number" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" required="required">
                     @error('user_number')
                         <div class="text-danger">
                             {{$message}}                                            

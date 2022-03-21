@@ -212,9 +212,9 @@
       	// create event form Amenite checkbox
       	$('.AmentieList .checkRight input:checkbox').change(function(){
           	if($(this).is(":checked")) {
-              	$('.AmentieList .checkRight').addClass("checked");
+              	$(this).parent().parent().addClass("checked");
           	} else {
-            	$('.AmentieList .checkRight').removeClass("checked");
+            	$(this).parent().parent().removeClass("checked");
           	}
       	});
       	// create event form vendor checkbox
