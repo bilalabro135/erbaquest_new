@@ -53,8 +53,8 @@
                           </button>
                         </div>
                       </div>
-                    </div>
-                    <!-- Modal -->
+                      
+                      <!-- Modal -->
                       <div class="modal fade delete_event_popup" id="exampleModal_{{ $event->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -71,8 +71,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
   	              @endforeach
                 @else
                   <p>No Past Events Found.</p>
