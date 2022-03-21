@@ -213,6 +213,7 @@ Route::get('/redirectEvent',[WishlistsController::class, 'redirect'])->name('red
 
 Route::get('/account/upcoming-event',[EventController::class, 'upcomingEvent'])->name('upcomming.account')->middleware('auth','verified');
 Route::get('/account/draft-events',[EventController::class, 'draftEvent'])->name('draft.account')->middleware('auth','verified');
+Route::get('/account/past-events',[EventController::class, 'pastEvent'])->name('past.account')->middleware('auth','verified');
 
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');

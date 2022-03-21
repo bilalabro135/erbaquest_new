@@ -598,4 +598,10 @@ class EventController extends Controller
         $events = Event::where('status', 'draft')->get();
         return view('tempview.draft-event', compact('events'));   
    }
+   public function pastEvent()
+   {
+        $now = date('Y-m-d');
+        $events = Event::where('status', 'published')->whereDate('event_date', '<', $now)->get(); //
+        return view('tempview.past-event', compact('events'));   
+   }
 }
