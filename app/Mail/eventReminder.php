@@ -29,6 +29,6 @@ class eventReminder extends Mailable
     public function build()
     {
         //return $this->view('view.name');
-        return $this->markdown('emails.reminder-mail');
+        return $this->subject('Event Reminder')->markdown('emails.reminder-mail');
     }
 }

@@ -16,6 +16,7 @@ use App\Models\EventType;
 use App\Models\Amenity;
 use App\Models\Vendor;
 use App\Models\Area;
+use App\Models\WishLists;
 use Validator;
 use DataTables;
 use Bouncer;
@@ -316,6 +317,15 @@ class EventController extends Controller
                  $setectedvendor[] = $getSelectedVendorId['user_id'];
             }
         }
+
+        $getSelectedAmenities = Vendor::where("event_id",$getevents['id'])->get();
+        $setectedameties = array();
+        if(count($getSelectedVendorIds)){
+            foreach ($getSelectedVendorIds as $getSelectedVendorId) {
+                 $setectedvendor[] = $getSelectedVendorId['user_id'];
+            }
+        }
+
         $getvendors = User::whereIs('Vendor')->get();
         $vendors = array();
         if(count($getvendors)){
@@ -347,6 +357,11 @@ class EventController extends Controller
         
         $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
         $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
+        $fname = time().".".$request->featured_image->extension();
+        $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+        $event->featured_image =  'uploads/' . $fname;
+
+        $featured_image = 'uploads/' . $fname;
 
         $event->update([
             'name' =>  $eventDetail['name'],
@@ -407,6 +422,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::where('id', $id)->delete();
+        WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
@@ -416,6 +432,7 @@ class EventController extends Controller
     public function frontdestroy($id)
     {
         $event = Event::where('id', $id)->delete();
+        WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
@@ -474,6 +491,7 @@ class EventController extends Controller
     public function frontDraftDestroy($id)
     {
         $event = Event::where('id', $id)->delete();
+        WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::route('edit.event')->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }

@@ -3,10 +3,11 @@
 @if (! empty($greeting))
     # {{ $greeting }}
 @else
-    # Hello {{ auth()->user()->name }},
+    # Hello {{ $details['user'] }},
 @endif
 
 
+Reminder, join us at {{ $details['event_name'] }}, {{ $details['date'] }}
 
 {{-- Salutation --}}
 @if (! empty($salutation))

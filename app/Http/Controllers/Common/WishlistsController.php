@@ -73,12 +73,12 @@ class WishlistsController extends Controller
       return redirect()->route('login')->with('msg', 'Please login first before add to wishlist!');
   }
 
-  public function reminder() {
-  dd("1");    
+  public function reminder() { 
     $now = Carbon::tomorrow();
     $tomorrowDate = $now->format('Y-m-d');    
-    dd($tomorrowDate);
+
     $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
+
     $wishlistUser = array();
     if(count($getTomorrowEvents)){
       foreach ($getTomorrowEvents as $getTomorrowEvent) {
@@ -87,13 +87,38 @@ class WishlistsController extends Controller
           ->leftJoin('users', 'wishlists.user_id', '=', 'users.id')->get();
         if(count($getWishlistUsers)){
           foreach ($getWishlistUsers as $getWishlistUser) {
-            $wishlistUser[] = $getWishlistUser['email']; 
+            $details = array(
+              'event_name' => $getTomorrowEvent['name'],
+              'date' => $tomorrowDate,
+              'user' => $getWishlistUser['name'],
+            );
+            Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
           }
-        } 
-        if(!empty($wishlistUser)){
-            $details = array();
-            Mail::to($wishlistUser)->send(new \App\Mail\eventReminder($details));
-        }     
+        }   
+      } 
+    }
+
+    $now = Carbon::today();
+    $tomorrowDate = $now->format('Y-m-d');    
+
+    $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
+
+    $wishlistUser = array();
+    if(count($getTomorrowEvents)){
+      foreach ($getTomorrowEvents as $getTomorrowEvent) {
+        $sendEmailUser = array();
+        $getWishlistUsers = wishlists::where("event_id","=",$getTomorrowEvent['id'])
+          ->leftJoin('users', 'wishlists.user_id', '=', 'users.id')->get();
+        if(count($getWishlistUsers)){
+          foreach ($getWishlistUsers as $getWishlistUser) {
+            $details = array(
+              'event_name' => $getTomorrowEvent['name'],
+              'date' => $tomorrowDate,
+              'user' => $getWishlistUser['name'],
+            );
+            Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+          }
+        }   
       } 
     }
 

@@ -13,6 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
     <meta name="theme-color" content="#db4938" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/front/primer.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/owl.carousel.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
