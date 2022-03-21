@@ -2093,6 +2093,9 @@ button#uploadImg span.clr-green {
 .sidebar-menu ul.menu_list li ul.sub-menu li:hover {
   background: transparent;
 }
+.sidebar-menu ul.menu_list li.current ul.sub-menu {
+  display: block !important;
+}
 
 .profile_info {
   display: flex;
