@@ -211,9 +211,9 @@
                   <div class="col-sm-12 col-md-6 input-field vendor_space_quantity">
                     <label>VENDOR SPACES AVAILABLE:</label>
                     <div class="quantity buttons_added">
-                    <input type="button" value="-" class="minus">
-                    <input type="number" name="vendor_space_available" value="1" class="input-text qty text" inputmode="" required="required">
-                    <input type="button" value="+" class="plus">
+	                    <input type="button" value="-" class="minus">
+	                    <input type="number" value="1" step="1" name="vendor_space_available" class="input-text qty text" size="4" pattern="" inputmode="" required="required">
+	                    <input type="button" value="+" class="plus">
                     </div>
                     @error('vendor_space_available')
                         <div class="text-danger">

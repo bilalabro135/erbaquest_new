@@ -232,7 +232,7 @@
                     <label>VENDOR SPACES AVAILABLE:</label>
                     <div class="quantity buttons_added">
                     <input type="button" value="-" class="minus">
-                    <input type="number" name="vendor_space_available" value="{{ $data['vendor_space_available'] }}"  class="input-text qty text" inputmode="">
+                    <input type="number" value="{{ $data['vendor_space_available'] }}" step="1" name="vendor_space_available"  class="input-text qty text" size="4" pattern="" inputmode="" required="required">
                     <input type="button" value="+" class="plus">
                     </div>
                     @error('vendor_space_available')
