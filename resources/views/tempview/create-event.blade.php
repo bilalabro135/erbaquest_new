@@ -181,6 +181,33 @@
                         </div>
                       @endif
                     </select>
+                    <div class="Socialshare">
+                      <p>Can’t find vendor? <a href="javascript:;">ASK to join</a></p>
+                      <ul>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:facebookSocialShare('http://www.facebook.com/sharer.php?u=https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fab fa-facebook-square"></i>Facebook</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:twitterSocialShare('http://twitter.com/share?text=ErbaLogin&url=https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fab fa-twitter-square"></i>Twitter</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:whatsAppSocialShare('https://api.whatsapp.com/send/?text=https%3A%2F%2Ferba-quest.geeksroot.net%2F&app_absent=0')"><i class="fab fa-whatsapp-square"></i>WhatsApp</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:emailSocialShare('mailto:areeb.ghouri@geeksroot.com?subject=ErbaLogin&body=Check out this site https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fas fa-envelope"></i>Email</a>
+                        </li>
+                        
+                        <li class="example">
+
+                          <a href="javascript:void(0)" class="btn" data-clipboard-demo data-clipboard-action="copy" data-clipboard-text="https://erba-quest.geeksroot.net/login"><i class="fas fa-copy"></i> Copy Link</a>
+
+
+
+                          <!-- <a href="javascript:void(0)" onclick="linkCopy($(this))" ><i class="fas fa-copy"></i>Copy Link <span id="copied-success" class="copied">Copied!</span></a>
+                          <input id="copyClipboard" type="hidden" name="copyClipboard" value="https://www.bugra.work"> -->
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                   <!-- <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
@@ -353,8 +380,69 @@
         </div>
       </div>
     </section>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+  
+<script>
+  $(".Socialshare p a").click(function(){
+    $(".Socialshare ul").slideToggle();
+  });
+  // demos.js
+  var clipboardDemos = new Clipboard('[data-clipboard-demo]');
+  clipboardDemos.on('success', function(e) {
+      e.clearSelection();
+      console.info('Action:', e.action);
+      console.info('Text:', e.text);
+      console.info('Trigger:', e.trigger);
+      showTooltip(e.trigger, 'Copied!');
+  });
+
+  clipboardDemos.on('error', function(e) {
+      console.error('Action:', e.action);
+      console.error('Trigger:', e.trigger);
+      showTooltip(e.trigger, fallbackMessage(e.action));
+  });
+  // tooltips.js
+  var btns = document.querySelectorAll('.btn');
+  for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('mouseleave', clearTooltip);
+      btns[i].addEventListener('blur', clearTooltip);
+  }
+  function clearTooltip(e) {
+      e.currentTarget.setAttribute('class', 'btn');
+      e.currentTarget.removeAttribute('aria-label');
+  }
+  function showTooltip(elem, msg) {
+      elem.setAttribute('class', 'btn tooltipped tooltipped-s');
+      elem.setAttribute('aria-label', msg);
+  }
+  // Facebook Share
+  function facebookSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Twitter Share
+  function twitterSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Insta Share
+  function instaSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Email Share
+  function emailSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // whatsApp Share
+  function whatsAppSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+</script>
 <script>
     document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zone");
@@ -488,4 +576,5 @@
     });
 
   </script>
+  <script src="https://kit.fontawesome.com/d97b87339f.js" crossorigin="anonymous"></script>
 @endsection

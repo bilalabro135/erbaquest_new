@@ -2414,10 +2414,7 @@ button#uploadImg span.clr-green {
 }
 
 .VendorList {
-  display: none;
-}
-.VendorList.vendor_dropdown {
-  display: block;
+  /*display: none;*/
 }
 
 .VendorList ul, .AmentieList ul {
@@ -2514,15 +2511,87 @@ input.vendor_list {
   justify-content: space-between;
 }
 
-.VendorList p {
-  margin-bottom: 0;
+.Socialshare p {
+  margin-bottom: 10px;
   margin-top: 10px;
 }
-
-.VendorList p a {
+.Socialshare p a {
   color: #2c9044;
   font-weight: 500;
   text-decoration: underline;
+}
+.Socialshare ul {
+  padding: 0px;
+  list-style: none;
+  background-color: #fff;
+  width: 100%;
+  display: none;
+  z-index: 9;
+  padding: 15px;
+  left: 0;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+}
+.Socialshare ul li a {
+  color: #7c7c7c;
+  font-size: 16px;
+  padding-bottom: 5px;
+  display: block;
+  position: relative;
+  text-align: left;
+  padding-left: 0px;
+  background-image: none;
+  background-color: transparent;
+  border: 0px;
+}
+.Socialshare ul li a i {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.Socialshare ul li a i.fa-facebook-square {
+  color: #2374E1;
+}
+.Socialshare ul li a i.fa-twitter-square {
+  color: #1D9BF0;
+}
+.Socialshare ul li a i.fa-whatsapp-square {
+  color: #00A884;
+}
+.copied {
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    text-align: center;
+    padding: 2px;
+    border-radius: 0px;
+    top: -6px;
+    bottom: 6px;
+    width: 95px;
+    display: none;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: #fff;
+    background-color: #000000d1;
+    border-radius: 5px;
+    box-shadow: 0 3px 15px #b8c6db;
+    -moz-box-shadow: 0 3px 15px #b8c6db;
+    -webkit-box-shadow: 0 3px 15px #b8c6db;
+}
+/*.Socialshare ul li a i.fa-envelope {
+  color: #2374E1;
+}
+.Socialshare ul li a i.fa-copy {
+  color: #2374E1;
+}*/
+.Socialshare ul li a:active, .Socialshare ul li a, .Socialshare ul li a {
+    background-color: transparent;
+    background-image: none;
+    border-color: #b5b5b5;
+    box-shadow: none;
+} 
+.Socialshare ul li a:focus+.Socialshare ul li a, .Socialshare ul li a:focus {
+    outline: 0;
+    box-shadow:none;
 }
 
 .input-submit .btn-custom {
