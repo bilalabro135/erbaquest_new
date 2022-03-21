@@ -3,7 +3,9 @@
 @if (! empty($greeting))
     # {{ $greeting }}
 @else
-    # Hello {{ auth()->user()->name }},
+    @if(auth())
+        # Hello {{ auth()->user()->name }},
+    @endif
 @endif
 
 {{-- Intro Lines --}}
