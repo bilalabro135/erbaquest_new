@@ -8,27 +8,17 @@
   </div>
 </section>
     <div class="container">
-        <div class="row justify-content-center align-items-center"  style="height: 100vh;">
+        <div class="row justify-content-center align-items-center"  style="height: 50vh;">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header"><strong>{{auth()->user()->name}}</strong> {{ __('Verify Your Email Address First') }}</div>
 
-                    <div class="card-body">
-                        @if (session('message'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('message') }}
-                            </div>
-                        @endif
-
-                        {{ __('Before proceeding, please check your email for a verification link.') }}
-                        {{ __('If you did not receive the email') }},
-                        <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
-                            @csrf
-                            <button type="submit"
-                                    class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>
-                            .
-                        </form>
-                    </div>
+                <div class="email_template_card">
+                    <h2><strong>{{auth()->user()->name}}</strong> {{ __('Verify Your Email Address First') }}</h2>
+                    <p> {{ __('Before proceeding, please check your email for a verification link.') }}
+                        {{ __('If you did not receive the email') }},</p>
+                    <form class="d-inline" method="POST" action="{{ route('verification.send') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>
+                    </form>
                 </div>
             </div>
         </div>

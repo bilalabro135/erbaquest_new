@@ -11786,6 +11786,9 @@ form.user .form-control-user {
   background: transparent !important;
   color: #2c9044;
 }
+.form_area form.user .btn-user.forgot_pass_btn {
+  width: 360px;
+}
 
 .form_area a.small {
   color: #2c9044;

@@ -3535,3 +3535,37 @@ button.delete-event:hover:after {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.btn-link,
+.btn-link:hover {
+    color: #2c8841;
+}
+.email_template_card {
+  text-align: center;
+}
+.email_template_card h2 {
+  margin-bottom: 20px;
+}
+.email_template_card p {
+
+}
+.email_template_card .d-inline button.btn-link {
+  border: 2px solid #2c8841;
+  padding: 9px 24px !important;
+  border-radius: 50px;
+  text-decoration: none;
+  background-image: none;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out !important;
+  text-transform: uppercase;
+}
+.email_template_card .btn:active,
+.email_template_card .btn.selected,
+.email_template_card.btn.zeroclipboard-is-active,
+.email_template_card.btn:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+.email_template_card .d-inline button.btn-link:hover {
+  background-color: #2c8841;
+  color: #fff;
+}
