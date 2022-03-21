@@ -59,10 +59,12 @@ audio:not([controls]) {
 
 a {
   background-color: transparent;
+  text-decoration: none;
 }
 
 a:active, a:hover {
   outline: 0;
+  text-decoration: none;
 }
 
 dfn {
@@ -3368,6 +3370,7 @@ div#card-element {
 	left: 0px;
   right: 0px;
   margin: 10px 5px;
+  width: 190px;
 }
 .topbar-list li.dropdown ul.dropdown-menu li a.dropdown-item {
 	color: #000;
@@ -3512,4 +3515,8 @@ button.delete-event:hover:after {
 #myFile1-error {
   position: absolute;
   bottom: 0;
+}
+.topbar ul li a:hover,
+.topbar ul li a:focus {
+  color: #2c8841;
 }

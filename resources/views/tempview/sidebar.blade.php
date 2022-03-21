@@ -17,33 +17,15 @@
                         <a href="{{route('edit.event')}}">Edit Event</a>
                       </li>
                       <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
+                        <a href="{{route('upcomingEvent')}}">Upcoming Event</a>
                       </li>
                       <li class="item">
-                        <a href="javascript:;">Draft Event</a>
+                        <a href="{{route('draftEvent')}}">Draft Event</a>
                       </li>
                     </ul>
                   </li>
                   <li>
                     <a href="{{route('wishlist')}}">Wishlist</a>
-                  </li>
-                  <li class="have_child-items">
-                    <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">My Order</a>
-                    <ul class="sub-menu">
-                      <li class="item">
-                        <a href="javascript:;">Add Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="{{route('edit.event')}}">Edit Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Draft</a>
-                      </li>
-                    </ul>
                   </li>
                   <li class="have_child-items">
                     <span class="down-icon"><i class="fas fa-chevron-down"></i></span>

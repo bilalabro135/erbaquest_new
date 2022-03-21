@@ -242,7 +242,7 @@ a {
 
 a:hover,
 a:active {
-    text-decoration: underline
+    /*text-decoration: underline*/
 }
 
 hr,
