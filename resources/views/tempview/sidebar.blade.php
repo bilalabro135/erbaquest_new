@@ -15,9 +15,9 @@
         <li class="<?php if($second_last.'/'.$page == 'account/edit'){ echo 'current'; } ?>">
           <a href="{{route('account.edit')}}">Account Setting</a>
         </li>
-        <li class="have_child-items <?php if($second_last.'/'.$page == 'events/edit' || $second_last.'/'.$page == 'account/draft-events' || $second_last.'/'.$page == 'account/past-events' || $second_last.'/'.$page == 'account/upcoming-event'){ echo 'current'; } ?>">
+        <li class="have_child-items <?php if($second_last.'/'.$page == 'events/my-event' || $second_last.'/'.$page == 'events/edit' || $second_last.'/'.$page == 'account/draft-events' || $second_last.'/'.$page == 'account/past-events' || $second_last.'/'.$page == 'account/upcoming-event'){ echo 'current'; } ?>">
           <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-          <a href="{{route('edit.event')}}">My Events</a>
+          <a href="{{route('my.event')}}">My Events</a>
           <ul class="sub-menu">
             <li class="item">
               <a href="{{route('events.create')}}">Add Event</a>

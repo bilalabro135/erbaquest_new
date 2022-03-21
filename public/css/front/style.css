@@ -3626,3 +3626,7 @@ button.delete-event:hover:after {
 .vendor_space_quantity #vendor_space_available-error {
   position: absolute;
 }
+.featured_image_main .text-danger {
+  position: absolute;
+  bottom: 0;
+}

@@ -54,7 +54,7 @@
                           </a>
                           <p class="date"><i class="far fa-calendar-alt"></i>{{$event->event_date}}</p>
                           <div class="txt">
-                            <p>{!!$event->description!!}</p>
+                            <p class="event_description">{!!$event->description!!}</p>
                           </div>
                           <a href="{{ $event->id }}/edit" class="md-link">EDIT</a>
                           <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $event->id }}">

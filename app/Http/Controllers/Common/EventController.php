@@ -264,6 +264,21 @@ class EventController extends Controller
         return view('tempview.edit-event', compact('events','profile_image'));
     }
 
+    public function myevents(Event $event)
+    {
+        $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
+
+        $user = Auth::user();
+        
+        if($user->profile_image){
+            $profile_image = env('APP_URL') .$user['profile_image'];
+        }else{
+            $profile_image = "";
+        }
+
+        return view('tempview.my-event', compact('events','profile_image'));
+    }
+
     public function updateevent($id)
     {
         $getevents  =  Event::findorFail($id);
