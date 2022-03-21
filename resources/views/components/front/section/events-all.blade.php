@@ -71,6 +71,12 @@ $(".heart-link").click(function() {
       }
   });
   var event_id = $(this).prev(".event_wish").val(); 
+  
+  if($(".event_wish").hasClass('addedwishlist')){
+    alert("supp");
+  }else{
+    alert("f");
+  }
   $.ajax({
     url:'{{route("add.wishlist")}}',
     type:'POST',
@@ -82,10 +88,12 @@ $(".heart-link").click(function() {
       console.log(data);
       if(data){
         if(data.action == "add"){
+          $(".event_wish").addClass("addedwishlist");
           $("#event_"+event_id).find('.fa-heart').removeClass('far');
           $("#event_"+event_id).find('.fa-heart').addClass('fas');
           $(".alert-success").show();
         }else if(data.action == "remove"){
+          $(".event_wish").removeClass("addedwishlist");
           $("#event_"+event_id).find('.fa-heart').removeClass('fas');
           $("#event_"+event_id).find('.fa-heart').addClass('far');
           $(".alert-danger").show();

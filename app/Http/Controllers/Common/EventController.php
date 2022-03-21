@@ -521,7 +521,7 @@ class EventController extends Controller
         $event = Event::where('id', $id)->delete();
         WishLists::where('event_id', $id)->delete();
         if ($event) {
-            return Redirect::route('edit.event')->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
+            return Redirect::route('draft.account')->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
         abort(404);
     }
