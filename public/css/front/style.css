@@ -2478,6 +2478,17 @@ button#uploadImg span.clr-green {
   background: transparent;
   color: #2c9044;
 }
+.input-field.input-checkbox.checkRight label .error:before,
+.input-field.input-checkbox.checkRight label .error:after {
+  display: none;
+}
+.input-field.input-checkbox.checkRight label .error {
+  color: #d52323;
+  padding: 0;
+  position: absolute;
+  bottom: -50px;
+  left: -20px;
+}
 
 input.vendor_list {
   cursor: pointer;
@@ -3496,4 +3507,9 @@ button.delete-event:hover:after {
   position: absolute;
   bottom: 0px;
   right: 0;
+}
+#myFile-error,
+#myFile1-error {
+  position: absolute;
+  bottom: 0;
 }

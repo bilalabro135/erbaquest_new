@@ -43,7 +43,7 @@
                   <div class="col-sm-12 col-md-6 input-field input-file featured_image_main drop-zone">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
                     
-                    <button type="button" class="upload_img_btn" id="uploadImg">
+                    <button type="button" class="upload_img_btn" id="uploadImg" onchange="Filevalidation()">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
@@ -378,7 +378,32 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-  
+
+<script>
+  Filevalidation = () => {
+      const fi = document.getElementById('file');
+      // Check if any file is selected.
+      if (fi.files.length > 0) {
+          for (const i = 0; i <= fi.files.length - 1; i++) {
+
+              const fsize = fi.files.item(i).size;
+              const file = Math.round((fsize / 1024));
+              // The size of the file.
+              if (file >= 4096) {
+                  alert(
+                    "File too Big, please select a file less than 4mb");
+              } else if (file < 2048) {
+                  alert(
+                    "File too small, please select a file greater than 2mb");
+              } else {
+                  document.getElementById('size').innerHTML = '<b>'
+                  + file + '</b> KB';
+              }
+          }
+      }
+  }
+</script>  
+
 <script>
   $(".Socialshare p a").click(function(){
     $(".Socialshare ul").slideToggle();
@@ -542,12 +567,10 @@
 
     function updateThumbnailMulti(dropZoneElement, file) {
 
-     
-      
-
       if (dropZoneElement.querySelector(".drop-zone__prompt")) {
         dropZoneElement.querySelector(".drop-zone__prompt").remove();
       }
+      $(".preview1").html('');
 
       var i;
       for (i = 0; i < file.length; ++i) {
