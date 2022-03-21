@@ -53,11 +53,11 @@
                         @endif
                       </div>
                     </label>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}">
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}">
                     @error('featured_image')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -65,7 +65,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 input-field">
-                    <label>DESCRIPTION: {{ $data['description'] }}</label>
+                    <label>DESCRIPTION:</label>
                     {!! Form::textarea('description', ($data['description']) , array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
 
                     @error('description')
@@ -85,11 +85,11 @@
                         @endif 
                       </div>
                     </label>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" value="" multiple>
                     <button type="button" class="upload_img_btn" id="uploadImg1">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
+                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" value="" multiple>
                     @error('gallery')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -202,6 +202,27 @@
                         </div>
                       @endif
                     </select>
+                    <div class="Socialshare">
+                      <p>Can’t find vendor? <a href="javascript:;">ASK to join</a></p>
+                      <ul>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:facebookSocialShare('http://www.facebook.com/sharer.php?u=https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fab fa-facebook-square"></i>Facebook</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:twitterSocialShare('http://twitter.com/share?text=ErbaLogin&url=https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fab fa-twitter-square"></i>Twitter</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:whatsAppSocialShare('https://api.whatsapp.com/send/?text=https%3A%2F%2Ferba-quest.geeksroot.net%2F&app_absent=0')"><i class="fab fa-whatsapp-square"></i>WhatsApp</a>
+                        </li>
+                        <li>
+                          <a href="javascript:void(0)" onclick="javascript:emailSocialShare('mailto:areeb.ghouri@geeksroot.com?subject=ErbaLogin&body=Check out this site https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fas fa-envelope"></i>Email</a>
+                        </li>
+                        
+                        <li class="example">
+                          <a href="javascript:void(0)" class="btn" data-clipboard-demo data-clipboard-action="copy" data-clipboard-text="https://erba-quest.geeksroot.net/login"><i class="fas fa-copy"></i> Copy Link</a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                   <!-- <div class="col-sm-12 col-md-6 input-field inputTags">
                     <ul class="vendorTags">
@@ -223,10 +244,10 @@
                       <ul>
                         @foreach($amenities as $amenity)
                         <li>
-                          <div class="input-field input-checkbox checkRight">
+                          <div class="input-field input-checkbox checkRight @if($amenity['selected']) checked @endif ">
                             <label>
                               <span class="figure"><img src="{{ $amenity['icon'] }}"></span>{{ $amenity['name'] }}
-                              <input id="{{ $amenity['name'] }}{{ $amenity['id'] }}" type="checkbox" name="amenities[]" value="{{$amenity['id']}}" required="required">
+                              <input id="{{ $amenity['name'] }}{{ $amenity['id'] }}" type="checkbox" name="amenities[]" value="{{$amenity['id']}}" @if($amenity['selected']) checked="checked" @endif required="required">
                             </label>
                           </div>
                         </li>
@@ -375,7 +396,67 @@
       </div>
     </section>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=editMap"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
+<script>
+  $(".Socialshare p a").click(function(){
+    $(".Socialshare ul").slideToggle();
+  });
+  // demos.js
+  var clipboardDemos = new Clipboard('[data-clipboard-demo]');
+  clipboardDemos.on('success', function(e) {
+      e.clearSelection();
+      console.info('Action:', e.action);
+      console.info('Text:', e.text);
+      console.info('Trigger:', e.trigger);
+      showTooltip(e.trigger, 'Copied!');
+  });
+
+  clipboardDemos.on('error', function(e) {
+      console.error('Action:', e.action);
+      console.error('Trigger:', e.trigger);
+      showTooltip(e.trigger, fallbackMessage(e.action));
+  });
+  // tooltips.js
+  var btns = document.querySelectorAll('.btn');
+  for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('mouseleave', clearTooltip);
+      btns[i].addEventListener('blur', clearTooltip);
+  }
+  function clearTooltip(e) {
+      e.currentTarget.setAttribute('class', 'btn');
+      e.currentTarget.removeAttribute('aria-label');
+  }
+  function showTooltip(elem, msg) {
+      elem.setAttribute('class', 'btn tooltipped tooltipped-s');
+      elem.setAttribute('aria-label', msg);
+  }
+  // Facebook Share
+  function facebookSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Twitter Share
+  function twitterSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Insta Share
+  function instaSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Email Share
+  function emailSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // whatsApp Share
+  function whatsAppSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+</script>
 <script>
     document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zone");
@@ -482,10 +563,11 @@
     });
 
     function updateThumbnailMulti(dropZoneElement, file) {
-
       if (dropZoneElement.querySelector(".drop-zone__prompt")) {
         dropZoneElement.querySelector(".drop-zone__prompt").remove();
       }
+
+      $(".preview1").html('');
 
       var i;
       for (i = 0; i < file.length; ++i) {
@@ -509,5 +591,8 @@
     $(document).ready(function() {
       $('.js-example-basic-multiple').select2();
     });
+
+    
+
   </script>
 @endsection

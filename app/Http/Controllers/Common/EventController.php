@@ -14,6 +14,7 @@ use App\Models\Pages;
 use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Amenity;
+use App\Models\EventAmenity;
 use App\Models\Vendor;
 use App\Models\Area;
 use App\Models\WishLists;
@@ -318,14 +319,6 @@ class EventController extends Controller
             }
         }
 
-        $getSelectedAmenities = Vendor::where("event_id",$getevents['id'])->get();
-        $setectedameties = array();
-        if(count($getSelectedVendorIds)){
-            foreach ($getSelectedVendorIds as $getSelectedVendorId) {
-                 $setectedvendor[] = $getSelectedVendorId['user_id'];
-            }
-        }
-
         $getvendors = User::whereIs('Vendor')->get();
         $vendors = array();
         if(count($getvendors)){
@@ -340,10 +333,35 @@ class EventController extends Controller
                     'selected' => $selected,
                 );
             }
-        }    
+        }
 
+        $getSelectedAmenities = EventAmenity::where("event_id",$getevents['id'])->get();
+        //dd($getSelectedAmenities);
+        $setectedameties = array();
+        if(count($getSelectedAmenities)){
+            foreach ($getSelectedAmenities as $getSelectedAmenity) {
+                 $setectedameties[] = $getSelectedAmenity['amenity_id'];
+            }
+        }
 
-        $amenities = Amenity::all();
+        $allamanitis = Amenity::all();
+        $amenities = array();
+        if(count($allamanitis)){
+            foreach ($allamanitis as $allamanity) {
+                $selected = 0;
+                if( in_array($allamanity['id'], $setectedameties) ){
+                    $selected = 1;
+                } 
+                $amenities[] = array(
+                    'id'   => $allamanity['id'],
+                    'name' => $allamanity['name'],
+                    'icon' => $allamanity['icon'],
+                    'selected' => $selected,
+                );
+            }
+        }
+
+       // setectedameties    
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
@@ -351,17 +369,26 @@ class EventController extends Controller
         return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
-    {
-        
+    {       
         $eventDetail = $request->getEventData();
-        
         $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
-        $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
-        $fname = time().".".$request->featured_image->extension();
-        $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
-        $event->featured_image =  'uploads/' . $fname;
 
-        $featured_image = 'uploads/' . $fname;
+        $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
+
+        if($request->featured_image){
+            $fname = time().".".$request->featured_image->extension();
+            $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+            $event->featured_image =  'uploads/' . $fname;
+            $featured_image = 'uploads/' . $fname;
+        }
+        if($request->gallery){
+            foreach ($request->file('gallery') as $image) {
+                $name = $image->getClientOriginalName();
+                $image->move(public_path().'/uploads/', $name);  
+                $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+            }
+            $gallery = serialize($image_names);
+        }
 
         $event->update([
             'name' =>  $eventDetail['name'],
