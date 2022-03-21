@@ -32,7 +32,7 @@
                 @csrf
                 <div class="row">
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>NAME OF QUEST:</label>
+                    <label>NAME OF QUEST: <span class="figure"><img src="{{asset('images/NAME-OF-QUEST.png')}}"></span></label>
                     <input type="text" name="name" placeholder="NAME:" required="required" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">
@@ -55,7 +55,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 input-field">
-                    <label>DESCRIPTION:</label>
+                    <label>DESCRIPTION: <span class="figure"><img src="{{asset('images/DESCRIPTION_Icon.png')}}"></span></label>
                    <!--  <textarea name="description" placeholder="DESCRIPTION.."></textarea> -->
                    {!! Form::textarea('description', null, array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
                     @error('description')
@@ -78,7 +78,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-date">
-                    <label>DATE:</label>
+                    <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
                     <input type="date" name="event_date" required="required">
                     @error('event_date')
                         <div class="text-danger">
@@ -88,7 +88,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
-                        <label for="pac-input">Address:</label>
+                        <label for="pac-input">Address: <span class="figure"><img src="{{asset('images/icons/icon13.png')}}"></span></label>
                         <input id="pac-input" class="form-control mb-3 " name="address" type="text" placeholder="Enter a location" required="required"/>
                         <div id="googlemap" style="height: 300px"></div>
                         <input type="hidden" name="latitude" id="latitude">
@@ -110,7 +110,7 @@
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
-                    <label>TYPE OF EVENT:</label>
+                    <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
                     <select name="type" required="required">
                         <option value="">Type:</option>
                         @foreach($tyoesOfEvents as $tyoesOfEvent)
@@ -124,7 +124,7 @@
                     @endif
                     <div class="donation">
                       <div class="input-field input-full">
-                        <label>EXPECTED DOOR DONATION:</label>
+                        <label>EXPECTED DOOR DONATION: <span class="figure"><img src="{{asset('images/icons/icon15.png')}}"></span></label>
                         <input type="number" name="door_dontation" placeholder="$10.0" required="required" value="{{ old('door_dontation') }}">
                         @error('door_dontation')
                             <div class="text-danger">
@@ -133,7 +133,7 @@
                         @endif
                       </div>
                       <div class="input-field input-half">
-                        <label>VIP DONATION:</label>
+                        <label>VIP DONATION: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></label>
                         <input type="number" name="vip_dontation" placeholder="$500.0" required="required" value="{{ old('vip_dontation') }}">
                         @error('vip_dontation')
                             <div class="text-danger">
@@ -142,7 +142,7 @@
                         @endif
                       </div>
                       <div class="input-field input-half">
-                        <label>VIP PERKS:</label>
+                        <label>VIP PERKS: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
                         <input type="text" name="vip_perk" placeholder="$50.0" required="required" value="{{ old('vip_perk') }}">
                         @error('vip_perk')
                             <div class="text-danger">
@@ -151,7 +151,7 @@
                         @endif
                       </div>
                       <div class="input-field input-half">
-                        <label>CHARITY:</label>
+                        <label>CHARITY: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></label>
                         <input type="text" name="charity" placeholder="$10.0" required="required" value="{{ old('charity') }}">
                         @error('charity')
                             <div class="text-danger">
@@ -160,7 +160,7 @@
                         @endif
                       </div>
                       <div class="input-field input-half">
-                        <label>COST TO VEND:</label>
+                        <label>COST TO VEND: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
                         <input type="number" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
@@ -171,7 +171,7 @@
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
-                    <label>VENDOR:</label>
+                    <label>VENDOR: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></label>
                     <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple" required="required">
                       @foreach($vendors as $vendor)
                         <option value="{{$vendor->id}}">{{$vendor->name}}</option>
@@ -208,9 +208,13 @@
                     <ul class="vendorTags">
                     </ul>
                   </div> -->
-                  <div class="col-sm-12 col-md-6 input-field">
+                  <div class="col-sm-12 col-md-6 input-field vendor_space_quantity">
                     <label>VENDOR SPACES AVAILABLE:</label>
-                    <input type="number" name="vendor_space_available" value="1" value="{{ old('vendor_space_available') }}" required="required">
+                    <div class="quantity buttons_added">
+                    <input type="button" value="-" class="minus">
+                    <input type="number" name="vendor_space_available" value="1" class="input-text qty text" inputmode="" required="required">
+                    <input type="button" value="+" class="plus">
+                    </div>
                     @error('vendor_space_available')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -218,8 +222,8 @@
                     @endif
                   </div>
                    @if(count($amenities))
-                  <div class="col-sm-12">
-                    <h4>AMENTIES:</h4>
+                  <div class="col-sm-12 input-field">
+                    <label>AMENTIES:</label>
                     <div class="AmentieList">
                       <ul>
                         @foreach($amenities as $amenity)
@@ -238,7 +242,7 @@
                   @endif
 
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
-                    <label>AREA:</label>
+                    <label>AREA: <span class="figure"><img src="{{asset('images/icons/icon5.png')}}"></span></label>
                     <select name="area" id="area" required="" class="form-control">
                         <option value="" selected="selected">Select Location</option>
                         @foreach($countries as $country)
@@ -252,7 +256,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>HEIGHT:</label>
+                    <label>HEIGHT: <span class="figure"><img src="{{asset('images/icons/icon6.png')}}"></span></label>
                     <input type="text" name="height" value="{{ old('height') }}" placeholder="100ft" required="required">
                     @error('height')
                       <div class="text-danger">
@@ -261,7 +265,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>CAPACITY:</label>
+                    <label>CAPACITY: <span class="figure"><img src="{{asset('images/icons/icon7.png')}}"></span></label>
                     <input type="number" name="capacity" value="{{ old('capacity') }}" placeholder="Capacity" required="required">
                     @error('capacity')
                         <div class="text-danger">
@@ -270,7 +274,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
-                    <label>ATM ON SITE:</label>
+                    <label>ATM ON SITE: <span class="figure"><img src="{{asset('images/icons/icon8.png')}}"></span></label>
                     <select name="ATM_on_site" required="required">
                       <option value="">ATM ON SITE:</option>
                       <option>Yes</option>
@@ -283,7 +287,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>TICKETING NUMBER:</label>
+                    <label>TICKETING NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
                     <input type="number" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
                     @error('tickiting_number')
                         <div class="text-danger">
@@ -292,7 +296,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>VENDOR NUMBER:</label>
+                    <label>VENDOR NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
                     <input type="number" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required">
                     @error('vendor_number')
                         <div class="text-danger">
@@ -301,7 +305,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>USER NUMBER:</label>
+                    <label>USER NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
                     <input type="number" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" required="required">
                     @error('user_number')
                         <div class="text-danger">
@@ -310,7 +314,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>WEBSITE LINK:</label>
+                    <label>WEBSITE LINK: <span class="figure"><img src="{{asset('images/icons/website-link.png')}}"></span></label>
                     <input type="url" name="website_link" placeholder="http://" value="{{old('website_link')}}" required="required">
                     @error('website_link')
                         <div class="text-danger">
@@ -319,7 +323,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>FACEBOOK LINK:</label>
+                    <label>FACEBOOK LINK: <span class="figure"><img src="{{asset('images/icons/facebook-link-icon.png')}}"></span></label>
                     <input type="url" name="facebook" placeholder="http://" value="{{old('facebook')}}" required="required">
                     @error('facebook')
                         <div class="text-danger">
@@ -328,7 +332,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>TWITTER LINK:</label>
+                    <label>TWITTER LINK: <span class="figure"><img src="{{asset('images/icons/twitter-link-icon.png')}}"></span></label>
                     <input type="url" name="twitter" placeholder="http://"  value="{{old('twitter')}}" required="required">
                     @error('twitter')
                         <div class="text-danger">
@@ -337,7 +341,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>LINKEDIN LINK:</label>
+                    <label>LINKEDIN LINK: <span class="figure"><img src="{{asset('images/icons/linkind-lick-icon.png')}}"></span></label>
                     <input type="url" name="linkedin" placeholder="http://" value="{{old('linkedin')}}" required="required">
                     @error('linkedin')
                         <div class="text-danger">
@@ -346,7 +350,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>INSTAGRAM LINK:</label>
+                    <label>INSTAGRAM LINK: <span class="figure"><img src="{{asset('images/icons/instagram-link-icon.png')}}"></span></label>
                     <input type="url" name="instagram" placeholder="http://" value="{{old('instagram')}}" required="required">
                     @error('twitter')
                         <div class="text-danger">
@@ -355,7 +359,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>YOUTUBE LINK:</label>
+                    <label>YOUTUBE LINK: <span class="figure"><img src="{{asset('images/icons/youtube-link-icon.png')}}"></span></label>
                     <input type="url" name="youtube" placeholder="http://" value="{{old('youtube')}}" required="required">
                     @error('youtube')
                         <div class="text-danger">
@@ -378,6 +382,31 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
+<script>
+	function wcqib_refresh_quantity_increments() {
+    jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
+        var c = jQuery(b);
+        c.addClass("buttons_added"), c.children().first().before('<input type="button" value="-" class="minus" />'), c.children().last().after('<input type="button" value="+" class="plus" />')
+    })
+	}
+	String.prototype.getDecimals || (String.prototype.getDecimals = function() {
+	    var a = this,
+	        b = ("" + a).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+	    return b ? Math.max(0, (b[1] ? b[1].length : 0) - (b[2] ? +b[2] : 0)) : 0
+	}), jQuery(document).ready(function() {
+	    wcqib_refresh_quantity_increments()
+	}), jQuery(document).on("updated_wc_div", function() {
+	    wcqib_refresh_quantity_increments()
+	}), jQuery(document).on("click", ".plus, .minus", function() {
+	    var a = jQuery(this).closest(".quantity").find(".qty"),
+	        b = parseFloat(a.val()),
+	        c = parseFloat(a.attr("max")),
+	        d = parseFloat(a.attr("min")),
+	        e = a.attr("step");
+	    b && "" !== b && "NaN" !== b || (b = 0), "" !== c && "NaN" !== c || (c = ""), "" !== d && "NaN" !== d || (d = 0), "any" !== e && "" !== e && void 0 !== e && "NaN" !== parseFloat(e) || (e = 1), jQuery(this).is(".plus") ? c && b >= c ? a.val(c) : a.val((b + parseFloat(e)).toFixed(e.getDecimals())) : d && b <= d ? a.val(d) : b > 0 && a.val((b - parseFloat(e)).toFixed(e.getDecimals())), a.trigger("change")
+	});
+</script>
 
 <script>
   Filevalidation = () => {

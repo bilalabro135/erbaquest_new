@@ -41,7 +41,7 @@
               @if(Auth::check())
                 @if($menu->visible_for_auth == 1)
                   <li class="{{(count($menu->children)) ? 'nav-item dropdown' : ''}}" id="{{$menu->attr_id}}">
-                    <a href="{{ (count($menu->children)) ? '#' : get_url($menu->link)}}" class="{{$menu->attr_class}} {{ (count($menu->children)) ? 'nav-link dropdown-toggle' : '' }}" {{ (count($menu->children) ) ? 'id="navbarDropdown'.$i.'" role="button" data-bs-toggle="dropdown" aria-expanded="false"' : '' }}>@if($menu->title =='[[auth_user]]')
+                    <a href="{{ (count($menu->children)) ? 'javascript:;' : get_url($menu->link)}}" class="{{$menu->attr_class}} {{ (count($menu->children)) ? 'nav-link dropdown-toggle' : '' }}" {{ (count($menu->children) ) ? 'id="navbarDropdown'.$i.'" role="button" data-bs-toggle="dropdown" aria-expanded="false"' : '' }}>@if($menu->title =='[[auth_user]]')
                       {{ Auth::user()->name }}
                     @else
                       {{$menu->title}}

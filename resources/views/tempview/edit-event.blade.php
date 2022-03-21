@@ -32,7 +32,9 @@
                           <div class="wishlist">
                             <!-- <p class="ft-tag">Featured</p> -->
                           </div>
+                          <a href="../events/{{$event['id']}}">
                             <img src="{{asset($event->featured_image)}}">
+                          </a>
                           <div class="author">
                             <p>{{$event->area}}</p>
                             @if(!empty($profile_image))
@@ -47,7 +49,9 @@
                           </div>
                         </figure>
                         <div class="detail">
-                          <h3>{{$event->name}}</h3>
+                          <a href="../events/{{$event['id']}}">
+                            <h3>{{$event->name}}</h3>
+                          </a>
                           <p class="date"><i class="far fa-calendar-alt"></i>{{$event->event_date}}</p>
                           <div class="txt">
                             <p>{!!$event->description!!}</p>

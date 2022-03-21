@@ -1652,6 +1652,7 @@ h3.vc_heading.vc_heading-green:before {
 .event-box_list .detail h3 {
   font-size: 20px;
   font-weight: 700;
+  color: #333;
 }
 
 .event-box_list figure .author p {
@@ -2415,7 +2416,7 @@ button#uploadImg span.clr-green {
 }
 
 .input-field.input-full {
-  padding-right: 40%;
+  padding-right: 35%;
 }
 
 .VendorList {
@@ -2435,6 +2436,7 @@ button#uploadImg span.clr-green {
 .AmentieList ul {
   border: none;
   padding-right: 12%;
+  padding: 0px;
 }
 
 .VendorList ul li {
@@ -3442,6 +3444,7 @@ button.delete-event:hover:after {
 .front_event_create .error,
 .front_event_update .error {
   color: #d52323;
+  font-size: 16px;
 }
 /*Select2 Css*/
 .select2-container--default .select2-selection--multiple {
@@ -3603,4 +3606,23 @@ button.delete-event:hover:after {
   }
 .event-inner figure.m-0 img {
   width: 100%;
+}
+.input-date input::-webkit-calendar-picker-indicator {
+  background-image: url(/images/icons/icon12.png);
+}
+.vendor_space_quantity .minus,
+.vendor_space_quantity .plus {
+  width: auto;
+  background-color: #2c9044;
+  color: #fff;
+  font-size: 30px;
+}
+.vendor_space_quantity .qty {
+  width: 67%;
+  /*margin-right: 4px;*/
+  position: relative;
+  top: -5px;
+}
+.vendor_space_quantity #vendor_space_available-error {
+  position: absolute;
 }
