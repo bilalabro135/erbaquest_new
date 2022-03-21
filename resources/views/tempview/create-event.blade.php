@@ -112,7 +112,7 @@
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT:</label>
                     <select name="type" required="required">
-                        <option selected="selected">Type:</option>
+                        <option value="">Type:</option>
                         @foreach($tyoesOfEvents as $tyoesOfEvent)
                         <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
                         @endforeach
@@ -227,7 +227,7 @@
                           <div class="input-field input-checkbox checkRight">
                             <label>
                               <span class="figure"><img src="{{ $amenity->icon }}"></span>{{ $amenity->name }}
-                              <input id="{{ $amenity->name }}{{ $amenity->id }}" type="checkbox" name="amenities[]" value="{{$amenity->id}}">
+                              <input id="{{ $amenity->name }}{{ $amenity->id }}" type="checkbox" name="amenities[]" value="{{$amenity->id}}" required="required">
                             </label>
                           </div>
                         </li>
@@ -272,7 +272,7 @@
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>ATM ON SITE:</label>
                     <select name="ATM_on_site" required="required">
-                      <option selected="selected">ATM ON SITE:</option>
+                      <option value="">ATM ON SITE:</option>
                       <option>Yes</option>
                       <option>No</option>
                     </select>
