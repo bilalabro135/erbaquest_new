@@ -231,8 +231,14 @@ $(function() {
       height: "required",
       capacity: "required",
       ATM_on_site: "required",
-      tickiting_number: "required",
-      vendor_number: "required",
+      tickiting_number: {
+        required: true,
+        phoneUS: true
+      },
+      vendor_number: {
+        required: true,
+        phoneUS: true
+      },
       user_number: "required",
       website_link: {
         required: true,
@@ -279,8 +285,8 @@ $(function() {
       capacity: "The capacity field is required.",
       ATM_on_site: "The ATM ON SITE field is required.",
       tickiting_number: "The TICKETING NUMBER field is required.",
-      vendor_number: "The VENDOR NUMBER field is required.",
-      user_number: "The USER NUMBER field is required.",
+      vendor_number: "US Based NUMBER is required.",
+      user_number: "US Based NUMBER is required.",
       website_link: "The WEBSITE LINK field is required.",
       facebook: "The FACEBOOK LINK DONATION field is required.",
       twitter: "The TWITTER LINK field is required.",
