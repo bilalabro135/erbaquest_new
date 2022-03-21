@@ -8,7 +8,7 @@
                   </li>
                   <li class="have_child-items">
                     <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">My Events</a>
+                    <a href="{{route('edit.event')}}">My Events</a>
                     <ul class="sub-menu">
                       <li class="item">
                         <a href="{{route('events.create')}}">Add Event</a>
@@ -17,33 +17,15 @@
                         <a href="{{route('edit.event')}}">Edit Event</a>
                       </li>
                       <li class="item">
-                        <a href="{{route('upcomingEvent')}}">Upcoming Event</a>
+                        <a href="{{route('draft.account')}}">Draft Event</a>
                       </li>
                       <li class="item">
-                        <a href="{{route('draftEvent')}}">Draft Event</a>
+                        <a href="{{route('upcomming.account')}}">Upcoming Event</a>
                       </li>
                     </ul>
                   </li>
                   <li>
                     <a href="{{route('wishlist')}}">Wishlist</a>
-                  </li>
-                  <li class="have_child-items">
-                    <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
-                    <a href="javascript:;">Paymeny History</a>
-                    <ul class="sub-menu">
-                      <li class="item">
-                        <a href="javascript:;">Add Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Upcoming Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="{{route('edit.event')}}">Edit Event</a>
-                      </li>
-                      <li class="item">
-                        <a href="javascript:;">Draft</a>
-                      </li>
-                    </ul>
                   </li>
                   <li>
                     <a href="javascript:;">Logout</a>

@@ -30,7 +30,7 @@
                       <div class="event-box_list" id="event_{{ $event->id }}">
                         <figure>
                           <div class="wishlist">
-                            <p class="ft-tag">Featured</p>
+                            <!-- <p class="ft-tag">Featured</p> -->
                           </div>
                             <img src="{{asset($event->featured_image)}}">
                           <div class="author">
