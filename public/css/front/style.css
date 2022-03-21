@@ -3492,3 +3492,8 @@ button.delete-event:hover:after {
   color: #fff;
   text-decoration: none;
 }
+#vendor_select-error {
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+}
