@@ -33,6 +33,7 @@
             </li>
           </ul>
         </li>
+        
         <li class="<?php if($second_last.'/'.$page == 'account/wishlist'){ echo 'current'; } ?>">
           <a href="{{route('wishlist')}}">Wishlist</a>
         </li>

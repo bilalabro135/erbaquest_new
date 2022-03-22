@@ -19,11 +19,11 @@
           <div class="col-sm-12 col-md-8">
             <div class="profile_info">
               <figure>
-                @isset($users->profile_image)
+                @if($users->profile_image)
                   <img src="{{ $users->profile_image }}">
                 @else
                   <img src="{{asset('images/avatar.png')}}">
-                @endisset
+                @endif
               </figure>
               <div class="dt">
                 <!-- <h3>LOREM IPSUM</h3> -->
