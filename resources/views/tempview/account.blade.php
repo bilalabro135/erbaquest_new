@@ -21,6 +21,8 @@
               <figure>
                 @isset($users->profile_image)
                   <img src="{{ $users->profile_image }}">
+                @else
+                  <img src="{{asset('images/avatar.png')}}">
                 @endisset
               </figure>
               <div class="dt">

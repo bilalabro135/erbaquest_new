@@ -3490,8 +3490,9 @@ button.delete-event:hover:after {
 }
 .profile_info figure img {
   border-radius: 150px;
-    width: 150px;
-    height: 150px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
 .action_publish,
 .action_edit,
