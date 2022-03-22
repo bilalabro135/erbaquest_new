@@ -18,7 +18,11 @@ class AccountController extends Controller
         $users->email = $userData['email'];
         $users->phone = $userData['phone'];
         $users->address = $userData['address'];
-        $users->profile_image = env('APP_URL').$userData['profile_image'];
+        
+        if ($userData['profile_image']) {
+            $users->profile_image = env('APP_URL').$userData['profile_image'];
+        }
+        
         $users->id = $userData['id'];
 
         return view('tempview/account', compact('users'));
