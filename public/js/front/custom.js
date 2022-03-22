@@ -193,12 +193,30 @@ $(function() {
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
       user_number: "The USER NUMBER field is required.",
-      website_link: "The WEBSITE LINK field is required.",
-      facebook: "The FACEBOOK LINK DONATION field is required.",
-      twitter: "The TWITTER LINK field is required.",
-      linkedin: "The LINKEDIN LINK field is required.",
-      instagram: "The INSTAGRAM LINK field is required.",
-      youtube: "The YOUTUBE LINK field is required.",
+      website_link: {
+        required:"The website link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      facebook: {
+        required:"The facebook link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      twitter: {
+        required:"The twitter link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      linkedin: {
+        required:"The linkedin link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      instagram: {
+        required:"The instagram link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      youtube: {
+        required:"The youtube link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
     },
     submitHandler: function(form) {
       form.submit();
@@ -285,12 +303,30 @@ $(function() {
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
       user_number: "The User NUMBER is required.",
-      website_link: "The WEBSITE LINK field is required.",
-      facebook: "The FACEBOOK LINK DONATION field is required.",
-      twitter: "The TWITTER LINK field is required.",
-      linkedin: "The LINKEDIN LINK field is required.",
-      instagram: "The INSTAGRAM LINK field is required.",
-      youtube: "The YOUTUBE LINK field is required.",
+      website_link: {
+        required:"The website link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      facebook: {
+        required:"The facebook link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      twitter: {
+        required:"The twitter link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      linkedin: {
+        required:"The linkedin link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      instagram: {
+        required:"The instagram link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
+      youtube: {
+        required:"The youtube link field is required.",
+        url:"Please use the complete link with https:// or http://",
+      },
     },
     submitHandler: function(form) {
       form.submit();
