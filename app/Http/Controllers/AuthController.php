@@ -63,6 +63,7 @@ class AuthController extends Controller
         $user->address = $userData['address'];
         $user->password = $userData['password'];
         $user->phone = $userData['phone'];
+        $user->package_id = $userData['package_id'];
 
 
         if(!isset($Settings['email_verification_on_reg']) || $Settings['email_verification_on_reg'] != 1){
@@ -84,8 +85,17 @@ class AuthController extends Controller
     {
         $settings = Settings::get('registration');
         $roles = Bouncer::role()->where('name', 'Organizer')->orWhere('name', 'Vendor')->pluck('name');
+        // dd($roles);
         $packages = Package::all();
         return view('auth.register', compact('roles', 'settings', 'packages'));
+    }
+    public function vendorsignup()
+    {
+        $settings = Settings::get('registration');
+        $roles = Bouncer::role()->where('name', 'Organizer')->orWhere('name', 'Vendor')->pluck('name');
+        // dd($roles);
+        $packages = Package::all();
+        return view('auth.vendor-register', compact('roles', 'settings', 'packages'));
     }
     public function forgetPassword()
     {

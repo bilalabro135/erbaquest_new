@@ -3630,3 +3630,7 @@ button.delete-event:hover:after {
   position: absolute;
   bottom: 0;
 }
+.package-selected {
+    background: #10783c;
+    color: #fff;
+}

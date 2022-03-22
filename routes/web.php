@@ -61,6 +61,7 @@ Route::post('/reset-password',[AuthController::class, 'paasswordUpdate'])->middl
 
 // Registration
     Route::get('/register', [AuthController::class, 'signup'])->name('register')->middleware('guest');
+    Route::get('/register/vendor', [AuthController::class, 'vendorsignup'])->name('vendor.register')->middleware('guest');
     Route::post('/user/register',[AuthController::class, 'register'])->name('register.user')->middleware('guest');
 
 // File manager

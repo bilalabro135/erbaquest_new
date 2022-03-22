@@ -48,6 +48,7 @@ class RegisterRequest extends FormRequest
             'role' =>$this->get('role'),
             'address' =>( $this->has('address')) ? $this->get('address') : null,
             'phone' => $this->get('phone'),
+            'package_id' => $this->get('package_id') ? $this->get('package_id') : null,
         ];
     }
 }

@@ -1,10 +1,7 @@
 <?php 
-
 	$explode = explode("/",$_SERVER['REQUEST_URI']);
 	$second_last = $explode[count($explode)-2];
 	$page = end($explode);
-	// print_r($second_last.'/'.$page);
-	// exit();
 ?>
 
 <div class="col-sm-12 col-md-4">
