@@ -37,7 +37,7 @@
                             @if(!empty($event->organizer->profile_image))
                             <div class="figure">
                               <img src="{{($event->organizer->profile_image != 'null') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
-                            </div>
+                            </div> 
                             @endif
                           </div>
                         </figure>

@@ -609,13 +609,13 @@ class EventController extends Controller
    public function upcomingEvent()
    {
         $now = date('Y-m-d');
-        $events = Event::where('status', 'published')->whereDate('event_date', '>', $now)->get();
+        $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '>', $now)->get();
         return view('tempview.upcoming-event', compact('events'));   
    }
    public function draftEvent()
    {
-        $events = Event::where('status', 'draft')->get();
-        return view('tempview.draft-event', compact('events'));   
+        $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
+        return view('tempview.draft-event', compact('events',));   
    }
    public function pastEvent()
    {
