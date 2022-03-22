@@ -288,7 +288,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TICKETING NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
-                    <input type="number" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
+                    <input class="phone_mask" type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
                     @error('tickiting_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -297,7 +297,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>VENDOR NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
-                    <input type="number" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required">
+                    <input class="phone_mask" type="text" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required" maxlength="14">
                     @error('vendor_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -382,7 +382,13 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<!-- <script src="{{asset('js/front/jquery.mask.min.js') }}"></script> -->
 
+<script>  
+    $(document).ready(function(){  
+        $('.phone_mask').mask('(999)-999-9999'); 
+    });  
+</script>  
 <script>
 	function wcqib_refresh_quantity_increments() {
     jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {

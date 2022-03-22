@@ -23,7 +23,9 @@
     <script src="{{ asset('js/front/bootstrap.min.js' ) }}" type="text/javascript"></script>
     <script src="{{ asset('js/front/owl.carousel.min.js' ) }}" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/bf7b09a514.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="{{asset('js/front/jquery.mask.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{asset('js/front/custom.js') }}"></script>
