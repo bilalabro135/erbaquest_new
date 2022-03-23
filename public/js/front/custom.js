@@ -122,20 +122,26 @@ $.validator.addMethod("extension", function(value, element, param) {
 $.validator.addMethod('maxfilesize', function(value, element, param) {
   var length = ( element.files.length );
   var fileSize = 0;
-
   if (length > 0) {
       for (var i = 0; i < length; i++) {
         fileSize = element.files[i].size; // get file size
         // console.log("if" +length);
         fileSize = fileSize / 1024; //file size in Kb
         fileSize = fileSize / 1024; //file size in Mb
+        $('html, body').animate({
+		   scrollTop: $('html, body').offset().top,
+		});
         return this.optional( element ) || fileSize <= param;
       }
     }
     else{
-      return this.optional( element ) || fileSize <= param;
-      //console.log("else" +length);
+    	$('html, body').animate({
+		   scrollTop: $('html, body').offset().top,
+		});
+      	return this.optional( element ) || fileSize <= param;
+      	//console.log("else" +length);
     }
+
 });
 
 // File Dimention Method
@@ -502,7 +508,3 @@ $(function(){
     }
   });
 });
-
-$(document).ready(function(){  
-    $('#phone').mask('(999)-999-9999'); 
-}); 
