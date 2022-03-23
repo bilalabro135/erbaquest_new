@@ -114,7 +114,7 @@ if (place.geometry.viewport) {
 
 // Create Event Validation
 
-jQuery.validator.addMethod("extension", function(value, element, param) {
+$.validator.addMethod("extension", function(value, element, param) {
   param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpg|jpeg";
   return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
 }, "Please enter a value Like (png|jpg|jpeg) a valid extension.");
@@ -137,6 +137,10 @@ $.validator.addMethod('maxfilesize', function(value, element, param) {
       //console.log("else" +length);
     }
 });
+
+// File Dimention Method
+
+
 
 
 

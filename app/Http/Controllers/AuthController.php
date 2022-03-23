@@ -97,7 +97,7 @@ class AuthController extends Controller
         $packages = Package::all();
         return view('auth.vendor-register', compact('roles', 'settings', 'packages'));
     }
-    public function forgetPassword()
+    public function forgetPassword() 
     {
         return view('auth.forgot-password');
     }

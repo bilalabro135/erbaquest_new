@@ -231,12 +231,14 @@ class EventController extends Controller
         $event->save();
 
         //adding vendor id and event id in in vendor table
-        foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
-            $vendor = new Vendor();
-            $vendor->event_id = $event->id;
-            $vendor->user_id = $vendorId;
-            $vendor->save();
-        } 
+        if ($eventDetail['vendor_list']) {
+            foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
+                $vendor = new Vendor();
+                $vendor->event_id = $event->id;
+                $vendor->user_id = $vendorId;
+                $vendor->save();
+            } 
+        }
 
         if($request->has('amenities'))
             $event->amenities()->attach($request->amenities);

@@ -6,7 +6,7 @@
     @if(auth())
         # Hello {{ auth()->user()->name }},
     @endif
-@endif
+@endif 
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
