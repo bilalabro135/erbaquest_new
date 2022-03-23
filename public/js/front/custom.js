@@ -135,9 +135,9 @@ $.validator.addMethod('maxfilesize', function(value, element, param) {
       }
     }
     else{
-    	$('html, body').animate({
-		   scrollTop: $('html, body').offset().top,
-		});
+  //   	$('html, body').animate({
+		//    scrollTop: $('html, body').offset().top,
+		// });
       	return this.optional( element ) || fileSize <= param;
       	//console.log("else" +length);
     }
