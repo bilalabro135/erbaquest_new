@@ -12,9 +12,6 @@ class AccountController extends Controller
     public function edit(Request $request) {
         
     	$userData = Auth::user();
-        echo "<pre>";
-        print_r($userData);
-        exit();
     	$users = new User;
         $users->name = $userData['name'];
         $users->user_name = $userData['username'];
