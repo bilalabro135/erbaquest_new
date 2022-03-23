@@ -362,27 +362,27 @@
               <ul>
               	@if($event->instagram != null)
                 <li>
-                	<a href="{{$event->instagram}}"><i class="fab fa-instagram"></i></a>
+                	<a href="{{$event->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a>
                 </li>
                 @endif
               	@if($event->facebook != null)
                 <li>
-                	<a href="{{$event->facebook}}"><i class="fab fa-facebook-f"></i></a>
+                	<a href="{{$event->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 </li>
                 @endif
               	@if($event->twitter != null)
                 <li>
-                	<a href="{{$event->twitter}}"><i class="fab fa-twitter"></i></a>
+                	<a href="{{$event->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a>
                 </li>
                 @endif
               	@if($event->youtube != null)
                 <li>
-                	<a href="{{$event->youtube}}"><i class="fab fa-youtube"></i></a>
+                	<a href="{{$event->youtube}}" target="_blank"><i class="fab fa-youtube"></i></a>
                 </li>
                 @endif
               	@if($event->linkedin != null)
                 <li>
-                	<a href="{{$event->linkedin}}"><i class="fab fa-linkedin"></i></a>
+                	<a href="{{$event->linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
                 @endif
               </ul>

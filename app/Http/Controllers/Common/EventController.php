@@ -436,12 +436,14 @@ class EventController extends Controller
 
         //adding vendor id and event id in in vendor table
         Vendor::where('event_id', $event->id)->delete();
-        foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
-            $vendor = new Vendor();
-            $vendor->event_id = $event->id;
-            $vendor->user_id = $vendorId;
-            $vendor->save();
-        } 
+        if ($eventDetail['vendor_list']) {
+            foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
+                $vendor = new Vendor();
+                $vendor->event_id = $event->id;
+                $vendor->user_id = $vendorId;
+                $vendor->save();
+            } 
+        }
 
 
         
