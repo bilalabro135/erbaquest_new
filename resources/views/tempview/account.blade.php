@@ -127,7 +127,7 @@
                   </span>
                   @enderror
                 </div>
-                <div class="input-field input-checkbox">
+                <!-- <div class="input-field input-checkbox">
                   <label class="checkmark">
                       <input type="checkbox" name="agreement" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
                   </label>
@@ -136,7 +136,7 @@
                       <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-                </div>
+                </div> -->
                 <div class="input-field input-submit">
                   <input type="submit" name="submit" value="UPDATE">
                 </div>

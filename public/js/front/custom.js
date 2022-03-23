@@ -450,3 +450,59 @@ $(function(){
     }
   });
 });
+
+// Register vendor
+$(function(){
+  $(".vendor_form_signUp").validate({
+    rules: {
+      name: "required",
+      email: {
+        required: true,
+        email: true
+      },
+      phone: {
+        required: true,
+        phoneUS: true
+      },
+      username: "required",
+      password_confirmation : {
+        minlength : 6,
+        equalTo : "#password"
+      },
+      cardNumber: "required",
+      expMonth: "required",
+      expYear: "required",
+      cardCode: "required",
+      terms_and_condition: "required",
+    },
+    messages: {
+      name: "The name field is required.",
+      email: {
+        required:"The email field is required.",
+        email:"Please enter correct email.",
+      },
+      phone:{
+        required : "The phone field is required.",
+        phoneUS : "Us Based Number is required.",
+      },
+      username: "The username field is required.",
+      password: "The password field is required.",
+      password_confirmation: {
+        required:"The password field is required.",
+        equalTo:"Please enter the same value again.",
+      },
+      cardNumber: "The Card Number field is required.",
+      expMonth: "The Expiry Month is required.",
+      expYear: "The Expiry Year is required.",
+      cardCode: "The Card code is required.",
+      terms_and_condition: "The term and condition is required."
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+
+$(document).ready(function(){  
+    $('#phone').mask('(999)-999-9999'); 
+}); 
