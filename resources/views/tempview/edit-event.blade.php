@@ -52,7 +52,7 @@
                           <a href="../events/{{$event['id']}}">
                             <h3>{{$event->name}}</h3>
                           </a>
-                          <p class="date"><i class="far fa-calendar-alt"></i>{{$event->event_date}}</p>
+                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
                           <div class="txt">
                             <p class="event_description">{!!$event->description!!}</p>
                           </div>

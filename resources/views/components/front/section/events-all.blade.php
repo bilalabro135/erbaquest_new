@@ -27,7 +27,9 @@
                     
                     <p class="ft-tag">Featured</p>
                   </div>
+                  <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
                     <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
+                  </a>
                   <div class="author">
                     <p>{{$event['area']}}</p>
                     @if(!empty($event['user_profile']))
@@ -42,9 +44,10 @@
                   </div>
                 </figure>
                 <div class="detail">
-                	
-                  <h3>{{$event['name']}}</h3>
-                  <p class="date"><i class="far fa-calendar-alt"></i>{{$event['event_date']}}</p>
+                	<a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
+                    <h3>{{$event['name']}}</h3>
+                  </a>
+                  <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
                   <div class="txt">
                     <p>{!!$event['description']!!}</p>
                   </div>

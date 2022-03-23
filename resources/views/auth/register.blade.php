@@ -21,13 +21,13 @@
                 <div class="row form_area">
                     <div class="col-lg-12">
                         <div class="signupForm">
-                            <form class="user" method="POST" action="{{ route('register.user') }}">
+                            <form class="user register_form_valid" method="POST" action="{{ route('register.user') }}">
                                 @csrf
                                 <input type="hidden" name="role" value="Organizer">
                                 <div class="form-group row">
                                     <div class="input-field col-sm-6 mb-3 mb-sm-0">
                                         <label for="name">Name*</label>
-                                        <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus placeholder="Name*">
+                                        <input id="name" type="text" class="form-control form-control-user @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus placeholder="Name*" required="required">
                                         @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="input-field col-sm-6">
                                         <label for="email">Email*</label>
-                                        <input id="email" type="email" class="form-control  form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="Email Address*">
+                                        <input id="email" type="email" class="form-control  form-control-user @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="Email Address*" required="required">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -46,8 +46,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="input-field col-sm-6">
-                                        <label for="phone">Phone</label>
-                                        <input id="phone" type="text" class="form-control  form-control-user @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone">
+                                        <label for="phone">Phone*</label>
+                                        <input id="phone" type="text" class="phone_mask form-control  form-control-user @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone*" required="required">
                                         @error('phone')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="input-field col-sm-6 mb-3 mb-sm-0">
                                         <label for="username">Username*</label>
-                                        <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus placeholder="Username*">
+                                        <input id="username" type="text" class="form-control form-control-user @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus placeholder="Username*" required="required">
                                         @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -78,8 +78,8 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="input-field col-sm-6 mb-3 mb-sm-0 input-field">
-                                        <label for="password">Password</label>
-                                        <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" placeholder="Password">
+                                        <label for="password">Password*</label>
+                                        <input id="password" type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" placeholder="Password*" required="required">
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -88,8 +88,8 @@
                                     @enderror
                                     </div>
                                     <div class="input-field col-sm-6">
-                                        <label for="password-confirm">Password Confirm</label>
-                                        <input id="password-confirm" type="password" class="form-control form-control-user @error('password_confirmation') is-invalid @enderror" name="password_confirmation"  autocomplete="new-password" placeholder="Confirm Password">
+                                        <label for="password-confirm">Password Confirm*</label>
+                                        <input id="password-confirm" type="password" class="form-control form-control-user @error('password_confirmation') is-invalid @enderror" name="password_confirmation"  autocomplete="new-password" placeholder="Confirm Password*">
                                         @error('password_confirmation')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="input-field input-checkbox">
                                     <label class="checkmark">
-                                        <input type="checkbox" name="terms_and_condition" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
+                                        <input type="checkbox" name="terms_and_condition" value="1"><a target="_blank" href="terms-and-condition" required="required"> I Agree With Terms & Conditon</a>
                                     </label>
                                     @error('terms_and_condition')
                                     <span class="invalid-feedback" role="alert">
@@ -134,7 +134,11 @@
 
 @push ('scripts')
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
+
 <script>
+    $(document).ready(function(){  
+        $('.phone_mask').mask('(999)-999-9999'); 
+    }); 
     // Create a Stripe client.
 // var stripe = Stripe('{{ env("STRIPE_KEY") }}');
 

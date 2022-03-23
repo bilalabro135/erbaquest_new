@@ -38,7 +38,7 @@
           <a href="{{route('wishlist')}}">Wishlist</a>
         </li>
         <li>
-          <a href="javascript:;">Logout</a>
+          <a href="{{route('logout')}}">Logout</a>
         </li>
       </ul>
     </div>

@@ -479,6 +479,7 @@ class EventController extends Controller
 
     public function loadmore(Request $request)
     {
+        $now = date('Y-m-d');
         $validation = Validator::make($request->all(),[
           'offset' => 'required|integer',
           'limit' => 'integer',

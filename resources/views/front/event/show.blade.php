@@ -12,7 +12,7 @@
             <h3 class="ft-blanka ftw-bold_36 mb-40">
               {{$event->name}}
             </h3>
-           	{!!$event->description!!}
+            <p class="event_detail_text">{!!$event->description!!}</p>
           </div>
           <div class="col-sm-12 col-md-6">
             <figure class="m-0">
@@ -85,8 +85,8 @@
                 @endif
                 @if($event->tickiting_number != null)
                 <div class="plc-tag">
-                  <h5>TICKITING NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></h5>
-                  <p>{{$event->tickiting_number}}</p>
+                  <h5>TICKITING PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></h5>
+                  <a href="tel:{{$event->tickiting_number}}"><p>{{$event->tickiting_number}}</p></a>
                 </div>
                 @endif
                 @if($event->user_number != null)
@@ -111,12 +111,37 @@
                 @endif
                 @if($event->vendor_number != null)
                 <div class="plc-tag">
-                  <h5>VENDOR NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></h5>
-                  <p>{{$event->vendor_number}}</p>
+                  <h5>VENDOR PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></h5>
+                  <a href="tel:{{$event->vendor_number}}"><p>{{$event->vendor_number}}</p></a>
                 </div>
                 @endif
               </div>
             </div>
+            @if($event->status == 'draft')
+              <div class="social-box">
+                <!-- <h4>Action:</h4> -->
+                <div class="button_center">
+                    <a href="{{ $action_status }}" class="action_publish">Publish</a>
+                    <a href="{{ $action_edit }}" class="action_edit">Edit</a>
+                    <a href="javascript:void(0);" class="action_delete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                </div>
+              </div>
+              <div class="modal fade delete_event_popup" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="popup_close">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="{{ $action_delete }}" class="btn btn-primary">Confirm</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
 <!--             <div class="reviews">
               <div class="review-box">
                 <figure>
@@ -262,6 +287,7 @@
                 </div>
               </form>
             </div> -->
+
           </div>
           <div class="col-sm-12 col-md-5">
             <div class="loct-box">
@@ -273,7 +299,7 @@
                 </a>
               </div>
               <div style="clear: both;"></div>
-              <p><span class="dt-tag">{{$event->event_date}}</span></p>
+              <p><span class="dt-tag">{{date('d-m-Y', strtotime($event['event_date']))}}</span></p>
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
               	<iframe src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q={{$event->address}}&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -297,13 +323,13 @@
               	@if($event->charity != null)
                 <li>
                   <h4>CHARITY: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></h4>
-                  <p>${{$event->charity}}</p>
+                  <p>{{$event->charity}}</p>
                 </li>
                 @endif
               	@if($event->vip_perk != null)
                 <li>
                   <h4>VIP PERK: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></h4>
-                  <p>${{$event->vip_perk}}</p>
+                  <p>{{$event->vip_perk}}</p>
                 </li>
                 @endif
               	@if($event->cost_of_vendor != null)
@@ -361,32 +387,6 @@
                 @endif
               </ul>
             </div>
-            @if($event->status == 'draft')
-              <div class="social-box">
-                <h4>Action:</h4>
-                <div class="">
-                    <a href="{{ $action_status }}" class="action_publish">Publish</a>
-                    <a href="{{ $action_edit }}" class="action_edit">Edit</a>
-                    <a href="javascript:void(0);" class="action_delete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
-                </div>
-              </div>
-              <div class="modal fade delete_event_popup" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="popup_close">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Are you sure?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <a href="{{ $action_delete }}" class="btn btn-primary">Confirm</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            @endif
-
           </div>
         </div>
       </div>

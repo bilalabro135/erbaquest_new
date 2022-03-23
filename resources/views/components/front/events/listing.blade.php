@@ -14,7 +14,7 @@
       <div class="ev-meta">
         <p class="date">
           <i class="far fa-calendar-alt"></i>
-          {{$event->event_date}}
+          {{date('d-m-Y', strtotime($event['event_date']))}}
         </p>
         <p class="tags">
         </p>

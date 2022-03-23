@@ -113,12 +113,53 @@ if (place.geometry.viewport) {
 
 
 // Create Event Validation
+
+$.validator.addMethod('filesize', function (value, element, param) {
+    return this.optional(element) || (element.files[0].size <= param)
+}, 'File size must be less than {0}MB');
+
+
+
+jQuery.validator.addMethod("extension", function(value, element, param) {
+  param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpg|jpeg";
+  return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
+}, "Please enter a value Like (png|jpg|jpeg) a valid extension.");
+
+$.validator.addMethod('maxfilesize', function(value, element, param) {
+  var length = ( element.files.length );
+  var fileSize = 0;
+
+  if (length > 0) {
+      for (var i = 0; i < length; i++) {
+        fileSize = element.files[i].size; // get file size
+        // console.log("if" +length);
+        fileSize = fileSize / 1024; //file size in Kb
+        fileSize = fileSize / 1024; //file size in Mb
+        return this.optional( element ) || fileSize <= param;
+      }
+    }
+    else{
+      return this.optional( element ) || fileSize <= param;
+      //console.log("else" +length);
+    }
+});
+
+
+
 $(function() {
   $(".front_event_create").validate({
     rules: {
       name: "required",
-      featured_image: "required",
-      gallery: "required",
+      featured_image: {
+        required: true,
+        extension: "png|jpg|jpeg",
+        filesize: 2,
+      },
+      'gallery[]': {
+        required: true,
+        extension: "png|jpg|jpeg",
+        maxfilesize: 2,
+      },
       event_date: {
         required: true,
         date: true
@@ -130,7 +171,7 @@ $(function() {
       vip_perk: "required",
       charity: "required",
       cost_of_vendor: "required",
-      vendor_list: "required",
+      // vendor_list: "required",
       // vendor_space_available: "required",
       // amenities: "required",
       area: "required",
@@ -145,36 +186,43 @@ $(function() {
         required: true,
         phoneUS: true
       },
-      user_number: "required",
-      website_link: {
-        required: true,
-        url: true
-      },
-      facebook: {
-        required: true,
-        url: true
-      },
-      twitter: {
-        required: true,
-        url: true
-      },
-      linkedin: {
-        required: true,
-        url: true
-      },
-      instagram: {
-        required: true,
-        url: true
-      },
-      youtube: {
-        required: true,
-        url: true
-      },
+      // user_number: "required",
+      // website_link: {
+      //   required: true,
+      //   url: true
+      // },
+      // facebook: {
+      //   required: true,
+      //   url: true
+      // },
+      // twitter: {
+      //   required: true,
+      //   url: true
+      // },
+      // linkedin: {
+      //   required: true,
+      //   url: true
+      // },
+      // instagram: {
+      //   required: true,
+      //   url: true
+      // },
+      // youtube: {
+      //   required: true,
+      //   url: true
+      // },
     },
     messages: {
       name: "The name field is required.",
-      featured_image: "The FEATURED PICTURE field is required.",
-      gallery: "The PICTURE field is required.",
+      featured_image: {
+        required:"The FEATURED PICTURE field is required.",
+        extension:"Please use .PNG .JPG .JPEG format",
+      },
+      'gallery[]': {
+        required:"The PICTURE field is required.",
+        extension:"Please use .PNG .JPG .JPEG format",
+        maxfilesize:"File size must be less than 2MB",
+      },
       event_date: "The Date field is required.",
       map_address: "The ADDRESS field is required.",
       type: "The TYPE OF EVENT field is required.",
@@ -183,7 +231,7 @@ $(function() {
       vip_perk: "The VIP PERKS field is required.",
       charity: "The CHARITY field is required.",
       cost_of_vendor: "The COST TO VEND field is required.",
-      vendor_list: "The VENDOR field is required.",
+      // vendor_list: "The VENDOR field is required.",
       vendor_space_available: "The VENDOR SPACES AVAILABLE field is required.",
       // amenities: "The AMENTIES field is required.",
       area: "The AREA field is required.",
@@ -192,31 +240,31 @@ $(function() {
       ATM_on_site: "The ATM ON SITE field is required.",
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
-      user_number: "The USER NUMBER field is required.",
-      website_link: {
-        required:"The website link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      facebook: {
-        required:"The facebook link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      twitter: {
-        required:"The twitter link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      linkedin: {
-        required:"The linkedin link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      instagram: {
-        required:"The instagram link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      youtube: {
-        required:"The youtube link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
+      // user_number: "The USER NUMBER field is required.",
+      // website_link: {
+      //   required:"The website link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // facebook: {
+      //   required:"The facebook link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // twitter: {
+      //   required:"The twitter link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // linkedin: {
+      //   required:"The linkedin link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // instagram: {
+      //   required:"The instagram link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // youtube: {
+      //   required:"The youtube link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
     },
     submitHandler: function(form) {
       form.submit();
@@ -240,7 +288,7 @@ $(function() {
       vip_perk: "required",
       charity: "required",
       cost_of_vendor: "required",
-      vendor_list: "required",
+      // vendor_list: "required",
       // vendor_space_available: "required",
       // amenities: "required",
       area: "required",
@@ -255,36 +303,34 @@ $(function() {
         required: true,
         phoneUS: true
       },
-      user_number: "required",
-      website_link: {
-        required: true,
-        url: true
-      },
-      facebook: {
-        required: true,
-        url: true
-      },
-      twitter: {
-        required: true,
-        url: true
-      },
-      linkedin: {
-        required: true,
-        url: true
-      },
-      instagram: {
-        required: true,
-        url: true
-      },
-      youtube: {
-        required: true,
-        url: true
-      },
+      // user_number: "required",
+      // website_link: {
+      //   required: true,
+      //   url: true
+      // },
+      // facebook: {
+      //   required: true,
+      //   url: true
+      // },
+      // twitter: {
+      //   required: true,
+      //   url: true
+      // },
+      // linkedin: {
+      //   required: true,
+      //   url: true
+      // },
+      // instagram: {
+      //   required: true,
+      //   url: true
+      // },
+      // youtube: {
+      //   required: true,
+      //   url: true
+      // },
     },
     messages: {
       name: "The name field is required.",
-      featured_image: "The FEATURED PICTURE field is required.",
-      gallery: "The PICTURE field is required.",
       event_date: "The Date field is required.",
       map_address: "The ADDRESS field is required.",
       type: "The TYPE OF EVENT field is required.",
@@ -293,7 +339,7 @@ $(function() {
       vip_perk: "The VIP PERKS field is required.",
       charity: "The CHARITY field is required.",
       cost_of_vendor: "The COST TO VEND field is required.",
-      vendor_list: "The VENDOR field is required.",
+      // vendor_list: "The VENDOR field is required.",
       vendor_space_available: "The VENDOR SPACES AVAILABLE field is required.",
       // amenities: "The AMENTIES field is required.",
       area: "The AREA field is required.",
@@ -302,31 +348,31 @@ $(function() {
       ATM_on_site: "The ATM ON SITE field is required.",
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
-      user_number: "The User NUMBER is required.",
-      website_link: {
-        required:"The website link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      facebook: {
-        required:"The facebook link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      twitter: {
-        required:"The twitter link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      linkedin: {
-        required:"The linkedin link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      instagram: {
-        required:"The instagram link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
-      youtube: {
-        required:"The youtube link field is required.",
-        url:"Please use the complete link with https:// or http://",
-      },
+      // user_number: "The User NUMBER is required.",
+      // website_link: {
+      //   required:"The website link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // facebook: {
+      //   required:"The facebook link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // twitter: {
+      //   required:"The twitter link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // linkedin: {
+      //   required:"The linkedin link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // instagram: {
+      //   required:"The instagram link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
+      // youtube: {
+      //   required:"The youtube link field is required.",
+      //   url:"Please use the complete link with https:// or http://",
+      // },
     },
     submitHandler: function(form) {
       form.submit();
@@ -339,17 +385,66 @@ $(function() {
   $(".account_form_val").validate({
     rules: {
       name: "required",
-      field: {
+      email: {
         required: true,
         email: true
       },
       phone: 'required',
-      address: "required",
+      password : {
+        minlength : 6
+      },
+      password1 : {
+        minlength : 6,
+        equalTo : "#password"
+      },
     },
     messages: {
       name: "The name field is required.",
       phone: "The phone field is required.",
-      address: "The Address field is required.",
+      email: {
+        required:"The email field is required.",
+        email:"Please enter correct email.",
+      },
+      password: "The password field is required.",
+      password_confirmation: {
+        required:"The password field is required.",
+        equalTo:"Please enter the same value again.",
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+
+// Register
+$(function(){
+  $(".register_form_valid").validate({
+    rules: {
+      name: "required",
+      email: {
+        required: true,
+        email: true
+      },
+      password : {
+        minlength : 6
+      },
+      password_confirmation : {
+        minlength : 6,
+        equalTo : "#password"
+      },
+    },
+    messages: {
+      name: "The name field is required.",
+      email: {
+        required:"The email field is required.",
+        email:"Please enter correct email.",
+      },
+      password: "The password field is required.",
+      password_confirmation: {
+        required:"The password field is required.",
+        equalTo:"Please enter the same value again.",
+      },
     },
     submitHandler: function(form) {
       form.submit();

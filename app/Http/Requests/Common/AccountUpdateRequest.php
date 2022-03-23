@@ -38,7 +38,7 @@ class AccountUpdateRequest extends FormRequest
         return [
             'id' => 'required',
             'name' => 'required|max:255',
-            'profile_image' => 'required|image',
+            'profile_image' => 'image',
             'username' => 'unique:users,username,'.$this->get('id').'|required|max:255',
             'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
             'phone' => ['required', new Telephone()],

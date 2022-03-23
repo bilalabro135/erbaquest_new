@@ -43,11 +43,11 @@
                         </figure>
                         <div class="detail">
                           <h3>{{$event['name']}}</h3>
-                          <p class="date"><i class="far fa-calendar-alt"></i>{{$event['event_date']}}</p>
+                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
                           <div class="txt">
                             <p>{!!$event['description']!!}</p>
                           </div>
-                          <a href="../events/{{$event['id']}}" class="link">Details</a>
+                          <a href="../events/{{$event['id']}}" class="link">Edit</a>
                         </div>
                       </div>
                     </div>

@@ -204,7 +204,7 @@ Route::view('account/setting', 'tempview.account-setting')->middleware('auth', '
 
 // 
 Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.account.edit')->middleware('auth', 'verified');
-Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
+Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth', 'verified');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
 
 Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist');

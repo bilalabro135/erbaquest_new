@@ -1005,15 +1005,15 @@ h3.vc_heading.vc_heading-green:before {
 }
 
 .input-field input::-moz-placeholder {
-  color: #7c7c7c;
+  color: #cdcdcd;
 }
 
 .input-field input:-ms-input-placeholder {
-  color: #7c7c7c;
+  color: #cdcdcd;
 }
 
 .input-field input::placeholder {
-  color: #7c7c7c;
+  color: #cdcdcd;
 }
 
 .signupForm .input-field {
@@ -1118,6 +1118,10 @@ h3.vc_heading.vc_heading-green:before {
   font-weight: 600;
   border-color: #2c9044;
 }
+.front_event_create .input-field.input-submit button.preview_btn,
+.front_event_update .input-field.input-submit button.preview_btn {
+  width: 405px;
+}
 
 .input-field.input-submit {
   text-align: center;
@@ -1141,6 +1145,9 @@ h3.vc_heading.vc_heading-green:before {
   outline: none !important;
   color: #7c7c7c;
   font-weight: 500;
+}
+.input-field textarea::placeholder {
+  color: #cdcdcd;
 }
 
 .locate-box {
@@ -1776,7 +1783,7 @@ h3.vc_heading.vc_heading-green:before {
 }
 
 .placeDetail .col-sm-12.col-md-6:nth-child(2) {
-  padding-left: 90px;
+  padding-left: 40px;
   border-left: 1px solid #d5d3d3;
 }
 
@@ -3442,7 +3449,8 @@ button.delete-event:hover:after {
   font-size: 20px;
 }
 .front_event_create .error,
-.front_event_update .error {
+.front_event_update .error,
+.register_form_valid .error {
   color: #d52323;
   font-size: 16px;
 }
@@ -3494,12 +3502,15 @@ button.delete-event:hover:after {
   height: 150px;
   object-fit: cover;
 }
+.social-box .button_center {
+  text-align: center;
+}
 .action_publish,
 .action_edit,
 .action_delete {
   color: #fff;
   background: #2c9044;
-  padding: 8px 20px;
+  padding: 12px 40px;
   border-radius: 8px;
   font-size: 16px;
   letter-spacing: 2px;
@@ -3607,6 +3618,8 @@ button.delete-event:hover:after {
   }
 .event-inner figure.m-0 img {
   width: 100%;
+  height: 500px;
+  object-fit: cover;
 }
 .input-date input::-webkit-calendar-picker-indicator {
   background-image: url(/images/icons/icon12.png);
@@ -3634,4 +3647,7 @@ button.delete-event:hover:after {
 .package-selected {
     background: #10783c;
     color: #fff;
+}
+.event_detail_text {
+  white-space: pre-wrap;
 }

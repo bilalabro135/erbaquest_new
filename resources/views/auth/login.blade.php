@@ -28,7 +28,7 @@
                                         @if(session('msg'))
                                         <div class="alert alert-{{session('msg_type')}}">
                                             {{session('msg')}}                                            
-                                        </div>
+                                        </div> 
                                         @endif
                                          @error('authenticate')
                                         <div class="alert alert-danger">
@@ -66,13 +66,13 @@
                                     </form>
                                     <hr>
 
+                                    @if (Route::has('password.request'))
                                     <div class="text-center">
-                                        @if (isset($Settings['allow_forget_password']) && $Settings['allow_forget_password'] == 1)
-                                            <a class="small" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Your Password?') }}
-                                            </a>
-                                        @endif
+                                        <a class="small" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
                                     </div>
+                                    @endif
                                     <div class="text-center">
                                             <a class="small" href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </div>

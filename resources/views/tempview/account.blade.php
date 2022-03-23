@@ -30,7 +30,7 @@
                 <h3>{{ $users->name }}</h3>
                 <p>{{ $users->user_name }}</p>
               </div>
-              <a href="javascript:;" class="edit_btn"><span class="figure"><img src="{{asset('images/edit-icon.png')}}"></span></a>
+              <!-- <a href="javascript:;" class="edit_btn"><span class="figure"><img src="{{asset('images/edit-icon.png')}}"></span></a> -->
             </div>
             <div class="account_editForm">
               @if ($errors->any())
@@ -93,7 +93,7 @@
                 </div>
                 <div class="input-field">
                   <label>ADDRESS:</label>
-                  <input type="text" name="address" placeholder="ADDRESS:" required="required" value="{{ $users->address }}">
+                  <input type="text" name="address" placeholder="ADDRESS:" value="{{ $users->address }}">
                   @error('address')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="input-field">
                   <label>PASSWORD:</label>
-                  <input type="text" name="password" placeholder="PASSWORD:" >
+                  <input id="password" type="password" name="password" placeholder="******" >
                   @error('password')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="input-field">
                   <label>Confirm PASSWORD:</label>
-                  <input type="text" name="password1" placeholder="CONFIRM PASSWORD:" >
+                  <input type="password" name="password1" placeholder="******" >
                   @error('password1')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -129,7 +129,7 @@
                 </div>
                 <div class="input-field input-checkbox">
                   <label class="checkmark">
-                      <input type="checkbox" name="agreement" value="1" required="required"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
+                      <input type="checkbox" name="agreement" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
                   </label>
                   @error('agreement')
                   <span class="invalid-feedback" role="alert">

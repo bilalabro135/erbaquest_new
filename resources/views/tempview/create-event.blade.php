@@ -143,7 +143,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>VIP PERKS: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
-                        <input type="text" name="vip_perk" placeholder="$50.0" required="required" value="{{ old('vip_perk') }}">
+                        <input type="text" name="vip_perk" placeholder="50.0" required="required" value="{{ old('vip_perk') }}">
                         @error('vip_perk')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -152,7 +152,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>CHARITY: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></label>
-                        <input type="text" name="charity" placeholder="$10.0" required="required" value="{{ old('charity') }}">
+                        <input type="text" name="charity" placeholder="10.0" required="required" value="{{ old('charity') }}">
                         @error('charity')
                             <div class="text-danger">
                                 {{$message}}                                            
@@ -172,7 +172,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></label>
-                    <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple" required="required">
+                    <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple">
                       @foreach($vendors as $vendor)
                         <option value="{{$vendor->id}}">{{$vendor->name}}</option>
                       @endforeach
@@ -287,7 +287,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>TICKETING NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
+                    <label>TICKETING PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
                     <input class="phone_mask" type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
                     @error('tickiting_number')
                         <div class="text-danger">
@@ -296,7 +296,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>VENDOR NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
+                    <label>VENDOR PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
                     <input class="phone_mask" type="text" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required" maxlength="14">
                     @error('vendor_number')
                         <div class="text-danger">
@@ -304,7 +304,7 @@
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field">
+                  <!-- <div class="col-sm-12 col-md-6 input-field">
                     <label>USER NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
                     <input type="number" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" required="required">
                     @error('user_number')
@@ -312,10 +312,10 @@
                             {{$message}}                                            
                         </div>
                     @endif
-                  </div>
+                  </div> -->
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>WEBSITE LINK: <span class="figure"><img src="{{asset('images/icons/website-link.png')}}"></span></label>
-                    <input type="url" name="website_link" placeholder="http://" value="{{old('website_link')}}" required="required">
+                    <input type="url" name="website_link" placeholder="http://" value="{{old('website_link')}}">
                     @error('website_link')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -324,7 +324,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>FACEBOOK LINK: <span class="figure"><img src="{{asset('images/icons/facebook-link-icon.png')}}"></span></label>
-                    <input type="url" name="facebook" placeholder="http://" value="{{old('facebook')}}" required="required">
+                    <input type="url" name="facebook" placeholder="http://" value="{{old('facebook')}}">
                     @error('facebook')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -333,7 +333,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>TWITTER LINK: <span class="figure"><img src="{{asset('images/icons/twitter-link-icon.png')}}"></span></label>
-                    <input type="url" name="twitter" placeholder="http://"  value="{{old('twitter')}}" required="required">
+                    <input type="url" name="twitter" placeholder="http://"  value="{{old('twitter')}}">
                     @error('twitter')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -342,7 +342,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>LINKEDIN LINK: <span class="figure"><img src="{{asset('images/icons/linkind-lick-icon.png')}}"></span></label>
-                    <input type="url" name="linkedin" placeholder="http://" value="{{old('linkedin')}}" required="required">
+                    <input type="url" name="linkedin" placeholder="http://" value="{{old('linkedin')}}">
                     @error('linkedin')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -351,7 +351,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>INSTAGRAM LINK: <span class="figure"><img src="{{asset('images/icons/instagram-link-icon.png')}}"></span></label>
-                    <input type="url" name="instagram" placeholder="http://" value="{{old('instagram')}}" required="required">
+                    <input type="url" name="instagram" placeholder="http://" value="{{old('instagram')}}">
                     @error('twitter')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -360,7 +360,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>YOUTUBE LINK: <span class="figure"><img src="{{asset('images/icons/youtube-link-icon.png')}}"></span></label>
-                    <input type="url" name="youtube" placeholder="http://" value="{{old('youtube')}}" required="required">
+                    <input type="url" name="youtube" placeholder="http://" value="{{old('youtube')}}">
                     @error('youtube')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -369,7 +369,7 @@
                   </div>
                   <div class="input-field input-submit">
                     <input class="event_status" type="hidden" name="status" value="">
-                    <button class="btn-custom preview_btn" type="button">PREVIEW</button>
+                    <button class="btn-custom preview_btn" type="button">PREVIEW AND DRAFT</button>
                     <button class="btn-custom submit_btn" type="button">SUBMIT</button>
                   </div>
                 </div>
@@ -413,31 +413,6 @@
 	    b && "" !== b && "NaN" !== b || (b = 0), "" !== c && "NaN" !== c || (c = ""), "" !== d && "NaN" !== d || (d = 0), "any" !== e && "" !== e && void 0 !== e && "NaN" !== parseFloat(e) || (e = 1), jQuery(this).is(".plus") ? c && b >= c ? a.val(c) : a.val((b + parseFloat(e)).toFixed(e.getDecimals())) : d && b <= d ? a.val(d) : b > 0 && a.val((b - parseFloat(e)).toFixed(e.getDecimals())), a.trigger("change")
 	});
 </script>
-
-<script>
-  Filevalidation = () => {
-      const fi = document.getElementById('file');
-      // Check if any file is selected.
-      if (fi.files.length > 0) {
-          for (const i = 0; i <= fi.files.length - 1; i++) {
-
-              const fsize = fi.files.item(i).size;
-              const file = Math.round((fsize / 1024));
-              // The size of the file.
-              if (file >= 4096) {
-                  alert(
-                    "File too Big, please select a file less than 4mb");
-              } else if (file < 2048) {
-                  alert(
-                    "File too small, please select a file greater than 2mb");
-              } else {
-                  document.getElementById('size').innerHTML = '<b>'
-                  + file + '</b> KB';
-              }
-          }
-      }
-  }
-</script>  
 
 <script>
   $(".Socialshare p a").click(function(){
@@ -616,7 +591,7 @@
 
           reader.readAsDataURL(file[i]);
           reader.onload = () => {
-            console.log(`${reader.result}`);
+            // console.log(`${reader.result}`);
             $(".preview1").append("<img src='"+`${reader.result}`+"' />");
           };
         } else {

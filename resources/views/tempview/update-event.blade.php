@@ -192,7 +192,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></label>
-                    <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple" required="required">
+                    <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple">
                       @foreach($vendors as $vendor)
                         <option value="{{$vendor['id']}}" @if($vendor['selected']) selected="selected" @endif >{{$vendor['name']}}</option>
                       @endforeach
@@ -307,8 +307,8 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>TICKETING NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
-                    <input type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ $data['tickiting_number'] }}">
+                    <label>TICKETING PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon9.png')}}"></span></label>
+                    <input class="phone_mask" type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ $data['tickiting_number'] }}">
                     @error('tickiting_number')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -316,15 +316,15 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
-                    <label>VENDOR NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
-                    <input type="text" name="vendor_number" placeholder="Vendor Number:" value="{{ $data['vendor_number'] }}">
+                    <label>VENDOR PHONE NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
+                    <input class="phone_mask" type="text" name="vendor_number" placeholder="Vendor Number:" value="{{ $data['vendor_number'] }}">
                     @error('vendor_number')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field">
+                  <!-- <div class="col-sm-12 col-md-6 input-field">
                     <label>USER NUMBER: <span class="figure"><img src="{{asset('images/icons/icon10.png')}}"></span></label>
                     <input type="text" name="user_number" placeholder="User Number:" value="{{ $data['user_number'] }}" >
                     @error('user_number')
@@ -332,7 +332,7 @@
                             {{$message}}                                            
                         </div>
                     @endif
-                  </div>
+                  </div> -->
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>WEBSITE LINK: <span class="figure"><img src="{{asset('images/icons/website-link.png')}}"></span></label>
                     <input type="url" name="website_link" placeholder="http://" value="{{ $data['website_link'] }}">
@@ -389,7 +389,7 @@
                   </div>
                   <div class="input-field input-submit">
                     <input class="event_status" type="hidden" name="status" value="">
-                    <button class="btn-custom preview_btn" type="button">PREVIEW</button>
+                    <button class="btn-custom preview_btn" type="button">PREVIEW AND DRAFT</button>
                     <button class="btn-custom update_submit_btn" type="button">SUBMIT</button>
                   </div>
                 </div>
@@ -403,6 +403,12 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=editMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
+
+<script>  
+    $(document).ready(function(){  
+        $('.phone_mask').mask('(999)-999-9999'); 
+    });  
+</script>  
 <script>
   function wcqib_refresh_quantity_increments() {
     jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
