@@ -114,12 +114,6 @@ if (place.geometry.viewport) {
 
 // Create Event Validation
 
-$.validator.addMethod('filesize', function (value, element, param) {
-    return this.optional(element) || (element.files[0].size <= param)
-}, 'File size must be less than {0}MB');
-
-
-
 jQuery.validator.addMethod("extension", function(value, element, param) {
   param = typeof param === "string" ? param.replace(/,/g, '|') : "png|jpg|jpeg";
   return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
@@ -153,7 +147,7 @@ $(function() {
       featured_image: {
         required: true,
         extension: "png|jpg|jpeg",
-        filesize: 2,
+        maxfilesize: 2,
       },
       'gallery[]': {
         required: true,
@@ -217,6 +211,7 @@ $(function() {
       featured_image: {
         required:"The FEATURED PICTURE field is required.",
         extension:"Please use .PNG .JPG .JPEG format",
+        maxfilesize:"File size must be less than 2MB",
       },
       'gallery[]': {
         required:"The PICTURE field is required.",
