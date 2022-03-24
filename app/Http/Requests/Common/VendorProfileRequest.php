@@ -21,7 +21,7 @@ class VendorProfileRequest extends FormRequest
             'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
             'phone' => ['required', new Telephone()],
             'featured_picture' => 'image|required',
-            'picture' => 'image|required',
+            'picture' => 'required',
             'descreption' => 'max:255',
             'website' => 'max:255',
             'instagram' => 'max:255',

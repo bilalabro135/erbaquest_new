@@ -39,8 +39,8 @@
                 <div class="row">
                   <div class="col-sm-12 col-md-12 input-field">
                     <label class="">PUBLIC PROFILE NAME:</label>
-                    <input type="text" name="name" placeholder="NAME:" required="required" value="{{ $users['public_profile_name'] }}">
-                    @error('name')
+                    <input type="text" name="public_profile_name" placeholder="NAME:" required="required" value="{{ $users['public_profile_name'] }}">
+                    @error('public_profile_name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -138,15 +138,15 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile" name="profile_image" class="upload_file drop-zone__input">
-                    @error('filename')
+                    <input type="file" id="myFile" name="featured_picture" class="upload_file drop-zone__input">
+                    @error('featured_picture')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
                     @endif
                   </div>
 
-                  <div class="input-field input-file drop-zone">
+                  <div class="input-field input-file drop-zone drop-zonemul">
                     <label>
                       PICTURE: 
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
@@ -156,8 +156,8 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple required="required">
-                    @error('gallery')
+                    <input type="file" id="myFile1" name="picture[]" class="upload_file upload_file_multi" multiple required="required">
+                    @error('picture')
                         <div class="text-danger">
                             {{$message}}                                            
                         </div>
@@ -166,8 +166,8 @@
 
                   <div class="input-field">
                     <label>DESCRIPTION:</label>
-                    <textarea name="description" placeholder="DESCRIPTION.."></textarea>
-                    @error('description')
+                    <textarea name="descreption" placeholder="DESCRIPTION.."></textarea>
+                    @error('descreption')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -197,27 +197,97 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript">
-	     
-      $(document).ready(function() {
-       $('.input-field .checkmark input').on('change',function () {
-        if($(this).is(':checked'))
-            {
-              $(this).parent('label').addClass('active');
-            }else
-            {
-             $(this).parent('label').removeClass('active');
-            }
-           
-       });
-      });
+<script>  
+    $(document).ready(function(){  
+        $('.phone_mask').mask('(999)-999-9999'); 
+    });  
+</script>  
+<script>
+  function wcqib_refresh_quantity_increments() {
+    jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
+        var c = jQuery(b);
+        c.addClass("buttons_added"), c.children().first().before('<input type="button" value="-" class="minus" />'), c.children().last().after('<input type="button" value="+" class="plus" />')
+    })
+  }
+  String.prototype.getDecimals || (String.prototype.getDecimals = function() {
+      var a = this,
+          b = ("" + a).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+      return b ? Math.max(0, (b[1] ? b[1].length : 0) - (b[2] ? +b[2] : 0)) : 0
+  }), jQuery(document).ready(function() {
+      wcqib_refresh_quantity_increments()
+  }), jQuery(document).on("updated_wc_div", function() {
+      wcqib_refresh_quantity_increments()
+  }), jQuery(document).on("click", ".plus, .minus", function() {
+      var a = jQuery(this).closest(".quantity").find(".qty"),
+          b = parseFloat(a.val()),
+          c = parseFloat(a.attr("max")),
+          d = parseFloat(a.attr("min")),
+          e = a.attr("step");
+      b && "" !== b && "NaN" !== b || (b = 0), "" !== c && "NaN" !== c || (c = ""), "" !== d && "NaN" !== d || (d = 0), "any" !== e && "" !== e && void 0 !== e && "NaN" !== parseFloat(e) || (e = 1), jQuery(this).is(".plus") ? c && b >= c ? a.val(c) : a.val((b + parseFloat(e)).toFixed(e.getDecimals())) : d && b <= d ? a.val(d) : b > 0 && a.val((b - parseFloat(e)).toFixed(e.getDecimals())), a.trigger("change")
+  });
+</script>
 
-        $('ul.menu_list li .down-icon').on('click',function(){
-          $(this).parent('li').toggleClass('current');
-          $(this).parent('li').find('ul.sub-menu').slideToggle();
-        })
+<script>
+  $(".Socialshare p a").click(function(){
+    $(".Socialshare ul").slideToggle();
+  });
+  // demos.js
+  var clipboardDemos = new Clipboard('[data-clipboard-demo]');
+  clipboardDemos.on('success', function(e) {
+      e.clearSelection();
+      console.info('Action:', e.action);
+      console.info('Text:', e.text);
+      console.info('Trigger:', e.trigger);
+      showTooltip(e.trigger, 'Copied!');
+  });
 
-      document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+  clipboardDemos.on('error', function(e) {
+      console.error('Action:', e.action);
+      console.error('Trigger:', e.trigger);
+      showTooltip(e.trigger, fallbackMessage(e.action));
+  });
+  // tooltips.js
+  var btns = document.querySelectorAll('.btn');
+  for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('mouseleave', clearTooltip);
+      btns[i].addEventListener('blur', clearTooltip);
+  }
+  function clearTooltip(e) {
+      e.currentTarget.setAttribute('class', 'btn');
+      e.currentTarget.removeAttribute('aria-label');
+  }
+  function showTooltip(elem, msg) {
+      elem.setAttribute('class', 'btn tooltipped tooltipped-s');
+      elem.setAttribute('aria-label', msg);
+  }
+  // Facebook Share
+  function facebookSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Twitter Share
+  function twitterSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Insta Share
+  function instaSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // Email Share
+  function emailSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+  // whatsApp Share
+  function whatsAppSocialShare(url){
+      window.open(url,'sharer','toolbar=0,status=0,width=648,height=395');
+      return true;
+  }
+</script>
+<script>
+    document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zone");
 
       dropZoneElement.addEventListener("click", (e) => {
@@ -278,7 +348,75 @@
         $("#preview_img").attr("src","");
       }
     }
-</script>
+
+  </script>
+
+  <script>
+    document.querySelectorAll(".upload_file_multi").forEach((inputElement) => {
+      const dropZoneElement = inputElement.closest(".drop-zonemul");
+
+      dropZoneElement.addEventListener("click", (e) => {
+        inputElement.click();
+      });
+
+      inputElement.addEventListener("change", (e) => {
+        if (inputElement.files.length) {
+          updateThumbnailMulti(dropZoneElement, inputElement.files);
+        }
+      });
+
+      dropZoneElement.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZoneElement.classList.add("drop-zone--over");
+      });
+
+      ["dragleave", "dragend"].forEach((type) => {
+        dropZoneElement.addEventListener(type, (e) => {
+          dropZoneElement.classList.remove("drop-zone--over");
+        });
+      });
+
+      dropZoneElement.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        if (e.dataTransfer.files.length) {
+          inputElement.files = e.dataTransfer.files;
+          updateThumbnailMulti(dropZoneElement, e.dataTransfer.files);
+        }
+
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    function updateThumbnailMulti(dropZoneElement, file) {
+
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
+      $(".preview1").html('');
+
+      var i;
+      for (i = 0; i < file.length; ++i) {
+
+      
+        if (file[i].type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.readAsDataURL(file[i]);
+          reader.onload = () => {
+            // console.log(`${reader.result}`);
+            $(".preview1").append("<img src='"+`${reader.result}`+"' />");
+          };
+        } else {
+          $(".preview1").html();
+        }
+      }
+    }
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+    });
+
+  </script>
 <style type="text/css">
   .account_form_val .error{
     color: #ed1c1c !important;

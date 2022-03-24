@@ -203,7 +203,7 @@ Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'v
 
 // Vendors
 Route::get('/account/public-profile', [VendorController::class, 'view'])->middleware('auth', 'verified')->name('public.profile');
-Route::get('/account/public-profile/update', [VendorController::class, 'update'])->middleware('auth', 'verified')->name('public.profile.update');
+Route::post('/account/public-profile/update', [VendorController::class, 'update'])->middleware('auth', 'verified')->name('public.profile.update');
 
 // 
 Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.account.edit')->middleware('auth', 'verified');

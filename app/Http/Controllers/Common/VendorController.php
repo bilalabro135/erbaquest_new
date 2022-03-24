@@ -14,6 +14,7 @@ class VendorController extends Controller
 {
     public function view()
     {
+  
     	$userData = Auth::user();
     	$users = new User;
         $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
@@ -40,26 +41,32 @@ class VendorController extends Controller
     
     public function update(VendorProfileRequest $request, User $user)
     {
-
+    	//dd($request);
+    	$current = Auth::user();
+    	
     	$userData = $request->getUserData();
-        $dbUserData = User::where('id', $userData['id'])->first(); 
 
-        $profile_image = ($userData['profile_image'] != '') ? str_replace(env('APP_URL'),"",$userData['profile_image']) : $dbUserData['profile_image'];
+        $featured_picture = ($userData['featured_picture'] != '') ? str_replace(env('APP_URL'),"",$userData['featured_picture']) : $dbUserData['featured_picture'];
 
-        if($request->profile_image){
-            $fname = time().".".$request->profile_image->extension();
-            $request->file('profile_image')->move(public_path().'/uploads/', $fname);     
-            $user->profile_image =  'uploads/' . $fname;
-            $profile_image = 'uploads/' . $fname;
+        if($request->featured_picture){
+            $fname = time().".".$request->featured_picture->extension();
+            $request->file('featured_picture')->move(public_path().'/uploads/', $fname);     
+            $user->featured_picture =  'uploads/' . $fname;
+            $featured_picture = 'uploads/' . $fname;
         }
 
         $users = User::where('id', $userData['id'])->update([
-        	'name' => $userData['name'],
+        	'public_profile_name' => $userData['public_profile_name'],
         	'email' => $userData['email'],
-        	'address' => $userData['address'],
         	'phone' => $userData['phone'],
-        	'username' => $userData['username'],
-        	'profile_image' => $profile_image,
+        	'descreption' => $userData['descreption'],
+        	'website' => $userData['website'],
+        	'instagram' => $userData['instagram'],
+        	'facebook' => $userData['facebook'],
+        	'twitter' => $userData['twitter'],
+        	'youtube' => $userData['youtube'],
+        	'linkedin' => $userData['linkedin'],
+        	'featured_picture' => $featured_picture,
         ]);
 
         if ($request->hasPassword()) {
