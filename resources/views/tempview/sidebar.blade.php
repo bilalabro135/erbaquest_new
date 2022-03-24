@@ -12,6 +12,7 @@
         <li class="<?php if($second_last.'/'.$page == 'account/edit'){ echo 'current'; } ?>">
           <a href="{{route('account.edit')}}">Account Setting</a>
         </li>
+        @if( $users->role == 3 )
         <li class="have_child-items <?php if($second_last.'/'.$page == 'events/my-event' || $second_last.'/'.$page == 'events/edit' || $second_last.'/'.$page == 'account/draft-events' || $second_last.'/'.$page == 'account/past-events' || $second_last.'/'.$page == 'account/upcoming-event'){ echo 'current'; } ?>">
           <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
           <a href="{{route('my.event')}}">My Events</a>
@@ -33,6 +34,18 @@
             </li>
           </ul>
         </li>
+        @endif
+        @if( $users->role == 2 )
+          <li>
+            <a href="{{route('public.profile')}}">My Public Profile</a>
+          </li>
+          <li>
+            <a href="#">Payment</a>
+          </li>
+          <li>
+            <a href="#">Payment Option</a>
+          </li>
+        @endif
         
         <li class="<?php if($second_last.'/'.$page == 'account/wishlist'){ echo 'current'; } ?>">
           <a href="{{route('wishlist')}}">Wishlist</a>

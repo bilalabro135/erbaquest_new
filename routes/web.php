@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\PackagesController;
 use App\Http\Controllers\Admin\ComponenetController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
+use App\Http\Controllers\Common\VendorController;
 use App\Http\Controllers\Common\WishlistsController;
 use App\Http\Controllers\Front\SubscriptionController;
 
@@ -199,13 +200,15 @@ Route::get('/events-draft/delete/{event:id}', [EventController::class, 'frontDra
 Route::get('/events/publish/{event:id}', [EventController::class, 'publishDraft'])->name('front.events.publist');
 Route::view('contact', 'tempview.contact')->name('contact');
 Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'verified')->name('organizer.account');
-Route::view('vendor/account', 'tempview.vendor-account')->middleware('auth', 'isVendor', 'verified')->name('vendor.account');
-Route::view('account/setting', 'tempview.account-setting')->middleware('auth', 'verified')->name('account.setting');
+
+// Vendors
+Route::get('/account/public-profile', [VendorController::class, 'view'])->middleware('auth', 'verified')->name('public.profile');
+Route::get('/account/public-profile/update', [VendorController::class, 'update'])->middleware('auth', 'verified')->name('public.profile.update');
 
 // 
 Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.account.edit')->middleware('auth', 'verified');
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth', 'verified');
-Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'isOrganizer', 'verified');
+Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'verified');
 
 Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist');
 Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('remove.wishlist')->middleware('auth','verified');

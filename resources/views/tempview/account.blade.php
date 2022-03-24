@@ -7,7 +7,7 @@
 	    <section class="inner-banner">
       <div class="container">
         <h1 class="ft-blanka">
-          ACCOUNT
+          ACCOUNT 
         </h1>
       </div>
     </section>

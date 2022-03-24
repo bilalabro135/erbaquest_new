@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\AssignRoles;
 use App\Http\Requests\Common\AccountUpdateRequest;
 use Auth;
 class AccountController extends Controller
@@ -13,17 +14,22 @@ class AccountController extends Controller
         
     	$userData = Auth::user();
     	$users = new User;
+
+        $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
+
         $users->name = $userData['name'];
         $users->user_name = $userData['username'];
         $users->email = $userData['email'];
         $users->phone = $userData['phone'];
         $users->address = $userData['address'];
+        $users->role = $userRole['role_id'];
         
         if ($userData['profile_image']) {
             $users->profile_image = env('APP_URL').$userData['profile_image'];
         }
         
         $users->id = $userData['id'];
+        // dd($users);
 
         return view('tempview/account', compact('users'));
     }
