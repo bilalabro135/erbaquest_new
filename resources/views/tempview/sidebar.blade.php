@@ -40,10 +40,10 @@
             <a href="{{route('public.profile')}}">My Public Profile</a>
           </li>
           <li>
-            <a href="#">Payment</a>
+            <a href="{{route('payment.list')}}">Payment</a>
           </li>
           <li>
-            <a href="#">Payment Option</a>
+            <a href="{{route('payment.option')}}">Payment Option</a>
           </li>
         @endif
         
