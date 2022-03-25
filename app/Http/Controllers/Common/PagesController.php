@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\Page\PageRequest;
 use App\Models\Pages;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Redirect;
 use DataTables;
 use App\Models\Settings;
 use Bouncer;
 use Route;
+use Carbon\Carbon;
+
 class PagesController extends Controller
 {
     /**
@@ -165,4 +168,5 @@ class PagesController extends Controller
     {
         return view("templates.{$pages->template}", compact('pages'));
     }
+
 }

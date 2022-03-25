@@ -11,6 +11,7 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "sharik709/laravel-authorizenet": "^0.2.3",
         "silber/bouncer": "v1.0.0-rc.11",
         "stripe/stripe-php": "^7.114",
         "unisharp/laravel-filemanager": "^2.3",

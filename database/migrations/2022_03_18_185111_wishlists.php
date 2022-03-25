@@ -18,6 +18,7 @@ class Wishlists extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->bigInteger('event_id')->unsigned()->nullable();
             $table->timestamps();
+        });
     }
 
     /**

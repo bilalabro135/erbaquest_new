@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7ec186a8d01b0ed48c4faed78b51590",
+    "content-hash": "00c2eeccfe3c3090d031ef1e8269e126",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,6 +61,50 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.1.1"
             },
             "time": "2022-01-18T09:12:03+00:00"
+        },
+        {
+            "name": "authorizenet/authorizenet",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AuthorizeNet/sdk-php.git",
+                "reference": "a3e76f96f674d16e892f87c58bedb99dada4b067"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AuthorizeNet/sdk-php/zipball/a3e76f96f674d16e892f87c58bedb99dada4b067",
+                "reference": "a3e76f96f674d16e892f87c58bedb99dada4b067",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Official PHP SDK for Authorize.Net",
+            "homepage": "http://developer.authorize.net",
+            "keywords": [
+                "authorize.net",
+                "authorizenet",
+                "ecommerce",
+                "payment"
+            ],
+            "support": {
+                "issues": "https://github.com/AuthorizeNet/sdk-php/issues",
+                "source": "https://github.com/AuthorizeNet/sdk-php/tree/2.0.2"
+            },
+            "time": "2021-03-31T18:22:14+00:00"
         },
         {
             "name": "brick/math",
@@ -3228,6 +3272,58 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "sharik709/laravel-authorizenet",
+            "version": "v0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sharik709/laravel-authorizenet.git",
+                "reference": "9884cd6798829f725b38d04cc7d11eb623838701"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sharik709/laravel-authorizenet/zipball/9884cd6798829f725b38d04cc7d11eb623838701",
+                "reference": "9884cd6798829f725b38d04cc7d11eb623838701",
+                "shasum": ""
+            },
+            "require": {
+                "authorizenet/authorizenet": "dev-master#ef297d3e2d7c1092ddabd2c376eb485aac1aa66c"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ANet\\AuthorizeNetServiceProvider"
+                    ],
+                    "aliases": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ANet\\": "./src/",
+                    "ANet\\Test\\": "./tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sharik Shaikh",
+                    "email": "shaikhsharik709@gmail.com"
+                }
+            ],
+            "description": "This package allows laravel application to use authorizenet api easily.",
+            "support": {
+                "issues": "https://github.com/sharik709/laravel-authorizenet/issues",
+                "source": "https://github.com/sharik709/laravel-authorizenet/tree/v0.2.3"
+            },
+            "time": "2021-01-30T20:36:10+00:00"
         },
         {
             "name": "silber/bouncer",

@@ -97,7 +97,7 @@ class AuthController extends Controller
         $packages = Package::all();
         return view('auth.vendor-register', compact('roles', 'settings', 'packages'));
     }
-    public function forgetPassword() 
+    public function forgetPassword()
     {
         return view('auth.forgot-password');
     }
@@ -110,8 +110,8 @@ class AuthController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-        ? back()->with(['status' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
+                    ? back()->with(['status' => __($status)])
+                    : back()->withErrors(['email' => __($status)]);
     }
     public function resetPaassword($token)
     {

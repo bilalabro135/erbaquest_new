@@ -35,7 +35,14 @@ class SubscriptionRequest extends FormRequest
             'address' => 'max:255',
             'password' => 'required|max:255',
             'password_confirmation' => 'required|same:password|max:255',
-            "stripeToken" => 'required',
+
+            'cardname'      => 'required',
+            'lname'      => 'required',
+            'cardNumber' => 'required',
+            'expMonth' => 'required',
+            'expYear' => 'required',
+            'cardCode' => 'required',
+            'plan' => 'required',
         ];
     }
     public function getUserData()
@@ -50,6 +57,15 @@ class SubscriptionRequest extends FormRequest
             'role' =>$this->get('role'),
             'address' =>( $this->has('address')) ? $this->get('address') : null,
             'phone' => $this->get('phone'),
+
+            'cardname'      => $this->get('cardname'),
+            'lname'      => $this->get('lname'),
+            'cardNumber' => $this->get('cardNumber'),
+            'expMonth' => $this->get('expMonth'),
+            'expYear' => $this->get('expYear'),
+            'cardCode' => $this->get('cardCode'),
+            'plan' => $this->get('phone'),
+
         ];
     }
 }

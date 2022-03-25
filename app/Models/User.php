@@ -10,9 +10,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Laravel\Cashier\Billable;
+use ANet\Traits\ANetPayments;
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasApiTokens, HasFactory, Notifiable, HasRolesAndAbilities;
+    use ANetPayments;
 
     /**
      * The attributes that are mass assignable.

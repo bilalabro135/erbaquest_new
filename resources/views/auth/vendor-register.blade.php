@@ -1,6 +1,11 @@
 @extends('layouts.front.app')
 @section('content')
 
+    <script type="text/javascript"
+        src="https://jstest.authorize.net/v1/Accept.js"
+        charset="utf-8">
+    </script>
+
     <x-front.page.featured-image title="VENDOR SIGNUP" image="{{asset('images/inner-banner.jpg')}}"/>
 
     <div class="card o-hidden border-0 pb-100 pt-100">
@@ -16,7 +21,14 @@
 
     <!-- Vendor Packages -->
     <section class="secSponsor secSignup-vendor">
+         
       <div class="container">
+        @if(session('msg'))
+          <div class="alert alert-{{session('msg_type')}}">
+              {{session('msg')}}                                            
+          </div>
+          @endif
+          <br>
         <div class="row">
           @foreach($packages as $package)
           <div class="col-sm-12 col-md-4">
@@ -44,11 +56,11 @@
     <section class="secSignup pt-100 pb-100">
         <div class="container">
             <div class="signupForm createEventForm">
-              <form class="form_sign" action="{{route('subscription.create')}}" method="post" id="payment-form">
+              <form class="form_sign vendor_form_signUp" action="{{route('subscription.create')}}" method="post" id="payment-form">
                 @csrf
-                    <input type="hidden" name="plan" value="" id="plan">
+                    <input type="hidden" name="plan" value="old('plan')" id="plan">
                     <input type="hidden" name="role" value="Vendor">
-                    <div class="row personal_div d-none mt60">
+                    <div class="row personal_div @if(!old('plan') ) d-none @endif  mt60">
                         <div class="col-sm-12">
                             <h3 class="ft-blanka ftw-bold_36 text-center mb-40">Personal Information</h3>
                         </div>
@@ -96,7 +108,7 @@
                         <div class="row form-group">
                             <div class="col-sm-12 mb-3 mb-sm-0 input-field">
                                 <label>Address</label>
-                                <input id="address" type="text" class="form-control form-control-user @error('address') is-invalid @enderror" name="address" value="{{ old('username') }}" autocomplete="address" autofocus placeholder="Address">
+                                <input id="address" type="text" class="form-control form-control-user @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" autocomplete="address" autofocus placeholder="Address">
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -125,17 +137,42 @@
                                 @enderror
                             </div>
                         </div>
-                        <!-- <div class="col-sm-12 col-md-12">
-                            <div class="input-field">
-                                <label>Payment:</label>
-                            </div>
-                            <div id="card-element">
-                                A Stripe Element will be inserted here.
-                            </div>
-                        </div> -->
-                        <div class="input-field input-checkbox">
-                            <label class="checkmark">
-                                <input type="checkbox" name="terms_and_condition" value="1">I Agree With Terms & Conditon
+                        <div class="input-field col-sm-6">
+                            <label for="cardNumber">Name On Card</label>
+                            <input type="text" name="cardname" id="cardName" placeholder="First Name" required="required" />
+                            <p class="error cardNumber"></p>
+                        </div>
+                        <div class="input-field col-sm-6">
+                            <label for="cardNumber"><br></label>
+                            <input type="text" name="lname" id="lname" placeholder="Last Name" required="required" />
+                            <p class="error cardNumber"></p>
+                        </div>
+
+                        <div class="input-field col-sm-6">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber" />
+                            <p class="error cardNumber"></p>
+                        </div>
+                        <div class="input-field col-sm-6">
+                            <label for="expMonth">Expiry Month</label>
+                            <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
+                            <p class="error expMonth"></p>
+                        </div>
+                        <div class="input-field col-sm-6">
+                            <label for="expYear">Expiry Year</label>
+                            <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
+                            <p class="error expYear"></p>
+                        </div>
+                        <div class="input-field col-sm-6">
+                            <label for="cardCode">Card Code</label>
+                            <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/>
+                            <p class="error cardCode"></p>
+                        </div>
+                        <!-- credit card info end -->
+
+                        <div class="input-field input-checkbox active">
+                            <label class="checkmark active">
+                                <input type="checkbox" name="terms_and_condition" value="1" checked="checked">I Agree With Terms & Conditon
                             </label>
                             @error('terms_and_condition')
                             <span class="invalid-feedback" role="alert">
@@ -145,7 +182,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="input-field input-submit">
-                                <input type="submit"  value="SUBMIT">
+                                <input type="submit" value="SUBMIT" >
                             </div>
                         </div>
                     </div>
@@ -156,6 +193,13 @@
 @endsection
 @push ('scripts')
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
+<style type="text/css">
+    .secSponsor .alert-error{
+        background: #f34949;
+        color: #ffff;
+        font-size: 20px;
+    }
+</style>
 <script>
     // Create a Stripe client.
 // var stripe = Stripe('{{ env("STRIPE_KEY") }}');
@@ -292,5 +336,137 @@
 
     });
 </script>
+
+<script type="text/javascript">
+
+function sendPaymentDataToAnet() {
+    $("p.error").hide();
+    var authData = {};
+        authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
+        authData.apiLoginID = "2KD4hR4Qbfh";
+
+    var cardData = {};
+        cardData.cardNumber = document.getElementById("cardNumber").value;
+        cardData.month = document.getElementById("expMonth").value;
+        cardData.year = document.getElementById("expYear").value;
+        cardData.cardCode = document.getElementById("cardCode").value;
+
+    var secureData = {};
+        secureData.authData = authData;
+        secureData.cardData = cardData;
+    //    console.log(secureData);
+    Accept.dispatchData(secureData, responseHandler);
+
+    function responseHandler(response) {
+        try{
+            if (response.messages.resultCode === "Error") {
+                $("p.error").show();
+                var i = 0;
+                while (i < response.messages.message.length) {
+
+                    if(response.messages.message[i].code == "E_WC_05" ){
+                        $(".cardNumber").text("Please provide valid credit card number.");
+                    }
+                    if(response.messages.message[i].code == "E_WC_06" ){
+                        $(".expMonth").text("Please provide valid expiration month.");
+                        
+                    }
+                    if(response.messages.message[i].code == "E_WC_07" ){
+                        $(".expYear").text("Please provide valid expiration year.");
+                    }
+
+                    if(response.messages.message[i].code == "E_WC_15" ){
+                        $(".cardCode").text("Please provide valid CVV.");
+                    }
+                    if(response.messages.message[i].code == "E_WC_20" ){
+                        $(".cardNumber").text("Invalid Credit Card.");
+                    }
+                    
+                        console.log(
+                            response.messages.message[i].code + ": " +
+                            response.messages.message[i].text
+                        );    
+
+
+                    i = i + 1;
+                }
+            } else {
+                paymentFormUpdate(response.opaqueData);
+            }
+        } catch(error){
+            console.log(error);
+        }
+    }
+}
+
+function paymentFormUpdate(opaqueData) {
+
+    // If using your own form to collect the sensitive data from the customer,
+    // blank out the fields before submitting them to your server.
+    // document.getElementById("cardNumber").value = "";
+    // document.getElementById("expMonth").value = "";
+    // document.getElementById("expYear").value = "";
+    //document.getElementById("cardCode").value = "";
+
+    document.getElementById("payment-form").submit();
+}
+
+// Register vendor
+$(function(){
+  $(".vendor_form_signUp").validate({
+    rules: {
+      name: "required",
+      email: {
+        required: true,
+        email: true
+      },
+      phone: {
+        required: true,
+        phoneUS: true
+      },
+      username: "required",
+      password_confirmation : {
+        minlength : 6,
+        equalTo : "#password"
+      },
+      cardNumber: "required",
+      expMonth: "required",
+      expYear: "required",
+      cardCode: "required",
+      terms_and_condition: "required",
+    },
+    messages: {
+      name: "The name field is required.",
+      email: {
+        required:"The email field is required.",
+        email:"Please enter correct email.",
+      },
+      phone:{
+        required : "The phone field is required.",
+        phoneUS : "Us Based Number is required.",
+      },
+      username: "The username field is required.",
+      password: "The password field is required.",
+      password_confirmation: {
+        required:"The password field is required.",
+        equalTo:"Please enter the same value again.",
+      },
+      cardNumber: "The Card Number field is required.",
+      expMonth: "The Expiry Month is required.",
+      expYear: "The Expiry Year is required.",
+      cardCode: "The Card code is required.",
+      terms_and_condition: "The term and condition is required."
+    },
+    submitHandler: function(form) {
+        sendPaymentDataToAnet();
+    }
+  });
+});
+
+$(document).ready(function(){  
+        $('#phone').mask('(999)-999-9999'); 
+    }); 
+</script>
+
 
 @endpush
