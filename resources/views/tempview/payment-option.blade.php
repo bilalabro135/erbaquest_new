@@ -52,12 +52,12 @@
                       <input type="hidden" name="profile_id" value="{{$creditsData['profile_id'] }}">
                      <!-- credit card info start -->
                         <div class="input-field col-sm-6">
-                            <label for="cardNumber">Name ON CARD</label>
+                            <label for="cardName">Name ON CARD</label>
                             <input type="text" name="cardName" id="cardName" placeholder="First Name" required="required">
                             <p class="error cardName"></p>
                         </div>
                         <div class="input-field col-sm-6">
-                            <label for="cardNumber"><br></label>
+                            <label for="lname"><br></label>
                             <input type="text" name="lname" id="lname" placeholder="Last Name" required="required">
                             <p class="error lname"></p>
                         </div>
