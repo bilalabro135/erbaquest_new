@@ -18,6 +18,7 @@ use App\Models\EventAmenity;
 use App\Models\Vendor;
 use App\Models\Area;
 use App\Models\WishLists;
+use App\Models\AssignRoles;
 use Validator;
 use DataTables;
 use Bouncer;
@@ -254,15 +255,18 @@ class EventController extends Controller
     {
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
-        $user = Auth::user();
+        $users = Auth::user();
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
         
-        if($user->profile_image){
-            $profile_image = env('APP_URL') .$user['profile_image'];
+        if($users->profile_image){
+            $profile_image = env('APP_URL') .$users['profile_image'];
         }else{
             $profile_image = "";
         }
 
-        return view('tempview.edit-event', compact('events','profile_image'));
+        $users->role = $userRole['role_id'];
+
+        return view('tempview.edit-event', compact('events','profile_image','users'));
     }
 
     public function myevents(Event $event)
@@ -612,19 +616,30 @@ class EventController extends Controller
 
    public function upcomingEvent()
    {
+        $users = Auth::user();
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first();
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '>', $now)->get();
-        return view('tempview.upcoming-event', compact('events'));   
+        $users->role = $userRole['role_id'];
+        return view('tempview.upcoming-event', compact('events','users'));   
    }
    public function draftEvent()
    {
+        $users = Auth::user();
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
         $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
-        return view('tempview.draft-event', compact('events',));   
+        $users->role = $userRole['role_id'];
+        return view('tempview.draft-event', compact('events','users'));   
    }
    public function pastEvent()
    {
+        $users = Auth::user();
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
+
+        $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '<', $now)->get(); //
-        return view('tempview.past-event', compact('events'));   
+        $users->role = $userRole['role_id'];
+        return view('tempview.past-event', compact('events','users'));   
    }
 }
