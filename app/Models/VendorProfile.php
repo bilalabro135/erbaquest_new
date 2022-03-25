@@ -24,6 +24,7 @@ class VendorProfile extends Model
         'picture',
         'phone',
         'descreption',
+        'user_id',
     ];
 
 }

@@ -18,10 +18,10 @@ class VendorProfileRequest extends FormRequest
     {
         return [
             'public_profile_name' => 'required',
-            'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
+            'email' => 'email|required|max:255',
             'phone' => ['required', new Telephone()],
-            'featured_picture' => 'image|required',
-            'picture' => 'required',
+            'featured_picture' => 'exclude_if:user_id,required',
+            'picture' => 'exclude_if:user_id,required',
             'descreption' => 'max:255',
             'website' => 'max:255',
             'instagram' => 'max:255',
@@ -31,7 +31,7 @@ class VendorProfileRequest extends FormRequest
             'linkedin' => 'max:255',
         ];
     }
-    public function getUserData()
+    public function getVendorData()
     {
        $date = new \Datetime("now");
        $data = [
@@ -47,6 +47,7 @@ class VendorProfileRequest extends FormRequest
             'twitter' =>( $this->has('twitter')) ? $this->get('twitter') : null,
             'youtube' =>( $this->has('youtube')) ? $this->get('youtube') : null,
             'linkedin' =>( $this->has('linkedin')) ? $this->get('linkedin') : null,
+            'user_id' =>( $this->has('user_id')) ? $this->get('user_id') : null,
             
        ];
        return $data;

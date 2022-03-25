@@ -36,7 +36,7 @@
         </li>
         @endif
         @if( $users->role == 2 )
-          <li>
+          <li class="<?php if($second_last.'/'.$page == 'account/public-profile'){ echo 'current'; } ?>">
             <a href="{{route('public.profile')}}">My Public Profile</a>
           </li>
           <li>

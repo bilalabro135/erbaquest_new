@@ -7,10 +7,12 @@
 <div class="col-sm-12 col-md-6">
   <div class="event-box">
     <figure>
+      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}">
       <img src="{{asset($event->featured_image)}}">
+      </a>
     </figure>
     <div class="detail">
-      <h4>{{$event->name}}</h4>
+      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}"><h4>{{$event->name}}</h4></a>
       <div class="ev-meta">
         <p class="date">
           <i class="far fa-calendar-alt"></i>

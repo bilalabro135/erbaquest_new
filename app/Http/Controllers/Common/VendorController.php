@@ -12,15 +12,64 @@ use Auth;
 
 class VendorController extends Controller
 {
+    public function index()
+    {
+        $vendors = VendorProfile::all();
+        return view('tempview/',compact('vendors'));
+    }
+    public function create()
+    {
+        return view('tempview/public-profile');
+    }
+
+    public function store(VendorProfileRequest $request)
+    {
+        $user = Auth::user();
+        $vendorData = $request->getVendorData();
+        $userRole = AssignRoles::where('entity_id', $user['id'])->first(); 
+        $vendor = new VendorProfile();
+        $vendor->public_profile_name = $vendorData['public_profile_name'];
+        $vendor->email = $vendorData['email'];
+        $vendor->website = $vendorData['website'];
+        $vendor->instagram = $vendorData['instagram'];
+        $vendor->facebook = $vendorData['facebook'];
+        $vendor->twitter = $vendorData['twitter'];
+        $vendor->youtube = $vendorData['youtube'];
+        $vendor->linkedin = $vendorData['linkedin'];
+        $vendor->phone = $vendorData['phone'];
+        $vendor->descreption = $vendorData['descreption'];
+        $vendor->user_id = $vendorData['user_id'];
+        $vendor_role = $userRole;
+
+        if($request->featured_picture){
+            $fname = $request->file('featured_picture')->getClientOriginalName();
+            $request->file('featured_picture')->move(public_path().'/uploads/', $fname);     
+            $vendor->featured_picture =  'uploads/' . $fname;
+        }
+
+        $image_names = [];
+        if($request->picture){
+            foreach ($request->file('picture') as $image) {
+                $name = $image->getClientOriginalName();
+                $image->move(public_path().'/uploads/', $name);  
+                $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+            }
+            $picture = serialize($image_names);
+        }
+        $vendor->save();
+        return Redirect::route('public.profile')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+    }
+
     public function view()
     {
-  
     	$userData = Auth::user();
     	$users = new User;
         $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
         $vendorData = VendorProfile::first();
 
+
         $users->public_profile_name = (isset($vendorData['public_profile_name'])) ? $vendorData['public_profile_name'] : '';
+
         $users->email = (isset($vendorData['email'])) ? $vendorData['email'] : '';
         $users->website = (isset($vendorData['website'])) ? $vendorData['website'] : '';
         $users->instagram = (isset($vendorData['instagram'])) ? $vendorData['instagram'] : '';
@@ -29,51 +78,84 @@ class VendorController extends Controller
         $users->youtube = (isset($vendorData['youtube'])) ? $vendorData['youtube'] : '';
         $users->linkedin = (isset($vendorData['linkedin'])) ? $vendorData['linkedin'] : '';
         $users->featured_picture = (isset($vendorData['featured_picture'])) ? $vendorData['featured_picture'] : '';
-        $users->picture = (isset($vendorData['picture'])) ? $vendorData['picture'] : '';
+        $users->picture = (isset($vendorData['picture'])) ? unserialize($vendorData['picture']) : '';
+        $users->show_picture = (isset($vendorData['picture'])) ? $vendorData['picture'] : '';
         $users->phone = (isset($vendorData['phone'])) ? $vendorData['phone'] : '';
         $users->descreption = (isset($vendorData['descreption'])) ? $vendorData['descreption'] : '';
+        $users->user_id = (isset($vendorData['user_id'])) ? $vendorData['user_id'] : '';
         $users->role = $userRole['role_id'];
-
-        // dd($vendorData);
 
         return view('tempview/public-profile', compact('vendorData','users'));
     }
     
     public function update(VendorProfileRequest $request, User $user)
-    {
-    	//dd($request);
-    	$current = Auth::user();
-    	
-    	$userData = $request->getUserData();
+    {        
+    	$currentuser = Auth::user();
+        $vendor_data = VendorProfile::where('user_id', $currentuser['id'])->first();
 
-        $featured_picture = ($userData['featured_picture'] != '') ? str_replace(env('APP_URL'),"",$userData['featured_picture']) : $dbUserData['featured_picture'];
+        if($vendor_data == null){
 
-        if($request->featured_picture){
-            $fname = time().".".$request->featured_picture->extension();
+            $fname = rand().time().".".$request->featured_picture->extension();
             $request->file('featured_picture')->move(public_path().'/uploads/', $fname);     
             $user->featured_picture =  'uploads/' . $fname;
             $featured_picture = 'uploads/' . $fname;
+            $image_names = [];
+            foreach ($request->file('picture') as $image) {
+                $name = rand().time().".".$image->extension();
+                $image->move(public_path().'/uploads/', $name);  
+                $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+            }
+            $gallery = serialize($image_names);
+            $vendor = new VendorProfile();
+            $vendor->public_profile_name = $request['public_profile_name'];
+            $vendor->email = $request['email'];
+            $vendor->website = $request['website'];
+            $vendor->instagram = $request['instagram'];
+            $vendor->facebook = $request['facebook'];
+            $vendor->twitter = $request['twitter'];
+            $vendor->youtube = $request['youtube'];
+            $vendor->linkedin = $request['linkedin'];
+            $vendor->phone = $request['phone'];
+            $vendor->descreption = $request['descreption'];
+            $vendor->featured_picture = $featured_picture;
+            $vendor->picture = $gallery;
+            $vendor->user_id = $currentuser['id'];
+            $vendor->save();
+        }else{
+            if($request->featured_picture){
+                $fname = rand().time().".".$request->featured_picture->extension();
+                $request->featured_picture->move(public_path().'/uploads/', $fname);     
+                $featured_picture = 'uploads/' . $fname;
+            }else{
+                $featured_picture = $vendor_data['featured_picture'];
+            }
+            if($request->picture){
+                $image_names = [];
+                foreach ($request->file('picture') as $image) {
+                    $name = rand().time().".".$image->extension();
+                    $image->move(public_path().'/uploads/', $name);  
+                    $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+                }
+                $gallery = serialize($image_names);
+            }else{
+                $gallery = $vendor_data['picture'];
+            }
+
+            $users = VendorProfile::where("id",$vendor_data['id'])->update([
+                'public_profile_name' => $request['public_profile_name'],
+                'email' => $request['email'],
+                'phone' => $request['phone'],
+                'descreption' => $request['descreption'],
+                'website' => $request['website'],
+                'instagram' => $request['instagram'],
+                'facebook' => $request['facebook'],
+                'twitter' => $request['twitter'],
+                'youtube' => $request['youtube'],
+                'linkedin' => $request['linkedin'],
+                'featured_picture' => $featured_picture,
+                'picture' => $gallery,
+            ]);
         }
-
-        $users = User::where('id', $userData['id'])->update([
-        	'public_profile_name' => $userData['public_profile_name'],
-        	'email' => $userData['email'],
-        	'phone' => $userData['phone'],
-        	'descreption' => $userData['descreption'],
-        	'website' => $userData['website'],
-        	'instagram' => $userData['instagram'],
-        	'facebook' => $userData['facebook'],
-        	'twitter' => $userData['twitter'],
-        	'youtube' => $userData['youtube'],
-        	'linkedin' => $userData['linkedin'],
-        	'featured_picture' => $featured_picture,
-        ]);
-
-        if ($request->hasPassword()) {
-        	 $users = User::where('id', $userData['id'])->update(['password' => $userData['password']]);
-        }
-
-        return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
-
+        return back()->with(['msg' => 'Profile Updated', 'msg_type' => 'success']);
     }
 }

@@ -187,11 +187,11 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
-         $fname = $request->file('featured_image')->getClientOriginalName();
-            $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+        $fname = $request->file('featured_image')->getClientOriginalName();
+        $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
         $event->featured_image =  'uploads/' . $fname;
         
-         $image_names = [];
+        $image_names = [];
         // loop through images and save to /uploads directory
         foreach ($request->file('gallery') as $image) {
             $name = $image->getClientOriginalName();
@@ -203,7 +203,6 @@ class EventController extends Controller
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
         $event->address = $eventDetail['address'];
-
         $event->type = $eventDetail['type'];
         $event->door_dontation = $eventDetail['door_dontation'];
         $event->vip_dontation = $eventDetail['vip_dontation'];

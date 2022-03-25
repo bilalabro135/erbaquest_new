@@ -34,8 +34,7 @@
               @endif
               <form class="public_profile_val" method="POST" action="{{ route('public.profile.update') }}" enctype="multipart/form-data">
                  @csrf
-                <input type="hidden" name="username" value="{{ $users['user_name'] }}">
-                <input type="hidden" name="id" value="{{ $users['id'] }}">
+                <input type="hidden" name="user_id" value="{{ $users['user_id'] }}">
                 <div class="row">
                   <div class="col-sm-12 col-md-12 input-field">
                     <label class="">PUBLIC PROFILE NAME:</label>
@@ -59,7 +58,7 @@
 
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>PHONE:</label>
-                    <input type="tel" name="phone" placeholder="PHONE:" required="required" value="{{ $users['phone'] }}">
+                    <input class="phone_mask" type="tel" name="phone" placeholder="PHONE:" required="required" value="{{ $users['phone'] }}">
                     @error('phone')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -67,78 +66,23 @@
                     @enderror
                   </div>
 
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>WEBSITE:</label>
-                    <input type="text" name="website" placeholder="WEBSITE:" value="{{ $users['website'] }}">
-                    @error('website')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>INSTAGRAM:</label>
-                    <input type="text" name="instagram" placeholder="INSTAGRAM:" value="{{ $users['instagram'] }}">
-                    @error('instagram')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>FACEBOOK:</label>
-                    <input type="text" name="facebook" placeholder="FACEBOOK:" value="{{ $users['facebook'] }}">
-                    @error('facebook')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>TWITTER:</label>
-                    <input type="text" name="twitter" placeholder="TWITTER:" value="{{ $users['twitter'] }}">
-                    @error('twitter')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>YOUTUBE:</label>
-                    <input type="text" name="youtube" placeholder="YOUTUBE:" value="{{ $users['youtube'] }}">
-                    @error('youtube')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-                  <div class="col-sm-12 col-md-6 input-field">
-                    <label>LINKEDIN:</label>
-                    <input type="text" name="linkedin" placeholder="LINKEDIN:" value="{{ $users['linkedin'] }}">
-                    @error('linkedin')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                  </div>
-
-
                   <div class="input-field input-file drop-zone">
                     <label>
                       FEATURED PICTURE:
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
-                      <div class="preview"><img id="preview_img" src=""></div>
+                      <div class="preview">
+                      	@if($users['featured_picture'])
+                            <img id="preview_img" src="{{asset($users['featured_picture'])}}">
+                        @else
+                        	<img id="preview_img" src="">
+                        @endif 
+                      </div>
                     </label>
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile" name="featured_picture" class="upload_file drop-zone__input">
+                    <input type="file" id="myFile" name="featured_picture" class="upload_file drop-zone__input" value="{{ $users['featured_picture'] }}">
                     @error('featured_picture')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -150,13 +94,19 @@
                     <label>
                       PICTURE: 
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
-                      <div class="preview1"></div>
+                      <div class="preview1">
+                      	@if($users['picture'])
+                          @foreach($users['picture'] as $galleries)
+                              <img id="preview_img" src="{{asset($galleries['url'])}}">
+                          @endforeach
+                        @endif 
+                      </div>
                     </label>
                     <button type="button" class="upload_img_btn" id="uploadImg">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile1" name="picture[]" class="upload_file upload_file_multi" multiple required="required">
+                    <input type="file" id="myFile" name="picture[]" class="upload_file upload_file_multi"  value="" multiple>
                     @error('picture')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -164,26 +114,41 @@
                     @endif
                   </div>
 
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>WEBSITE:</label>
+                    <input type="text" name="website" placeholder="WEBSITE:" value="{{ $users['website'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>INSTAGRAM:</label>
+                    <input type="text" name="instagram" placeholder="INSTAGRAM:" value="{{ $users['instagram'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>FACEBOOK:</label>
+                    <input type="text" name="facebook" placeholder="FACEBOOK:" value="{{ $users['facebook'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>TWITTER:</label>
+                    <input type="text" name="twitter" placeholder="TWITTER:" value="{{ $users['twitter'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>YOUTUBE:</label>
+                    <input type="text" name="youtube" placeholder="YOUTUBE:" value="{{ $users['youtube'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>LINKEDIN:</label>
+                    <input type="text" name="linkedin" placeholder="LINKEDIN:" value="{{ $users['linkedin'] }}">
+                  </div>
+
                   <div class="input-field">
                     <label>DESCRIPTION:</label>
-                    <textarea name="descreption" placeholder="DESCRIPTION.."></textarea>
-                    @error('descreption')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                    <textarea name="descreption" placeholder="DESCRIPTION..">{!! $users['descreption'] !!}</textarea>
                   </div>
                 </div>
-                <!-- <div class="input-field input-checkbox">
-                  <label class="checkmark">
-                      <input type="checkbox" name="agreement" value="1"><a target="_blank" href="terms-and-condition"> I Agree With Terms & Conditon</a>
-                  </label>
-                  @error('agreement')
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-                </div> -->
                 <div class="input-field input-submit">
                   <input type="submit" name="submit" value="UPDATE">
                 </div>
@@ -415,8 +380,110 @@
     $(document).ready(function() {
       $('.js-example-basic-multiple').select2();
     });
-
   </script>
+
+@if( $users['user_id'] )
+<script>
+	// Public Profile
+	$(function() {
+	  $(".public_profile_val").validate({
+	    rules: {
+	      public_profile_name: "required",
+	      phone: {
+	        required: true,
+	        phoneUS: true
+	      },
+	      email: {
+	        required: true,
+	        email: true
+	      },
+	      featured_picture: {
+	        required: false,
+	        extension: "png|jpg|jpeg",
+	        maxfilesize: 2,
+	      },
+	      'picture[]': {
+	        required: false,
+	        extension: "png|jpg|jpeg",
+	        maxfilesize: 2,
+	      },
+	    },
+	    messages: {
+	      name: "The name field is required.",
+	      phone: "US Based NUMBER is required.",
+	      email: {
+	        required:"The email field is required.",
+	        email:"Please enter correct email.",
+	      },
+	      featured_picture: {
+	        required:"The FEATURED PICTURE field is required.",
+	        extension:"Please use .PNG .JPG .JPEG format",
+	        maxfilesize:"File size must be less than 2MB",
+	      },
+	      'picture[]': {
+	        required:"The PICTURE field is required.",
+	        extension:"Please use .PNG .JPG .JPEG format",
+	        maxfilesize:"File size must be less than 2MB",
+	      },
+	    },
+	    submitHandler: function(form) {
+	      form.submit();
+	    }
+	  });
+	});
+</script>
+@else
+<script>
+	// Public Profile
+	$(function() {
+	  $(".public_profile_val").validate({
+	    rules: {
+	      public_profile_name: "required",
+	      phone: {
+	        required: true,
+	        phoneUS: true
+	      },
+	      email: {
+	        required: true,
+	        email: true
+	      },
+	      featured_picture: {
+	        required: true,
+	        extension: "png|jpg|jpeg",
+	        maxfilesize: 2,
+	      },
+	      'picture[]': {
+	        required: true,
+	        extension: "png|jpg|jpeg",
+	        maxfilesize: 2,
+	      },
+	    },
+	    messages: {
+	      name: "The name field is required.",
+	      phone: "US Based NUMBER is required.",
+	      email: {
+	        required:"The email field is required.",
+	        email:"Please enter correct email.",
+	      },
+	      featured_picture: {
+	        required:"The FEATURED PICTURE field is required.",
+	        extension:"Please use .PNG .JPG .JPEG format",
+	        maxfilesize:"File size must be less than 2MB",
+	      },
+	      'picture[]': {
+	        required:"The PICTURE field is required.",
+	        extension:"Please use .PNG .JPG .JPEG format",
+	        maxfilesize:"File size must be less than 2MB",
+	      },
+	    },
+	    submitHandler: function(form) {
+	      form.submit();
+	    }
+	  });
+	});
+</script>
+@endif
+
 <style type="text/css">
   .account_form_val .error{
     color: #ed1c1c !important;
