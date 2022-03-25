@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\WishLists;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\AssignRoles;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -19,7 +20,7 @@ use Carbon\CarbonPeriod;
 class WishlistsController extends Controller
 {
   public function store(WishlistRequest $request) {
-     $user = Auth::user(); //getting user id
+     $user = Auth::user(); //getting user id 
      $getWishListData = $request->getWishListData();
      if($user){
        //add wishlist
@@ -47,9 +48,11 @@ class WishlistsController extends Controller
         return response()->json(['msg' => 'Event has been remove form wishlist!', 'msg_type' => 'success']);
      }
   }
-  public function view() {    
-    $user = Auth::user(); //getting user id
-    $wishlistsData = WishLists::where('user_id', '=', $user->id)->get(); //Gettin Wishlist data
+  public function view() {  
+    $users = Auth::user(); //getting user id
+    $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
+
+    $wishlistsData = WishLists::where('user_id', '=', $users->id)->get(); //Gettin Wishlist data
     $events = array();
     if( count($wishlistsData) ){
       foreach ($wishlistsData as $wishlistData) {
@@ -65,7 +68,10 @@ class WishlistsController extends Controller
        	);
       }
     }
-    return view('tempview.wishlist', compact('events'));
+
+      $users->role = $userRole['role_id'];
+
+    return view('tempview.wishlist', compact('events', 'users'));
   }
 
   public function redirect() { 
