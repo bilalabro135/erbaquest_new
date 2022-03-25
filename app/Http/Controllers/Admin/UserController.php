@@ -479,6 +479,9 @@ class UserController extends Controller
             // echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
         }
 
+        if(!isset($transactionDatas)){
+            $transactionDatas = array();
+        }
     
 
         return view('tempview.payment',compact('transactionDatas','users'));
