@@ -69,7 +69,7 @@ class WishlistsController extends Controller
       }
     }
 
-      $users->role = $userRole['role_id'];
+    $users->role = $userRole['role_id'];
 
     return view('tempview.wishlist', compact('events', 'users'));
   }

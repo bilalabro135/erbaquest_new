@@ -65,8 +65,7 @@ class VendorController extends Controller
     	$userData = Auth::user();
     	$users = new User;
         $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
-        $vendorData = VendorProfile::first();
-
+        $vendorData = VendorProfile::where('user_id', $userData['id'])->first();
 
         $users->public_profile_name = (isset($vendorData['public_profile_name'])) ? $vendorData['public_profile_name'] : '';
 
@@ -82,7 +81,7 @@ class VendorController extends Controller
         $users->show_picture = (isset($vendorData['picture'])) ? $vendorData['picture'] : '';
         $users->phone = (isset($vendorData['phone'])) ? $vendorData['phone'] : '';
         $users->descreption = (isset($vendorData['descreption'])) ? $vendorData['descreption'] : '';
-        $users->user_id = (isset($vendorData['user_id'])) ? $vendorData['user_id'] : '';
+        $users->user_id = (isset($vendorData['id'])) ? $vendorData['id'] : '';
         $users->role = $userRole['role_id'];
 
         return view('tempview/public-profile', compact('vendorData','users'));
@@ -92,13 +91,14 @@ class VendorController extends Controller
     {        
     	$currentuser = Auth::user();
         $vendor_data = VendorProfile::where('user_id', $currentuser['id'])->first();
-
+        //dd($vendor_data);
         if($vendor_data == null){
 
             $fname = rand().time().".".$request->featured_picture->extension();
             $request->file('featured_picture')->move(public_path().'/uploads/', $fname);     
             $user->featured_picture =  'uploads/' . $fname;
             $featured_picture = 'uploads/' . $fname;
+            
             $image_names = [];
             foreach ($request->file('picture') as $image) {
                 $name = rand().time().".".$image->extension();
