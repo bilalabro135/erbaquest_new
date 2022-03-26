@@ -273,15 +273,17 @@ class EventController extends Controller
     {
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
-        $user = Auth::user();
-        
-        if($user->profile_image){
-            $profile_image = env('APP_URL') .$user['profile_image'];
+        $users = Auth::user();
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first();
+    
+        if($users->profile_image){
+            $profile_image = env('APP_URL') .$users['profile_image'];
         }else{
             $profile_image = "";
         }
+        $users->role = $userRole["role_id"];
 
-        return view('tempview.my-event', compact('events','profile_image'));
+        return view('tempview.my-event', compact('events','profile_image','users'));
     }
 
     public function updateevent($id)
