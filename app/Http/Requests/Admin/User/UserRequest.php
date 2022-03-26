@@ -49,6 +49,7 @@ class UserRequest extends FormRequest
             'username' => $this->get('username'),
             'address' =>( $this->has('address')) ? $this->get('address') : null,
             'phone' => $this->get('phone'),
+            'featured' => $this->get('featured'),
             'password' =>  Hash::make($this->get('password')),
             'email_verified_at' => ($this->get('email_verified_at') == 'verified') ?  $date->format('U') : null,
             'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,

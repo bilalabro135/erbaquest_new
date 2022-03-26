@@ -145,9 +145,47 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="role">Featured</label>
+                                <input type="checkbox" name="featured" value="1" @if( $user->profile_image ) checked="checked" @endif >
+                                @error('email_verified_at')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block px-5">
                                     {{ __('Update') }}
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Edit User</h6>                           
+                        </div>
+                        <div class="card-body">
+                            <div class="profilePicture">
+                                <img src="https://erba-quest.geeksroot.net//storage/photos/1/vendor-1.jpg">
+                            </div>
+                            <div class="profile_info">
+                                <div class="profile_name">Person 1</div>
+                                <div class="person_desc">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                                </div>
+                                <div class="action_set">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0);">Edit</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Delete</a>
+                                        </li>
+                                        <div style="clear: both;"></div>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

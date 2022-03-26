@@ -169,7 +169,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vip_perk">VIP Perks</label>
-                                    <input type="number"  required="" id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="$10.0" value="{{ (old('vip_perk')) ? old('vip_perk') : $event->vip_perk }}">        
+                                    <input type="text"  required="" id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="$10.0" value="{{ (old('vip_perk')) ? old('vip_perk') : $event->vip_perk }}">        
                                         @error('vip_perk')
                                             <div class="text-danger">
                                                 {{$message}}                                            
@@ -180,7 +180,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="charity">Charity</label>
-                                    <input type="number"  required="" id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{ (old('charity')) ? old('charity') : $event->charity }}">        
+                                    <input type="text"  required="" id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{ (old('charity')) ? old('charity') : $event->charity }}">        
                                         @error('charity')
                                             <div class="text-danger">
                                                 {{$message}}                                            
@@ -232,40 +232,24 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="height">Height</label>
-                                    <!-- <input type="number"  required="" id="height" class="form-control  @error('height') is-invalid @enderror" name="height" placeholder="$10.0" value="{{old('height')}}"> -->   
-
-
-                                    <select name="height" id="height" required="" class="form-control">
-                                        <option value="" selected="selected" {{(isset($event->height) && $event->height == "") ? 'selected="selected"' : ''}}>Select Height</option>
-                                        <option value="10" {{(isset($event->height) && $event->height == "10") ? 'selected="selected"' : ''}}>10ft</option>
-                                        <option value="100" {{(isset($event->height) && $event->height == "100") ? 'selected="selected"' : ''}}>100ft</option>
-                                        <option value="500" {{(isset($event->height) && $event->height == "500") ? 'selected="selected"' : ''}}>500ft</option>
-                                    </select> 
-
-                                        @error('height')
-                                            <div class="text-danger">
-                                                {{$message}}                                            
-                                            </div>
-                                        @endif
+                                    <input type="text" name="height" id="height" class="form-control" value="{{ $event->height }}" required="required"> 
+                                    @error('height')
+                                        <div class="text-danger">
+                                            {{$message}}                                            
+                                        </div>
+                                    @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="capacity">Capacity</label>
                                     <!-- <input type="number"  required="" id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->   
-
-                                    <select name="capacity" id="capacity" required="" class="form-control">
-                                        <option value="" selected="selected" {{(isset($event->capacity) && $event->capacity == "") ? 'selected="selected"' : ''}}>Select Capactiy</option>
-                                        <option value="Capacity1" {{(isset($event->capacity) && $event->capacity == "Capacity1") ? 'selected="selected"' : ''}}>Capacity1</option>
-                                        <option value="Capacity2" {{(isset($event->capacity) && $event->capacity == "Capacity2") ? 'selected="selected"' : ''}}>Capacity2</option>
-                                        <option value="Capacity3" {{(isset($event->capacity) && $event->capacity == "Capacity3") ? 'selected="selected"' : ''}}>Capacity3</option>
-                                    </select> 
-
-                                        @error('capacity')
-                                            <div class="text-danger">
-                                                {{$message}}                                            
-                                            </div>
-                                        @endif
+                                    <input type="number" name="capacity" id="capacity" class="form-control" required="required" value="{{ $event->capacity }}">
+                                    @error('capacity')
+                                        <div class="text-danger">
+                                            {{$message}}                                            
+                                        </div>
+                                    @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-4">
@@ -299,7 +283,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="vendor_number">Vendor Number</label>
-                                    <input type="tel"  required="" id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{ (old('vendor_number')) ? old('vendor_number') : $event->vendor_number }}">        
+                                    <input type="number"  required="" id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{ (old('vendor_number')) ? old('vendor_number') : $event->vendor_number }}">        
                                         @error('vendor_number')
                                             <div class="text-danger">
                                                 {{$message}}                                            
@@ -307,7 +291,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-4">
+                                <!-- <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="user_number">User Number</label>
                                     <input type="tel"  required="" id="user_number" class="form-control  @error('user_number') is-invalid @enderror" name="user_number" placeholder="+1 234 567 890" value="{{ (old('user_number')) ? old('user_number') : $event->user_number }}">        
@@ -317,7 +301,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="website_link">Website Link</label>

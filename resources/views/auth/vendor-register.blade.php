@@ -45,7 +45,7 @@
               {!!$package->description!!}
             </div>
             <div class="btn_pckge">
-              <button class="btn-custom select-plan" type="button" data-plan="{{$package->id}}">Select</button>
+              <button class="btn-custom select-plan @if(old('plan') == $package->id) package-selected @endif" type="button" data-plan="{{$package->id}}">Select</button>
             </div>
           </div>
           @endforeach
@@ -58,7 +58,7 @@
             <div class="signupForm createEventForm">
               <form class="form_sign vendor_form_signUp" action="{{route('subscription.create')}}" method="post" id="payment-form">
                 @csrf
-                    <input type="hidden" name="plan" value="old('plan')" id="plan">
+                    <input type="hidden" name="plan" value="{{old('plan')}}" id="plan">
                     <input type="hidden" name="role" value="Vendor">
                     <div class="row personal_div @if(!old('plan') ) d-none @endif  mt60">
                         <div class="col-sm-12">
@@ -137,38 +137,37 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="input-field col-sm-6">
-                            <label for="cardNumber">Name On Card</label>
-                            <input type="text" name="cardname" id="cardName" placeholder="First Name" required="required" />
-                            <p class="error cardNumber"></p>
+                        <div class="form_seprator"></div>
+                        <div class="credit_main_set form-group row">
+                            <div class="input-field col-sm-6">
+                                <label for="cardNumber">Name On Card</label>
+                                <input type="text" name="cardname" id="cardName" placeholder="First Name" required="required" />
+                                <p class="error cardNumber"></p>
+                            </div>
+                            <div class="input-field col-sm-6">
+                                <label for="cardNumber"><br></label>
+                                <input type="text" name="lname" id="lname" placeholder="Last Name" required="required" />
+                                <p class="error cardNumber"></p>
+                            </div>
+                            <div class="input-field col-sm-6">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber" />
+                                <p class="error cardNumber"></p>
+                            </div>
+                            <div class="input-field col-sm-6">
+                                <label for="expMonth">Expiry Month</label>
+                                <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
+                                <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
+                                <div style="clear: both;"></div>
+                                <p class="error expMonth"></p>
+                            </div>
+                            <div class="input-field col-sm-6">
+                                <label for="cardCode">Card Code</label>
+                                <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/>
+                                <p class="error cardCode"></p>
+                            </div>
+                            <!-- credit card info end -->
                         </div>
-                        <div class="input-field col-sm-6">
-                            <label for="cardNumber"><br></label>
-                            <input type="text" name="lname" id="lname" placeholder="Last Name" required="required" />
-                            <p class="error cardNumber"></p>
-                        </div>
-
-                        <div class="input-field col-sm-6">
-                            <label for="cardNumber">Card Number</label>
-                            <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber" />
-                            <p class="error cardNumber"></p>
-                        </div>
-                        <div class="input-field col-sm-6">
-                            <label for="expMonth">Expiry Month</label>
-                            <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
-                            <p class="error expMonth"></p>
-                        </div>
-                        <div class="input-field col-sm-6">
-                            <label for="expYear">Expiry Year</label>
-                            <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
-                            <p class="error expYear"></p>
-                        </div>
-                        <div class="input-field col-sm-6">
-                            <label for="cardCode">Card Code</label>
-                            <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/>
-                            <p class="error cardCode"></p>
-                        </div>
-                        <!-- credit card info end -->
 
                         <div class="input-field input-checkbox active">
                             <label class="checkmark active">
@@ -180,6 +179,7 @@
                             </span>
                             @enderror
                         </div>
+
                         <div class="col-sm-12">
                             <div class="input-field input-submit">
                                 <input type="submit" value="SUBMIT" >
@@ -198,6 +198,34 @@
         background: #f34949;
         color: #ffff;
         font-size: 20px;
+    }
+
+    #expMonth{
+        width: 48%;
+        float: left;
+        margin-right: 10px;
+    }
+    #expYear{
+        width: 48%;
+        float: left;
+    }
+    .credit_main_set{
+        margin-bottom: 0px;
+        margin-top: 0px;
+        width: 50%;
+    }
+    .credit_main_set input{
+        height: 53px;
+    }
+    .signupForm .credit_main_set .input-field{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    .signupForm .credit_main_set .input-field label{
+        margin-bottom: 5px;
+            font-size: 15px;
+    }    .credit_main_set{
+
     }
 </style>
 <script>
@@ -467,6 +495,16 @@ $(document).ready(function(){
         $('#phone').mask('(999)-999-9999'); 
     }); 
 </script>
+<style type="text/css">
+    .form_seprator{
+        border: 1px #eaeaea solid;
+        width: 96%;
+        padding: 0px;
+        margin: 0px auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+</style>
 
 
 @endpush

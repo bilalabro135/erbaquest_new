@@ -132,6 +132,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="role">Featured</label>
+                                <input type="checkbox" name="featured" value="1">
+                                @error('email_verified_at')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block px-5">
                                     {{ __('Add') }}
                                 </button>

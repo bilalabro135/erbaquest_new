@@ -105,7 +105,20 @@
                         {{$message}}
                     @enderror
                 </div>
-            </div>            
+            </div> 
+           
+            <div class="col-md-6">                    
+                <div class="form-group">
+                    <label for="site_name">{{ __('Site Name*') }}</label>
+                    <input id="site_name" type="text" class="form-control  @error('value.site_name') is-invalid @enderror" name="value[site_name]" 
+                    @if(old('value.site_name')) value="{{old('value.site_name')}}"
+                    @else value="{{ (isset($Settings['site_name'])) ? $Settings['site_name'] : '' }}" @endif required="" placeholder="{{ __('Site Name') }}"  autocomplete="site_name" autofocus>
+                    @error("value.site_name")
+                        {{$message}}
+                    @enderror
+                </div>
+            </div>
+
             <div class="col-md-6">                    
                 <div class="form-group">
                     <label for="telephone">{{ __('Telephone') }}</label>
@@ -126,6 +139,17 @@
                     @enderror
                 </div>
             </div>
+
+            <div class="col-md-12">                    
+                <div class="form-group">
+                    <label for="Email">{{ __('Footer Text') }}</label>
+                    <textarea style="height: 150px" name="value[footer_text]" id="footer_text" class="form-control  @error('value.footer_text') is-invalid @enderror" >@if(old('value.footer_text')){{old('value.footer_text')}}@else{{ (isset($Settings['footer_text'])) ? $Settings['footer_text'] : '' }}@endif</textarea>
+                    @error("value.footer_text")
+                        {{$message}}
+                    @enderror
+                </div>
+            </div>
+             
             <div class="col-md-12">                    
                 <div class="form-group">
                     <label for="header_scripts">{{ __('Header Scripts*') }}</label>

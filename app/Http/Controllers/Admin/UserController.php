@@ -73,6 +73,7 @@ class UserController extends Controller
         $user->username = $userData['username'];
         $user->email_verified_at = $userData['email_verified_at'];
         $user->profile_image = $userData['profile_image'];
+        $user->featured = $userData['featured'];
         $user->save();
         if ($request->shouldSendVerificationEmail()) {
             $user->sendEmailVerificationNotification();
@@ -84,7 +85,6 @@ class UserController extends Controller
     {
         $roles = Bouncer::role()->all()->pluck('name');
         $Settings = Settings::get('registration');
-
         return view('admin.users.edit', compact('user', 'roles', 'Settings'));
     }
     public function updateUsers(UserUpdateRequest $request)

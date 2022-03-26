@@ -12,13 +12,13 @@ class SettingsController extends Controller
     public function index(Request $request)
     {    
         $type = $request->type;
-        $Settings = Settings::get($request->type);        
+        $Settings = Settings::get($request->type);
+   
         $roles = Bouncer::role()->all()->pluck('name');
         $pages = Pages::where('status', 'published')->get();
         if (view()->exists('admin.settings.' . $request->type)) {
             return view('admin.settings', compact('type', 'Settings', 'roles', 'pages'));            
-        }
-        else{
+        }else{
             abort(404);
         }
     }

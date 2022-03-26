@@ -50,7 +50,7 @@ class EventRequest extends FormRequest
             'ATM_on_site' => 'max:255',
             'tickiting_number' => ['required', new Telephone()],
             'vendor_number' => ['required', new Telephone()],
-            'user_number' => ['required', new Telephone()],
+            //'user_number' => ['required', new Telephone()],
             'website_link' => 'max:255',
             'facebook' => 'max:255',
             'twitter' => 'max:255',

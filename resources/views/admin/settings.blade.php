@@ -34,6 +34,9 @@
                       <li class="nav-item">
                         <a class="nav-link {{($type =='mapkey') ? 'active' : ''}}"  href="{{route('settings' , ['type' => 'mapkey'])}}">Map Keys</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link {{($type =='paymentgateaway') ? 'active' : ''}}"  href="{{route('settings' , ['type' => 'paymentgateaway'])}}">Payment Gateaway</a>
+                      </li>
                       <!-- <li class="nav-item">
                         <a class="nav-link {{($type =='socialmedia') ? 'active' : ''}}"  href="{{route('settings' , ['type' => 'random'])}}">Social Media</a>
                       </li> -->
