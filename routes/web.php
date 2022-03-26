@@ -204,6 +204,7 @@ Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'v
 // Vendors
 Route::get('/account/public-profile', [VendorController::class, 'view'])->middleware('auth', 'verified')->name('public.profile');
 Route::post('/account/public-profile/store', [VendorController::class, 'update'])->middleware('auth', 'verified')->name('public.profile.update');
+// Route::get('/vendors', [VendorController::class, 'index'])->middleware('auth', 'verified')->name('vendors');
 
 Route::get('/account/payment-option',[UserController::class, 'paymentOption'])->name('payment.option')->middleware('auth','verified');
 Route::post('/account/payment-update',[UserController::class, 'UpdatepaymentOption'])->name('payment.update')->middleware('auth','verified');

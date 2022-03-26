@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AssignRoles;
 use App\Models\VendorProfile;
+use App\Models\Pages;
 use App\Http\Requests\Common\VendorProfileRequest;
 use Auth;
 
@@ -15,49 +16,9 @@ class VendorController extends Controller
     public function index()
     {
         $vendors = VendorProfile::all();
-        return view('tempview/',compact('vendors'));
-    }
-    public function create()
-    {
-        return view('tempview/public-profile');
-    }
-
-    public function store(VendorProfileRequest $request)
-    {
-        $user = Auth::user();
-        $vendorData = $request->getVendorData();
-        $userRole = AssignRoles::where('entity_id', $user['id'])->first(); 
-        $vendor = new VendorProfile();
-        $vendor->public_profile_name = $vendorData['public_profile_name'];
-        $vendor->email = $vendorData['email'];
-        $vendor->website = $vendorData['website'];
-        $vendor->instagram = $vendorData['instagram'];
-        $vendor->facebook = $vendorData['facebook'];
-        $vendor->twitter = $vendorData['twitter'];
-        $vendor->youtube = $vendorData['youtube'];
-        $vendor->linkedin = $vendorData['linkedin'];
-        $vendor->phone = $vendorData['phone'];
-        $vendor->descreption = $vendorData['descreption'];
-        $vendor->user_id = $vendorData['user_id'];
-        $vendor_role = $userRole;
-
-        if($request->featured_picture){
-            $fname = $request->file('featured_picture')->getClientOriginalName();
-            $request->file('featured_picture')->move(public_path().'/uploads/', $fname);     
-            $vendor->featured_picture =  'uploads/' . $fname;
-        }
-
-        $image_names = [];
-        if($request->picture){
-            foreach ($request->file('picture') as $image) {
-                $name = $image->getClientOriginalName();
-                $image->move(public_path().'/uploads/', $name);  
-                $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
-            }
-            $picture = serialize($image_names);
-        }
-        $vendor->save();
-        return Redirect::route('public.profile')->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+        $pages = Pages::all();
+        $pageSlug = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
+        return view('templates.vendor',compact('vendors', 'pageSlug', 'pages'));
     }
 
     public function view()
@@ -157,5 +118,10 @@ class VendorController extends Controller
             ]);
         }
         return back()->with(['msg' => 'Profile Updated', 'msg_type' => 'success']);
+    }
+    public function show($pages,$id){
+
+        $vendorData = VendorProfile::where('id',$id)->first();
+        return view('front.vendor.index', compact('vendorData'));
     }
 }
