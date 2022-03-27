@@ -22,7 +22,6 @@ class VendorProfileRequest extends FormRequest
             'phone' => ['required', new Telephone()],
             'featured_picture' => 'exclude_if:user_id,required',
             'picture' => 'exclude_if:user_id,required',
-            'descreption' => 'max:255',
             'website' => 'max:255',
             'instagram' => 'max:255',
             'facebook' => 'max:255',

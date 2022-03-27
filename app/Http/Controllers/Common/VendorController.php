@@ -52,7 +52,7 @@ class VendorController extends Controller
     {        
     	$currentuser = Auth::user();
         $vendor_data = VendorProfile::where('user_id', $currentuser['id'])->first();
-        //dd($vendor_data);
+        // dd($vendor_data);
         if($vendor_data == null){
 
             $fname = rand().time().".".$request->featured_picture->extension();
@@ -122,6 +122,6 @@ class VendorController extends Controller
     public function show($pages,$id){
 
         $vendorData = VendorProfile::where('id',$id)->first();
-        return view('front.vendor.index', compact('vendorData'));
+        return view('front.vendor.index', compact('vendorData', 'pages'));
     }
 }

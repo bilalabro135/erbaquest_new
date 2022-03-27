@@ -7,7 +7,7 @@
 <!-- <h1>{{$vendorData->email}}</h1> -->
 
 
-   <section class="event-inner pt-100 pb-100">
+   <section class="vendor_inner event-inner pt-100 pb-100">
       <div class="container">
         <div class="row align-center">
           <div class="col-sm-12 col-md-6">
@@ -16,196 +16,69 @@
             </h3>
             <p class="event_detail_text">{!!$vendorData->descreption!!}</p>
           </div>
-          <div class="col-sm-12 col-md-6">
+          <div class="col-sm-12 col-md-6 vendor_profile_img">
             <figure class="m-0">
               <img src="{{asset($vendorData->featured_picture)}}">
             </figure>
+          </div>
+        </div>
+        <div class="row align-center">
+          <div class="col-sm-12 col-md-6"></div>
+          <div class="col-sm-12 col-md-6">
             <div class="social-box">
+              <h4>CONTACT US:</h4>
+              <ul class="contact-box">
+                @if($vendorData->phone != null)
+                <li>
+                  <a href="tel:{{$vendorData->phone}}"><i class="fas fa-phone-alt"></i><span>{{$vendorData->phone}}</span></a>
+                </li>
+                @endif
+                @if($vendorData->email != null)
+                <li>
+                  <a href="mailto:{{$vendorData->email}}"><i class="fas fa-envelope"></i><span>Send Mail</span></a>
+                </li>
+                @endif
+                @if($vendorData->website != null)
+                <li>
+                  <a href="{{$vendorData->website}}" target="_blank"><i class="fas fa-globe"></i><span>Visit Site</span></a>
+                </li>
+                @endif
+              </ul>
+
               <h4>SOCIAL LINKS:</h4>
               <ul>
-              	@if($vendorData->instagram != null)
+                @if($vendorData->instagram != null)
                 <li>
-                	<a href="{{$vendorData->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a>
+                  <a href="{{$vendorData->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a>
                 </li>
                 @endif
-              	@if($vendorData->facebook != null)
+                @if($vendorData->facebook != null)
                 <li>
-                	<a href="{{$vendorData->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                  <a href="{{$vendorData->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 </li>
                 @endif
-              	@if($vendorData->twitter != null)
+                @if($vendorData->twitter != null)
                 <li>
-                	<a href="{{$vendorData->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                  <a href="{{$vendorData->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a>
                 </li>
                 @endif
-              	@if($vendorData->youtube != null)
+                @if($vendorData->youtube != null)
                 <li>
-                	<a href="{{$vendorData->youtube}}" target="_blank"><i class="fab fa-youtube"></i></a>
+                  <a href="{{$vendorData->youtube}}" target="_blank"><i class="fab fa-youtube"></i></a>
                 </li>
                 @endif
-              	@if($vendorData->linkedin != null)
+                @if($vendorData->linkedin != null)
                 <li>
-                	<a href="{{$vendorData->linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                  <a href="{{$vendorData->linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
                 @endif
               </ul>
             </div>
           </div>
         </div>
-        <div class="row event-detail ">
-			<!-- <div class="reviews">
-              <div class="review-box">
-                <figure>
-                  <img src="images/tst-author.png">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="images/comment-icon.png"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-              <div class="review-box">
-                <figure>
-                  <img src="images/tst-author.png">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="images/comment-icon.png"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-            </div> -->
-			<!-- <div class="reviewForm">
-              <form class="" action="" method="post" enctype="multipart/form-data">
-                <div class="input-field">
-                  <label>Speed <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                  <label>Quality <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                  <label>Price <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                </div>
-                <div class="input-field input-file">
-                  <label>FEATURED PICTURE: <span class="figure"><img src="images/ft_profile.png"></span></label>
-                  <input type="file" id="myFile" name="filename">
-                  <div class="preview"></div>
-                  <button type="button" id="uploadImg">
-                    <span class="figure"><img src="images/uploadIcon.png"></span>
-                    <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
-                  </button>
-                </div>
-                <div class="input-field">
-                  <label>COMMENT:</label>
-                  <textarea name="comment" placeholder="Comment.."></textarea>
-                </div>
-                <div class="input-field">
-                  <label>NAME:</label>
-                  <input type="text" name="name" placeholder="NAME:" required="required">
-                </div>
-                <div class="input-field">
-                  <label>EMAIL:</label>
-                  <input type="email" name="email" placeholder="EMAIL:" required="required">
-                </div>
-                <div class="input-field">
-                  <label>WEBSITE:</label>
-                  <input type="text" name="website" placeholder="WEBSITE:">
-                </div>
-                <div class="input-field input-submit">
-                  <input type="submit" name="submit" value="SUBMIT YOUR REVIEW">
-                </div>
-              </form>
-            </div> -->
-          <div class="col-sm-12 col-md-5">
-            
-          </div>
-        </div>
         <?php
         	$gallery = $vendorData->picture;
         	$gallery = ($gallery != '' && $gallery != null && !empty($gallery)) ? unserialize($gallery) : array();
-          // dd(unserialize($event->gallery));
         ?>
         @if(!empty($gallery))
         <div class="evGallery nav_arrow">
@@ -220,6 +93,157 @@
           </ul>
         </div>
         @endif
+
+        <div class="row event-detail ">
+          <div class="col-sm-12 col-md-7">
+            <div class="reviews">
+              <div class="review-box">
+                <figure>
+                  <img src="{{asset('images/tst-author.png')}}">
+                </figure>
+                <div class="rv-detail">
+                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="{{asset('images/comment-icon.png')}}"></span></h3>
+                  <ul class="rate-list">
+                    <li>
+                      Speed
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                    <li>
+                      Quality
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                    <li>
+                      Price
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                  </ul>
+                  <div class="comment">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                  </div>
+                  <h5 class="time_ago">5 Years ago</h5>
+                </div>
+              </div>
+              <div class="review-box">
+                <figure>
+                  <img src="{{asset('images/tst-author.png')}}">
+                </figure>
+                <div class="rv-detail">
+                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="{{asset('images/comment-icon.png')}}"></span></h3>
+                  <ul class="rate-list">
+                    <li>
+                      Speed
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                    <li>
+                      Quality
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                    <li>
+                      Price
+                      <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </li>
+                  </ul>
+                  <div class="comment">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                  </div>
+                  <h5 class="time_ago">5 Years ago</h5>
+                </div>
+              </div>
+            </div>
+            <div class="reviewForm">
+                <form class="" action="" method="post" enctype="multipart/form-data">
+                  <div class="input-field">
+                    <label>Speed <span class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </span></label>
+                    <label>Quality <span class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </span></label>
+                    <label>Price <span class="stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </span></label>
+                  </div>
+                  <div class="input-field input-file">
+                    <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span></label>
+                    <input type="file" id="myFile" name="filename">
+                    <div class="preview"></div>
+                    <button type="button" id="uploadImg">
+                      <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
+                      <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
+                    </button>
+                  </div>
+                  <div class="input-field">
+                    <label>COMMENT:</label>
+                    <textarea name="comment" placeholder="Comment.."></textarea>
+                  </div>
+                  <div class="input-field">
+                    <label>NAME:</label>
+                    <input type="text" name="name" placeholder="NAME:" required="required">
+                  </div>
+                  <div class="input-field">
+                    <label>EMAIL:</label>
+                    <input type="email" name="email" placeholder="EMAIL:" required="required">
+                  </div>
+                  <div class="input-field">
+                    <label>WEBSITE:</label>
+                    <input type="text" name="website" placeholder="WEBSITE:">
+                  </div>
+                  <div class="input-field input-submit">
+                    <input type="submit" name="submit" value="SUBMIT YOUR REVIEW">
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 @endsection

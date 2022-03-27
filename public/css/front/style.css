@@ -1905,7 +1905,7 @@ ul.vipGuest li {
   margin-bottom: 0;
   display: flex;
   margin-top: 20px;
-  justify-content: center;
+  /*justify-content: center;*/
 }
 
 .social-box ul li {
@@ -3351,8 +3351,7 @@ div#card-element {
 }
 .front_event_create .input-file .preview,
 .front_event_update .input-file .preview,
-.public_profile_val .input-file .preview,
-.public_profile_val .input-file .preview1 {
+.public_profile_val .input-file .preview {
   width: 30px;
   display: inline-block;
   margin-left: 10px;
@@ -3367,6 +3366,15 @@ div#card-element {
   height: 25px;
   margin: 0px 5px;
   object-fit: cover;
+}
+.public_profile_val .input-file .preview1 {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.public_profile_val .input-file .preview1 img {
+  width: 40px;
+  display: flex;
 }
 .AmentieList .checkRight.checked label:before,
 .VendorList .checkRight.checked label:before {
@@ -3695,6 +3703,12 @@ p.error{
   border-radius: 10px;
   margin-top: 30px;
 }
+.vendor_box img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  padding: 30px;
+}
 .vendor_box h3 {
   background-color: #fff;
   font-size: 20px;
@@ -3707,4 +3721,64 @@ p.error{
 }
 .vendors_box_section {
   padding-bottom: 100px;
+}
+.FV_slider .owl-carousel {
+  padding: 0px;
+  list-style: none;
+}
+.FV_slider .owl-carousel li.item {
+  box-shadow: 0px 0px 20px #00000033;
+  margin: 20px 8px;
+}
+.FV_slider .owl-carousel li.item .figure {
+  width: 100%;
+}
+.FV_slider .owl-carousel li.item .figure img {
+  object-fit: cover;
+  min-height: 200px;
+  max-height: 300px;
+  padding: 15px;
+}
+.featured_vendors {
+  padding-top: 20px;
+}
+.FV_slider {
+  margin-top: 40px;
+}
+.social-box ul.contact-box {
+  display: block;
+  border: 0px;
+  margin-bottom: 20px;
+}
+.social-box ul.contact-box li {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+.social-box ul.contact-box li a {
+  background-color: #fff;
+  color: #000;
+  width: auto;
+  height: auto;
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+}
+.social-box ul.contact-box li a i.fas {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #2c9044;
+}
+.vendor_inner .vendor_profile_img figure {
+  background-color: #F8F9FB;
+  text-align: center;
+  width: 100%;
+  padding: 60px;
+}
+.vendor_inner figure.m-0 img {
+  width: auto;
+  height: auto;
 }
