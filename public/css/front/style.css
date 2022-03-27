@@ -2253,12 +2253,12 @@ button#uploadImg span.clr-green {
 }
 
 .sponsorBecome {
-  background: url("http://erba/images/sponsor-back.jpg");
+  background: url("../../images/sponsor-back.jpg");
   background-size: cover;
   padding: 40px 60px;
   border-radius: 15px;
   text-align: center;
-  margin-top: -260px;
+  margin-top: -340px;
 }
 
 .sponsorBecome .btn-custom {
@@ -3782,3 +3782,123 @@ p.error{
   width: auto;
   height: auto;
 }
+#sponsorForm .modal-dialog {
+  max-width: 900px;
+  text-align: left;
+}
+
+/*Star Rating Css*/
+.speedRate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.speedRate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.speedRate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.speedRate:not(:checked) > label:before {
+    content: '★ ';
+}
+.speedRate > input:checked ~ label {
+    color: #2c9044;
+}
+.speedRate:not(:checked) > label:hover,
+.speedRate:not(:checked) > label:hover ~ label {
+    color: #2c9044;  
+}
+.speedRate > input:checked + label:hover,
+.speedRate > input:checked + label:hover ~ label,
+.speedRate > input:checked ~ label:hover,
+.speedRate > input:checked ~ label:hover ~ label,
+.speedRate > label:hover ~ input:checked ~ label {
+    color: #2c9044;
+}
+.qualityRate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.qualityRate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.qualityRate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.qualityRate:not(:checked) > label:before {
+    content: '★ ';
+}
+.qualityRate > input:checked ~ label {
+    color: #2c9044;
+}
+.qualityRate:not(:checked) > label:hover,
+.qualityRate:not(:checked) > label:hover ~ label {
+    color: #2c9044;  
+}
+.qualityRate > input:checked + label:hover,
+.qualityRate > input:checked + label:hover ~ label,
+.qualityRate > input:checked ~ label:hover,
+.qualityRate > input:checked ~ label:hover ~ label,
+.qualityRate > label:hover ~ input:checked ~ label {
+    color: #2c9044;
+}
+
+.priceRate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.priceRate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.priceRate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.priceRate:not(:checked) > label:before {
+    content: '★ ';
+}
+.priceRate > input:checked ~ label {
+    color: #2c9044;
+}
+.priceRate:not(:checked) > label:hover,
+.priceRate:not(:checked) > label:hover ~ label {
+    color: #2c9044;  
+}
+.priceRate > input:checked + label:hover,
+.priceRate > input:checked + label:hover ~ label,
+.priceRate > input:checked ~ label:hover,
+.priceRate > input:checked ~ label:hover ~ label,
+.priceRate > label:hover ~ input:checked ~ label {
+    color: #2c9044;
+}
+.form_star_rating > label {
+  float: left;
+  margin-bottom: 0px;
+  position: relative;
+  top: 10px;
+  width: 100px;
+}
+

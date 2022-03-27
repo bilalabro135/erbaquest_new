@@ -189,7 +189,63 @@
             <div class="reviewForm">
                 <form class="" action="" method="post" enctype="multipart/form-data">
                   <div class="input-field">
-                    <label>Speed <span class="stars">
+
+                    <!--  -->
+                      <div class="form_star_rating">
+                        <label>Speed</label>
+                        <div class="speedRate">
+                          <input type="radio" id="speedStar5" name="rate" value="5" />
+                          <label for="speedStar5" title="text">5 stars</label>
+                          <input type="radio" id="speedStar4" name="rate" value="4" />
+                          <label for="speedStar4" title="text">4 stars</label>
+                          <input type="radio" id="speedStar3" name="rate" value="3" />
+                          <label for="speedStar3" title="text">3 stars</label>
+                          <input type="radio" id="speedStar2" name="rate" value="2" />
+                          <label for="speedStar2" title="text">2 stars</label>
+                          <input type="radio" id="speedStar1" name="rate" value="1" />
+                          <label for="speedStar1" title="text">1 star</label>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <div class="form_star_rating">
+                        <label>Quality</label>
+                        <div class="qualityRate">
+                          <input type="radio" id="qualityStar5" name="rate" value="10" />
+                          <label for="qualityStar5" title="text">5 stars</label>
+                          <input type="radio" id="qualityStar4" name="rate" value="9" />
+                          <label for="qualityStar4" title="text">4 stars</label>
+                          <input type="radio" id="qualityStar3" name="rate" value="8" />
+                          <label for="qualityStar3" title="text">3 stars</label>
+                          <input type="radio" id="qualityStar2" name="rate" value="7" />
+                          <label for="qualityS" title="text">2 stars</label>
+                          <input type="radio" id="qualityStar1" name="rate" value="6" />
+                          <label for="qualityStar1" title="text">1 star</label>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <div class="form_star_rating">
+                        <label>Price</label>
+                        <div class="priceRate">
+                          <input type="radio" id="priceStar5" name="rate" value="15" />
+                          <label for="priceStar5" title="text">5 stars</label>
+                          <input type="radio" id="priceStar4" name="rate" value="14" />
+                          <label for="priceStar4" title="text">4 stars</label>
+                          <input type="radio" id="priceStar3" name="rate" value="13" />
+                          <label for="priceStar3" title="text">3 stars</label>
+                          <input type="radio" id="priceStar2" name="rate" value="12" />
+                          <label for="priceStar2" title="text">2 stars</label>
+                          <input type="radio" id="priceStar1" name="rate" value="11" />
+                          <label for="priceStar1" title="text">1 star</label>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+
+                    <!--  -->
+
+
+                   <!--  <label>Speed <span class="stars">
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
@@ -209,7 +265,7 @@
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
-                    </span></label>
+                    </span></label> -->
                   </div>
                   <div class="input-field input-file">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span></label>

@@ -21,39 +21,99 @@
 
     <!-- Vendor Packages -->
     <section class="secSponsor secSignup-vendor">
-         
-      <div class="container">
-        @if(session('msg'))
-          <div class="alert alert-{{session('msg_type')}}">
-              {{session('msg')}}                                            
-          </div>
-          @endif
-          <br>
-        <div class="row">
-          @foreach($packages as $package)
-          <div class="col-sm-12 col-md-4">
-            <div class="pckg-box">
-              <h3 class="ft-blanka">{{$package->name}}</h3>
-              <div class="price-info">
-                <h2>
-                  <span class="symbol">$</span>
-                  <span class="txt">{{$package->price}}</span>
-                  <span class="dt">{{($package->duration > 1) ? $package->duration : 'a'}} {{$package->reccuring_every}}{{($package->duration > 1) ? 's' : ''}}</span>
-                </h2>
-                <p>{{$package->short_description}}</p>
-              </div>
-              {!!$package->description!!}
+        <div class="container">
+            @if(session('msg'))
+                <div class="alert alert-{{session('msg_type')}}">
+                    {{session('msg')}}                                            
+                </div>
+            @endif
+            <br>
+            <div class="row">
+                @foreach($packages as $package)
+                <div class="col-sm-12 col-md-4">
+                    <div class="pckg-box">
+                  <h3 class="ft-blanka">{{$package->name}}</h3>
+                  <div class="price-info">
+                    <h2>
+                      <span class="symbol">$</span>
+                      <span class="txt">{{$package->price}}</span>
+                      <span class="dt">{{($package->duration > 1) ? $package->duration : 'a'}} {{$package->reccuring_every}}{{($package->duration > 1) ? 's' : ''}}</span>
+                    </h2>
+                    <p>{{$package->short_description}}</p>
+                  </div>
+                  {!!$package->description!!}
+                    </div>
+                    <div class="btn_pckge">
+                        <a href="#packages" class="btn-custom select-plan @if(old('plan') == $package->id) package-selected @endif" type="button" data-plan="{{$package->id}}">Select</a>
+                    </div>
+                </div>
+                @endforeach
+                <div class="col-sm-12 col-md-8">
+                    <div class="sponsorBecome">
+                        <h3 class="ft-blanka ftw-bold_36">BECOME A SPONSOR</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                        <button class="btn-custom" type="button" data-bs-toggle="modal" data-bs-target="#sponsorForm">CLICK HERE</button>
+
+                            <!-- Modal -->
+                        <div class="modal fade" id="sponsorForm" tabindex="-1" aria-labelledby="sponsorFormLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="popup_close">
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="signupForm">
+                                            <form class="form_contact" action="" method="post">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="input-field">
+                                                            <label>First Name:</label>
+                                                            <input type="text" name="first_name" placeholder="First Name:" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="input-field">
+                                                            <label>Last Name:</label>
+                                                            <input type="text" name="last_name" placeholder="Last Name:" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="input-field">
+                                                            <label>Email Address:</label>
+                                                            <input type="email" name="email" placeholder="Email Address:" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6">
+                                                        <div class="input-field">
+                                                            <label>Subject:</label>
+                                                            <input type="text" name="subject" placeholder="Subject:" required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="input-field">
+                                                            <label>Message:</label>
+                                                            <textarea name="message" placeholder="Type your message..."></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="input-field input-submit">
+                                                            <input type="submit" name="submit" value="SEND MESSAGE">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="btn_pckge">
-              <button class="btn-custom select-plan @if(old('plan') == $package->id) package-selected @endif" type="button" data-plan="{{$package->id}}">Select</button>
-            </div>
-          </div>
-          @endforeach
         </div>
-      </div>
     </section>
     <!-- Vendor Form -->
-    <section class="secSignup pt-100 pb-100">
+    <section class="secSignup pt-100 pb-100" id="packages">
         <div class="container">
             <div class="signupForm createEventForm">
               <form class="form_sign vendor_form_signUp" action="{{route('subscription.create')}}" method="post" id="payment-form">
