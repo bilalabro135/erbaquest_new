@@ -57,6 +57,7 @@ class UserUpdateRequest extends FormRequest
             'address' =>( $this->has('address')) ? $this->get('address') : null,
             'profile_image' =>( $this->has('profile_image')) ? $this->get('profile_image') : null,
             'phone' => $this->get('phone'),
+            'featured' => $this->get('featured'),
        ];
        if ($this->has('password') && $this->get('password') != null ) {        
              $data['password'] =  Hash::make($this->get('password'));

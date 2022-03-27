@@ -12,9 +12,11 @@ use App\Models\Settings;
 use App\Http\Requests\Admin\User\UserRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
 use App\Http\Requests\Common\CardInfoRequest;
+use App\Http\Requests\Common\ReviewRequest;
 
 use App\Models\UserGatewayProfiles;
 use App\Models\UserPaymentProfiles;
+use App\Models\Reviews; 
 
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
@@ -23,6 +25,7 @@ use DataTables;
 use Redirect;
 use Auth;
 use Bouncer;
+use Carbon\Carbon;
 class UserController extends Controller
 {
     public function index()
@@ -85,44 +88,125 @@ class UserController extends Controller
     {
         $roles = Bouncer::role()->all()->pluck('name');
         $Settings = Settings::get('registration');
-        return view('admin.users.edit', compact('user', 'roles', 'Settings'));
-    }
-    public function updateUsers(UserUpdateRequest $request)
-    {
-        $userData= $request->getUserData();
 
-        $user = new User;
-        $user->exists = true;
-        $user->id = $userData['id'];
-        $user->name = $userData['name'];
-        $user->email = $userData['email'];
-        $user->address = $userData['address'];
-        $user->phone = $userData['phone'];
-        $user->username = $userData['username'];
-        $user->profile_image = $userData['profile_image'];
-        if($request->hasPassword()){
-            $user->password = $userData['password'];
-        }
-        if ($request->shouldUpdateVerifiacation()) {
-            $user->email_verified_at = $userData['email_verified_at'];
-        }
-        $user->save();
-        if ($request->shouldSendVerificationEmail()) {
-            $user->sendEmailVerificationNotification();
-        }
-
-        $currentRole= $user->getRoles();
-                
-        if(empty($currentRole[0])){
-            $user->assign($request->role);
-        }else{
-            if($currentRole[0] != $request->role){
-                $user->retract($currentRole[0]);
-                $user->assign($request->role);
+        $user_role = (isset($user->roles()->pluck('name')[0]) ? $user->roles()->pluck('name')[0] : 0);
+        $reviews = Reviews::where("rel_id",$user['id'])->get();
+        $sendReviews = array();
+        foreach ($reviews as $review) {
+            if($review['user_id']){
+               $getUsers = User::where("id",$review['user_id'])->first(); 
+               $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $getUsers['profile_image'],
+                    'name' => $getUsers['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );        
+             
+            }else{
+                $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $review['featured_image'],
+                    'name' => $review['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );
             }
         }
+        return view('admin.users.edit', compact('user', 'roles', 'Settings','sendReviews','user_role'));
+    }
+
+    public function submitComment(ReviewRequest $request){
+
+        $request = $request->getRequest();
+        $update_revies = Reviews::where('id',$request['comment_id'])->update(['comment'=>$request['comment']]);
+        if ( $update_revies ) {
+           return response()->json(['msg' => 'Comment has been updated!', 'msg_type' => 'success']);
+        }
+    }
+
+    public function deleteComment(ReviewRequest $request)
+    {   
+        $delete_id =  $request->getRequest()['comment_id'];
+        $comment = Reviews::where('id', $delete_id)->delete();
+        if ( $comment ) {
+            return response()->json(['msg' => 'Comment has been deleted!', 'msg_type' => 'success']);
+        } 
+
+    }
+
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new Carbon;
+        $ago = new Carbon($datetime);
         
-        return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+        public function updateUsers(UserUpdateRequest $request)
+        {
+            $userData= $request->getUserData();
+
+            $user = new User;
+            $user->exists = true;
+            $user->id = $userData['id'];
+            $user->name = $userData['name'];
+            $user->email = $userData['email'];
+            $user->address = $userData['address'];
+            $user->phone = $userData['phone'];
+            $user->username = $userData['username'];
+            $user->profile_image = $userData['profile_image'];
+            $user->featured = $userData['featured'];
+            if($request->hasPassword()){
+                $user->password = $userData['password'];
+            }
+            if ($request->shouldUpdateVerifiacation()) {
+                $user->email_verified_at = $userData['email_verified_at'];
+            }
+            $user->save();
+            if ($request->shouldSendVerificationEmail()) {
+                $user->sendEmailVerificationNotification();
+            }
+
+            $currentRole= $user->getRoles();
+                    
+            if(empty($currentRole[0])){
+                $user->assign($request->role);
+            }else{
+                if($currentRole[0] != $request->role){
+                    $user->retract($currentRole[0]);
+                    $user->assign($request->role);
+                }
+            }
+            
+            return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
     }
     public function deleteuser(Request $request)
     {   

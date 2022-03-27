@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\EventRequest;
 use App\Http\Requests\Admin\EventTypeRequest;
 use App\Http\Requests\Common\FrontEventRequest;
+use App\Http\Requests\Common\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
@@ -19,11 +20,14 @@ use App\Models\Vendor;
 use App\Models\Area;
 use App\Models\WishLists;
 use App\Models\AssignRoles;
+use App\Models\Reviews; 
+
 use Validator;
 use DataTables;
 use Bouncer;
 use Redirect; 
 use View;
+use Carbon\Carbon;
 class EventController extends Controller
 {
     public function index()
@@ -113,7 +117,38 @@ class EventController extends Controller
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
-        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries'));
+
+        $reviews = Reviews::where("rel_id",$event['id'])->get();
+        $sendReviews = array();
+        foreach ($reviews as $review) {
+            if($review['user_id']){
+               $getUsers = User::where("id",$review['user_id'])->first(); 
+               $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $getUsers['profile_image'],
+                    'name' => $getUsers['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );        
+             
+            }else{
+                $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $review['featured_image'],
+                    'name' => $review['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );
+            }
+        }
+
+        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -162,6 +197,73 @@ class EventController extends Controller
             $event->amenities()->sync(array());
         
         return Redirect::route('events')->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
+    }
+
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new Carbon;
+        $ago = new Carbon($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+        public function updateUsers(UserUpdateRequest $request)
+        {
+            $userData= $request->getUserData();
+
+            $user = new User;
+            $user->exists = true;
+            $user->id = $userData['id'];
+            $user->name = $userData['name'];
+            $user->email = $userData['email'];
+            $user->address = $userData['address'];
+            $user->phone = $userData['phone'];
+            $user->username = $userData['username'];
+            $user->profile_image = $userData['profile_image'];
+            $user->featured = $userData['featured'];
+            if($request->hasPassword()){
+                $user->password = $userData['password'];
+            }
+            if ($request->shouldUpdateVerifiacation()) {
+                $user->email_verified_at = $userData['email_verified_at'];
+            }
+            $user->save();
+            if ($request->shouldSendVerificationEmail()) {
+                $user->sendEmailVerificationNotification();
+            }
+
+            $currentRole= $user->getRoles();
+                    
+            if(empty($currentRole[0])){
+                $user->assign($request->role);
+            }else{
+                if($currentRole[0] != $request->role){
+                    $user->retract($currentRole[0]);
+                    $user->assign($request->role);
+                }
+            }
+            
+            return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
     }
 
     public function frontindex()

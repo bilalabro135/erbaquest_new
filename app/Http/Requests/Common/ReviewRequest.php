@@ -4,7 +4,7 @@ namespace App\Http\Requests\Common;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class WishlistRequest extends FormRequest
+class ReviewRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,11 @@ class WishlistRequest extends FormRequest
         return [];
     }
 
-    public function getWishListData()
+    public function getRequest()
     {
         return [
-            'event_id' => $this->get('event_id'),
+            'comment_id' => $this->get('comment_id'),
+            'comment' => $this->get('comment'),
         ];
     }
 }

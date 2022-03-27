@@ -146,7 +146,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="role">Featured</label>
-                                <input type="checkbox" name="featured" value="1" @if( $user->profile_image ) checked="checked" @endif >
+                                <input type="checkbox" name="featured" value="1" @if( $user->featured ) checked="checked" @endif >
                                 @error('email_verified_at')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -161,38 +161,105 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </form>
+        <div class="row">
+            @if($sendReviews) 
                 <div class="col-md-12">
+                    <div class="alert-success success review_sucess">
+                        Review has been removed!
+                    </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Edit User</h6>                           
+                            <h6 class="m-0 font-weight-bold text-primary">Reviews On Vendors</h6>                           
                         </div>
-                        <div class="card-body">
-                            <div class="profilePicture">
-                                <img src="https://erba-quest.geeksroot.net//storage/photos/1/vendor-1.jpg">
-                            </div>
-                            <div class="profile_info">
-                                <div class="profile_name">Person 1</div>
-                                <div class="person_desc">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                                </div>
-                                <div class="action_set">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0);">Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">Delete</a>
-                                        </li>
+                            <div class="card-body">
+                            @foreach($sendReviews as $sendReview)
+                                <div class="card_reviews" id="comment_{{ $sendReview['id'] }}">
+                                    <div class="profilePicture">
+                                        <img src="{{ $sendReview['profile_image'] }}">
+                                    </div>
+                                    <div class="profile_info">
+                                        <div class="profile_name">{{ $sendReview['name'] }}</div>
+                                        <div class="date">{{ $sendReview['date'] }}</div>
+                                        <div class="rating_Set">
+                                            <div class="rating_speed">
+                                                <h5>Speed</h5> 
+                                               <ul>
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if($i >= $sendReview['speed_rating'])
+                                                        <li><i class="far fa-star"></i></li> <!-- kali -->
+                                                    @else
+                                                        <li><i class="fas fa-star"></i></li> 
+                                                    @endif
+                                                @endfor
+                                                   <div style="clear: both;"></div>
+                                               </ul> 
+                                               <div style="clear: both;"></div>
+                                           </div>
+                                           <div class="rating_speed">
+                                                <h5>Quality:</h5> 
+                                               <ul>
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if($i >= $sendReview['quality_rating'])
+                                                        <li><i class="far fa-star"></i></li> <!-- kali -->
+                                                    @else
+                                                        <li><i class="fas fa-star"></i></li> 
+                                                    @endif
+                                                @endfor
+                                                   <div style="clear: both;"></div>
+                                               </ul> 
+                                               <div style="clear: both;"></div>
+                                           </div>
+                                           <div class="rating_speed">
+                                                <h5>Price:</h5> 
+                                               <ul>
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if($i >= $sendReview['price_rating'])
+                                                        <li><i class="far fa-star"></i></li> <!-- kali -->
+                                                    @else
+                                                        <li><i class="fas fa-star"></i></li> 
+                                                    @endif
+                                                @endfor
+                                                   <div style="clear: both;"></div>
+                                               </ul> 
+                                               <div style="clear: both;"></div>
+                                           </div>
+                                           <div style="clear: both;"></div>
+                                        </div>
+                                        
                                         <div style="clear: both;"></div>
-                                    </ul>
+                                        <div class="person_desc">
+                                            <p id="parah_comment_{{ $sendReview['id'] }}" class="ondelete">{{ $sendReview['comment'] }}</p>
+                                            <textarea id="textarea_{{ $sendReview['id'] }}" class="onsubmit">{{ $sendReview['comment'] }}</textarea>
+
+                                        </div>
+                                        <div class="action_set">
+                                            <ul>
+                                                <li class="ondelete">
+                                                    <a class="edittextarea" href="javascript:void(0);">Edit</a>
+                                                </li>
+                                                <li class="onsubmit">
+                                                    <a class="submit_func"  data-vendorid="{{ $sendReview['id'] }}" href="javascript:void(0);">Submit</a>
+                                                </li>
+                                                <li class="ondelete">
+                                                    <a data-vendorid="{{ $sendReview['id'] }}" class="delete_func" href="javascript:void(0);">Delete</a>
+                                                </li>
+                                                <li class="onsubmit">
+                                                    <a class="cancelButton" href="javascript:void(0);">Cancel</a>
+                                                </li>
+                                                <div style="clear: both;"></div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
                                 </div>
-                            </div>
+                            @endforeach    
                         </div>
                     </div>
-                </div>
-            </div>
-
-        </form>
+                </div>   
+            @endif
+        </div>
     </div>
 @endsection
 
@@ -205,6 +272,58 @@
         $('#profile_image').val('');
         $('#lfm').html('Upload Image')
     }
+</script>
+<script type="text/javascript">
+    $(".delete_func").click(function() {
+        if (confirm('Are you sure?')) {
+            var comment_id = $(this).data("vendorid"); 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+               type:'POST',
+               url: '{{route("comment.delete")}}',
+               data:'comment_id='+comment_id,
+               success:function() {
+                  $("#comment_"+comment_id).remove();
+                  $(".review_sucess").show();
+                  $(".review_sucess").delay("slow").fadeOut();
+               }
+            });
+        }
+    });
+
+    $(".submit_func").click(function(){
+        var comment_id = $(this).data("vendorid");
+        var comment = $("#textarea_"+comment_id).val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+           type:'POST',
+           url: '{{route("comment.submit")}}',
+           data:'comment_id='+comment_id+"&comment="+comment,
+           success:function() {
+              $(".onsubmit").hide();
+              $(".ondelete").show();
+              $("#parah_comment_"+comment_id).text(comment);
+           }
+        });
+    });
+    $(".edittextarea").click(function() {
+        $(".person_desc p").hide();
+        $(".person_desc textarea").show();
+        $(".onsubmit").show();
+        $(".ondelete").hide();
+    });
+    $(".cancelButton").click(function(e) {
+        $(".onsubmit").hide();
+        $(".ondelete").show();
+    });
 </script>
 @endsection
 
