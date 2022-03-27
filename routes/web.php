@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
 use App\Http\Controllers\Common\VendorController;
 use App\Http\Controllers\Common\WishlistsController;
+use App\Http\Controllers\Common\NewsletterController;
+use App\Http\Controllers\Common\ContactController;
 use App\Http\Controllers\Front\SubscriptionController;
 
 use App\Http\Controllers\Front\AccountController;
@@ -143,6 +145,16 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/areas/{area:id}/edit/', [AreaController::class, 'edit'])->name('areas.edit')->middleware('role:updateAreas');
     Route::post('/areas/{area:id}/update/', [AreaController::class, 'update'])->name('areas.update')->middleware('role:updateAreas');
     Route::get('/areas/{area:id}/delete', [AreaController::class, 'destroy'])->name('areas.delete')->middleware('role:deleteAreas');
+
+    // Newsletter
+    Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter');
+    Route::get('/newsletter/get', [NewsletterController::class, 'getNewsletter'])->name('newsletter.get');
+    Route::get('/newsletter/{newsletter:id}/delete', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
+
+    // Contact
+    Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
+    Route::get('/contact/get', [ContactController::class, 'getContact'])->name('contact.get');
+    Route::get('/contact/{contact:id}/delete', [ContactController::class, 'destroy'])->name('contact.delete');
 
     // Amenities
     Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities')->middleware('role:viewAmenities');

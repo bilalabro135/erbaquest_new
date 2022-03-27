@@ -171,6 +171,42 @@
             @endif
 
 
+            <div class="sidebar-heading">
+                Newletters
+            </div>
+            <li class="nav-item {{(request()->is('admin/newsletter/*') || request()->is('admin/newsletter') ) ? 'active' : ''}}">
+                <a class="nav-link {{(request()->is('admin/newsletter/*') || request()->is('admin/newsletter') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#newsletters"
+                    aria-expanded="true" aria-controls="events">
+                    <i class="fas fa-file"></i>
+                    <span>Newsletter</span>
+                </a>
+                <div id="newsletters" class="collapse {{(request()->is('admin/newsletter/*') || request()->is('admin/newsletter') ) ? 'show' : ''}}" aria-labelledby="All newsletters" data-parent="#accordionSidebar">
+                    <div class="bg-primary py-2 collapse-inner rounded">
+                        <a class="collapse-item text-light" href="{{route('newsletter')}}">All Newsletter</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Contact
+            </div>
+            <li class="nav-item {{(request()->is('admin/contact/*') || request()->is('admin/contact') ) ? 'active' : ''}}">
+                <a class="nav-link {{(request()->is('admin/contact/*') || request()->is('admin/contact') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#contact"
+                    aria-expanded="true" aria-controls="events">
+                    <i class="fas fa-file"></i>
+                    <span>Contact</span>
+                </a>
+                <div id="contact" class="collapse {{(request()->is('admin/contact/*') || request()->is('admin/contact') ) ? 'show' : ''}}" aria-labelledby="All contact" data-parent="#accordionSidebar">
+                    <div class="bg-primary py-2 collapse-inner rounded">
+                        <a class="collapse-item text-light" href="{{route('admin.contact')}}">All Contact</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+
+
+
             @if ( Bouncer::can('viewPages') || Bouncer::can('addPages') || Bouncer::can('editPageComponents') )
                 <div class="sidebar-heading">
                     Pages
