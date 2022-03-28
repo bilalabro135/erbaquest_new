@@ -3971,3 +3971,20 @@ p.error{
 .credit_main_set .error {
     margin-top: 0px;
 }
+.colWidthMargin #expMonth {
+    width: 47%;
+    padding: 0px 10px;
+}
+.colWidthMargin #expYear {
+    width: 47%;
+    padding: 0px 10px;
+}
+.colWidthMargin {
+    height: 190px;
+}
+.expMonthCol.colWidthMargin #expYear-error {
+    right: -5px;
+}
+.colWidthMargin input {
+  height: 53px;
+}

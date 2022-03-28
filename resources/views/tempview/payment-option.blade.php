@@ -51,7 +51,7 @@
                 <p>No Payment Option</p>
                @endif
                 <div class="main_payment_form">
-                  <form class="form_sign paymentVendorEdit" action="{{route('payment.update')}}" method="post" id="payment-form">
+                  <form class="form_sign paymentVendorEdit row" action="{{route('payment.update')}}" method="post" id="payment-form">
                     @csrf
                       <input type="hidden" name="profile_id" value="{{$creditsData['profile_id'] }}">
                      <!-- credit card info start -->
@@ -65,13 +65,13 @@
                             <input type="text" name="lname" id="lname" placeholder="Last Name" required="required">
                             <p class="error lname"></p>
                         </div>
-                        <div class="input-field col-sm-4">
+                        <div class="input-field col-sm-4 colWidthMargin">
                             <label for="cardNumber">Card Number</label>
                             <input type="text" name="cardNumber" id="cardNumber" placeholder="Card Number">
                             <p class="error cardNumber"></p>
                         </div>
 
-                        <div class="input-field col-sm-4 expMonthCol">
+                        <div class="input-field col-sm-4 expMonthCol colWidthMargin">
                             <label for="expMonth">Expiry Month</label>
                             <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
                             <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
@@ -79,7 +79,7 @@
                             <p class="error expMonth"></p>
                         </div>
 
-                        <div class="input-field col-sm-4">
+                        <div class="input-field col-sm-4 colWidthMargin">
                             <label for="cardCode">Card Code</label>
                             <input type="text" name="cardCode" id="cardCode" placeholder="Card Code">
                             <p class="error cardCode"></p>
@@ -101,12 +101,6 @@
     </section>
 
     <style type="text/css">
-      .paymentVendorEdit .input-field{
-        float: left;
-        width: 47%;
-        margin-left: 10px;
-        margin-right: 10px;
-      }
       label.error{
         position: absolute;
         color: #f52d2d;
