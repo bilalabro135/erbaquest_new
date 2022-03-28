@@ -6,16 +6,20 @@
     @if(isset($fields['description']))
       <p class="text-center">{!! $fields['description'] !!}</p>
     @endif
-    <form class="contactForm" action="" method="post">
+    <form class="contactForm" action="{{route('contact-form.store')}}" method="post">
+      @csrf
       <div class="row">
-        <div class="col-sm-12 col-md-4 input-field">
-          <input type="text" name="name" placeholder="Name*" required="required">
+        <div class="col-sm-12 col-md-6 input-field">
+          <input type="text" name="first_name" placeholder="First Name:" required="required">
         </div>
-        <div class="col-sm-12 col-md-4 input-field">
-          <input type="email" name="email" placeholder="Email*" required="required">
+        <div class="col-sm-12 col-md-6 input-field">
+          <input type="text" name="last_name" placeholder="Last Name:" required="required">
         </div>
-        <div class="col-sm-12 col-md-4 input-field">
-          <input type="text" name="phone" placeholder="Phone*" required="required">
+        <div class="col-sm-12 col-md-6 input-field">
+          <input type="email" name="email" placeholder="Email Address:" required="required">
+        </div>
+        <div class="col-sm-12 col-md-6 input-field">
+          <input type="text" name="subject" placeholder="Subject:" required="required">
         </div>
         <div class="col-sm-12 input-field">
           <textarea name="message" placeholder="Message"></textarea>
@@ -23,6 +27,11 @@
         <div class="col-sm-12 input-submit input-field">
           <input type="submit" name="submit" value="{{(isset($fields['cta_action'])) ? isset($fields['cta_action']) : 'SUMBIT'}}">
         </div>
+        @if(session('msg'))
+            <div class="alert alert-success" style="margin-top: 50px;">
+                {{session('msg')}}                                            
+            </div>
+        @endif
       </div>
     </form>
   </div>

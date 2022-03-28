@@ -9,6 +9,7 @@ use Bouncer;
 use Redirect;
 
 use App\Models\Contact;
+use Mail; 
 use App\Http\Requests\Common\ContactRequest;
 
 class ContactController extends Controller
@@ -67,6 +68,30 @@ class ContactController extends Controller
             return Redirect::route('admin.contact')->with(['msg' => 'Contact Message deleted', 'msg_type' => 'success']);
         }
         abort(404);
+    }
+
+    public function contactForm() 
+    { 
+        return view('tempview.contact'); 
+    } 
+
+    public function sendEmail(ContactRequest $request)
+    {
+        $input = $request->all(); 
+        Contact::create($input); 
+
+        //  Send mail to admin 
+        Mail::send('tempview/contactMail', array( 
+            'first_name' => $input['first_name'], 
+            'last_name' => $input['last_name'], 
+            'email' => $input['email'], 
+            'subject' => $input['subject'], 
+            'message' => $input['message'], 
+        ), function($message) use ($request){ 
+            $message->from($request->email); 
+            $message->to('areeb.ghouri@geeksroot.com', 'Admin')->subject($request->get('subject')); 
+        }); 
+        return redirect()->back()->with(['msg' => 'Contact Form Submit Successfully']);
     }
 
 }

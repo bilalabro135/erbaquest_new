@@ -23,7 +23,13 @@ class ContactRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'email|required',
+            'subject' => 'required',
+            'message' => 'max:255',
+        ];
     }
 
     public function getContactData()

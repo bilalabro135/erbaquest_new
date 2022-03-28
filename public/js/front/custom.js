@@ -477,3 +477,32 @@ $(document).on('click', 'a[href^="#"]', function(e) {
     // animated top scrolling
     $('body, html').animate({scrollTop: pos});
 });
+
+// Contact Form
+$(function(){
+  $(".form_contact").validate({
+    rules: {
+      first_name: "required",
+      last_name: "required",
+      subject: "required",
+      email: {
+        required: true,
+        email: true
+      },
+      
+    },
+    messages: {
+      first_name: "The name first name is required.",
+      last_name: "The name last name is required.",
+      subject: "The name subject is required.",
+      email: {
+        required:"The email field is required.",
+        email:"Please enter correct email.",
+      },
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+

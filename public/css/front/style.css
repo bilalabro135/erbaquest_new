@@ -3476,7 +3476,8 @@ button.delete-event:hover:after {
 .front_event_create .error,
 .front_event_update .error,
 .register_form_valid .error,
-.public_profile_val .error {
+.public_profile_val .error,
+.form_contact .error {
   color: #d52323;
   font-size: 16px;
 }
@@ -3995,7 +3996,7 @@ p.error{
   margin-left: 20px;  
 }
 .pckg-box ul li img {
-  margin-right: 5px;
+  /*margin-right: 5px;*/
   position: relative;
   top: 3px;
 }

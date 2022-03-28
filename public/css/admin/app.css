@@ -4680,7 +4680,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #4e73df;
+  color: #2daf4b;
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
@@ -4713,8 +4713,8 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #2daf4b;
+  border-color: #2daf4b;
 }
 
 .page-item.disabled .page-link {
@@ -6315,7 +6315,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #4e73df !important;
+  background-color: #2daf4b !important;
 }
 
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
@@ -9638,7 +9638,7 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .text-primary {
-  color: #4e73df !important;
+  color: #2daf4b !important;
 }
 
 a.text-primary:focus, a.text-primary:hover {
@@ -9942,8 +9942,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-  background-color: #4e73df;
-  background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  background-color: #2c8e43;
+  background-image: linear-gradient(180deg, #2c8e43 10%, #2c8e43 100%);
   background-size: cover;
 }
 
@@ -11360,7 +11360,7 @@ div#dataTable_filter input {
 }
 
 .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover, .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover {
-  background: #3959b6;
+  background: #166c2a;
 }
 
 div#dataTable_wrapper {

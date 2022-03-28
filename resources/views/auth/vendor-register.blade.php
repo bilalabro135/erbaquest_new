@@ -23,7 +23,7 @@
     <section class="secSponsor secSignup-vendor">
         <div class="container">
             @if(session('msg'))
-                <div class="alert alert-{{session('msg_type')}}">
+                <div class="alert alert-success">
                     {{session('msg')}}                                            
                 </div>
             @endif
@@ -63,7 +63,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="signupForm">
-                                            <form class="form_contact" action="" method="post">
+                                            <form class="form_contact" action="{{route('contact-form.store')}}" method="post">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6">
                                                         <div class="input-field">

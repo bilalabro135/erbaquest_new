@@ -15,7 +15,11 @@
 
     <section class="secContact pt-100 pb-100">
       <div class="container">
-
+        @if(session('msg'))
+            <div class="alert alert-success">
+                {{session('msg')}}                                            
+            </div>
+        @endif
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <div class="locate-box left">
@@ -129,7 +133,8 @@
         </div>
 
         <div class="signupForm">
-          <form class="form_contact" action="" method="post">
+          <form class="form_contact" action="{{route('contact-form.store')}}" method="post">
+            @csrf
             <div class="row">
               <div class="col-sm-12 col-md-6">
                 <div class="input-field">

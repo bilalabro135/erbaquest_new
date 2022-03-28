@@ -248,6 +248,10 @@ Route::get('/account/upcoming-event',[EventController::class, 'upcomingEvent'])-
 Route::get('/account/draft-events',[EventController::class, 'draftEvent'])->name('draft.account')->middleware('auth','verified');
 Route::get('/account/past-events',[EventController::class, 'pastEvent'])->name('past.account')->middleware('auth','verified');
 
+// Contact Form
+Route::get('/contact', [ContactController::class, 'contactForm'])->name('contact-form'); 
+Route::post('/contact-form', [ContactController::class, 'sendEmail'])->name('contact-form.store');
+
 Route::group(['front'],  function () {
     Route::post('/notification/store', [SendNotification::class, 'store'])->name('notification.store')->middleware('auth');
     Route::get('/', [PagesController::class, 'home'])->name('home');
