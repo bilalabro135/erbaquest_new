@@ -1,6 +1,6 @@
+@if(!empty($vendors))
 <section class="featured_vendors">
 	<h3 class="ft-blanka vc_heading vc_heading-green text-center">FEATURED VENDORS</h3>
-	@if(!empty($vendors))
     <div class="FV_slider nav_arrow">
       <ul class="owl-carousel owl-theme">
       	@foreach($vendors as $vendor)
@@ -14,8 +14,8 @@
       	@endforeach
       </ul>
     </div>
-    @endif
 </section>
+@endif
 @push('scripts')
 <script>
 	$('.FV_slider ul').owlCarousel({
