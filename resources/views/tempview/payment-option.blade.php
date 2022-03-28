@@ -65,22 +65,21 @@
                             <input type="text" name="lname" id="lname" placeholder="Last Name" required="required">
                             <p class="error lname"></p>
                         </div>
-                        <div class="input-field col-sm-6">
+                        <div class="input-field col-sm-4">
                             <label for="cardNumber">Card Number</label>
                             <input type="text" name="cardNumber" id="cardNumber" placeholder="Card Number">
                             <p class="error cardNumber"></p>
                         </div>
-                        <div class="input-field col-sm-6">
+
+                        <div class="input-field col-sm-4 expMonthCol">
                             <label for="expMonth">Expiry Month</label>
-                            <input type="number" name="expMonth" id="expMonth" placeholder="Expiry Month" maxlength="2">
+                            <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
+                            <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
+                            <div style="clear: both;"></div>
                             <p class="error expMonth"></p>
                         </div>
-                        <div class="input-field col-sm-6">
-                            <label for="expYear">Expiry Year</label>
-                            <input type="number" name="expYear" id="expYear" placeholder="Expiry Year" maxlength="4">
-                            <p class="error expYear"></p>
-                        </div>
-                        <div class="input-field col-sm-6">
+
+                        <div class="input-field col-sm-4">
                             <label for="cardCode">Card Code</label>
                             <input type="text" name="cardCode" id="cardCode" placeholder="Card Code">
                             <p class="error cardCode"></p>
@@ -224,6 +223,9 @@
 
       $(document).ready(function() {
         $('#cardNumber').mask('0000 0000 0000 0000');
+        $('#expMonth').mask('00');
+        $('#expYear').mask('0000');
+        $('#cardCode').mask('0000');
         $(".card_option").click(function() {
           $(".main_payment_form").show();
         });

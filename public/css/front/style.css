@@ -3718,10 +3718,11 @@ p.error{
   margin-top: 30px;
 }
 .vendor_box img {
-  width: 220px;
-  height: 220px;
+  width: 100%;
+  min-height: 180px;
   object-fit: cover;
   padding: 30px;
+  max-height: 230px;
 }
 .vendor_box h3 {
   background-color: #fff;
@@ -3749,7 +3750,7 @@ p.error{
 }
 .FV_slider .owl-carousel li.item .figure img {
   object-fit: cover;
-  min-height: 200px;
+  min-height: 150px;
   max-height: 300px;
   padding: 15px;
 }
