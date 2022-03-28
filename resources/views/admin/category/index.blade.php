@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'All Categories'])
+@extends('layouts.admin.app', ['title' => 'All Media Categories'])
 
 
 
@@ -10,7 +10,7 @@
         </div>
         @endif
 
-         <h1 class="h3 mb-4 text-gray-800">All Categories</h1>
+         <h1 class="h3 mb-4 text-gray-800">All Media Categories</h1>
          <div class="row">
          	@can('addCategories')
 		    	<div class="col-md-4">
@@ -18,7 +18,7 @@
 		    			@csrf
 		    		<div class="card shadow">
 		    			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-		                	<h6 class="m-0 font-weight-bold text-primary">Add Category</h6>		              
+		                	<h6 class="m-0 font-weight-bold text-primary">Add Media Category</h6>		              
 			            </div>
 			            <div class="card-body">
 			            	<div class="form-group">
