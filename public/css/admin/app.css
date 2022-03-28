@@ -12040,6 +12040,21 @@ table tr th{
 
 .main_sortBar select{
     float: left;
-    width: 14%;
+    width: 59%;
     margin-left: 5px;
+    line-height: 30px;
+    height: 30px;
+    font-size: 14px;
+    padding-top: 3px;
+  }
+  .card-body{
+   position: relative; 
+  }
+  .main_sortBar{
+    position: absolute;
+    left: 31%;
+    text-align: center;
+    margin: 0px auto;
+    z-index: 9999999999;
+    top: 22px;
   }

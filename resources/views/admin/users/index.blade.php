@@ -22,13 +22,13 @@
             <div class="card-body">
             	<div class="main_sortBar">
             		<label>Filter By:</label>
-            		<select class="form-control">
+            		<select name="role_id" class="form-control rolefileder">
             			<option value=""></option>
-            			<option value="4">Admin</option>
-            			<option value="2">Vendor</option>
-            			<option value="3">Dev</option>
+            			<option value="4" @if( app('request')->input('role_id') == 4) selected="selected" @endif>Admin</option>
+            			<option value="2" @if( app('request')->input('role_id') == 2) selected="selected" @endif>Vendor</option>
+            			<option value="3" @if( app('request')->input('role_id') == 3) selected="selected" @endif>Organizer</option>
             		</select>
-            		
+
             	</div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -85,6 +85,12 @@
 		        order: [[0, 'desc']]
 		  });
 		  
+		});
+		$(document).ready(function(){
+			$(".rolefileder").change(function(){
+		        value = $(this).val();
+		        window.location.href = "{{ route('users') }}"+'?role_id='+value;
+		    });
 		});
 	</script>
 @endsection
