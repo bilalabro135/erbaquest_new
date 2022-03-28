@@ -229,7 +229,7 @@
 
                         <div class="input-field input-checkbox active">
                             <label class="checkmark active">
-                                <input type="checkbox" name="terms_and_condition" value="1" checked="checked">I Agree With Terms & Conditon
+                                <input type="checkbox" name="terms_and_condition" value="1" checked="checked"><a target="_blank" href="../terms-and-condition" required="required"> I Agree With Terms & Conditon</a>
                             </label>
                             @error('terms_and_condition')
                             <span class="invalid-feedback" role="alert">
@@ -520,6 +520,9 @@ $(function(){
 $(document).ready(function(){  
         $('#phone').mask('(999)-999-9999'); 
         $('#cardNumber').mask('0000 0000 0000 0000');
+        $('#expMonth').mask('00');
+        $('#expYear').mask('0000');
+        $('#cardCode').mask('0000');
     }); 
 </script>
 <style type="text/css">

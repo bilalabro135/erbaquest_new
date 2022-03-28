@@ -3953,6 +3953,7 @@ p.error{
 }
 .expMonthCol {
   position: relative;
+  height: 140px;
 }
 .expMonthCol #expMonth-error,
 .expMonthCol #expYear-error {
@@ -3965,4 +3966,7 @@ p.error{
 }
 .expMonthCol #expYear-error {
   right: 0px;
+}
+.credit_main_set .error {
+    margin-top: 0px;
 }
