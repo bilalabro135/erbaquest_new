@@ -134,6 +134,8 @@ class SubscriptionController extends Controller
                 $sub = new Subscription();
                 $sub->user_id = $user->id;
                 $sub->name = $user->name;
+                $sub->subscription_name = $package['name'];
+                $sub->price = $package['price'];
                 $sub->stripe_id = $response->getSubscriptionId();
                 $sub->save();
 
