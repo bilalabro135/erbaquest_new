@@ -46,28 +46,35 @@
                             @can('addBlogs')
                             <a class="collapse-item text-light" href="{{route('blogs.add')}}">Add Media</a>
                             @endcan
-                        </div>
-                    </div>
-                </li>
-                @endif
-
-                @if (Bouncer::can('viewCategories') || Bouncer::can('addCategories'))
-                <li class="nav-item {{(request()->is('admin/categories/*') || request()->is('admin/categories') ) ? 'active' : ''}}">
-                    <a class="nav-link {{(request()->is('admin/categories/*') || request()->is('admin/categories') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#categories"
-                        aria-expanded="true" aria-controls="categories">
-                       <i class="far fa-sticky-note"></i>
-                        <span>Categories</span>
-                    </a>
-                    <div id="categories" class="collapse {{(request()->is('admin/categories/*') || request()->is('admin/categories') ) ? 'show' : ''}}" aria-labelledby="All Categories" data-parent="#accordionSidebar">
-                        <div class="bg-primary py-2 collapse-inner rounded">
-                          
                             <a class="collapse-item text-light" href="{{route('categories')}}">All Categories</a>
                         </div>
                     </div>
                 </li>
                 @endif
+
+                
                 <hr class="sidebar-divider">
             @endif
+
+            <div class="sidebar-heading">
+                Podcasts & Categories
+            </div>
+            
+            <li class="nav-item {{(request()->is('admin/podcasts/*') || request()->is('admin/podcasts') ) ? 'active' : ''}}">
+                <a class="nav-link {{(request()->is('admin/podcasts/*') || request()->is('admin/podcasts') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#podcasts"
+                    aria-expanded="true" aria-controls="Media">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Podcast</span>
+                </a>
+                <div id="podcasts" class="collapse {{(request()->is('admin/podcasts/*') || request()->is('admin/podcasts') ) ? 'show' : ''}}" aria-labelledby="All Podcasts" data-parent="#accordionSidebar">
+                    <div class="bg-primary py-2 collapse-inner rounded">
+                        <a class="collapse-item text-light" href="{{route('podcasts')}}">All Podcasts</a>
+                        <a class="collapse-item text-light" href="{{route('podcasts.add')}}">Add Podcasts</a>
+                        <a class="collapse-item text-light" href="{{route('podcast.categories')}}">All Categories</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
 
 
              @if (Bouncer::can('viewAreas') || Bouncer::can('addAreas'))

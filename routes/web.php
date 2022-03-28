@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Common\SettingsController;
 use App\Http\Controllers\Common\BlogController;
+use App\Http\Controllers\Common\PodcastController;
 use App\Http\Controllers\Common\CategoryController;
 use App\Http\Controllers\Common\PagesController;
 use App\Http\Controllers\Admin\UserController;
@@ -124,14 +125,39 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/blogs/{blog:id}/update/', [BlogController::class, 'update'])->name('blogs.update')->middleware('role:updateBlogs');
     Route::get('/blogs/{blog:id}/delete', [BlogController::class, 'destroy'])->name('blogs.delete')->middleware('role:deleteBlogs');
 
+    // Podcast
+    Route::get('/podcasts', [PodcastController::class, 'index'])->name('podcasts');
+    Route::get('/podcasts/get', [PodcastController::class, 'getPodcasts'])->name('podcasts.get');
+    Route::get('/podcasts/add', [PodcastController::class, 'create'])->name('podcasts.add');
+    Route::post('/podcasts/add', [PodcastController::class, 'store'])->name('podcasts.store');
+    Route::get('/podcasts/{podcast:id}/edit/', [PodcastController::class, 'edit'])->name('podcasts.edit');
+    Route::post('/podcasts/{podcast:id}/update/', [PodcastController::class, 'update'])->name('podcasts.update');
+    Route::get('/podcasts/{podcast:id}/delete', [PodcastController::class, 'destroy'])->name('podcasts.delete');
+
+    // Categories podcast
+    Route::get('/podcasts/categories', [CategoryController::class, 'index'])->name('podcast.categories');
+    Route::get('/podcasts/categories/get', [CategoryController::class, 'getPodcastCategory'])->name('podcast.categories.get');
+    Route::post('/podcasts/categories/add', [CategoryController::class, 'store'])->name('podcast.categories.store');
+    Route::get('/podcasts/categories/{category:id}/edit/', [CategoryController::class, 'edit'])->name('podcast.categories.edit');
+    Route::post('/podcasts/categories/{category:id}/update/', [CategoryController::class, 'update'])->name('podcast.categories.update');
+    Route::get('/podcasts/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('podcast.categories.delete');    
+    Route::get('/podcasts/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('podcast.categories.delete');
+
+
     // Categories
-    Route::get('/categories', [CategoryController::class, 'index'])->name('categories')->middleware('role:viewCategories');
-    Route::get('/categories/get', [CategoryController::class, 'getCategory'])->name('categories.get')->middleware('role:viewCategories');
-    Route::post('/categories/add', [CategoryController::class, 'store'])->name('categories.store')->middleware('role:addCategories');
-    Route::get('/categories/{category:id}/edit/', [CategoryController::class, 'edit'])->name('categories.edit')->middleware('role:updateCategories');
-    Route::post('/categories/{category:id}/update/', [CategoryController::class, 'update'])->name('categories.update')->middleware('role:updateCategories');
-    Route::get('/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('role:deleteCategories');    
-    Route::get('/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('categories.delete')->middleware('role:deleteCategories');
+    Route::get('/blogs/categories', [CategoryController::class, 'blogIndex'])->name('categories')->middleware('role:viewCategories');
+    Route::get('/blogs/categories/get', [CategoryController::class, 'getCategory'])->name('categories.get')->middleware('role:viewCategories');
+
+    Route::post('/blogs/categories/add', [CategoryController::class, 'blogStore'])->name('categories.store')->middleware('role:addCategories');
+
+    Route::get('/blogs/categories/{category:id}/edit/', [CategoryController::class, 'blogEdit'])->name('categories.edit')->middleware('role:updateCategories');
+
+    Route::post('/blogs/categories/{category:id}/update/', [CategoryController::class, 'blogsUpdate'])->name('categories.update')->middleware('role:updateCategories');
+
+    Route::get('/blogs/categories/{category:id}/delete', [CategoryController::class, 'blogsDestroy'])->name('categories.delete')->middleware('role:deleteCategories');
+
+    Route::get('/blogs/categories/{category:id}/delete', [CategoryController::class, 'blogsDestroy'])->name('categories.delete')->middleware('role:deleteCategories');
+
 
     //Notification 
     Route::get('/notification/', [SendNotification::class, 'index'])->name('notification')->middleware('role:allowNotifications');

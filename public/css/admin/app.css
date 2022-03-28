@@ -12058,3 +12058,27 @@ table tr th{
     z-index: 9999999999;
     top: 22px;
   }
+.selectize-control .item{
+     display: inline-block;
+    color: #fff;
+    background-color: #4e73df;
+    border-color: #4e73df;
+    padding: 7px;
+    border-radius: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+.selectize-dropdown.multi{
+  display: none !important;
+  padding-bottom: 0px;
+    padding-top: 10px;
+  } 
+.selectize-control.form-control{
+  height: initial !important;
+  padding-bottom: 0px;
+  }
+.selectize-input input{
+  border: 0px;
+      margin-right: 10px;
+    margin-bottom: 10px;
+  }
