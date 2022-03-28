@@ -42,7 +42,6 @@ class BlogRequest extends FormRequest
                 new GalleryRule()
             ],
             'short_description' => [
-                'max:255',
                 new ShortDescription(),
             ]
         ];

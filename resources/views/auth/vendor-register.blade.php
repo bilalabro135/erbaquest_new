@@ -207,19 +207,19 @@
                                 <label for="cardNumber"><br></label>
                                 <input type="text" name="lname" id="lname" placeholder="Last Name" required="required" />
                             </div>
-                            <div class="input-field col-sm-6">
+                            <div class="input-field col-sm-4">
                                 <label for="cardNumber">Card Number</label>
                                 <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber" />
                                 <p class="error cardNumber"></p>
                             </div>
-                            <div class="input-field col-sm-6">
+                            <div class="input-field col-sm-4 expMonthCol">
                                 <label for="expMonth">Expiry Month</label>
                                 <input type="text" name="expMonth" id="expMonth" placeholder="expMonth" />
                                 <input type="text" name="expYear" id="expYear" placeholder="expYear"/>
                                 <div style="clear: both;"></div>
                                 <p class="error expMonth"></p>
                             </div>
-                            <div class="input-field col-sm-6">
+                            <div class="input-field col-sm-4">
                                 <label for="cardCode">Card Code</label>
                                 <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/>
                                 <p class="error cardCode"></p>
@@ -251,41 +251,6 @@
 @endsection
 @push ('scripts')
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
-<style type="text/css">
-    .secSponsor .alert-error{
-        background: #f34949;
-        color: #ffff;
-        font-size: 20px;
-    }
-
-    #expMonth{
-        width: 48%;
-        float: left;
-        margin-right: 10px;
-    }
-    #expYear{
-        width: 48%;
-        float: left;
-    }
-    .credit_main_set{
-        margin-bottom: 0px;
-        margin-top: 0px;
-        width: 50%;
-    }
-    .credit_main_set input{
-        height: 53px;
-    }
-    .signupForm .credit_main_set .input-field{
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-    .signupForm .credit_main_set .input-field label{
-        margin-bottom: 5px;
-            font-size: 15px;
-    }    .credit_main_set{
-
-    }
-</style>
 <script>
     // Create a Stripe client.
 // var stripe = Stripe('{{ env("STRIPE_KEY") }}');
@@ -456,7 +421,8 @@ function sendPaymentDataToAnet(argument) {
                         $(".cardNumber").text("Please provide valid credit card number.");
                     }
                     if(response.messages.message[i].code == "E_WC_06" ){
-                        $(".expMonth").text("Please provide valid expiration month.");
+                        $(".expMonth").text("Please provide valid expiration date.");
+                        $(".expMonth").mask("12/24", { placeholder: " ", autoclear: false });
                         
                     }
                     if(response.messages.message[i].code == "E_WC_07" ){

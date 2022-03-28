@@ -1288,13 +1288,25 @@ h3.vc_heading.vc_heading-green:before {
 .media-box h3 {
   font-size: 26px;
   font-weight: 700;
+  color: #212529;
 }
 
 .media-box p {
   font-size: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.media-box figure img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
 }
 
-.event-box_list a.md-link {
+.event-box_list a.md-link,
+.media-box a.md-link {
   color: #2c9044;
   font-weight: 600;
   font-size: 18px;
@@ -1310,7 +1322,8 @@ h3.vc_heading.vc_heading-green:before {
   margin-bottom: 28px;
 }
 
-.event-box_list a.md-link:after {
+.event-box_list a.md-link:after,
+.media-box a.md-link:after {
   content: "";
   height: 3px;
   width: 0%;
@@ -1321,7 +1334,8 @@ h3.vc_heading.vc_heading-green:before {
   transition: all 0.3s ease-in-out !important;
 }
 
-.event-box_list a.md-link:hover:after {
+.event-box_list a.md-link:hover:after,
+.media-box a.md-link:hover:after {
   width: 100%;
 }
 
@@ -3902,3 +3916,53 @@ p.error{
   width: 100px;
 }
 
+.pull_right {
+  float: right;
+}
+.blog_detail h3.ft-blanka {
+  width: 50%;
+  display: inline-block;
+}
+.blog_detail {
+  margin-top: 90px;
+}
+
+/*Vendor Payment form*/
+.secSponsor .alert-error{
+    background: #f34949;
+    color: #ffff;
+    font-size: 20px;
+}
+
+#expMonth{
+    width: 48%;
+    float: left;
+    margin-right: 10px;
+}
+#expYear{
+    width: 48%;
+    float: left;
+}
+
+.credit_main_set input{
+    height: 53px;
+}
+.signupForm .credit_main_set .input-field label{
+    margin-bottom: 5px;
+        font-size: 15px;
+}
+.expMonthCol {
+  position: relative;
+}
+.expMonthCol #expMonth-error,
+.expMonthCol #expYear-error {
+  position: absolute;
+  bottom: 0px;
+  width: 50%;
+}
+.expMonthCol #expMonth-error {
+  left: 0px;
+}
+.expMonthCol #expYear-error {
+  right: 0px;
+}

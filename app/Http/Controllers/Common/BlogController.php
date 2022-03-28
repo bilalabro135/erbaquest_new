@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Pages;
 use DataTables;
 use Bouncer;
 use Redirect;
@@ -148,6 +149,16 @@ class BlogController extends Controller
 
     public function frontView()
     {
-        
+        $getBlogs = Blog::all();
+        $pages = Pages::all();
+        $pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
+        return view('templates.blog', compact('getBlogs', 'pageSlug', 'pages'));
+    }
+    public function show($pages,$id)
+    {
+        $blogsData = Blog::where('id',$id)->first();
+        // dd($blogsData);
+        return view('front.blog.index', compact('blogsData', 'pages'));
     }
 }
+
