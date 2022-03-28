@@ -3994,3 +3994,8 @@ p.error{
 .blog_detail .pull_right img {
   margin-left: 20px;  
 }
+.pckg-box ul li img {
+  margin-right: 5px;
+  position: relative;
+  top: 3px;
+}
