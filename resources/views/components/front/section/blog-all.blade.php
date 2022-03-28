@@ -1,8 +1,8 @@
+@if($blogs)
 <section class="secMedia pt-100 pb-100">
  	<div class="container">
 		<h3 class="ft-blanka ftw-bold_36 text-center mb-40">MEDIA</h3>
         <div class="row">
-          @if($blogs)
           @foreach($blogs as $blog)
           <div class="col-sm-12 col-md-4">
             <div class="media-box">
@@ -24,7 +24,6 @@
             </div>
           </div>
           @endforeach
-          @endif
           <div class="col-sm-12">
             <div class="pagination">
               <ul>
@@ -42,3 +41,4 @@
         </div>
   	</div>
 </section>
+@endif

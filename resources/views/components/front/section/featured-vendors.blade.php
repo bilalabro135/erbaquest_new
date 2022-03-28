@@ -19,7 +19,7 @@
 @push('scripts')
 <script>
 	$('.FV_slider ul').owlCarousel({
-	    loop:true,
+	    loop:false,
 	    margin:10,
 	    nav:true,
 	    navText: ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
