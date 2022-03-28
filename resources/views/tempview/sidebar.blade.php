@@ -39,10 +39,10 @@
           <li class="<?php if($second_last.'/'.$page == 'account/public-profile'){ echo 'current'; } ?>">
             <a href="{{route('public.profile')}}">My Public Profile</a>
           </li>
-          <li>
+          <li class="<?php if($second_last.'/'.$page == 'account/payment-list'){ echo 'current'; } ?>">
             <a href="{{route('payment.list')}}">Payment</a>
           </li>
-          <li>
+          <li class="<?php if($second_last.'/'.$page == 'account/payment-option'){ echo 'current'; } ?>">
             <a href="{{route('payment.option')}}">Payment Option</a>
           </li>
         @endif
