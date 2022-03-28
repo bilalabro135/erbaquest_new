@@ -20,6 +20,16 @@
                 @endcan
             </div>
             <div class="card-body">
+            	<div class="main_sortBar">
+            		<label>Filter By:</label>
+            		<select class="form-control">
+            			<option value=""></option>
+            			<option value="4">Admin</option>
+            			<option value="2">Vendor</option>
+            			<option value="3">Dev</option>
+            		</select>
+            		
+            	</div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead class="bg-primary text-light">
@@ -47,6 +57,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('scripts')
 	<script type="text/javascript">
@@ -61,19 +72,15 @@
 		         processing: true,
 		         serverSide: true,
 		         ajax: {
-		          url: "{{ route('users.get') }}",
+		          url: "{{ route('users.get') }}?role_id={{ app('request')->input('role_id') }}",
 		          type: 'GET',
 		         },
 		         columns: [
 		                  { data: 'id', name: 'id', 'visible': false},
 		                  { data: 'name', name: 'name' },
 		                  { data: 'email', name: 'email' },
-		                  { data: 'role', name: 'role' },
-		                  { data: 'action', 
-		                      name: 'action', 
-		                      orderable: true, 
-		                      searchable: true
-		                  }
+		                  { data: 'role', name: 'role',searchable: true },
+		                  { data: 'action', name: 'action', orderable: true, searchable: true}
 		               ],
 		        order: [[0, 'desc']]
 		  });

@@ -72,12 +72,12 @@
                         </div>
                         <div class="input-field col-sm-6">
                             <label for="expMonth">Expiry Month</label>
-                            <input type="text" name="expMonth" id="expMonth" placeholder="Expiry Month">
+                            <input type="number" name="expMonth" id="expMonth" placeholder="Expiry Month" maxlength="2">
                             <p class="error expMonth"></p>
                         </div>
                         <div class="input-field col-sm-6">
                             <label for="expYear">Expiry Year</label>
-                            <input type="text" name="expYear" id="expYear" placeholder="Expiry Year">
+                            <input type="number" name="expYear" id="expYear" placeholder="Expiry Year" maxlength="4">
                             <p class="error expYear"></p>
                         </div>
                         <div class="input-field col-sm-6">
@@ -141,8 +141,10 @@
             authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
             authData.apiLoginID = "2KD4hR4Qbfh";
 
+        var insertCreditCard = document.getElementById("cardNumber").value;
+
         var cardData = {};
-            cardData.cardNumber = document.getElementById("cardNumber").value;
+            cardData.cardNumber = insertCreditCard.replace(/\s/g, '');
             cardData.month = document.getElementById("expMonth").value;
             cardData.year = document.getElementById("expYear").value;
             cardData.cardCode = document.getElementById("cardCode").value;
@@ -221,6 +223,7 @@
       });
 
       $(document).ready(function() {
+        $('#cardNumber').mask('0000 0000 0000 0000');
         $(".card_option").click(function() {
           $(".main_payment_form").show();
         });

@@ -202,12 +202,10 @@
                             <div class="input-field col-sm-6">
                                 <label for="cardNumber">Name On Card</label>
                                 <input type="text" name="cardname" id="cardName" placeholder="First Name" required="required" />
-                                <p class="error cardNumber"></p>
                             </div>
                             <div class="input-field col-sm-6">
                                 <label for="cardNumber"><br></label>
                                 <input type="text" name="lname" id="lname" placeholder="Last Name" required="required" />
-                                <p class="error cardNumber"></p>
                             </div>
                             <div class="input-field col-sm-6">
                                 <label for="cardNumber">Card Number</label>
@@ -433,16 +431,18 @@ function sendPaymentDataToAnet(argument) {
         authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
         authData.apiLoginID = "2KD4hR4Qbfh";
 
+        var insertCreditCard = document.getElementById("cardNumber").value;
+
     var cardData = {};
-        cardData.cardNumber = document.getElementById("cardNumber").value;
+        cardData.cardNumber = insertCreditCard.replace(/\s/g, '');
         cardData.month = document.getElementById("expMonth").value;
         cardData.year = document.getElementById("expYear").value;
         cardData.cardCode = document.getElementById("cardCode").value;
-
+        console.log(cardData);
     var secureData = {};
         secureData.authData = authData;
         secureData.cardData = cardData;
-    //    console.log(secureData);
+       console.log(secureData);
     Accept.dispatchData(secureData, responseHandler);
 
     function responseHandler(response) {
@@ -553,6 +553,7 @@ $(function(){
 
 $(document).ready(function(){  
         $('#phone').mask('(999)-999-9999'); 
+        $('#cardNumber').mask('0000 0000 0000 0000');
     }); 
 </script>
 <style type="text/css">

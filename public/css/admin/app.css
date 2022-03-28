@@ -12031,3 +12031,15 @@ float: left;
 .person_desc textarea{
   display: none;
   }
+table tr th{
+  cursor: pointer;
+  }
+.main_sortBar label{
+    float: left;
+  }
+
+.main_sortBar select{
+    float: left;
+    width: 14%;
+    margin-left: 5px;
+  }

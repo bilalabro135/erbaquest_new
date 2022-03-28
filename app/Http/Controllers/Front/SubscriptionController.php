@@ -27,6 +27,7 @@ class SubscriptionController extends Controller
    public function create(SubscriptionRequest $request)
     {
 
+
        $authorizeCardNumber = $this->authorizeCreditCard($request);
 
         if($authorizeCardNumber){
@@ -52,7 +53,7 @@ class SubscriptionController extends Controller
            $intervalLength =  1; 
            $totalcycles = $package['duration'];
            $start_date = date('Y-m-d');       
-           $card_number = $request->cardNumber;
+           $card_number = str_replace(' ', '', $request->cardNumber);
            $expiry_date = $expityYear."-".$request->expMonth;
            $first_name = $request['cardname'];
            $last_name = $request['lname'];
@@ -186,7 +187,7 @@ class SubscriptionController extends Controller
 
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardInfo['cardNumber']);
+        $creditCard->setCardNumber(str_replace(' ', '', $cardInfo['cardNumber']));
         $creditCard->setExpirationDate($expityYear."-".$cardInfo['expMonth']);
         $creditCard->setCardCode($cardInfo['cardCode']);
 

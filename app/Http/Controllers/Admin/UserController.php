@@ -17,6 +17,7 @@ use App\Http\Requests\Common\ReviewRequest;
 use App\Models\UserGatewayProfiles;
 use App\Models\UserPaymentProfiles;
 use App\Models\Reviews; 
+use App\Models\Subscription; 
 
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
@@ -32,13 +33,19 @@ class UserController extends Controller
     {
         return view('admin.users.index');
     }
-    public function getUsers(){
-        $model = User::query();
+    public function getUsers(request $ajaxrequest){
+        $onlyRoleId = ($ajaxrequest['role_id']) ? $ajaxrequest['role_id']  : '';
+        $model = User::query()->select("users.id","users.name","users.email");
 
-        return DataTables::eloquent($model)
+        if($onlyRoleId){
+           $fullQuery =  $model->leftjoin("assigned_roles as ar","users.id","=","ar.entity_id")->where('ar.role_id', '=', $onlyRoleId);
+        }else{
+           $fullQuery = $model; 
+        }
+        
+        return DataTables::eloquent($fullQuery)
         ->addColumn('action', function($row){
                 $user_id =  auth()->user()->id;
-                
                 $actionBtn= '';
                 if(Bouncer::can('updateUsers')){
                 $actionBtn .='<a href="'.route('users.edit', ['user' => $row->id]).'" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
@@ -261,7 +268,7 @@ class UserController extends Controller
         }
 
         $creditsData = array(
-            'creditsCard' => (isset($creditsCard)) ? $creditsCard  : '',
+            'creditsCard' => (isset($creditsCard)) ? str_replace("X", "*", $creditsCard) : '',
             'cardType' => (isset($cardType)) ? $cardType  : '',
             'cardExpiryDate' => (isset($cardExpiryDate)) ? $cardExpiryDate  : '',
             'creditError' => (isset($creditserror)) ? $creditserror : '',
@@ -321,7 +328,7 @@ class UserController extends Controller
                 $billto = $response->getPaymentProfile()->getbillTo();
                 
                 $creditCard = new AnetAPI\CreditCardType();
-                $creditCard->setCardNumber( $requestCardInfo['cardNumber'] );
+                $creditCard->setCardNumber( str_replace(' ', '', $requestCardInfo['cardNumber']));
                 $creditCard->setExpirationDate($expityYear."-".$requestCardInfo['expMonth']);
                 
                 $paymentCreditCard = new AnetAPI\PaymentType();
@@ -410,7 +417,7 @@ class UserController extends Controller
 
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardInfo['cardNumber']);
+        $creditCard->setCardNumber(str_replace(' ', '', $cardInfo['cardNumber']));
         $creditCard->setExpirationDate($expityYear."-".$cardInfo['expMonth']);
         $creditCard->setCardCode($cardInfo['cardCode']);
 
@@ -572,5 +579,82 @@ class UserController extends Controller
 
       }
 
+      public function getPayment(){
+        return view('admin.payment.index');
+    }
+
+    public function getPaymentList()
+    {
+        $model = Subscription::query();
+        return DataTables::eloquent($model)
+        ->addColumn('action', function($row){
+                $user_id =  auth()->user()->id;
+                
+                $actionBtn= '';
+                if(Bouncer::can('updateUsers')){
+                $actionBtn .='<a href="'.route('admin.payemnt.view', ['order' => $row->id]).'" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-eye"></i></a>';
+                }
+                return $actionBtn;
+        })
+        ->rawColumns(['action'])
+
+        ->toJson();
+    }
+    public function paymentView($getUserId)
+    {
+        $customerProfileId = UserGatewayProfiles::where("user_id",$getUserId)->first();
+        /* Create a merchantAuthenticationType object with authentication details
+       retrieved from the constants file */
+        $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+        $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
+        $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
+        
+        // Set the transaction's refId
+        $refId = 'ref' . time();
+
+        $request = new AnetAPI\GetTransactionListForCustomerRequest();
+        $request->setMerchantAuthentication($merchantAuthentication);
+        $request->setCustomerProfileId($customerProfileId['profile_id']);
+
+        //https://github.com/AuthorizeNet/sdk-php/issues/417
+        $controller = new AnetController\GetTransactionListForCustomerController($request);
+
+        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        
+        if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
+        {
+            if(null != $response->getTransactions())
+            {
+                $getresponse = $response->getTransactions();
+                $transactionDatas = array();
+
+                foreach ($getresponse as $transactionData) {
+                    $transactionDatas[] = array(
+                        'id' => $transactionData->getTransId(),
+                        'status' => $transactionData->getTransactionStatus(),
+                        'amount' => $transactionData->getSettleAmount(),
+                    );
+                }
+            }
+            else{
+                $transactionDatas = 0;
+            }
+         }
+        else
+        {
+            // echo "ERROR :  Invalid response\n";
+            // $errorMessages = $response->getMessages()->getMessage();
+            // echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
+        }
+
+        if(!isset($transactionDatas)){
+            $transactionDatas = array();
+        }
+
+        //dd($transactionDatas);
+
+        return view('admin.payment.view',compact('transactionDatas'));
+
+    }
 
 }

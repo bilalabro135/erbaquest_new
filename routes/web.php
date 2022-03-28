@@ -156,6 +156,11 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/contact/get', [ContactController::class, 'getContact'])->name('contact.get');
     Route::get('/contact/{contact:id}/delete', [ContactController::class, 'destroy'])->name('contact.delete');
 
+    //admin order
+    Route::get('payment', [UserController::class, 'getPayment'])->name('admin.payment');
+    Route::get('paymentList', [UserController::class, 'getPaymentList'])->name('admin.paymentList');
+    Route::get('payment/{order:id}', [UserController::class, 'paymentView'])->name('admin.payemnt.view');  
+
     // Amenities
     Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities')->middleware('role:viewAmenities');
     Route::get('/amenities/get', [AmenitiesController::class, 'getAmenities'])->name('amenities.get')->middleware('role:viewAmenities');
