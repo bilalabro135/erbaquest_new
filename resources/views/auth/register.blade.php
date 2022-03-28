@@ -98,8 +98,8 @@
                                     </div>
                                 </div>
                                 <div class="input-field input-checkbox">
-                                    <label class="checkmark">
-                                        <input type="checkbox" name="terms_and_condition" value="1"><a target="_blank" href="terms-and-condition" required="required"> I Agree With Terms & Conditon</a>
+                                    <label class="checkmark active">
+                                        <input type="checkbox" name="terms_and_condition" value="1" checked="checked"><a target="_blank" href="terms-and-condition" required="required"> I Agree With Terms & Conditon</a>
                                     </label>
                                     @error('terms_and_condition')
                                     <span class="invalid-feedback" role="alert">
