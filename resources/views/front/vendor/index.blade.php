@@ -4,7 +4,6 @@
 	@if(isset($pages) && isset($pages->featured_image))
 		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
 	@endif
-<!-- <h1>{{$vendorData->email}}</h1> -->
 
 
    <section class="vendor_inner event-inner pt-100 pb-100">
