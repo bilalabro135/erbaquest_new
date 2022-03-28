@@ -28,7 +28,7 @@ class FeaturedVendors extends Component
 
         $user = Auth::user();
         
-        $featuredUsers = DB::select('SELECT *,u.id as user_id FROM `users` u LEFT JOIN `assigned_roles` ar on(u.id = ar.entity_id) where ar.role_id = 2');
+        $featuredUsers = DB::select('SELECT *,u.id as user_id FROM `users` u LEFT JOIN `assigned_roles` ar on(u.id = ar.entity_id) where ar.role_id = 2 && featured = 1');
         $sendUser = array();
         foreach ($featuredUsers as $featuredUser) {
             $getUsers = VendorProfile::where("user_id",$featuredUser->user_id)->first();
@@ -38,7 +38,7 @@ class FeaturedVendors extends Component
                     'public_profile_name' => $getUsers['public_profile_name'],
                     'id' => $getUsers['id'],
 
-                );
+                ); 
             }    
         }
 
