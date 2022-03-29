@@ -4027,3 +4027,9 @@ p.error{
 .review-box figure img{
     border-radius: 100%;
   }
+.NewsletterForm p{
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+  }

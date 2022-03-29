@@ -24,7 +24,7 @@ class NewsletterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'unique:users,email,'.$this->get('id').'|email|required|max:255',
+            'email' => 'email|required|max:255',
         ];
     }
 

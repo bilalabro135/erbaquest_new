@@ -176,6 +176,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter');
     Route::get('/newsletter/get', [NewsletterController::class, 'getNewsletter'])->name('newsletter.get');
     Route::get('/newsletter/{newsletter:id}/delete', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
+    Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
     // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
