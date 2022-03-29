@@ -494,3 +494,23 @@ $(function(){
   });
 });
 
+// Review Form
+$(function(){
+  $(".formReview").validate({
+    rules: {
+      speed: "required",
+      quality: "required",
+      price: "required",
+      comment: "required",  
+    },
+    messages: {
+      speed: "This field is required.",
+      quality: "This field is required.",
+      price: "This field is required.",
+      comment: "The review field is required.",
+    },
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});

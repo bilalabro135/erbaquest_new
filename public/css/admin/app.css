@@ -11928,7 +11928,6 @@ span.remove {
 }
 .profilePicture{
     width: 75px;
-    border: 1px #eaeaea solid;
     border-radius: 100%;
     height: 75px;
     float: left;
@@ -11936,7 +11935,7 @@ span.remove {
 .profilePicture img{
     width: 100%;
     border-radius: 100%;
-    margin-top: 8px;
+    margin-top: 0px;
 }
 .profile_info{
 float: left;

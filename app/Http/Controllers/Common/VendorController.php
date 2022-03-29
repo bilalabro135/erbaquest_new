@@ -4,12 +4,18 @@ namespace App\Http\Controllers\common;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\User;
 use App\Models\AssignRoles;
 use App\Models\VendorProfile;
 use App\Models\Pages;
+use App\Models\Reviews;
+
 use App\Http\Requests\Common\VendorProfileRequest;
+use App\Http\Requests\Common\SubmitReviewRequest;
+
 use Auth;
+use Carbon\Carbon;
 
 class VendorController extends Controller
 {
@@ -122,6 +128,96 @@ class VendorController extends Controller
     public function show($pages,$id){
 
         $vendorData = VendorProfile::where('id',$id)->first();
-        return view('front.vendor.index', compact('vendorData', 'pages'));
+        $reviews =  Reviews::where('rel_id',$id)->where('type','vendor')->orderBy('created_at', 'desc')->get();
+        
+        $sendReviews = array();
+        foreach ($reviews as $review) {
+            if($review['user_id']){
+               $getUsers = User::where("id",$review['user_id'])->first();
+
+                if($getUsers['profile_image']){
+                    $profile_image = env('APP_URL') .$getUsers['profile_image'];
+                }else{
+                    $profile_image = "";
+                } 
+
+               $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $profile_image,
+                    'name' => $getUsers['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );        
+             
+            }else{
+                
+                if($review['featured_image']){
+                    $profile_image = env('APP_URL') .$review['featured_image'];
+                }else{
+                    $profile_image = "";
+                } 
+                $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $profile_image,
+                    'name' => $review['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );
+            }
+        }
+
+        return view('front.vendor.index', compact('vendorData', 'pages','sendReviews'));
+    }
+
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new Carbon;
+        $ago = new Carbon($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+
+    public function submitReviwes( SubmitReviewRequest $request)
+    {
+        $user = Auth::user();
+        $user_id = $user['id'];
+        $reviews = new Reviews();
+        $reviews->rel_id = $request['rel_id'];
+        $reviews->user_id = $user_id;
+        $reviews->type = "vendor";
+        $reviews->speed_rating = $request['speed'];
+        $reviews->quality_rating = $request['quality'];
+        $reviews->price_rating = $request['price'];
+        $reviews->comment = $request['comment'];
+        $reviews->save();
+
+        return back()->with(['msg' => 'Review Posted', 'msg_type' => 'success']);
     }
 }

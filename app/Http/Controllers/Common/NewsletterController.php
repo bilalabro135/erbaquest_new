@@ -9,6 +9,7 @@ use Bouncer;
 use Redirect;
 
 use App\Models\Newsletter;
+
 use App\Http\Requests\Common\NewsletterRequest;
 
 class NewsletterController extends Controller
@@ -37,28 +38,23 @@ class NewsletterController extends Controller
         ->toJson();
     }
 
-    public function store(AmenitiesRequest $request)
+    public function store(NewsletterRequest $request)
     {
-        $amenity = new Amenity();
-        $amenity->name = $request->name;
-        $amenity->icon = $request->icon;
-        $amenity->save();
-        return back()->with(['msg' => 'Amenity Inserted', 'msg_type' => 'success']);
+        if($request->email){
+            $checkNewsletter = Newsletter::where("email",$request->email)->get();
+            if(count($checkNewsletter)){
+                $message = 'You have already subscribed to the newsletter';
+            }else{
+                $newsletter = new Newsletter();
+                $newsletter->email = $request->email;
+                $newsletter->save();
+                $message = 'You have successfully subscribed to the newsletter';
+            }
+        }else{
+            $message = 'Email Field is required!';
+        }
+        return response()->json(['msg' => $message, 'msg_type' => 'success']);
     }
-
-    // public function edit(Amenity $amenity)
-    // {
-    //     return view('admin.amenities.edit', compact('amenity'));
-    // }
-
-    // public function update(AmenitiesRequest $request, Amenity $amenity)
-    // {
-    //     $amenity->update([
-    //         'name' => $request->name,
-    //         'icon' => $request->icon,
-    //     ]);
-    //     return Redirect::route('amenities')->with(['msg' => 'Amenity Updated', 'msg_type' => 'success']);
-    // }
 
     public function destroy($id)
     {

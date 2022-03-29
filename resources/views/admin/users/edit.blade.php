@@ -177,7 +177,11 @@
                             @foreach($sendReviews as $sendReview)
                                 <div class="card_reviews" id="comment_{{ $sendReview['id'] }}">
                                     <div class="profilePicture">
-                                        <img src="{{ $sendReview['profile_image'] }}">
+                                        @if(!empty($sendReview['profile_image']))
+                                            <img src="{{ $sendReview['profile_image'] }}" >
+                                          @else
+                                            <img src="{{asset('images/avatar.png')}}">
+                                          @endif
                                     </div>
                                     <div class="profile_info">
                                         <div class="profile_name">{{ $sendReview['name'] }}</div>
@@ -315,14 +319,16 @@
         });
     });
     $(".edittextarea").click(function() {
-        $(".person_desc p").hide();
-        $(".person_desc textarea").show();
-        $(".onsubmit").show();
-        $(".ondelete").hide();
+        var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
+        thisfolder.find(".person_desc p").hide();
+        thisfolder.find(".person_desc textarea").show();
+        thisfolder.find(".onsubmit").show();
+        thisfolder.find(".ondelete").hide();
     });
-    $(".cancelButton").click(function(e) {
-        $(".onsubmit").hide();
-        $(".ondelete").show();
+    $(".cancelButton").click(function() {
+        var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
+        thisfolder.find(".onsubmit").hide();
+        thisfolder.find(".ondelete").show();
     });
 </script>
 @endsection
