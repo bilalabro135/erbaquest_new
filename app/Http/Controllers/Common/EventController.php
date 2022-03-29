@@ -335,6 +335,7 @@ class EventController extends Controller
         //adding vendor id and event id in in vendor table
         if ($eventDetail['vendor_list']) {
             foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
+                dd($eventDetail['vendor_list']);
                 $vendor = new Vendor();
                 $vendor->event_id = $event->id;
                 $vendor->user_id = $vendorId;

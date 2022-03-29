@@ -25,7 +25,7 @@ class BlogAll extends Component
     public function render()
     {
         $user = Auth::user();
-        $this->blogs = Blog::all();
+        $this->blogs = Blog::paginate(1);
         $this->pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
         return view('components.front.section.blog-all');
     }
