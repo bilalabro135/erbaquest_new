@@ -4000,3 +4000,6 @@ p.error{
   position: relative;
   top: 3px;
 }
+.eventClass {
+  display: none;
+}
