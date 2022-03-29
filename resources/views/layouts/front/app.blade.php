@@ -34,8 +34,8 @@
 
 
 @php
-  $user = auth()->user();
-  if(isset($user)){
+$user = auth()->user();
+if(isset($user)){
   if ($user->isAn('Organizer')){
 @endphp
   <style type="text/css">
@@ -44,7 +44,16 @@
       }
   </style>
 @php
-  }}
+  }else if($user->isAn('Vendor')){
+@endphp
+  <style type="text/css">
+    .vendorClass{
+        display: block;
+      }
+  </style>
+@php
+  }
+}
 @endphp
 
     <header id="masthead" class="site-header navbar-static-top navbar-light" role="banner">
