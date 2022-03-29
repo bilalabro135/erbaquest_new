@@ -35,6 +35,7 @@
 
 @php
   $user = auth()->user();
+  if(isset($user)){
   if ($user->isAn('Organizer')){
 @endphp
   <style type="text/css">
@@ -43,7 +44,7 @@
       }
   </style>
 @php
-  }
+  }}
 @endphp
 
     <header id="masthead" class="site-header navbar-static-top navbar-light" role="banner">
