@@ -40,14 +40,18 @@ class NewsletterController extends Controller
 
     public function store(NewsletterRequest $request)
     {
-        $checkNewsletter = Newsletter::where("email",$request->email)->get();
-        if(count($checkNewsletter)){
-            $message = 'You have already subscribed to the newsletter';
+        if($request->email){
+            $checkNewsletter = Newsletter::where("email",$request->email)->get();
+            if(count($checkNewsletter)){
+                $message = 'You have already subscribed to the newsletter';
+            }else{
+                $newsletter = new Newsletter();
+                $newsletter->email = $request->email;
+                $newsletter->save();
+                $message = 'You have successfully subscribed to the newsletter';
+            }
         }else{
-            $newsletter = new Newsletter();
-            $newsletter->email = $request->email;
-            $newsletter->save();
-            $message = 'You have successfully subscribed to the newsletter';
+            $message = 'Email Field is required!';
         }
         return response()->json(['msg' => $message, 'msg_type' => 'success']);
     }

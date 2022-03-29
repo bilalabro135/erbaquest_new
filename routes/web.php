@@ -237,10 +237,13 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');    
 
 });
-Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
+
+
 
 Route::post('/review/submit', [VendorController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit');
 Route::post('/review/event/submit', [EventController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit.events');
+
+Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 // Front Events
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');

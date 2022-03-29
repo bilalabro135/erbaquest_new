@@ -23,9 +23,7 @@ class NewsletterRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'email' => 'email|required|max:255',
-        ];
+        return [];
     }
 
     public function getNewsletterData()
