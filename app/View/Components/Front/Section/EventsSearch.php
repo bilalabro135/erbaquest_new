@@ -6,6 +6,7 @@ use Illuminate\View\Component;
 use App\Models\Components;
 use App\Models\Pages;
 use App\Models\Event;
+use App\Models\Area;
 
 class EventsSearch extends Component
 {
@@ -19,6 +20,7 @@ class EventsSearch extends Component
     public $action;
     public $search;
     public $location;
+    public $countries;
     public $sort;
     public $events_count;
     public function __construct($isEvent = false)
@@ -44,6 +46,8 @@ class EventsSearch extends Component
             $event->where('area', $this->location);
 
         $this->events_count = $event->count();
+
+        $this->countries = Area::all();
 
         $this->sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
         $component = Components::where('name', 'events-search')->first();
