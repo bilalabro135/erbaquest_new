@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\EventTypeRequest;
 use App\Http\Requests\Common\FrontEventRequest;
 use App\Http\Requests\Common\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Common\SubmitReviewRequest;
 
 use App\Models\User;
 use App\Models\Pages;
@@ -118,7 +119,7 @@ class EventController extends Controller
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
-        $reviews = Reviews::where("rel_id",$event['id'])->get();
+        $reviews = Reviews::where("rel_id",$event['id'])->where("type","events")->orderby("created_at","desc")->get();
         $sendReviews = array();
         foreach ($reviews as $review) {
             if($review['user_id']){
@@ -639,11 +640,72 @@ class EventController extends Controller
         $action_edit = url("/events/{$id}/edit");
         $action_status = url("/events/publish/{$id}");
         $action_delete = url("/events-draft/delete/{$id}");
+
+        $reviews =  Reviews::where('rel_id',$id)->where('type','events')->orderBy('created_at', 'desc')->get();
+        
+        $sendReviews = array();
+        foreach ($reviews as $review) {
+            if($review['user_id']){
+               $getUsers = User::where("id",$review['user_id'])->first();
+
+                if($getUsers['profile_image']){
+                    $profile_image = env('APP_URL') .$getUsers['profile_image'];
+                }else{
+                    $profile_image = "";
+                } 
+
+               $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $profile_image,
+                    'name' => $getUsers['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );        
+             
+            }else{
+                
+                if($review['featured_image']){
+                    $profile_image = env('APP_URL') .$review['featured_image'];
+                }else{
+                    $profile_image = "";
+                } 
+                $sendReviews[] = array(
+                    'id'    => $review['id'],
+                    'profile_image' => $profile_image,
+                    'name' => $review['name'],
+                    'comment' => $review['comment'],
+                    'speed_rating' => $review['speed_rating'],
+                    'quality_rating' => $review['quality_rating'],
+                    'price_rating' => $review['price_rating'],
+                    'date'         => $this->time_elapsed_string($review['created_at']),
+                );
+            }
+        }
         
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews'));
         }
         abort(404);
+    }
+
+    public function submitReviwes( SubmitReviewRequest $request)
+    {
+        $user = Auth::user();
+        $user_id = $user['id'];
+        $reviews = new Reviews();
+        $reviews->rel_id = $request['rel_id'];
+        $reviews->user_id = $user_id;
+        $reviews->type = "events";
+        $reviews->speed_rating = $request['speed'];
+        $reviews->quality_rating = $request['quality'];
+        $reviews->price_rating = $request['price'];
+        $reviews->comment = $request['comment'];
+        $reviews->save();
+
+        return back()->with(['msg' => 'Review Posted', 'msg_type' => 'success']);
     }
 
     public function frontDraftDestroy($id)
@@ -746,4 +808,5 @@ class EventController extends Controller
         $users->role = $userRole['role_id'];
         return view('tempview.past-event', compact('events','users'));   
    }
+
 }

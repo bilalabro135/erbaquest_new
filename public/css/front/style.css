@@ -2007,7 +2007,7 @@ h5.time_ago {
 }
 
 .reviews {
-  margin-bottom: 100px;
+  margin-top: 100px;
 }
 
 .input-field label .stars {
@@ -4004,3 +4004,26 @@ p.error{
 .vendorClass {
   display: none;
 }
+.formReview .rate_style label.error:before{
+  display: none !important;
+  }
+.rate_style{
+    position: relative;
+  }
+.rate_style label.error{
+    float: none;
+    font-size: 12px;
+    overflow: initial;
+    position: absolute;
+    margin-bottom: 0px;
+    bottom: -9px;
+    width: 100%;
+    color: #ff0000;
+  }
+#comment-error{
+  color: #ff0000;
+   font-size: 12px;
+  }
+.review-box figure img{
+    border-radius: 100%;
+  }

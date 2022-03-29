@@ -235,6 +235,10 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');    
 
 });
+
+Route::post('/review/submit', [VendorController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit');
+Route::post('/review/event/submit', [EventController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit.events');
+
 // Front Events
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
 Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
@@ -253,7 +257,8 @@ Route::view('account', 'tempview.account')->middleware('auth', 'isOrganizer', 'v
 // Vendors
 Route::get('/account/public-profile', [VendorController::class, 'view'])->middleware('auth', 'verified')->name('public.profile');
 Route::post('/account/public-profile/store', [VendorController::class, 'update'])->middleware('auth', 'verified')->name('public.profile.update');
-// Route::get('/vendors', [VendorController::class, 'index'])->middleware('auth', 'verified')->name('vendors');
+
+
 
 Route::get('/account/payment-option',[UserController::class, 'paymentOption'])->name('payment.option')->middleware('auth','verified');
 Route::post('/account/payment-update',[UserController::class, 'UpdatepaymentOption'])->name('payment.update')->middleware('auth','verified');

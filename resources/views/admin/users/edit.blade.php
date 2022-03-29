@@ -315,14 +315,16 @@
         });
     });
     $(".edittextarea").click(function() {
-        $(".person_desc p").hide();
-        $(".person_desc textarea").show();
-        $(".onsubmit").show();
-        $(".ondelete").hide();
+        var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
+        thisfolder.find(".person_desc p").hide();
+        thisfolder.find(".person_desc textarea").show();
+        thisfolder.find(".onsubmit").show();
+        thisfolder.find(".ondelete").hide();
     });
-    $(".cancelButton").click(function(e) {
-        $(".onsubmit").hide();
-        $(".ondelete").show();
+    $(".cancelButton").click(function() {
+        var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
+        thisfolder.find(".onsubmit").hide();
+        thisfolder.find(".ondelete").show();
     });
 </script>
 @endsection

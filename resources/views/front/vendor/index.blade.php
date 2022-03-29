@@ -8,6 +8,11 @@
 
    <section class="vendor_inner event-inner pt-100 pb-100">
       <div class="container">
+        @if(session('msg'))
+          <div class="alert alert-{{session('msg_type')}}">
+              {{session('msg')}}                                            
+          </div>
+        @endif
         <div class="row align-center">
           <div class="col-sm-12 col-md-6">
             <h3 class="ft-blanka ftw-bold_36 mb-40">
@@ -95,178 +100,78 @@
 
         <div class="row event-detail ">
           <div class="col-sm-12 col-md-7">
-            <div class="reviews">
-              <div class="review-box">
-                <figure>
-                  <img src="{{asset('images/tst-author.png')}}">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="{{asset('images/comment-icon.png')}}"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-              <div class="review-box">
-                <figure>
-                  <img src="{{asset('images/tst-author.png')}}">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="{{asset('images/comment-icon.png')}}"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-            </div>
+            @if(auth()->check()) 
             <div class="reviewForm">
-                <form class="" action="" method="post" enctype="multipart/form-data">
+                <form class="formReview" action="{{route('review.submit')}}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  <input type="hidden" name="rel_id" value="{{ $vendorData->id }}" >
                   <div class="input-field">
-
-                    <!--  -->
                       <div class="form_star_rating">
                         <label>Speed</label>
-                        <div class="speedRate">
-                          <input type="radio" id="speedStar5" name="rate" value="5" />
+                        <div class="speedRate rate_style">
+                          <input type="radio" id="speedStar5" name="speed" value="5" />
                           <label for="speedStar5" title="text">5 stars</label>
-                          <input type="radio" id="speedStar4" name="rate" value="4" />
+                          <input type="radio" id="speedStar4" name="speed" value="4" />
                           <label for="speedStar4" title="text">4 stars</label>
-                          <input type="radio" id="speedStar3" name="rate" value="3" />
+                          <input type="radio" id="speedStar3" name="speed" value="3" />
                           <label for="speedStar3" title="text">3 stars</label>
-                          <input type="radio" id="speedStar2" name="rate" value="2" />
+                          <input type="radio" id="speedStar2" name="speed" value="2" />
                           <label for="speedStar2" title="text">2 stars</label>
-                          <input type="radio" id="speedStar1" name="rate" value="1" />
+                          <input type="radio" id="speedStar1" name="speed" value="1" />
                           <label for="speedStar1" title="text">1 star</label>
                         </div>
                         <div class="clearfix"></div>
+                        @error('speed')
+                            <div class="text-danger">
+                                {{$message}}                                            
+                            </div>
+                        @endif
                       </div>
 
                       <div class="form_star_rating">
                         <label>Quality</label>
-                        <div class="qualityRate">
-                          <input type="radio" id="qualityStar5" name="rate" value="10" />
+                        <div class="qualityRate rate_style">
+                          <input type="radio" id="qualityStar5" name="quality" value="5" />
                           <label for="qualityStar5" title="text">5 stars</label>
-                          <input type="radio" id="qualityStar4" name="rate" value="9" />
+                          <input type="radio" id="qualityStar4" name="quality" value="4" />
                           <label for="qualityStar4" title="text">4 stars</label>
-                          <input type="radio" id="qualityStar3" name="rate" value="8" />
+                          <input type="radio" id="qualityStar3" name="quality" value="3" />
                           <label for="qualityStar3" title="text">3 stars</label>
-                          <input type="radio" id="qualityStar2" name="rate" value="7" />
-                          <label for="qualityS" title="text">2 stars</label>
-                          <input type="radio" id="qualityStar1" name="rate" value="6" />
+                          <input type="radio" id="qualityStar2" name="quality" value="2" />
+                          <label for="qualityStar2" title="text">2 stars</label>
+                          <input type="radio" id="qualityStar1" name="quality" value="1" />
                           <label for="qualityStar1" title="text">1 star</label>
                         </div>
                         <div class="clearfix"></div>
+                        @error('quality')
+                            <div class="text-danger">
+                                {{$message}}                                            
+                            </div>
+                        @endif
                       </div>
-
                       <div class="form_star_rating">
                         <label>Price</label>
-                        <div class="priceRate">
-                          <input type="radio" id="priceStar5" name="rate" value="15" />
+                        <div class="priceRate rate_style">
+                          <input type="radio" id="priceStar5" name="price" value="5" />
                           <label for="priceStar5" title="text">5 stars</label>
-                          <input type="radio" id="priceStar4" name="rate" value="14" />
+                          <input type="radio" id="priceStar4" name="price" value="4" />
                           <label for="priceStar4" title="text">4 stars</label>
-                          <input type="radio" id="priceStar3" name="rate" value="13" />
+                          <input type="radio" id="priceStar3" name="price" value="3" />
                           <label for="priceStar3" title="text">3 stars</label>
-                          <input type="radio" id="priceStar2" name="rate" value="12" />
+                          <input type="radio" id="priceStar2" name="price" value="2" />
                           <label for="priceStar2" title="text">2 stars</label>
-                          <input type="radio" id="priceStar1" name="rate" value="11" />
+                          <input type="radio" id="priceStar1" name="price" value="1" />
                           <label for="priceStar1" title="text">1 star</label>
                         </div>
                         <div class="clearfix"></div>
+                        @error('price')
+                            <div class="text-danger">
+                                {{$message}}                                            
+                            </div>
+                        @endif
                       </div>
-
-                    <!--  -->
-
-
-                   <!--  <label>Speed <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label>
-                    <label>Quality <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label>
-                    <label>Price <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label> -->
                   </div>
-                  <div class="input-field input-file">
+                  <!-- <div class="input-field input-file">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span></label>
                     <input type="file" id="myFile" name="filename">
                     <div class="preview"></div>
@@ -274,12 +179,17 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                  </div>
+                  </div> -->
                   <div class="input-field">
-                    <label>COMMENT:</label>
-                    <textarea name="comment" placeholder="Comment.."></textarea>
+                    <label>Review:</label>
+                    <textarea name="comment" placeholder="Review"></textarea>
+                    @error('comment')
+                        <div class="text-danger">
+                            {{$message}}                                            
+                        </div>
+                    @endif
                   </div>
-                  <div class="input-field">
+                  <!-- <div class="input-field">
                     <label>NAME:</label>
                     <input type="text" name="name" placeholder="NAME:" required="required">
                   </div>
@@ -290,12 +200,74 @@
                   <div class="input-field">
                     <label>WEBSITE:</label>
                     <input type="text" name="website" placeholder="WEBSITE:">
-                  </div>
+                  </div> -->
                   <div class="input-field input-submit">
                     <input type="submit" name="submit" value="SUBMIT YOUR REVIEW">
                   </div>
                 </form>
             </div>
+            @endif  
+            <div class="reviews" @if(!auth()->check()) style="margin-top:0px;" @endif>
+              @if($sendReviews)
+                @foreach($sendReviews as $sendReview)                 
+                  <div class="review-box">
+                    <figure>
+                      @if(!empty($sendReview['profile_image']))
+                        <img src="{{ $sendReview['profile_image'] }}" >
+                      @else
+                        <img src="{{asset('images/avatar.png')}}">
+                      @endif
+                    </figure>
+                    <div class="rv-detail">
+                      <h3 class="title">{{ $sendReview['name'] }}<span class="figure"><img src="{{asset('images/comment-icon.png')}}"></span></h3>
+                      <ul class="rate-list">
+                        <li>
+                          Speed
+                          <span class="stars">
+                             @for ($i = 0; $i < 5; $i++)
+                                @if($i >= $sendReview['speed_rating'])
+                                    <i class="far fa-star"></i>
+                                @else
+                                    <i class="fas fa-star"></i> 
+                                @endif
+                            @endfor
+                          </span>
+                        </li>
+                        <li>
+                          Quality
+                          <span class="stars">
+                            @for ($i = 0; $i < 5; $i++)
+                                @if($i >= $sendReview['quality_rating'])
+                                    <i class="far fa-star"></i>
+                                @else
+                                    <i class="fas fa-star"></i> 
+                                @endif
+                            @endfor
+                          </span>
+                        </li>
+                        <li>
+                          Price
+                          <span class="stars">
+                            @for ($i = 0; $i < 5; $i++)
+                                @if($i >= $sendReview['price_rating'])
+                                    <i class="far fa-star"></i>
+                                @else
+                                    <i class="fas fa-star"></i> 
+                                @endif
+                            @endfor
+                          </span>
+                        </li>
+                      </ul>
+                      <div class="comment">
+                        <p>{{ $sendReview['comment'] }}</p>
+                      </div>
+                      <h5 class="time_ago">{{ $sendReview['date'] }}</h5>
+                    </div>
+                  </div>
+              @endforeach
+            @endif
+            </div>
+    
           </div>
         </div>
 

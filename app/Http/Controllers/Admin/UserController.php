@@ -18,7 +18,7 @@ use App\Models\UserGatewayProfiles;
 use App\Models\UserPaymentProfiles;
 use App\Models\Reviews; 
 use App\Models\Subscription; 
-
+use App\Models\VendorProfile;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 
@@ -97,35 +97,41 @@ class UserController extends Controller
         $Settings = Settings::get('registration');
 
         $user_role = (isset($user->roles()->pluck('name')[0]) ? $user->roles()->pluck('name')[0] : 0);
-        $reviews = Reviews::where("rel_id",$user['id'])->get();
-        $sendReviews = array();
-        foreach ($reviews as $review) {
-            if($review['user_id']){
-               $getUsers = User::where("id",$review['user_id'])->first(); 
-               $sendReviews[] = array(
-                    'id'    => $review['id'],
-                    'profile_image' => $getUsers['profile_image'],
-                    'name' => $getUsers['name'],
-                    'comment' => $review['comment'],
-                    'speed_rating' => $review['speed_rating'],
-                    'quality_rating' => $review['quality_rating'],
-                    'price_rating' => $review['price_rating'],
-                    'date'         => $this->time_elapsed_string($review['created_at']),
-                );        
-             
-            }else{
-                $sendReviews[] = array(
-                    'id'    => $review['id'],
-                    'profile_image' => $review['featured_image'],
-                    'name' => $review['name'],
-                    'comment' => $review['comment'],
-                    'speed_rating' => $review['speed_rating'],
-                    'quality_rating' => $review['quality_rating'],
-                    'price_rating' => $review['price_rating'],
-                    'date'         => $this->time_elapsed_string($review['created_at']),
-                );
+        $VendorProfile = VendorProfile::where("user_id",$user['id'])->first();
+        if($VendorProfile){
+            $reviews = Reviews::where("rel_id",$VendorProfile['id'])->orderby("created_at","desc")->get();
+            $sendReviews = array();
+            foreach ($reviews as $review) {
+                if($review['user_id']){
+                   $getUsers = User::where("id",$review['user_id'])->first(); 
+                   $sendReviews[] = array(
+                        'id'    => $review['id'],
+                        'profile_image' => $getUsers['profile_image'],
+                        'name' => $getUsers['name'],
+                        'comment' => $review['comment'],
+                        'speed_rating' => $review['speed_rating'],
+                        'quality_rating' => $review['quality_rating'],
+                        'price_rating' => $review['price_rating'],
+                        'date'         => $this->time_elapsed_string($review['created_at']),
+                    );        
+                 
+                }else{
+                    $sendReviews[] = array(
+                        'id'    => $review['id'],
+                        'profile_image' => $review['featured_image'],
+                        'name' => $review['name'],
+                        'comment' => $review['comment'],
+                        'speed_rating' => $review['speed_rating'],
+                        'quality_rating' => $review['quality_rating'],
+                        'price_rating' => $review['price_rating'],
+                        'date'         => $this->time_elapsed_string($review['created_at']),
+                    );
+                }
             }
+        }else{
+            $sendReviews = array();
         }
+
         return view('admin.users.edit', compact('user', 'roles', 'Settings','sendReviews','user_role'));
     }
 
