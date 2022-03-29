@@ -9,7 +9,9 @@
       <ul>
         @foreach($vendors as $vendor)
         <li>
-          <img src="{{(isset($vendor->profile_image)) ? $vendor->profile_image : asset('images/avatar.png')}}" alt="{{$vendor->name}}">
+          <a href="{{URL::to('/')}}/vendors/">
+            <img src="{{(isset($vendor->featured_picture)) ? $vendor->featured_picture : asset('images/avatar.png')}}" alt="{{$vendor->public_profile_name}}">
+          </a>
         </li>
         @endforeach
       </ul>

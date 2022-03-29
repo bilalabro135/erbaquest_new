@@ -545,18 +545,20 @@
                 @endif
               </ul>
             </div>
-            @if(count($event->vendors))
+            @if($vendorProfiles)
             <div class="vendor-box">
               <h4>VENDORS: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></h4>
               <ul class="vendor-list">
-              	@foreach($event->vendors as $vendor)
+              	@foreach($vendorProfiles as $vendorProfile)
                 <li>
                   <figure>
-                    <img src="{{($vendor->profile_image != null) ? $vendor->profile_image : asset('/images/avatar.png') }}" alt="{{$vendor->name}}">
+                    <a href="{{URL::to('/')}}/vendors/{{ $vendorProfile['link_id'] }}">
+                      <img src="{{($vendorProfile['featured_picture'] != null) ? asset($vendorProfile['featured_picture']) : asset('/images/avatar.png') }}" alt="{{$vendorProfile['public_profile_name']}}">
+                    </a>
                   </figure>
-                  <span class="txt">
-                    {{$vendor->name}}
-                  </span>
+                  <a href="{{URL::to('/')}}/vendors/{{ $vendorProfile['link_id'] }}">
+                    <span class="txt">{{$vendorProfile['public_profile_name']}}</span>
+                  </a>
                 </li>
                 @endforeach
               </ul>

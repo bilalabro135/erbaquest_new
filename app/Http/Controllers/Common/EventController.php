@@ -18,6 +18,7 @@ use App\Models\EventType;
 use App\Models\Amenity;
 use App\Models\EventAmenity;
 use App\Models\Vendor;
+use App\Models\VendorProfile;
 use App\Models\Area;
 use App\Models\WishLists;
 use App\Models\AssignRoles;
@@ -278,10 +279,24 @@ class EventController extends Controller
     {
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
+        $vendorProfiles = array();
+        if(count($vendors)){
+            foreach ($vendors as $vendor) {
+                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
+                if($getDataVendorProfile){
+
+                    $vendorProfiles[] = array(
+                        'id' => $vendor['id'],
+                        'name' =>  $getDataVendorProfile['public_profile_name'],
+                    );
+                }
+            }
+        }
+        
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
-        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents','countries'));
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents','countries','vendorProfiles'));
     }
 
     public function frontstore(FrontEventRequest $request)
@@ -441,6 +456,26 @@ class EventController extends Controller
         }
 
         $getvendors = User::whereIs('Vendor')->get();
+
+        $vendorProfiles = array();
+        if(count($getvendors)){
+            foreach ($getvendors as $vendor) {
+                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
+                if($getDataVendorProfile){
+                    $selected = 0;
+                    if( in_array($vendor['id'], $setectedvendor) ){
+                        $selected = 1;
+                    } 
+
+                    $vendorProfiles[] = array(
+                        'id' => $vendor['id'],
+                        'name' =>  $getDataVendorProfile['public_profile_name'],
+                        'selected' => $selected,
+                    );
+                }
+            }
+        }
+
         $vendors = array();
         if(count($getvendors)){
             foreach ($getvendors as $getvendor) {
@@ -482,12 +517,14 @@ class EventController extends Controller
             }
         }
 
+        
+
        // setectedameties    
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
 
-        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries','getDataVendorProfile','vendorProfiles'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
     {       
@@ -684,9 +721,28 @@ class EventController extends Controller
                 );
             }
         }
-        
+
+        $getVendors = Vendor::where("event_id",$id)->get();
+        $vendorProfiles = array();
+        if(count($getVendors)){
+           foreach ($getVendors as $getVendor) {
+            if($getVendor['user_id']){
+                $getVendorProfile = VendorProfile::where("user_id",$getVendor['user_id'])->first();
+                if($getVendorProfile){
+                    $vendorProfiles[] = array(
+                        'id' => $getVendor['user_id'],
+                        'link_id' => $getVendorProfile['id'],
+                        'public_profile_name' => $getVendorProfile['public_profile_name'],
+                        'featured_picture' => $getVendorProfile['featured_picture'],
+                    );
+                }
+            }
+          }
+        }
+   
+
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
         }
         abort(404);
     }

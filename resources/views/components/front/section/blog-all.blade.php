@@ -25,7 +25,7 @@
           </div>
           @endforeach
           <div class="col-sm-12">
-            <div class="pagination">
+            <!-- <div class="pagination">
               <ul>
                 <li class="pg-nav"><i class="fas fa-chevron-left" aria-hidden="true"></i> PREV</li>
                 <li>1</li>
@@ -36,7 +36,7 @@
                 <li>6</li>
                 <li class="pg-nav">NEXT <i class="fas fa-chevron-right" aria-hidden="true"></i></li>
               </ul>
-            </div>
+            </div> -->
             <div class="pagination">
               {!! $blogs->render()  !!}
             </div>

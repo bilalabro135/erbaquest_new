@@ -193,7 +193,7 @@
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></label>
                     <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple">
-                      @foreach($vendors as $vendor)
+                      @foreach($vendorProfiles as $vendor)
                         <option value="{{$vendor['id']}}" @if($vendor['selected']) selected="selected" @endif >{{$vendor['name']}}</option>
                       @endforeach
                       @error('vendor')

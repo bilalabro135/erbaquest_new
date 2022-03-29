@@ -401,8 +401,8 @@
                             <div class="form-group">
                                 <label for="vendor">Select Vendor</label>
                                 <select name="vendors[]" id="vendors" class="form-control" multiple="">
-                                    @foreach($vendors as $vendor)
-                                        <option value="{{$vendor->id}}" {{(auth()->user()->id == $vendor->id) ? 'selected="selected"' : ''}}>{{$vendor->name}}</option>
+                                    @foreach($vendorProfiles as $vendorProfile)
+                                        <option value="{{$vendorProfile['id']}}" {{(auth()->user()->id == $vendorProfile['id']) ? 'selected="selected"' : ''}}>{{$vendorProfile['name']}}</option>
                                     @endforeach
                                 </select>
                                 

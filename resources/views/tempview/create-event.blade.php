@@ -79,7 +79,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-date">
                     <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
-                    <input type="date" name="event_date" required="required">
+                    <input type="date" name="event_date" required="required" value="{{ old('event_date') }}">
                     @error('event_date')
                         <div class="text-danger">
                             {{$message}}                                            
@@ -89,7 +89,7 @@
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
                         <label for="pac-input">Address: <span class="figure"><img src="{{asset('images/icons/icon13.png')}}"></span></label>
-                        <input id="pac-input" class="form-control mb-3 " name="address" type="text" placeholder="Enter a location" required="required"/>
+                        <input id="pac-input" class="form-control mb-3 " name="address" type="text" placeholder="Enter a location" required="required" value="{{ old('address') }}" />
                         <div id="googlemap" style="height: 300px"></div>
                         <input type="hidden" name="latitude" id="latitude">
                         <input type="hidden" name="longitude" id="longitude">
@@ -111,10 +111,10 @@
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
-                    <select name="type" required="required">
+                    <select name="type" required="required" value="{{ old('type') }}">
                         <option value="">Type:</option>
                         @foreach($tyoesOfEvents as $tyoesOfEvent)
-                        <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
+                        <option value="{{$tyoesOfEvent['name']}}" @if($tyoesOfEvent['name'] == old('type') ) selected="selected" @endif>{{$tyoesOfEvent['name']}}</option>
                         @endforeach
                     </select>
                     @error('type')
@@ -173,13 +173,15 @@
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>VENDOR: <span class="figure"><img src="{{asset('images/icons/icon18.png')}}"></span></label>
                     <select class="js-example-basic-multiple" id="vendor_select" name="vendor_list[]" multiple="multiple">
-                      @foreach($vendors as $vendor)
-                        <option value="{{$vendor->id}}">{{$vendor->name}}</option>
-                      @endforeach
-                      @error('vendor')
-                        <div class="text-danger">
-                            {{$message}}                                            
-                        </div>
+                      @if($vendorProfiles)
+                        @foreach($vendorProfiles as $vendorProfile)
+                          <option value="{{$vendorProfile['id']}}">{{$vendorProfile['name']}}</option>
+                        @endforeach
+                        @error('vendorProfile')
+                          <div class="text-danger">
+                              {{$message}}                                            
+                          </div>
+                        @endif
                       @endif
                     </select>
                     <div class="Socialshare">
@@ -246,7 +248,7 @@
                     <select name="area" id="area" required="" class="form-control">
                         <option value="" selected="selected">Select Location</option>
                         @foreach($countries as $country)
-                            <option value="{{$country->name}}">{{$country->name}}</option>
+                            <option value="{{$country->name}}" @if($country->name == old('area') ) selected="selected" @endif>{{$country->name}}</option>
                         @endforeach
                     </select> 
                     @error('area')
@@ -277,7 +279,7 @@
                     <label>ATM ON SITE: <span class="figure"><img src="{{asset('images/icons/icon8.png')}}"></span></label>
                     <select name="ATM_on_site" required="required">
                       <option value="">ATM ON SITE:</option>
-                      <option>Yes</option>
+                      <option >Yes</option>
                       <option>No</option>
                     </select>
                     @error('ATM_on_site')
