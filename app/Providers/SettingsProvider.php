@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\GlobalSettings;
 use View;
 use Illuminate\Support\Facades\Schema;
+use Auth;
 
 class SettingsProvider extends ServiceProvider
 {
@@ -38,6 +39,8 @@ class SettingsProvider extends ServiceProvider
 
             $route = explode('/',$this->app->request->getRequestUri());
             if (!in_array('admin', $route)) {
+
+
                  $primarymenu = Menu::where('type', 'primary')->orderBy('order', 'ASC')->get();
                  View::share('primarymenu', $primarymenu);
                  $topbar = Menu::where('type', 'topbar')->where('parent_id', null)->orderBy('order', 'ASC')->get();

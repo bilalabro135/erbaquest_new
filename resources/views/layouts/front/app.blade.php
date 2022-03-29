@@ -32,6 +32,20 @@
 
   <body>
 
+
+@php
+  $user = auth()->user();
+  if ($user->isAn('Organizer')){
+@endphp
+  <style type="text/css">
+    .eventClass{
+        display: block;
+      }
+  </style>
+@php
+  }
+@endphp
+
     <header id="masthead" class="site-header navbar-static-top navbar-light" role="banner">
       <div class="container">
 
@@ -194,6 +208,11 @@
             </div>
         </div>
     </footer>
+
+<style type="text/css">
+    
+</style>
+ 
  <script src="{{ asset('js/front/app.js' ) }}"></script>
  <script type="text/javascript">
          $(document).ready(function(){
