@@ -176,7 +176,8 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter');
     Route::get('/newsletter/get', [NewsletterController::class, 'getNewsletter'])->name('newsletter.get');
     Route::get('/newsletter/{newsletter:id}/delete', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
-    Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
+
+    
 
     // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
@@ -236,6 +237,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');    
 
 });
+Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 Route::post('/review/submit', [VendorController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit');
 Route::post('/review/event/submit', [EventController::class, 'submitReviwes'])->middleware('auth', 'verified')->name('review.submit.events');
