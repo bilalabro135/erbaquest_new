@@ -191,30 +191,30 @@ $(function() {
         phoneUS: true
       },
       // user_number: "required",
-      // website_link: {
-      //   required: true,
-      //   url: true
-      // },
-      // facebook: {
-      //   required: true,
-      //   url: true
-      // },
-      // twitter: {
-      //   required: true,
-      //   url: true
-      // },
-      // linkedin: {
-      //   required: true,
-      //   url: true
-      // },
-      // instagram: {
-      //   required: true,
-      //   url: true
-      // },
-      // youtube: {
-      //   required: true,
-      //   url: true
-      // },
+      website_link: {
+        required: false,
+        url: true
+      },
+      facebook: {
+        required: false,
+        url: true
+      },
+      twitter: {
+        required: false,
+        url: true
+      },
+      linkedin: {
+        required: false,
+        url: true
+      },
+      instagram: {
+        required: false,
+        url: true
+      },
+      youtube: {
+        required: false,
+        url: true
+      },
     },
     messages: {
       name: "The name field is required.",
@@ -246,30 +246,24 @@ $(function() {
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
       // user_number: "The USER NUMBER field is required.",
-      // website_link: {
-      //   required:"The website link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // facebook: {
-      //   required:"The facebook link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // twitter: {
-      //   required:"The twitter link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // linkedin: {
-      //   required:"The linkedin link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // instagram: {
-      //   required:"The instagram link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // youtube: {
-      //   required:"The youtube link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
+      website_link: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      facebook: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      twitter: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      linkedin: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      instagram: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      youtube: {
+        url:"Please use the complete link with https:// or http://",
+      },
     },
     submitHandler: function(form) {
       form.submit();
@@ -309,30 +303,30 @@ $(function() {
         phoneUS: true
       },
       // user_number: "required",
-      // website_link: {
-      //   required: true,
-      //   url: true
-      // },
-      // facebook: {
-      //   required: true,
-      //   url: true
-      // },
-      // twitter: {
-      //   required: true,
-      //   url: true
-      // },
-      // linkedin: {
-      //   required: true,
-      //   url: true
-      // },
-      // instagram: {
-      //   required: true,
-      //   url: true
-      // },
-      // youtube: {
-      //   required: true,
-      //   url: true
-      // },
+      website_link: {
+        required: false,
+        url: true
+      },
+      facebook: {
+        required: false,
+        url: true
+      },
+      twitter: {
+        required: false,
+        url: true
+      },
+      linkedin: {
+        required: false,
+        url: true
+      },
+      instagram: {
+        required: false,
+        url: true
+      },
+      youtube: {
+        required: false,
+        url: true
+      },
     },
     messages: {
       name: "The name field is required.",
@@ -354,30 +348,24 @@ $(function() {
       tickiting_number: "US Based NUMBER is required.",
       vendor_number: "US Based NUMBER is required.",
       // user_number: "The User NUMBER is required.",
-      // website_link: {
-      //   required:"The website link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // facebook: {
-      //   required:"The facebook link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // twitter: {
-      //   required:"The twitter link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // linkedin: {
-      //   required:"The linkedin link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // instagram: {
-      //   required:"The instagram link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
-      // youtube: {
-      //   required:"The youtube link field is required.",
-      //   url:"Please use the complete link with https:// or http://",
-      // },
+      website_link: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      facebook: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      twitter: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      linkedin: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      instagram: {
+        url:"Please use the complete link with https:// or http://",
+      },
+      youtube: {
+        url:"Please use the complete link with https:// or http://",
+      },
     },
     submitHandler: function(form) {
       form.submit();

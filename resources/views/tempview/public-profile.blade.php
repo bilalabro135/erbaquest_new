@@ -407,6 +407,30 @@
 	        extension: "png|jpg|jpeg",
 	        maxfilesize: 2,
 	      },
+        website: {
+          required: false,
+          url: true
+        },
+        facebook: {
+          required: false,
+          url: true
+        },
+        twitter: {
+          required: false,
+          url: true
+        },
+        linkedin: {
+          required: false,
+          url: true
+        },
+        instagram: {
+          required: false,
+          url: true
+        },
+        youtube: {
+          required: false,
+          url: true
+        },
 	    },
 	    messages: {
 	      name: "The name field is required.",
@@ -425,6 +449,24 @@
 	        extension:"Please use .PNG .JPG .JPEG format",
 	        maxfilesize:"File size must be less than 2MB",
 	      },
+        website_link: {
+          url:"Please use the complete link with https:// or http://",
+        },
+        facebook: {
+          url:"Please use the complete link with https:// or http://",
+        },
+        twitter: {
+          url:"Please use the complete link with https:// or http://",
+        },
+        linkedin: {
+          url:"Please use the complete link with https:// or http://",
+        },
+        instagram: {
+          url:"Please use the complete link with https:// or http://",
+        },
+        youtube: {
+          url:"Please use the complete link with https:// or http://",
+        },
 	    },
 	    submitHandler: function(form) {
 	      form.submit();
