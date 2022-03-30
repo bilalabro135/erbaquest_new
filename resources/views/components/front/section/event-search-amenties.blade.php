@@ -7,13 +7,13 @@
           <ul>
             @foreach($amenities as $amenity)
             <li>
-              <label>              
+              <label class="clcikalert">              
                 <figure>
                   <img src="{{$amenity->icon}}" alt="{{$amenity->name}}">
                 </figure>
 
                 <span class="text">{{$amenity->name}}</span>
-                <input type="checkbox" name="amenties" value="{{$amenity->id}}">
+                <input type="checkbox" name="amenties[]" value="{{$amenity->id}}">
               </label>
             </li>
             @endforeach

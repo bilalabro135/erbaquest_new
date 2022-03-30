@@ -275,9 +275,11 @@ Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.a
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth', 'verified');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'verified');
 
+Route::post('/searchEvent',[EventController::class, 'search'])->name('search.event');
+
 Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist');
-Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('remove.wishlist')->middleware('auth','verified');
-Route::get('/account/wishlist',[WishlistsController::class, 'view'])->name('wishlist');
+Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('remove.wishlist')->middleware('auth','verified')->middleware('auth', 'verified');
+Route::get('/account/wishlist',[WishlistsController::class, 'view'])->name('wishlist')->middleware('auth', 'verified');
 Route::get('/eventReminder',[WishlistsController::class, 'reminder'])->name('reminder.wishlist');
 Route::get('/redirectEvent',[WishlistsController::class, 'redirect'])->name('redirect.wishlist');
 

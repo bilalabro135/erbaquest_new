@@ -458,6 +458,12 @@
                                         {{$message}}                                            
                                     </div>
                                 @endif
+                                <div class="main_event">
+                                    <label>
+                                    <input type="checkbox" name="">Featured
+                                        
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary btn-block px-5">

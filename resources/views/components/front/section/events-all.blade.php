@@ -82,7 +82,6 @@ $(".heart-link").click(function() {
       $(".heart-link").addClass('disabled-link');
     },
     success:function(data) {
-      console.log(data);
       if(data){
         if(data.action == "add"){
           $(".event_wish").addClass("addedwishlist");
@@ -107,6 +106,58 @@ $(".heart-link").click(function() {
      }
   });
 });
+
+
+// $(".clcikalert input").click(function() {
+//   var checked = [];
+//   $.each($("input[name='amenties[]']:checked"), function(){
+//       checked.push($(this).val()); 
+//   });
+
+//   $.ajaxSetup({
+//       headers: {
+//           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//       }
+//   });
+//   $.ajax({
+//     url:'{{route("search.event")}}',
+//     type:'POST',
+//     data:'checkedData='+checked,
+//     beforeSend: function() {
+      
+//     },
+//     success:function(data) {
+
+//         if(data[0]){
+//             for (i = 0; i < data[0].length; ++i) {
+//               if  
+//                 console.log(data[0][i]['name']);
+//             }
+//         }
+//      }
+//   });
+  
+// });
+
+
+
+//   $.ajaxSetup({
+//       headers: {
+//           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//       }
+//   });
+//   var event_id = $(this).prev(".event_wish").val(); 
+//   $.ajax({
+//     url:'{{route("add.wishlist")}}',
+//     type:'POST',
+//     data:'event_id='+event_id,
+//     beforeSend: function() {
+
+//     },
+//     success:function(data) {
+//       console.log(data);
+//      }
+//   });
 
 $(".close_sucesss").click(function() {
   event.preventDefault();

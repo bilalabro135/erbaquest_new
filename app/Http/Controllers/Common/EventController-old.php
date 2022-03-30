@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\Admin\EventRequest;
 use App\Http\Requests\Admin\EventTypeRequest;
+
 use App\Http\Requests\Common\FrontEventRequest;
 use App\Http\Requests\Common\ReviewRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Common\SearchRequest;
 use App\Http\Requests\Common\SubmitReviewRequest;
+
 
 use App\Models\User;
 use App\Models\Pages;
@@ -279,23 +283,10 @@ class EventController extends Controller
     {
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
-        $vendorProfiles = array();
-        if(count($vendors)){
-            foreach ($vendors as $vendor) {
-                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
-                if($getDataVendorProfile){
-                    $vendorProfiles[] = array(
-                        'id' => $vendor['id'],
-                        'name' =>  $getDataVendorProfile['public_profile_name'],
-                    );
-                }
-            }
-        }
-        
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
-        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents','countries','vendorProfiles'));
+        return view('tempview/create-event', compact('users', 'vendors', 'amenities','tyoesOfEvents','countries'));
     }
 
     public function frontstore(FrontEventRequest $request)
@@ -455,26 +446,6 @@ class EventController extends Controller
         }
 
         $getvendors = User::whereIs('Vendor')->get();
-
-        $vendorProfiles = array();
-        if(count($getvendors)){
-            foreach ($getvendors as $vendor) {
-                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
-                if($getDataVendorProfile){
-                    $selected = 0;
-                    if( in_array($vendor['id'], $setectedvendor) ){
-                        $selected = 1;
-                    } 
-
-                    $vendorProfiles[] = array(
-                        'id' => $vendor['id'],
-                        'name' =>  $getDataVendorProfile['public_profile_name'],
-                        'selected' => $selected,
-                    );
-                }
-            }
-        }
-
         $vendors = array();
         if(count($getvendors)){
             foreach ($getvendors as $getvendor) {
@@ -516,14 +487,12 @@ class EventController extends Controller
             }
         }
 
-        
-
        // setectedameties    
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
 
-        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries','getDataVendorProfile','vendorProfiles'));
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
     {       
@@ -720,28 +689,9 @@ class EventController extends Controller
                 );
             }
         }
-
-        $getVendors = Vendor::where("event_id",$id)->get();
-        $vendorProfiles = array();
-        if(count($getVendors)){
-           foreach ($getVendors as $getVendor) {
-            if($getVendor['user_id']){
-                $getVendorProfile = VendorProfile::where("user_id",$getVendor['user_id'])->first();
-                if($getVendorProfile){
-                    $vendorProfiles[] = array(
-                        'id' => $getVendor['user_id'],
-                        'link_id' => $getVendorProfile['id'],
-                        'public_profile_name' => $getVendorProfile['public_profile_name'],
-                        'featured_picture' => $getVendorProfile['featured_picture'],
-                    );
-                }
-            }
-          }
-        }
-   
-
+        
         if ($event != null) {
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews'));
         }
         abort(404);
     }
@@ -863,25 +813,25 @@ class EventController extends Controller
         $users->role = $userRole['role_id'];
         return view('tempview.past-event', compact('events','users'));   
    }
-
-    public function search(SearchRequest $request) {    
-    $aminities_ids = explode(",",$request->checkedData);    
-    $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get(); 
-    $event_data = array();  
-    foreach ($getEvnets as $getEvnet) { 
-      $geteventdata = Event::where("id",$getEvnet['event_id'])->first();    
-      if($geteventdata){    
-        $event_data[] = array(  
-            "id"   => $geteventdata['id'],  
-            "name" => $geteventdata['name'],    
-            "featured_image"   => $geteventdata['featured_image'],  
-            "description"   => $geteventdata['description'],    
-            "event_date"   => $geteventdata['event_date'],  
-            "id"   => $geteventdata['id'],  
-        );  
-      } 
-    }   
-    return response()->json([$event_data]); 
+   public function search(SearchRequest $request)
+   {
+    $aminities_ids = explode(",",$request->checkedData);
+    $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get();
+    $event_data = array();
+    foreach ($getEvnets as $getEvnet) {
+      $geteventdata = Event::where("id",$getEvnet['event_id'])->first();
+      if($geteventdata){
+        $event_data[] = array(
+            "id"   => $geteventdata['id'],
+            "name" => $geteventdata['name'],
+            "featured_image"   => $geteventdata['featured_image'],
+            "description"   => $geteventdata['description'],
+            "event_date"   => $geteventdata['event_date'],
+            "id"   => $geteventdata['id'],
+        );
+      }
+    }
+    return response()->json([$event_data]);
    }
 
 }
