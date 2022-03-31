@@ -1,7 +1,7 @@
 {
   "name": "Erba Quest",
   "short_name": "ErbaQuest",
-  "start_url": "index.php",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#2c8e43",
   "theme_color": "#2c8e43",
