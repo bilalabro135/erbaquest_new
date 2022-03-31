@@ -221,41 +221,7 @@
                             </div>
                         @endif
                       </div>
-
-                    <!--  -->
-
-
-                   <!--  <label>Speed <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label>
-                    <label>Quality <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label>
-                    <label>Price <span class="stars">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                    </span></label> -->
                   </div>
-                  <!-- <div class="input-field input-file">
-                    <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span></label>
-                    <input type="file" id="myFile" name="filename">
-                    <div class="preview"></div>
-                    <button type="button" id="uploadImg">
-                      <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
-                      <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
-                    </button>
-                  </div> -->
                   <div class="input-field">
                     <label>Review:</label>
                     <textarea name="comment" placeholder="Review"></textarea>
@@ -265,18 +231,6 @@
                         </div>
                     @endif
                   </div>
-                  <!-- <div class="input-field">
-                    <label>NAME:</label>
-                    <input type="text" name="name" placeholder="NAME:" required="required">
-                  </div>
-                  <div class="input-field">
-                    <label>EMAIL:</label>
-                    <input type="email" name="email" placeholder="EMAIL:" required="required">
-                  </div>
-                  <div class="input-field">
-                    <label>WEBSITE:</label>
-                    <input type="text" name="website" placeholder="WEBSITE:">
-                  </div> -->
                   <div class="input-field input-submit">
                     <input type="submit" name="submit" value="SUBMIT YOUR REVIEW">
                   </div>
@@ -346,154 +300,8 @@
     
           </div>
         </div>
-            @endif
-<!--             <div class="reviews">
-              <div class="review-box">
-                <figure>
-                  <img src="images/tst-author.png">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="images/comment-icon.png"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-              <div class="review-box">
-                <figure>
-                  <img src="images/tst-author.png">
-                </figure>
-                <div class="rv-detail">
-                  <h3 class="title">LOREM IPSUM <span class="figure"><img src="images/comment-icon.png"></span></h3>
-                  <ul class="rate-list">
-                    <li>
-                      Speed
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Quality
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                    <li>
-                      Price
-                      <span class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </span>
-                    </li>
-                  </ul>
-                  <div class="comment">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                  </div>
-                  <h5 class="time_ago">5 Years ago</h5>
-                </div>
-              </div>
-            </div> -->
-<!--             <div class="reviewForm">
-              <form class="" action="" method="post" enctype="multipart/form-data">
-                <div class="input-field">
-                  <label>Speed <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                  <label>Quality <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                  <label>Price <span class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </span></label>
-                </div>
-                <div class="input-field input-file">
-                  <label>FEATURED PICTURE: <span class="figure"><img src="images/ft_profile.png"></span></label>
-                  <input type="file" id="myFile" name="filename">
-                  <div class="preview"></div>
-                  <button type="button" id="uploadImg">
-                    <span class="figure"><img src="images/uploadIcon.png"></span>
-                    <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
-                  </button>
-                </div>
-                <div class="input-field">
-                  <label>COMMENT:</label>
-                  <textarea name="comment" placeholder="Comment.."></textarea>
-                </div>
-                <div class="input-field">
-                  <label>NAME:</label>
-                  <input type="text" name="name" placeholder="NAME:" required="required">
-                </div>
-                <div class="input-field">
-                  <label>EMAIL:</label>
-                  <input type="email" name="email" placeholder="EMAIL:" required="required">
-                </div>
-                <div class="input-field">
-                  <label>WEBSITE:</label>
-                  <input type="text" name="website" placeholder="WEBSITE:">
-                </div>
-                <div class="input-field input-submit">
-                  <input type="submit" name="submit" value="SUBMIT YOUR REVIEW">
-                </div>
-              </form>
-            </div> -->
-
-          </div>
+      @endif
+    </div>
           <div class="col-sm-12 col-md-5">
             <div class="loct-box">
               <h4 class="date_head">DATE: <i class="far fa-calendar-alt"></i></h4>

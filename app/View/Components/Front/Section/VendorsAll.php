@@ -28,7 +28,7 @@ class VendorsAll extends Component
         $user = Auth::user();
         // $vendor = new VendorProfile();
         // $vendors = array();
-         $this->vendors = VendorProfile::paginate(1);
+         $this->vendors = VendorProfile::paginate(20);
 
 
         $this->pageSlug = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');

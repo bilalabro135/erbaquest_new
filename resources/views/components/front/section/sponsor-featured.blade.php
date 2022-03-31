@@ -1,4 +1,4 @@
-<section class="featuredSponsors" style="background-image: url('{{(isset($fields['background']) ) ? asset($fields['background']) : '' }}');">
+<section id="featured_sponsors" class="featuredSponsors" style="background-image: url('{{(isset($fields['background']) ) ? asset($fields['background']) : '' }}');">
   <div class="container-fluid">
     <h3 class="ft-blanka vc_heading text-center clr-white">
       Featured Sponsors

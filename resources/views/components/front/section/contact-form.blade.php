@@ -1,4 +1,4 @@
-<section class="recentVendors pt-65 pb-65">
+<section class="home_contact_form recentVendors pt-65 pb-65">
   <div class="container">
     @if(isset($fields['heading']))
        <h3 class="ft-blanka vc_heading vc_heading-green text-center">{!! $fields['heading'] !!}</h3>

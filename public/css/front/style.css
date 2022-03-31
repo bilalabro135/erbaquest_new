@@ -453,12 +453,12 @@ img {
   font-size: 36px;
   margin-top: 0;
   position: relative;
-  padding-top: 62px;
+  padding-top: 0px;
 }
 
 h3.vc_heading {
   position: relative;
-  padding-top: 62px;
+  /*padding-top: 62px;*/
   margin-top: 0;
   font-size: 36px;
   margin-bottom: 24px;
@@ -549,8 +549,8 @@ h3.vc_heading.vc_heading-green:before {
 }
 
 .featuredEvents {
-  padding-top: 65px;
-  padding-bottom: 65px;
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 
 .event-box {
@@ -573,6 +573,7 @@ h3.vc_heading.vc_heading-green:before {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+  width: 100%;
 }
 
 .event-box .detail {
@@ -592,6 +593,7 @@ h3.vc_heading.vc_heading-green:before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 20px;
 }
 
 .event-grids {
@@ -715,6 +717,9 @@ h3.vc_heading.vc_heading-green:before {
 .becomeSponsor p {
   font-size: 18px;
   color: #7c7c7c;
+  padding-right: 40px;
+  margin-bottom: 40px;
+  margin-top: 35px;
 }
 
 .becomeSponsor .row {
@@ -781,6 +786,7 @@ h3.vc_heading.vc_heading-green:before {
   background: url("/images/pastEvent.jpg");
   background-size: cover;
   background-attachment: fixed;
+  padding: 90px 0px;
 }
 
 .pastEvents .event-box {
@@ -792,6 +798,13 @@ h3.vc_heading.vc_heading-green:before {
   border-color: #fff;
 }
 
+.home_contact_form {
+  padding: 90px 0px;
+}
+.home_contact_form p {
+  padding: 0px 220px;
+  margin-bottom: 30px;
+}
 .contactForm .input-field input {
   height: 57px;
   width: 100%;
@@ -879,6 +892,9 @@ h3.vc_heading.vc_heading-green:before {
   font-weight: 600;
   letter-spacing: 2px;
 }
+.secNewsletter p.clr-white {
+  padding-right: 80px;
+}
 
 .footer_widget {
   background: #1b1b1b;
@@ -914,6 +930,9 @@ h3.vc_heading.vc_heading-green:before {
   position: absolute;
   left: 0;
   top: 5px;
+}
+.footer_widget ul.ct-list li i {
+  color: #2d9045;
 }
 
 .footer p {
@@ -1628,7 +1647,7 @@ h3.vc_heading.vc_heading-green:before {
 .event-box_list {
   border: 1px solid #dbdbdb;
   margin: 17px 0;
-  min-height: 515px;
+  /*min-height: 515px;*/
 }
 
 .event-box_list figure {
@@ -1716,6 +1735,7 @@ h3.vc_heading.vc_heading-green:before {
 
 .event-box_list .detail .txt p {
   font-size: 16px;
+  min-height: 50px;
 }
 
 .event-box_list .detail a.link {
@@ -3723,11 +3743,11 @@ p.error{
   margin-top: 30px;
 }
 .vendor_box img {
-  width: 100%;
-  min-height: 180px;
+  /*width: 100%;*/
+  min-height: 200px;
   object-fit: cover;
   padding: 30px;
-  max-height: 230px;
+  max-height: 200px;
 }
 .vendor_box h3 {
   background-color: #fff;
@@ -3741,6 +3761,7 @@ p.error{
 }
 .vendors_box_section {
   padding-bottom: 100px;
+  padding-top: 60px;
 }
 .FV_slider .owl-carousel {
   padding: 0px;
@@ -3756,11 +3777,13 @@ p.error{
 .FV_slider .owl-carousel li.item .figure img {
   object-fit: cover;
   min-height: 150px;
-  max-height: 300px;
+  max-height: 150px;
   padding: 15px;
+  width: auto;
+  margin: 0px auto;
 }
 .featured_vendors {
-  padding-top: 20px;
+  padding-top: 80px;
 }
 .FV_slider {
   margin-top: 40px;
@@ -3815,7 +3838,8 @@ p.error{
 }
 .speedRate:not(:checked) > input {
     position:absolute;
-    top:-9999px;
+    top: 0px;
+    height: 0px;
 }
 .speedRate:not(:checked) > label {
     float:right;
@@ -3850,7 +3874,8 @@ p.error{
 }
 .qualityRate:not(:checked) > input {
     position:absolute;
-    top:-9999px;
+    top: 0px;
+    height: 0px;
 }
 .qualityRate:not(:checked) > label {
     float:right;
@@ -3886,7 +3911,8 @@ p.error{
 }
 .priceRate:not(:checked) > input {
     position:absolute;
-    top:-9999px;
+    top: 0px;
+    height: 0px;
 }
 .priceRate:not(:checked) > label {
     float:right;
@@ -4107,4 +4133,15 @@ color: #ff0000;
   border: 1px solid #2c9044;
   padding: 15px;
   border-radius: 40px;
+}
+.event-box_list .txt p:empty{
+  display: none;
+}
+.account_form_val .drop-zone #preview_img {
+  width: 150px;
+  border-radius: 200px;
+  margin: 20px 0px;
+}
+.evGallery .owl-nav.disabled{
+    display: block;
 }

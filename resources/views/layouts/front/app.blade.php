@@ -7,7 +7,12 @@
     <title>Erba Quest</title>
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{$globalsettings->getValue('site_fav')}}">
-    <link rel="manifest" href="manifest.json" />
+    <!-- <link rel="manifest" href="manifest.json" /> -->
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6777ef"/>
+    <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
+    <!-- <link rel="manifest" href="manifest.json" /> -->
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <!-- ios support -->
 
     <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
