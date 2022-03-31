@@ -41,6 +41,7 @@ class Event extends Model
         'youtube',
         'status',
         'user_id',
+        'featured',
     ];
 
     public function organizer(){

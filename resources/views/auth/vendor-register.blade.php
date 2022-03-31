@@ -64,6 +64,8 @@
                                     <div class="modal-body">
                                         <div class="signupForm">
                                             <form class="form_contact" action="{{route('contact-form.store')}}" method="post">
+                                                <input type="hidden" name="contact_type" value="sponser">
+                                                <input type="hidden" name="subject" value="Become a sponser">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6">
@@ -84,12 +86,12 @@
                                                             <input type="email" name="email" placeholder="Email Address:" required="required">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6">
+                                                    <!-- <div class="col-sm-12 col-md-6">
                                                         <div class="input-field">
                                                             <label>Subject:</label>
                                                             <input type="text" name="subject" placeholder="Subject:" required="required">
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-sm-12">
                                                         <div class="input-field">
                                                             <label>Message:</label>

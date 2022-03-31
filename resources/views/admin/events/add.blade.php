@@ -401,9 +401,11 @@
                             <div class="form-group">
                                 <label for="vendor">Select Vendor</label>
                                 <select name="vendors[]" id="vendors" class="form-control" multiple="">
-                                    @foreach($vendorProfiles as $vendorProfile)
-                                        <option value="{{$vendorProfile['id']}}" {{(auth()->user()->id == $vendorProfile['id']) ? 'selected="selected"' : ''}}>{{$vendorProfile['name']}}</option>
-                                    @endforeach
+                                    @if($vendorProfiles)
+                                        @foreach($vendorProfiles as $vendorProfile)
+                                            <option value="{{$vendorProfile['id']}}" {{(auth()->user()->id == $vendorProfile['id']) ? 'selected="selected"' : ''}}>{{$vendorProfile['name']}}</option>
+                                        @endforeach
+                                    @endif    
                                 </select>
                                 
                                 @error('vendor')
@@ -411,6 +413,14 @@
                                         {{$message}}                                            
                                     </div>
                                 @endif
+                                <div class="main_event">
+                                    <label>
+                                    <input type="checkbox" name="featured" value="1">
+                                    <span>
+                                        Featured
+                                    </span>    
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary btn-block px-5">

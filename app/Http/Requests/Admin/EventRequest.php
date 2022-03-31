@@ -103,6 +103,7 @@ class EventRequest extends FormRequest
             'type' => ($this->has('type')) ? $this->get('type') : null ,
             'youtube' => ($this->has('youtube')) ? $this->get('youtube') : null ,
             'status' => ($this->has('status')) ? $this->get('status') : null ,
+            'featured' => ($this->has('featured')) ? $this->get('featured') : null ,
             'vip_perk' => $this->get('vip_perk'),
             'charity' => $this->get('charity'),
             'user_id' => $this->get('user_id') ,

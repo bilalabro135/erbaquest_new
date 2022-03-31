@@ -65,9 +65,16 @@
          		<div class="card shadow mb-4">
 		            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 		                <h6 class="m-0 font-weight-bold text-primary">All Contact</h6>
-		              s
 		            </div>
 		            <div class="card-body">
+		            	<div class="main_sortBar">
+		            		<label>Filter By:</label>
+		            		<select name="type" class="form-control rolefileder">
+		            			<option value=""></option>
+		            			<option value="sponser" @if( app('request')->input('type') == 'sponser') selected="selected" @endif>Sponsor</option>
+		            			<option value="general" @if( app('request')->input('type') == 'general') selected="selected" @endif>General</option>
+		            		</select>
+		            	</div>
 		                <div class="table-responsive">
 		                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                        <thead class="bg-primary text-light">
@@ -118,7 +125,7 @@
 		         processing: true,
 		         serverSide: true,
 		         ajax: {
-		          url: "{{ route('contact.get') }}",
+		          url: "{{ route('contact.get') }}?type={{ app('request')->input('type') }}",
 		          type: 'GET',
 		         },
 		         columns: [
@@ -146,6 +153,13 @@
 	        $('#icon').val('');
 	        $('#lfm').html('Upload')
 	    }
+
+	    $(document).ready(function(){
+			$(".rolefileder").change(function(){
+		        value = $(this).val();
+		        window.location.href = "{{ route('admin.contact') }}"+'?type='+value;
+		    });
+		});
 	</script>
 @endsection
 

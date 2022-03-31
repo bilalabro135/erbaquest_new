@@ -121,6 +121,37 @@
                     </div>                
 
                     <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <h3 class="h5 my-0">Podcast</h3>
+                        </div>
+                         <div class="card-body gallery">
+                            <div class="gallery_images">
+                                <div class="add_image" onclick="addGalleryImage()">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </div>
+                            @error('gallery')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                         </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <h3 class="h5 my-0">Uploaded Podcast</h3>
+                        </div>
+                         <div class="card-body gallery">
+                            <div class="podcast_list">
+                                <ul id="list_pod">
+                                    
+                                </ul>
+                            </div>    
+                         </div>
+                    </div>
+
+                    <div class="card shadow mb-4">
                      <div class="card-body">
                            <div class="form-group">
                              <label for="meta_title">Meta Title</label>
@@ -288,19 +319,26 @@
     }
     let counter = 0;
     function addGalleryImage(){
-        $(`<div class="gallery_image">
-            <span class="remove" onclick="$(this).parent('.gallery_image').remove()">&times</span>
-            <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
-            <div class="image lfm" id="lfm-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfm-`+counter+`">
-            </div>
-            <input type="text" name="gallery[`+counter+`][alt]" value="" placeholder="Alt Text"> 
-            </div>
-        `).insertBefore('.add_image');
-        $('.lfm').filemanager('image', {prefix: route_prefix});
+        $("#list_pod").append(`<li>
+    <div class="file_src">
+        <label>File:</label>
+        <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
+        <div class="video lfm" id="lfm-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfm-`+counter+`">
+        </div>
+        <a href="javascript:void();">Video Link</a>
+    </div>
+    <div class="">
+        <label>Tile:
+        <input type="text" name="gallery[`+counter+`][alt]" value="" placeholder="Title"></label>
+    </div>
+</li>`);
+       
+        $('.lfm').filemanager('video', {prefix: route_prefix});
         $(`#lfm-`+counter).trigger('click');
         counter++;
     }
 </script>
+
 @endsection
 
 

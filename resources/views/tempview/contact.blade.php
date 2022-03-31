@@ -135,6 +135,7 @@
         <div class="signupForm">
           <form class="form_contact" action="{{route('contact-form.store')}}" method="post">
             @csrf
+            <input type="hidden" name="contact_type" value="general">
             <div class="row">
               <div class="col-sm-12 col-md-6">
                 <div class="input-field">

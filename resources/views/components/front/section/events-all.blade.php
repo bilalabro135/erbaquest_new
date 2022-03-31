@@ -24,8 +24,9 @@
                           <i class="far fa-heart"></i>
                         @endif    
                       </a>
-                    
-                    <p class="ft-tag">Featured</p>
+                     @if($event['featured'])
+                      <p class="ft-tag">Featured</p>
+                     @endif
                   </div>
                   <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
                     <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">

@@ -12082,3 +12082,18 @@ table tr th{
       margin-right: 10px;
     margin-bottom: 10px;
   }
+.main_event{
+  margin-top: 10px;
+  }
+.podcast_list ul{
+  list-style: none;
+  padding:0px;
+  }
+.podcast_list ul li{
+  border-bottom: 1px #eaeaea solid;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  }
+.video.lfm{
+  height: 0px;
+  }

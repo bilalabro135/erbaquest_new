@@ -32,7 +32,7 @@ class Listing extends Component
         $now = date('Y-m-d');
 
         if($this->featured != false)
-            $events->where('is_featured', true);
+            $events->where('featured', "1");
 
         if($this->upcoming  != false)
             $events->whereDate('event_date', '>', $now) ;

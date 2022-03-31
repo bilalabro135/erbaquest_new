@@ -68,7 +68,6 @@ class EventsAll extends Component
                 }else{
                     $profile_image = "";
                 }
-                
                 $events[] = array(
                     'id' => $getevent['id'],
                     'name' => $getevent['name'],
@@ -79,6 +78,7 @@ class EventsAll extends Component
                     'event_date' => $getevent['event_date'],
                     'area' => $getevent['area'],
                     'user_profile' => $profile_image,
+                    'featured'     =>   $getevent['featured'],
                 );
             }
         }

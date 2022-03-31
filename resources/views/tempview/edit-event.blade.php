@@ -30,6 +30,11 @@
                       <div class="event-box_list" id="event_{{ $event->id }}">
                         <figure>
                           <div class="wishlist">
+                                 @if($event['featured'])
+                                  <p class="ft-tag">Featured</p>
+                                 @endif
+                              </div>
+                          <div class="wishlist">
                             <!-- <p class="ft-tag">Featured</p> -->
                           </div>
                           <a href="../events/{{$event['id']}}">

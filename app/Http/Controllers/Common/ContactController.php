@@ -19,18 +19,19 @@ class ContactController extends Controller
         return view('admin.contact.index');
     }
 
-    public function getContact()
-    {
-        $model = Contact::query();
+    public function getContact(request $ajaxrequest)
+    {   
+        $onlytype = ($ajaxrequest['type']) ? $ajaxrequest['type']  : '';
+        $query = Contact::query();
+        if($onlytype){
+            $model = $query->where("contact_type",$onlytype);
+        }else{
+            $model = $query;
+        }
         return DataTables::eloquent($model)
         ->addColumn('action', function($row){
-             $actionBtn = '';
-                //if(Bouncer::can('updateAmenities')){
-                   // $actionBtn .='<a href="' . route('amenities.edit', ['amenity' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
-               // }
-               // if(Bouncer::can('deleteAmenities')){
-                $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('contact.delete', ['contact' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
-              //  }
+            $actionBtn = '';
+            $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('contact.delete', ['contact' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
                 return $actionBtn;
         })
 
@@ -78,6 +79,7 @@ class ContactController extends Controller
     public function sendEmail(ContactRequest $request)
     {
         $input = $request->all(); 
+
         Contact::create($input); 
 
         //  Send mail to admin 
@@ -89,7 +91,7 @@ class ContactController extends Controller
             'message' => $input['message'], 
         ), function($message) use ($request){ 
             $message->from($request->email); 
-            $message->to('hurera@geeksroot.com', 'Admin')->subject($request->get('subject')); 
+            $message->to('hurera@geeksroot.com', 'Admin')->subject($request->subject); 
         }); 
         return redirect()->back()->with(['msg' => 'Contact Form Submit Successfully']);
     }

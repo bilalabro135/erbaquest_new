@@ -287,6 +287,8 @@ Route::get('/account/upcoming-event',[EventController::class, 'upcomingEvent'])-
 Route::get('/account/draft-events',[EventController::class, 'draftEvent'])->name('draft.account')->middleware('auth','verified');
 Route::get('/account/past-events',[EventController::class, 'pastEvent'])->name('past.account')->middleware('auth','verified');
 
+Route::get('/podcast/{id}', [PodcastController::class, 'show'])->name('podcast.show');
+
 // Contact Form
 Route::get('/contact', [ContactController::class, 'contactForm'])->name('contact-form'); 
 Route::post('/contact-form', [ContactController::class, 'sendEmail'])->name('contact-form.store');

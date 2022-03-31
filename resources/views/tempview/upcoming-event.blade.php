@@ -26,6 +26,11 @@
                     <div class="col-sm-12 col-md-6" id="event_{{$event['id']}}">
                       <div class="event-box_list">
                         <figure>
+                          <div class="wishlist">
+                                 @if($event['featured'])
+                                  <p class="ft-tag">Featured</p>
+                                 @endif
+                            </div>
                             <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
                           <div class="author">
                             <p>{{$event['area']}}</p>

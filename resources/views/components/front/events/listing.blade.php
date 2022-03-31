@@ -19,6 +19,9 @@
           {{date('d-m-Y', strtotime($event['event_date']))}}
         </p>
         <p class="tags">
+          @if( $event['featured'] ) 
+            <span>Fetured</span>
+          @endif
         </p>
       </div>
       <div class="text">

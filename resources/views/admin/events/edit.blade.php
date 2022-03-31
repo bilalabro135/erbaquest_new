@@ -460,8 +460,10 @@
                                 @endif
                                 <div class="main_event">
                                     <label>
-                                    <input type="checkbox" name="">Featured
-                                        
+                                    <input type="checkbox" @if($event->featured) checked="checked"  @endif name="featured" value="1">
+                                    <span>
+                                        Featured
+                                    </span>    
                                     </label>
                                 </div>
                             </div>

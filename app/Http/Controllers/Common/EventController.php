@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\Admin\EventRequest;
 use App\Http\Requests\Admin\EventTypeRequest;
 use App\Http\Requests\Common\FrontEventRequest;
 use App\Http\Requests\Common\ReviewRequest;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Common\SubmitReviewRequest;
 
 use App\Models\User;
@@ -62,10 +64,24 @@ class EventController extends Controller
     {
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
+
+        $vendorProfiles = array();
+        if(count($vendors)){
+            foreach ($vendors as $vendor) {
+                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
+                if($getDataVendorProfile){
+                    $vendorProfiles[] = array(
+                        'id' => $vendor['id'],
+                        'name' =>  $getDataVendorProfile['public_profile_name'],
+                    );
+                }
+            }
+        }
+
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
-        return view('admin.events.add', compact('users', 'vendors', 'amenities', 'tyoesOfEvents','countries'));
+        return view('admin.events.add', compact('users', 'vendors', 'amenities', 'tyoesOfEvents','countries','vendorProfiles'));
     }
 
     public function store(EventRequest $request)
@@ -101,6 +117,7 @@ class EventController extends Controller
         $event->instagram = $eventDetail['instagram'];
         $event->youtube = $eventDetail['youtube'];
         $event->status = $eventDetail['status'];
+        $event->featured = $eventDetail['featured'];
         $event->save();
 
         if($request->has('vendors'))
@@ -156,6 +173,7 @@ class EventController extends Controller
     public function update(EventRequest $request, Event $event)
     {
         $eventDetail = $request->getEventData();
+        //dd($eventDetail);
         $event->update([
             'name' =>  $eventDetail['name'],
             'slug' =>  $eventDetail['slug'],
@@ -186,6 +204,7 @@ class EventController extends Controller
             'instagram' =>  $eventDetail['instagram'],
             'youtube' =>  $eventDetail['youtube'],
             'status' =>  $eventDetail['status'],
+            'featured' =>  $eventDetail['featured'],
         ]);
 
         if($request->has('vendors'))

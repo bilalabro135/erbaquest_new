@@ -8,6 +8,7 @@
     @endif
     <form class="contactForm" action="{{route('contact-form.store')}}" method="post">
       @csrf
+      <input type="hidden" name="contact_type" value="general">
       <div class="row">
         <div class="col-sm-12 col-md-6 input-field">
           <input type="text" name="first_name" placeholder="First Name:" required="required">
