@@ -75,7 +75,7 @@
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
-                    <label>PICTURE: 
+                    <label>GALLERY PICTURES: 
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
                       <div class="preview1">
                        @if($data['gallery'])

@@ -166,16 +166,18 @@ class PodcastController extends Controller
 
     public function frontView()
     {
-        $getBlogs = Blog::all();
+        $getPodcasts = Podcast::all();
         $pages = Pages::all();
         $pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
-        return view('templates.blog', compact('getBlogs', 'pageSlug', 'pages'));
+        return view('templates.blog', compact('getPodcasts', 'pageSlug', 'pages'));
     }
-    public function show($pages,$id)
+    public function show($id)
     {
-        $blogsData = Blog::where('id',$id)->first();
-        // dd($blogsData);
-        return view('front.blog.index', compact('blogsData', 'pages'));
+        $podcastsData = Podcast::where('id',$id)->first();
+        // dd($podcastsData->featured_image);
+        return view('front.podcast.index', compact('podcastsData'));
     }
+
+
 }
 
