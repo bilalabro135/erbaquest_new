@@ -9,14 +9,14 @@
     <link rel="icon" type="image/x-icon" href="{{$globalsettings->getValue('site_fav')}}">
     <!-- <link rel="manifest" href="manifest.json" /> -->
     <!-- PWA  -->
-    <meta name="theme-color" content="#6777ef"/>
+    <meta name="theme-color" content="#2c8e43"/>
     <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
     <!-- <link rel="manifest" href="manifest.json" /> -->
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <!-- ios support -->
 
-    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-    <meta name="theme-color" content="#db4938" />
+    <meta name="apple-mobile-web-app-status-bar" content="#2c8e43" />
+    <meta name="theme-color" content="#2c8e43" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/primer.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/front/bootstrap.min.css') }}">

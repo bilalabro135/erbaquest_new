@@ -4150,3 +4150,16 @@ color: #ff0000;
 .evGallery .owl-nav.disabled{
     display: block;
 }
+
+@media (min-width: 320px) and (max-width: 767px) {
+	.home_contact_form p {
+	    padding: 0px;
+	}
+	.event-box figure {
+	    height: 140px;
+	}
+	.becomeSponsor .btn-custom {
+	    width: 210px;
+	    text-align: center;
+	}
+}
