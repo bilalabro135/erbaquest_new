@@ -26,10 +26,12 @@ class BlogAll extends Component
     public function render()
     {
         $user = Auth::user();
-        $this->blogs = Blog::select('*','categories.name as catname','categories.featured_image as cat_featured_image','categories.description as cat_description','blogs.name as podcast_name')->leftJoin('blogs_cats', 'blogs.id', '=', 'blogs_cats.blog_id')->leftJoin('categories', 'blogs_cats.cat_id', '=', 'categories.id')->toSql();
-        //->paginate(6)
-        // dd($this->blogs);
+        $this->blogs = Blog::select('blogs.*','categories.name as catName')
+        ->leftJoin('blogs_cats', 'blogs.id', '=', 'blogs_cats.blog_id')
+        ->leftJoin('categories', 'blogs_cats.cat_id', '=', 'categories.id')->paginate(9);
+
         $this->pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
+
         return view('components.front.section.blog-all');
     }
 }

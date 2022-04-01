@@ -12087,13 +12087,43 @@ table tr th{
   }
 .podcast_list ul{
   list-style: none;
-  padding:0px;
+  padding: 0px;
   }
 .podcast_list ul li{
   border-bottom: 1px #eaeaea solid;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   padding-bottom: 10px;
+  float: left;
+  margin-right: 50px;
   }
-.video.lfm{
-  height: 0px;
+.video.lfmv{
+  display: inline-block;
+  cursor: pointer;
+  font-size: 15px;
+  position: relative;
+  top: -1px;
+  }
+.marg_link input{
+  display: block;
+  margin-top: 3px;
+  padding-left: 10px;
+  }
+.marg_link{
+  margin-top: 5px;
+  }
+.file_src{
+  float: left;
+  }
+.file_src label{
+  margin-bottom: 0px;
+  }
+.remove_audio{
+float: right;
+cursor: pointer;
+  }
+.remove_audio i{
+  color: #ee5b5b;
+  }
+.file_src label{
+display: inline-block;
   }

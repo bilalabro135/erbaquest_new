@@ -4150,3 +4150,24 @@ color: #ff0000;
 .evGallery .owl-nav.disabled{
     display: block;
 }
+.podcast_episode_time ul li{
+  float: left;
+  }
+.posdcast_timeline ul li h4{
+  font-size: 20px;
+  }
+.posdcast_timeline ul li h4 span{
+  color: #247338;
+  }
+.posdcast_timeline ul li h4 span.text{
+  color: #000;
+  }
+.posdcast_timeline ul li{
+  margin-right: 50px;
+  }
+.posdcast_timeline ul li:nth-child(3){
+  margin-right: 50px;
+  }
+.podcast-box .detail .list-play h4 .text{
+  color: #000;
+  }

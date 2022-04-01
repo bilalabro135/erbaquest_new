@@ -32,6 +32,7 @@ class PodcastRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
+            'subhead' => 'max:255',
             'slug' => 'max:255',
             'meta_title' => 'max:100',
             'meta_keyword' => 'max:255',
@@ -57,12 +58,14 @@ class PodcastRequest extends FormRequest
             foreach($this->get('gallery') as $k => $g){
                 $gallery[$k]['alt'] = $g['alt'];
                 $gallery[$k]['url'] =  str_replace(env('APP_URL'),'',$g['url']);
+                $gallery[$k]['sort'] =  $g['sort'];
             }
             $this->merge(['gallery' => $gallery]);
         }
 
         return [
             'name' => $this->get('name'),
+            'subhead' => $this->get('subheading'),
             'slug' =>  \Str::slug($this->get('slug')),
             'template' => $this->get('template'),
             'status' => $this->get('status'),
@@ -75,8 +78,7 @@ class PodcastRequest extends FormRequest
             'spotify_link' => $this->get('spotify_link') ,
             'gm_link' => $this->get('gm_link') ,
             'stitcher_link' => $this->get('stitcher_link') ,
-            'episode_number' => $this->get('episode_number') ,
-            'episode_timeline' => $this->get('episode_timeline') ,
+            
             'pt_message' => $this->get('pt_message') ,
             
             'featured_image' => ($this->has('featured_image')) ? $this->get('featured_image') : null ,

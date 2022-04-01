@@ -7,6 +7,7 @@
       var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
       var target_input = $('#' + $(this).data('input'));
       var target_preview = $('#' + $(this).data('preview'));
+      var target_reupload = $('#' + $(this).data('preview') + '-inp');
       window.open(route_prefix + '?type=' + type, 'FileManager', 'width=900,height=600');
       window.SetUrl = function (items) {
         var file_path = items.map(function (item) {
@@ -17,12 +18,21 @@
         target_input.val('').val(file_path).trigger('change');
 
         // clear previous preview
-        target_preview.html('');
+        //target_preview.html('');
+        target_reupload.html('');
 
         // set or change the preview image src
         items.forEach(function (item) {
-          target_preview.append(
-            $('<img>').css('height', '5rem').attr('src', item.thumb_url)
+          // target_preview.append(
+          //   $('<img>').css('height', '5rem').attr('src', item.thumb_url)
+          // );
+
+          // target_preview.after(
+          //   $('<a>').attr('href', item.url).text("Link Url").attr("target","_blank"),
+          // );
+
+          target_reupload.append(
+            $('<a>').attr('href', item.url).text("Link Url").attr("target","_blank"),
           );
         });
 

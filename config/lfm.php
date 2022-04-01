@@ -57,7 +57,8 @@ return [
                 'image/gif',
                 'application/pdf',
                 'text/plain',
-                'video/mp4',
+                'audio/mp3',
+                'audio/mpeg',
             ],
         ],
         'image' => [
