@@ -33,8 +33,23 @@ class PodcastAll extends Component
     {
         $user = Auth::user();
 
-        //$this->podcasts = Podcast::select('*','categories.name as catname','categories.featured_image as cat_featured_image','categories.description as cat_description','podcasts.name as podcast_name')->leftJoin('podcasts_cats', 'podcasts.id', '=', 'podcasts_cats.podcast_id')->leftJoin('categories', 'podcasts_cats.cat_id', '=', 'categories.id')->get();
-        $this->podcasts = array();
+        $getAllPodCasts = Podcast::all();
+        $sendAllPodCasts = array();
+        foreach ($getAllPodCasts as $getPodcast) {
+
+            $sendAllPodCasts[] = array(
+                "id"                 => $getPodcast['id'],
+                "cat_featured_image" => $getPodcast['featured_image'],
+                "name"               => $getPodcast['name'],
+                "total"              => (isset($getPodcast['gallery'])) ? count(unserialize($getPodcast['gallery'])) : '',
+                "description"        => $getPodcast['short_description'],
+                "gallery"            => unserialize($getPodcast['gallery']),
+            );    
+  
+        }
+
+        $this->podcasts = $sendAllPodCasts;
+
         $this->pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
         return view('components.front.section.podcast-all');
     }

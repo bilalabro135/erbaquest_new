@@ -4150,6 +4150,7 @@ color: #ff0000;
 .evGallery .owl-nav.disabled{
     display: block;
 }
+<<<<<<< HEAD
 
 @media (min-width: 320px) and (max-width: 767px) {
 	.home_contact_form p {
@@ -4163,3 +4164,26 @@ color: #ff0000;
 	    text-align: center;
 	}
 }
+=======
+.podcast_episode_time ul li{
+  float: left;
+  }
+.posdcast_timeline ul li h4{
+  font-size: 20px;
+  }
+.posdcast_timeline ul li h4 span{
+  color: #247338;
+  }
+.posdcast_timeline ul li h4 span.text{
+  color: #000;
+  }
+.posdcast_timeline ul li{
+  margin-right: 50px;
+  }
+.posdcast_timeline ul li:nth-child(3){
+  margin-right: 50px;
+  }
+.podcast-box .detail .list-play h4 .text{
+  color: #000;
+  }
+>>>>>>> 71acd7670d65694a8a9934f4c662e2e4cbe14548

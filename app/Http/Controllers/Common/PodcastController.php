@@ -13,6 +13,8 @@ use DataTables;
 use Bouncer;
 use Redirect;
 use Route;
+
+use Carbon\Carbon;
 class PodcastController extends Controller
 {
     /**
@@ -69,8 +71,11 @@ class PodcastController extends Controller
     public function store(PodcastRequest $request)
     {
         $podcastDetail = $request->getPodcastData();
+
+        $array = unserialize($podcastDetail['gallery']);
         $podcast = new Podcast;
         $podcast->name = $podcastDetail['name'];
+        $podcast->sub_heading = $podcastDetail['subhead'];
         $podcast->slug = $podcastDetail['slug'];
         $podcast->featured_image =  str_replace(env('APP_URL'),"",$podcastDetail['featured_image']) ;
         $podcast->status = $podcastDetail['status'];
@@ -86,8 +91,7 @@ class PodcastController extends Controller
         $podcast->spotify = $podcastDetail['spotify_link'];
         $podcast->google_music = $podcastDetail['gm_link'];
         $podcast->stitcher_link = $podcastDetail['stitcher_link'];
-        $podcast->episode_num = $podcastDetail['episode_number'];
-        $podcast->episode_time_line = $podcastDetail['episode_timeline'];
+
         $podcast->patreon_message = $podcastDetail['pt_message'];
 
         $podcast->save();
@@ -109,7 +113,9 @@ class PodcastController extends Controller
     {
         $users = User::all();
         $categories = Category::where('parent_id', null)->where("category_type","podcast")->get();
-        return view('admin.podcasts.edit', compact('podcast', 'users', 'categories'));
+        $galleries = unserialize($podcast['gallery']);
+
+        return view('admin.podcasts.edit', compact('podcast', 'users', 'categories','galleries'));
     }
 
     /**
@@ -122,9 +128,11 @@ class PodcastController extends Controller
     public function update(PodcastRequest $request, Podcast $podcast)
     {
         $podcastDetail = $request->getPodcastData();
+    
         $podcast->update([
             'name' => $podcastDetail['name'],
             'slug' => $podcastDetail['slug'],
+            'sub_heading' => $podcastDetail['subhead'],
             'featured_image' =>  str_replace(env('APP_URL'),"",$podcastDetail['featured_image']),
             'status' => $podcastDetail['status'],
             'description' => $podcastDetail['description'],
@@ -137,8 +145,6 @@ class PodcastController extends Controller
             'spotify' => $podcastDetail['spotify_link'],
             'google_music' => $podcastDetail['gm_link'],
             'stitcher_link' => $podcastDetail['stitcher_link'],
-            'episode_num' => $podcastDetail['episode_number'],
-            'episode_time_line' => $podcastDetail['episode_timeline'],
             'patreon_message' => $podcastDetail['pt_message'],
         ]);
         if($request->has('cat'))
@@ -171,11 +177,49 @@ class PodcastController extends Controller
         $pageSlug = Pages::where('template', 'blog')->where('status', 'published')->value('slug');
         return view('templates.blog', compact('getPodcasts', 'pageSlug', 'pages'));
     }
-    public function show($id)
+    public function show($id, request $request)
     {
         $podcastsData = Podcast::where('id',$id)->first();
-        // dd($podcastsData->featured_image);
-        return view('front.podcast.index', compact('podcastsData'));
+        $user_info = User::where("id",$podcastsData['user_id'])->first();
+        
+        $additional_info = array(
+            "username"  => $user_info->username,
+            "duration"  => $this->time_elapsed_string($podcastsData['created_at']),
+            'gallery'   => unserialize($podcastsData['gallery']),
+
+        );
+        $current = ($request->input('episode')) ?  $request->input('episode') - 1 : 0;
+
+        return view('front.podcast.index', compact('podcastsData','additional_info','current'));
+    }
+
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new Carbon;
+        $ago = new Carbon($datetime);
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
 

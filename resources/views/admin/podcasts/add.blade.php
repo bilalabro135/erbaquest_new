@@ -20,8 +20,17 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Podcast Name*" value="{{old('name')}}">        
+                                <label for="title">Title</label>
+                                <input type="text"  required="" id="name" class="form-control  @error('name') is-invalid @enderror" name="name" placeholder="Enter Podcast Name*" value="{{old('name')}}">        
+                                @error('name')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Sub Heading:</label>
+                                <input type="text"  required="" id="subheading" class="form-control  @error('subheading') is-invalid @enderror" name="subheading" placeholder="Enter Sub Heading*" value="{{old('subheading')}}">        
                                 @error('name')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -88,28 +97,10 @@
                             </div>
 
                             <div class="form-group ">
-                                <label for="episode_number">Episode Number</label>
-                                <input id="episode_number" class="form-control @error('episode_number') is-invalid @enderror" type="text" name="episode_number" value="{{old('episode_number')}}" placeholder="Episode Number">
-                                @error('episode_number')
-                                    <div class="text-danger">
-                                        {{$message}}                                            
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="form-group ">
-                                <label for="episode_timeline">Episode Timeline</label>
-                                <input id="episode_timeline" class="form-control @error('episode_timeline') is-invalid @enderror" type="text" name="episode_timeline" value="{{old('episode_timeline')}}" placeholder="Episode Timeline">
-                                @error('episode_timeline')
-                                    <div class="text-danger">
-                                        {{$message}}                                            
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="form-group ">
-                                <label for="pt_message">Patreon Message</label>
-                                <input id="pt_message" class="form-control @error('pt_message') is-invalid @enderror" type="text" name="pt_message" value="{{old('pt_message')}}" placeholder="Patreon Message">
+                                <label for="pt_message">Additional Message:</label>
+                                <textarea id="pt_message" class="form-control @error('pt_message') is-invalid @enderror" type="text" name="pt_message" placeholder="Additional Message"> 
+                                    {{ (old('pt_message')) ? old('pt_message') : '' }}
+                                </textarea>
                                 @error('pt_message')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -145,7 +136,7 @@
                          <div class="card-body gallery">
                             <div class="podcast_list">
                                 <ul id="list_pod">
-                                    
+                                     
                                 </ul>
                             </div>    
                          </div>
@@ -290,7 +281,7 @@
 <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
 
 
-<script src="{{ asset('/js/admin/selectize.min.js')}}"></script>
+<!-- <script src="{{ asset('/js/admin/selectize.min.js')}}"></script>
 <script src="{{ asset('/js/admin/index.js')}}"></script>
 <script>
     $('#episode_timeline').selectize({
@@ -298,7 +289,7 @@
         createOnBlur: true,
         create: true
     });
-</script>
+</script> -->
 
 <script>
     var options = {
@@ -307,34 +298,49 @@
         filebrowserBrowseUrl: '{{ route("unisharp.lfm.show", ["type" => "Files"])}}',
         filebrowserUploadUrl: '{{ route("unisharp.lfm.upload", ["type" => "Files", "_token" => ''])}}'
     };
+
     $(document).ready(function(){
         CKEDITOR.replace('ckeditor1',  options)
-    })
+    });
+    $(document).ready(function(){
+        CKEDITOR.replace('pt_message',  options)
+    });
 
     var route_prefix = "{{route('unisharp.lfm.show')}}";
     $('.lfm').filemanager('image', {prefix: route_prefix});
     function removeImage() {
+   
         $('#featured_image').val('');
         $('#lfm').html('Upload')
     }
+    function removeAudioGallery(target_id) {
+        $("#"+target_id).remove();
+    }
     let counter = 0;
     function addGalleryImage(){
-        $("#list_pod").append(`<li>
+        $("#list_pod").append(`<li id="galleryAudio_`+counter+`">
     <div class="file_src">
-        <label>File:</label>
-        <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
-        <div class="video lfm" id="lfm-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfm-`+counter+`">
+        <label><span>File: </span> <div class="video lfmv" id="lfmv-`+counter+`" data-input="gallery-`+counter+`" data-preview="lfmv-`+counter+`" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+            <i class="fas fa-upload"></i>
         </div>
-        <a href="javascript:void();">Video Link</a>
+        </label>
+        <input type="hidden" name="gallery[`+counter+`][sort]" value="`+counter+`" />
+        <input type="hidden" name="gallery[`+counter+`][url]" id="gallery-`+counter+`" />
+        
     </div>
-    <div class="">
+    <div class="remove_audio" onClick="removeAudioGallery('galleryAudio_`+counter+`');">
+        <i class="fas fa-times-circle"></i>
+    </div>
+    <div style="clear:both;"></div>
+    <div id="lfmv-`+counter+`-inp"></div>
+    <div class="marg_link">
         <label>Tile:
         <input type="text" name="gallery[`+counter+`][alt]" value="" placeholder="Title"></label>
     </div>
 </li>`);
        
-        $('.lfm').filemanager('video', {prefix: route_prefix});
-        $(`#lfm-`+counter).trigger('click');
+        $('.lfmv').filemanager('video', {prefix: route_prefix});
+        $(`#lfmv-`+counter).trigger('click');
         counter++;
     }
 </script>

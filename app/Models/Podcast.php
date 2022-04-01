@@ -26,8 +26,7 @@ class Podcast extends Model
         'spotify',
         'google_music',
         'stitcher_link',
-        'episode_num',
-        'episode_time_line',
+        'sub_heading',
         'patreon_message',
     ];
     use HasFactory;
