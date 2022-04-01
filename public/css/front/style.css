@@ -4171,3 +4171,16 @@ color: #ff0000;
 .podcast-box .detail .list-play h4 .text{
   color: #000;
   }
+
+  @media (min-width: 320px) and (max-width: 767px) {
+  .home_contact_form p {
+      padding: 0px;
+  }
+  .event-box figure {
+      height: 140px;
+  }
+  .becomeSponsor .btn-custom {
+      width: 210px;
+      text-align: center;
+  }
+}
