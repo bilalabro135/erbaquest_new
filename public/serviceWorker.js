@@ -1,6 +1,7 @@
 const staticDevCoffee = "dev-erba-quest-v1"
 const assets = [
   "/",
+  "/index.php",
   "/css/style.css",
   "/js/app.js",
   "/images/logo.png",
