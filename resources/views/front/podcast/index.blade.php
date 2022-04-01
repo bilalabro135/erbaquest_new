@@ -66,16 +66,18 @@
                     <div class="posdcast_timeline podcast_episode_time">
                         <h4>Episode timeline</h4>
                         <ul>
-                            @foreach($additional_info['gallery'] as $gallery)
-                                <li class="list-play">
-                                    <a href="{{route('posts.show', ['pages' => 'podcast', 'id' => $podcastsData->id])}}?episode={{ $gallery['sort'] + 1 }}">
-                                        <h4>
-                                            <span class="icon"><i class="far fa-play-circle"></i></span>
-                                            <span class="text">{{ $gallery['alt'] }}</span>
-                                        </h4>
-                                    </a>
-                                </li>
-                            @endforeach
+                            @if($additional_info['gallery'])
+                                @foreach($additional_info['gallery'] as $gallery)
+                                    <li class="list-play">
+                                        <a href="{{route('posts.show', ['pages' => 'podcast', 'id' => $podcastsData->id])}}?episode={{ $gallery['sort'] + 1 }}">
+                                            <h4>
+                                                <span class="icon"><i class="far fa-play-circle"></i></span>
+                                                <span class="text">{{ $gallery['alt'] }}</span>
+                                            </h4>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                     {!! $podcastsData->patreon_message !!}
