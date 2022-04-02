@@ -627,6 +627,7 @@ h3.vc_heading.vc_heading-green:before {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 10px;
+  height: 36px;
 }
 
 .event-box .detail h4 {
@@ -3603,7 +3604,6 @@ button.delete-event:hover:after {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 40px;
 }
 .event-box_list p{
   display: -webkit-box;
