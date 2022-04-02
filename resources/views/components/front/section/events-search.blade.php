@@ -51,7 +51,7 @@
     <div class="SortFilter">
       <p>{{$events_count}} Result{{ ($events_count > 1) ? 's' : '' }} found</p>
       <div class="input-field customDropdown">
-        <select class="sortDropdown" name="sort">
+        <select class="sortDropdown {{ $sort }}" name="sort">
           <option value="">SORT BY</option>
           <option {{($sort != '' && $sort == 'latest') ? 'selected="selected"' : ''}} value="latest">Latest</option>
           <option {{($sort != '' && $sort == 'name') ? 'selected="selected"' : ''}} value="name">Name</option>

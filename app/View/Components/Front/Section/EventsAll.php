@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\Pages;
 use App\Models\User;
 use App\Models\WishLists;
+use DB;
 
 class EventsAll extends Component
 {
@@ -19,6 +20,7 @@ class EventsAll extends Component
      */
     public $events;
     public $pageSlug;
+    public $selectedParameter;
     public function __construct()
     {
         //
@@ -35,6 +37,7 @@ class EventsAll extends Component
         $search    = (app('request')->input('search')) ? app('request')->input('search') : '';
         $location    = (app('request')->input('location')) ? app('request')->input('location') : '';
         $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
+        $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
         if ($search != '') 
             $event->where('name', 'LIKE', "%{$search}%");
@@ -44,15 +47,32 @@ class EventsAll extends Component
 
         if ($sort != '') {
             if($sort == 'latest'){
-                $event->orderBy('id', 'ASC');
+                $event->orderBy('id', 'DESC');
             }
             else{
                 $event->orderBy($sort, 'ASC');
             }
         }
-        $events = array();
+        $explodeAm = array();
+
+        if($amenities != ""){
+          $explodeAm = explode(",",$amenities);
+          $ids = join("','",$explodeAm);
+
+          $getfilteedrDatas =   DB::select("SELECT DISTINCT event_id FROM `amenities`  a LEFT JOIN `event_amenities` ea on(a.id = ea.amenity_id) where name IN ('$ids')");
+
+           $getIds = array();
+           foreach ($getfilteedrDatas as $getfilteedrData){
+                $getIds[] = $getfilteedrData->event_id;
+            }
+            if($getIds){
+                $event->whereIn('id', $getIds);
+            }  
+        }
+
         $getevents = $event->get();
 
+        $events = array();
         if( count($getevents) ){
             foreach ($getevents as $getevent) {
                 $isWishList = 0;
@@ -82,7 +102,7 @@ class EventsAll extends Component
                 );
             }
         }
-        
+        $this->selectedParameter = $explodeAm;
         $this->events = $events;
         $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
         // dd($events);

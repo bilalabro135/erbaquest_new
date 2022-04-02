@@ -1,5 +1,5 @@
     <section class="secEventsList pb-65">
-      <div class="container">
+      <div class="container"> <!-- $selectedParameter -->
         <div class="row ft-event">
           <div class="alert alert-success">
              Added To <a href='{{route("wishlist")}}'>WishLists</a>
@@ -9,59 +9,61 @@
              Event has been removed from Wishlist!
              <a href="#" class="close_sucesss">x</a>
           </div>
-          @if($events)
-            @foreach($events as $event)
-            <div class="col-sm-12 col-md-4">
-              <div class="event-box_list" id="event_{{$event['id']}}">
-                <figure>
-                  <div class="wishlist">
-                    <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
-                    
-                      <a href="javascript:;" class="heart-link">
-                        @if($event['isWishList'])
-                          <i class="fas fa-heart"></i>
-                        @else
-                          <i class="far fa-heart"></i>
-                        @endif    
+          <div class="main_all_events row">
+              @if($events)
+                @foreach($events as $event)
+                <div class="col-sm-12 col-md-4">
+                  <div class="event-box_list" id="event_{{$event['id']}}">
+                    <figure>
+                      <div class="wishlist">
+                        <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
+                        
+                          <a href="javascript:;" class="heart-link">
+                            @if($event['isWishList'])
+                              <i class="fas fa-heart"></i>
+                            @else
+                              <i class="far fa-heart"></i>
+                            @endif    
+                          </a>
+                         @if($event['featured'])
+                          <p class="ft-tag">Featured</p>
+                         @endif
+                      </div>
+                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
+                        <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
                       </a>
-                     @if($event['featured'])
-                      <p class="ft-tag">Featured</p>
-                     @endif
-                  </div>
-                  <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
-                    <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
-                  </a>
-                  <div class="author">
-                    <p>{{$event['area']}}</p>
-                    @if(!empty($event['user_profile']))
-                    <div class="figure">
-                      <img src="{{ $event['user_profile'] }}" >
+                      <div class="author">
+                        <p>{{$event['area']}}</p>
+                        @if(!empty($event['user_profile']))
+                        <div class="figure">
+                          <img src="{{ $event['user_profile'] }}" >
+                        </div>
+                        @else
+                        <div class="figure">
+                          <img src="{{asset('images/avatar.png')}}">
+                        </div>
+                        @endif
+                      </div>
+                    </figure>
+                    <div class="detail">
+                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
+                        <h3>{{$event['name']}}</h3>
+                      </a>
+                      <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                      <div class="txt">
+                        <p>{!!$event['description']!!}</p>
+                      </div>
+                      @if($pageSlug != '')
+                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}" class="link">Details</a>
+                      @endif
                     </div>
-                    @else
-                    <div class="figure">
-                      <img src="{{asset('images/avatar.png')}}">
-                    </div>
-                    @endif
                   </div>
-                </figure>
-                <div class="detail">
-                	<a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
-                    <h3>{{$event['name']}}</h3>
-                  </a>
-                  <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
-                  <div class="txt">
-                    <p>{!!$event['description']!!}</p>
-                  </div>
-                  @if($pageSlug != '')
-                  <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}" class="link">Details</a>
-                  @endif
                 </div>
-              </div>
-            </div>
-            @endforeach
-          @else
-            <p>NO Events Found!</p>
-          @endif  
+                @endforeach
+              @else
+                <p>NO Events Found!</p>
+              @endif     
+          </div>
         </div>
       </div>
 </section>
@@ -109,38 +111,49 @@ $(".heart-link").click(function() {
 });
 
 
-// $(".clcikalert input").click(function() {
-//   var checked = [];
-//   $.each($("input[name='amenties[]']:checked"), function(){
-//       checked.push($(this).val()); 
-//   });
-
-//   $.ajaxSetup({
-//       headers: {
-//           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//       }
-//   });
-//   $.ajax({
-//     url:'{{route("search.event")}}',
-//     type:'POST',
-//     data:'checkedData='+checked,
-//     beforeSend: function() {
-      
-//     },
-//     success:function(data) {
-
-//         if(data[0]){
-//             for (i = 0; i < data[0].length; ++i) {
-//               if  
-//                 console.log(data[0][i]['name']);
-//             }
-//         }
-//      }
-//   });
+$(".clcikalert input").click(function() {
   
-// });
 
+  var checked = [];
+  $.each($("input[name='amenties[]']:checked"), function(){
+      checked.push($(this).val()); 
+  });
 
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  $.ajax({
+    url:'{{route("search.event")}}',
+    type:'POST',
+    data:'checkedData='+checked,
+    beforeSend: function() {
+      
+    },
+    success:function(data) {
+      if(data){  
+        const queryString = window.location.search = data;
+      }else{
+        const queryString = window.location.search = "";
+      }
+    }
+  });
+  
+});
+
+$('.sortDropdown').change(function(){
+  var data= $(this).val();
+    const queryString = window.location.search;   
+    if(queryString){
+        window.location.search = "&sort="+data;
+    }else{
+        window.location.search = "?sort="+data;
+    }
+});
+
+// const queryString = window.location.search = "?name=2";
+//   console.log(queryString);
 
 //   $.ajaxSetup({
 //       headers: {

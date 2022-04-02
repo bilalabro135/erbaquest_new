@@ -12,6 +12,7 @@ use App\Http\Requests\Admin\EventTypeRequest;
 use App\Http\Requests\Common\FrontEventRequest;
 use App\Http\Requests\Common\ReviewRequest;
 use App\Http\Requests\Common\SubmitReviewRequest;
+use App\Http\Requests\Common\SearchRequest;
 
 use App\Models\User;
 use App\Models\Pages;
@@ -883,24 +884,24 @@ class EventController extends Controller
         return view('tempview.past-event', compact('events','users'));   
    }
 
-    public function search(SearchRequest $request) {    
-    $aminities_ids = explode(",",$request->checkedData);    
-    $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get(); 
-    $event_data = array();  
-    foreach ($getEvnets as $getEvnet) { 
-      $geteventdata = Event::where("id",$getEvnet['event_id'])->first();    
-      if($geteventdata){    
-        $event_data[] = array(  
-            "id"   => $geteventdata['id'],  
-            "name" => $geteventdata['name'],    
-            "featured_image"   => $geteventdata['featured_image'],  
-            "description"   => $geteventdata['description'],    
-            "event_date"   => $geteventdata['event_date'],  
-            "id"   => $geteventdata['id'],  
-        );  
-      } 
-    }   
-    return response()->json([$event_data]); 
+    public function search(SearchRequest $request) {      
+    $event_data = "?amenities=".$request->checkedData;
+    // $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get(); 
+    // $event_data = array();  
+    // foreach ($getEvnets as $getEvnet) { 
+    //   $geteventdata = Event::where("id",$getEvnet['event_id'])->first();    
+    //   if($geteventdata){    
+    //     $event_data[] = array(  
+    //         "id"   => $geteventdata['id'],  
+    //         "name" => $geteventdata['name'],    
+    //         "featured_image"   => $geteventdata['featured_image'],  
+    //         "description"   => $geteventdata['description'],    
+    //         "event_date"   => $geteventdata['event_date'],  
+    //         "id"   => $geteventdata['id'],  
+    //     );  
+    //   } 
+    // }   
+    return response()->json($event_data); 
    }
 
 }

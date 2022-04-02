@@ -8,6 +8,8 @@ use App\Models\Pages;
 use App\Models\Event;
 use App\Models\Area;
 
+use DB;
+
 class EventsSearch extends Component
 {
     /**
@@ -37,6 +39,7 @@ class EventsSearch extends Component
     {
         $this->search    = (app('request')->input('search')) ? app('request')->input('search') : '';
         $this->location    = (app('request')->input('location')) ? app('request')->input('location') : '';
+        $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         
         $event = Event::where('status', 'published');
         if ($this->search != '') 
@@ -44,6 +47,21 @@ class EventsSearch extends Component
 
         if ($this->location != '') 
             $event->where('area', $this->location);
+
+        if($amenities != ""){
+          $explodeAm = explode(",",$amenities);
+          $ids = join("','",$explodeAm);
+
+          $getfilteedrDatas =   DB::select("SELECT DISTINCT event_id FROM `amenities`  a LEFT JOIN `event_amenities` ea on(a.id = ea.amenity_id) where name IN ('$ids')");
+
+           $getIds = array();
+           foreach ($getfilteedrDatas as $getfilteedrData){
+                $getIds[] = $getfilteedrData->event_id;
+            }
+            if($getIds){
+                $event->whereIn('id', $getIds);
+            }  
+        }
 
         $this->events_count = $event->count();
 

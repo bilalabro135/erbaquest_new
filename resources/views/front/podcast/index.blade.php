@@ -24,8 +24,15 @@
                     <div class="pdcs-info">
                         <div class="start_listen">
                             <h4>
-                                <span class="icon"><i class="fas fa-play"></i></span>Start Listen
+                                <span class="icon"><i class="fas fa-play"></i></span> <span class="main_aud_off">Start Listing</span>
                             </h4>
+                            <div class="audio_main">
+                                    <audio class="audio_tag" controls>
+                                      <source src="{{ asset($additional_info['gallery'][ $current ]['url']) }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                    </audio>
+                            </div>
+                            <div style="clear: both;"></div>
                         </div>
                         <div class="audio_list">
                             <ul class="btns">
@@ -45,10 +52,6 @@
                         </div>
                     </div>
                 </figure>
-                <div class="audio">
-                    
-                 <!--  {{ $additional_info['gallery'][ $current ]['url'] }} -->
-                </div>
                 <div class="pdcs-detail">
                     <h5>{{$podcastsData->sub_heading}}</h5>
                     <ul class="PDlist">
@@ -85,5 +88,35 @@
             </div>
         </div>
     </section>
+    <style type="text/css">
+        .start_listen h4{
+            float: left;
+        }
+        .start_listen .audio_main{
+          float: left;
+            position: relative;
+            top: -4px;
+        }
+        .audio_main{
+            display: none;
+        }
+        .start_listen .icon{
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(".start_listen .icon").click(function() {
+            $(".main_aud_off").hide();
+            $(".audio_main").show();
+             var mediaVideo = $(".audio_tag").get(0);
+               if (mediaVideo.paused) {
+                   mediaVideo.play();
+               } else {
+                   mediaVideo.pause();
+              }
+
+        });
+    </script>
 
 @endsection

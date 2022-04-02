@@ -15,6 +15,7 @@ class EventSearchAmenties extends Component
      */
     public $fields;
     public $amenities;
+    public $selectedParameter;
     public function __construct()
     {
         //
@@ -27,8 +28,16 @@ class EventSearchAmenties extends Component
      */
     public function render()
     {
+        $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
+        $explodeAm = array();
+
+        if($amenities != ""){
+          $explodeAm = explode(",",$amenities);
+        }
 
         $component = Components::where('name', 'event-search-amenties')->first();
+
+        $this->selectedParameter = $explodeAm;
         $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
         $this->amenities = Amenity::all();
         if (count($this->amenities)) 

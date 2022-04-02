@@ -71,7 +71,7 @@
                     <div class="bg-primary py-2 collapse-inner rounded">
                         <a class="collapse-item text-light" href="{{route('podcasts')}}">All Podcasts</a>
                         <a class="collapse-item text-light" href="{{route('podcasts.add')}}">Add Podcasts</a>
-                        <a class="collapse-item text-light" href="{{route('podcast.categories')}}">All Categories</a>
+                        <!-- <a class="collapse-item text-light" href="{{route('podcast.categories')}}">All Categories</a> -->
                     </div>
                 </div>
             </li>

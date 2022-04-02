@@ -7,13 +7,13 @@
           <ul>
             @foreach($amenities as $amenity)
             <li>
-              <label class="clcikalert">              
+              <label class="clcikalert @if(in_array($amenity->name, $selectedParameter)) selected @endif">              
                 <figure>
                   <img src="{{$amenity->icon}}" alt="{{$amenity->name}}">
                 </figure>
 
                 <span class="text">{{$amenity->name}}</span>
-                <input type="checkbox" name="amenties[]" value="{{$amenity->id}}">
+                <input type="checkbox" name="amenties[]" value="{{$amenity->name}}" @if(in_array($amenity->name, $selectedParameter)) checked="checked"  @endif>
               </label>
             </li>
             @endforeach
