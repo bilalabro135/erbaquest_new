@@ -22,6 +22,7 @@
                         <img src="{{ asset('images/placeholder.png') }}" alt="{{$podcastsData->podcast_name}}" />
                     @endif
                     <div class="pdcs-info">
+                        @if($additional_info['gallery'])
                         <div class="start_listen">
                             <h4>
                                 <span class="icon"><i class="fas fa-play"></i></span> <span class="main_aud_off">Start Listing</span>
@@ -34,6 +35,7 @@
                             </div>
                             <div style="clear: both;"></div>
                         </div>
+                        @endif
                         <div class="audio_list">
                             <ul class="btns">
                                 @if($podcastsData->itune)
