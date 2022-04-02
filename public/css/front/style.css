@@ -3603,6 +3603,7 @@ button.delete-event:hover:after {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 40px;
 }
 .event-box_list p{
   display: -webkit-box;
