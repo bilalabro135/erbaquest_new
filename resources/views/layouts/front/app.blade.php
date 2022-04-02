@@ -298,6 +298,13 @@ if(isset($user)){
     });
     $lis.appendTo($ul);
 
+    $(".rcVendor-list ul li:last-child").css("border-right", "0px");
+
+// Mobile Toggle
+$('button.navbar-toggler').on("click",function() {
+  $('div#main-nav').slideToggle('collapse');
+});
+
  </script>
   @stack('scripts')
   </body>

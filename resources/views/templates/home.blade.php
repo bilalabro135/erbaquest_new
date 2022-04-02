@@ -57,31 +57,24 @@
             }
         });
 
-        $('button.navbar-toggler').on("click",function() {
-          $('div#main-nav').slideToggle('collapse');
-        });
 
 
-        var wdt = $(window).width();
-
-        if (wdt < 767) {
-
-          $('.rcVendor-list ul').addClass('owl-carousel');
-          $('.rcVendor-list ul').addClass('owl-theme');
-
-        $('.rcVendor-list ul').owlCarousel({
-            loop:true,
-            margin:0,
-            nav:false,
-            touchDrag: false,
-            responsive:{
-                0:{
-                    items:3
-                }
-            }
-        });
-
-      }
+        // var wdt = $(window).width();
+        // if (wdt < 767) {
+        //     $('.rcVendor-list ul').addClass('owl-carousel');
+        //     $('.rcVendor-list ul').addClass('owl-theme');
+        //     $('.rcVendor-list ul').owlCarousel({
+        //         loop:true,
+        //         margin:0,
+        //         nav:false,
+        //         touchDrag: false,
+        //         responsive:{
+        //             0:{
+        //                 items:3
+        //             }
+        //         }
+        //     });
+        // }
     });
     </script>
 @endpush

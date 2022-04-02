@@ -12127,3 +12127,13 @@ cursor: pointer;
 .file_src label{
 display: inline-block;
   }
+
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .p-5 {
+    padding: 1rem !important;
+  }
+  .form_area form.user .btn-user {
+    width: 225px;
+  }
+}
