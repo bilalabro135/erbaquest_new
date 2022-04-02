@@ -19,7 +19,7 @@
                   @endif
                 </figure>
                 <h5 class="cat">{{$blog['catName']}}</h5>
-                <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $blog['id']])}}"><h3>{{$blog['podcast_name']}}</h3></a>
+                <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $blog['id']])}}"><h3>{{$blog['name']}}</h3></a>
                 <p>{{$blog['short_description']}}</p>
                 <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $blog['id']])}}" class="md-link">READ MORE</a>
               </div>
