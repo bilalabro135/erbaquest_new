@@ -400,7 +400,7 @@
         </div>
       </div>
     </section>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=editMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{$globalMapKey->getValue('map_key')}}&callback=editMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
 

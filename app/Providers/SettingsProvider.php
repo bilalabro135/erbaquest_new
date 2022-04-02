@@ -49,6 +49,12 @@ class SettingsProvider extends ServiceProvider
                  View::share('quicklinks', $quicklinks);
                  $socialmedia = new GlobalSettings(Settings::where('name', '=', 'socialmedia' )->first());
                  View::share('socialmedialinks', $socialmedia);
+
+                 $mapKey = new GlobalSettings(Settings::where('name', '=', 'mapkey' )->first());
+                 View::share('globalMapKey', $mapKey);
+
+                 $paymenyGateaway = new GlobalSettings(Settings::where('name', '=', 'paymentgateaway' )->first());
+                 View::share('globalGateaway', $paymenyGateaway);
             }
         }
     }

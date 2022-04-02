@@ -382,7 +382,7 @@
       </div>
     </section>
 
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{env('GOOGLE_API_KEY')}}&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{$globalMapKey->getValue('map_key')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 <!-- <script src="{{asset('js/front/jquery.mask.min.js') }}"></script> -->
 

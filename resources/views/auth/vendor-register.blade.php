@@ -418,8 +418,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
-        authData.apiLoginID = "2KD4hR4Qbfh";
+        authData.clientKey = "{{$globalGateaway->getValue('client_key')}}";
+        authData.apiLoginID = "{{$globalGateaway->getValue('login_key')}}";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 

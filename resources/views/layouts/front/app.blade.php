@@ -143,8 +143,11 @@ if(isset($user)){
               @else
                 <h3 class="text-light mb-0">{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}</h3>
               @endif
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                 tempor incididunt ut labore et dolore  magna aliqua. </p>
+              @if($globalsettings->getValue('footer_text'))
+              <p>
+                 {{$globalsettings->getValue('footer_text')}}
+               </p>
+              @endif
             </div>
           </div>
 
