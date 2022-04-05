@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="firebase_ip" content="{{ route('notification.store') }}" >
     <title>Erba Quest</title>
         <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/x-icon" href="{{$globalsettings->getValue('site_fav')}}">
@@ -232,30 +233,34 @@ if(isset($user)){
 </style>
  
  <script src="{{ asset('js/front/app.js' ) }}"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging-compat.js"></script>
+  <script src="{{ asset('js/pushnotification.js') }}"></script>
+ 
  <script type="text/javascript">
-         $(document).ready(function(){
+      $(document).ready(function(){
+        setTimeout(function(){ 
+          $(window).scroll(function(){
+                var sticky = $('#masthead'),
+                scroll = $(window).scrollTop();
 
-      setTimeout(function(){ 
-        $(window).scroll(function(){
-              var sticky = $('#masthead'),
-              scroll = $(window).scrollTop();
-
-              if (scroll >= 100) sticky.addClass('fixed');
-              else sticky.removeClass('fixed');
-            });
-       }, 3000);
-
+                if (scroll >= 100) sticky.addClass('fixed');
+                else sticky.removeClass('fixed');
+              });
+         }, 3000);
       });
 
-      	// create event form Amenite checkbox
-      	$('.AmentieList .checkRight input:checkbox').change(function(){
-          	if($(this).is(":checked")) {
-              	$(this).parent().parent().addClass("checked");
-          	} else {
-            	$(this).parent().parent().removeClass("checked");
-          	}
-      	});
-      	// create event form vendor checkbox
+        // create event form Amenite checkbox
+        $('.AmentieList .checkRight input:checkbox').change(function(){
+            if($(this).is(":checked")) {
+                $(this).parent().parent().addClass("checked");
+            } else {
+              $(this).parent().parent().removeClass("checked");
+            }
+        });
+        // create event form vendor checkbox
        function myVendorsTags(vendorClass){
           if($("#"+vendorClass).is(":checked")) {
               $("#"+vendorClass).parent().parent().addClass("checked");
