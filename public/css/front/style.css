@@ -4157,12 +4157,21 @@ color: #ff0000;
   }
 .posdcast_timeline ul li h4{
   font-size: 20px;
-  }
+  position: relative;
+  margin-bottom: 0px;
+}
 .posdcast_timeline ul li h4 span{
   color: #247338;
-  }
+}
+.posdcast_timeline ul li h4 span.icon {
+	font-size: 40px;
+    position: absolute;
+    left: 0px;
+    top: -10px;
+}
 .posdcast_timeline ul li h4 span.text{
   color: #000;
+  margin-left: 50px;
   }
 .posdcast_timeline ul li{
   margin-right: 50px;
