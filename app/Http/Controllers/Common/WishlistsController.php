@@ -7,14 +7,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Common\WishlistRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\Admin\SendNotificationRequest;
+use App\Notifications\PushNotification;
+use Illuminate\Support\Facades\Notification;
 
 use App\Models\WishLists;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\AssignRoles;
+use App\Models\Settings;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use HTML;
 
 
 class WishlistsController extends Controller
@@ -94,11 +99,15 @@ class WishlistsController extends Controller
         if(count($getWishlistUsers)){
           foreach ($getWishlistUsers as $getWishlistUser) {
             $details = array(
+              'event_id' => $getTomorrowEvent['id'],
               'event_name' => $getTomorrowEvent['name'],
+              'event_image' => $getTomorrowEvent['featured_image'],
               'date' => $tomorrowDate,
               'user' => $getWishlistUser['name'],
+              'user_ip_key' => $getWishlistUser['ip_key'],
             );
-            Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+            $this->send($details);
           }
         }   
       } 
@@ -118,11 +127,15 @@ class WishlistsController extends Controller
         if(count($getWishlistUsers)){
           foreach ($getWishlistUsers as $getWishlistUser) {
             $details = array(
+              'event_id' => $getTomorrowEvent['id'],
               'event_name' => $getTomorrowEvent['name'],
+              'event_image' => $getTomorrowEvent['featured_image'],
               'date' => $tomorrowDate,
               'user' => $getWishlistUser['name'],
+              'user_ip_key' => $getWishlistUser['ip_key'],
             );
-            Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+            $this->send($details);
+            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
           }
         }   
       } 
@@ -131,4 +144,21 @@ class WishlistsController extends Controller
     return;
     
   }
+
+  public function send($details)
+    {
+      $featured_image = url($details['event_image']);
+      $event_detail_page = url("/events/".$details['event_id']);
+        $notify = $details;
+        $Settings = Settings::get('general');
+        
+        if (!empty($details['user_ip_key'])) {
+            Notification::send($details['user_ip_key'], new PushNotification("Reminder", "Upcomming Event Reminder", $event_detail_page, $featured_image, (isset($Settings['site_logo'])) ? $Settings['site_logo'] : ''));
+
+            return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']); 
+        }
+
+        return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']); 
+    }
+
 }
