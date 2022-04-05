@@ -1,9 +1,9 @@
 @extends('layouts.front.app')
 
 @section('content')
-	@if(isset($pages) && isset($pages->featured_image))
+	<!-- @if(isset($pages) && isset($pages->featured_image))
 		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
-	@endif
+	@endif -->
 	{!!$pages->description!!}
 	<x-front.section.home-banner />
 	<x-front.section.events-search />
