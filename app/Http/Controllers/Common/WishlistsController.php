@@ -154,11 +154,13 @@ class WishlistsController extends Controller
         
         if (!empty($details['user_ip_key'])) {
             Notification::send($details['user_ip_key'], new PushNotification("Reminder", "Upcomming Event Reminder", $event_detail_page, $featured_image, (isset($Settings['site_logo'])) ? $Settings['site_logo'] : ''));
-
-            return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']); 
+            echo "Notified.";
+            return;
+            //return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']); 
         }
-
-        return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']); 
+        echo "Some thing went wrong";
+        return;
+        //return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']); 
     }
 
 }
