@@ -85,7 +85,9 @@ class WishlistsController extends Controller
   }
 
   public function reminder() {
-    $now = Carbon::tomorrow();
+
+    $Settings = Settings::get('general');
+    $now = Carbon::now()->addDays( ($Settings['remindb']) ? $Settings['remindb'] : '0' );
     $tomorrowDate = $now->format('Y-m-d');
 
     $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
@@ -128,13 +130,13 @@ class WishlistsController extends Controller
         if(count($getWishlistUsers)){
           foreach ($getWishlistUsers as $getWishlistUser) {
             $details = array(
-              'event_id' => $getTomorrowEvent['id'],
-              'event_name' => $getTomorrowEvent['name'],
-              'event_image' => $getTomorrowEvent['featured_image'],
-              'event_desc' => $getTomorrowEvent['description'],
-              'date' => $tomorrowDate,
-              'user' => $getWishlistUser['name'],
-              'user_ip_key' => $getWishlistUser['ip_key'],
+                'event_id' => $getTomorrowEvent['id'],
+                'event_name' => $getTomorrowEvent['name'],
+                'event_image' => $getTomorrowEvent['featured_image'],
+                'event_desc' => $getTomorrowEvent['description'],
+                'date' => $tomorrowDate,
+                'user' => $getWishlistUser['name'],
+                'user_ip_key' => $getWishlistUser['ip_key'],
             );
             $this->send($details);
             //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details));

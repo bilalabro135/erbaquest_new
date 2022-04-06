@@ -13,10 +13,10 @@
 
 
         <div class="row">
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="site_name">{{ __('Site Name*') }}</label>
-                    <input id="site_name" type="text" class="form-control  @error('value.site_name') is-invalid @enderror" name="value[site_name]" 
+                    <input id="site_name" type="text" class="form-control  @error('value.site_name') is-invalid @enderror" name="value[site_name]"
                     @if(old('value.site_name')) value="{{old('value.site_name')}}"
                     @else value="{{ (isset($Settings['site_name'])) ? $Settings['site_name'] : '' }}" @endif required="" placeholder="{{ __('Site Name') }}"  autocomplete="site_name" autofocus>
                     @error("value.site_name")
@@ -24,7 +24,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="site_title">{{ __('Site Title*') }}</label>
                     <input id="site_title" type="text" class="form-control  @error('value.site_title') is-invalid @enderror" name="value[site_title]" @if(old('value.site_title')) value="{{old('value.site_title')}}"
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="home_page">{{ __('Home Page*') }}</label>
 
@@ -51,7 +51,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="blog_page">{{ __('Blog Page*') }}</label>
 
@@ -66,7 +66,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="site_logo_preview">Site Logo (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#site_logo', '#site_logo_preview', 'Logo');">Remove</a></small>)</label>
                     <div class="lfm file-upload" id="site_logo_preview" data-input="site_logo" data-preview="site_logo_preview">
@@ -82,7 +82,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="site_fav_preview">Site Fav Icon(<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#site_fav', '#site_fav_preview', 'Fav Icon');">Remove</a></small>)</label>
                     <div class="site_fav lfm file-upload" id="site_fav_preview" data-input="site_fav" data-preview="site_fav_preview"> @if(isset($Settings['site_fav']))
@@ -97,7 +97,7 @@
 
                 </div>
             </div>
-            <div class="col-md-12">                    
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="address">{{ __('Address') }}</label>
                     <textarea style="height: 150px" name="value[address]" id="address" class="form-control  @error('value.address') is-invalid @enderror" >@if(old('value.address')){{old('value.address')}}@else{{ (isset($Settings['address'])) ? $Settings['address'] : '' }}@endif</textarea>
@@ -105,12 +105,12 @@
                         {{$message}}
                     @enderror
                 </div>
-            </div> 
-           
-            <div class="col-md-6">                    
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="site_name">{{ __('Site Name*') }}</label>
-                    <input id="site_name" type="text" class="form-control  @error('value.site_name') is-invalid @enderror" name="value[site_name]" 
+                    <input id="site_name" type="text" class="form-control  @error('value.site_name') is-invalid @enderror" name="value[site_name]"
                     @if(old('value.site_name')) value="{{old('value.site_name')}}"
                     @else value="{{ (isset($Settings['site_name'])) ? $Settings['site_name'] : '' }}" @endif required="" placeholder="{{ __('Site Name') }}"  autocomplete="site_name" autofocus>
                     @error("value.site_name")
@@ -119,7 +119,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">                    
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="telephone">{{ __('Telephone') }}</label>
                     <input id="telephone" type="text" class="form-control  @error('value.telephone') is-invalid @enderror" name="value[telephone]" @if(old('value.telephone')) value="{{old('value.telephone')}}"
@@ -128,8 +128,8 @@
                         {{$message}}
                     @enderror
                 </div>
-            </div>            
-            <div class="col-md-6">                    
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="Email">{{ __('Email') }}</label>
                     <input id="Email" type="email" class="form-control  @error('value.email') is-invalid @enderror" name="value[email]" @if(old('value.email')) value="{{old('value.email')}}"
@@ -140,7 +140,18 @@
                 </div>
             </div>
 
-            <div class="col-md-12">                    
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="remindb">{{ __('Reminder Before') }}</label>
+                    <input id="remindb" type="number" class="form-control  @error('value.remindb') is-invalid @enderror" name="value[remindb]" @if(old('value.remindb')) value="{{old('value.remindb')}}"
+                           @else value="{{ (isset($Settings['remindb'])) ? $Settings['remindb'] : '' }}"  @endif placeholder="{{ __('Reminder Before') }}"  autofocus>
+                    @error("value.remindb")
+                    {{$message}}
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="Email">{{ __('Footer Text') }}</label>
                     <textarea style="height: 150px" name="value[footer_text]" id="footer_text" class="form-control  @error('value.footer_text') is-invalid @enderror" >@if(old('value.footer_text')){{old('value.footer_text')}}@else{{ (isset($Settings['footer_text'])) ? $Settings['footer_text'] : '' }}@endif</textarea>
@@ -149,8 +160,8 @@
                     @enderror
                 </div>
             </div>
-             
-            <div class="col-md-12">                    
+
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="header_scripts">{{ __('Header Scripts*') }}</label>
                     <textarea style="height: 150px" name="value[header_scripts]" id="header_scripts" class="form-control  @error('value.header_scripts') is-invalid @enderror" >@if(old('value.header_scripts')){{old('value.header_scripts')}}@else{{ (isset($Settings['header_scripts'])) ? $Settings['header_scripts'] : '' }}@endif</textarea>
@@ -160,7 +171,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12">                    
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="footer_scripts">{{ __('Footer Scripts*') }}</label>
                     <textarea style="height: 150px" name="value[footer_scripts]" id="footer_scripts" class="form-control  @error('value.footer_scripts') is-invalid @enderror" >@if(old('value.footer_scripts')){{old('value.footer_scripts')}}@else{{ (isset($Settings['footer_scripts'])) ? $Settings['footer_scripts'] : '' }}@endif</textarea>
