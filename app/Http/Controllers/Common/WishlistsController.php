@@ -166,7 +166,7 @@ class WishlistsController extends Controller
             return;
             //return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']);
         }
-        echo "Some thing went wrong";
+        //echo "Some thing went wrong";
         return;
         //return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']);
     }
