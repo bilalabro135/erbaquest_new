@@ -25,7 +25,7 @@ use HTML;
 class WishlistsController extends Controller
 {
   public function store(WishlistRequest $request) {
-     $user = Auth::user(); //getting user id 
+     $user = Auth::user(); //getting user id
      $getWishListData = $request->getWishListData();
      if($user){
        //add wishlist
@@ -53,9 +53,9 @@ class WishlistsController extends Controller
         return response()->json(['msg' => 'Event has been remove form wishlist!', 'msg_type' => 'success']);
      }
   }
-  public function view() {  
+  public function view() {
     $users = Auth::user(); //getting user id
-    $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
+    $userRole = AssignRoles::where('entity_id', $users['id'])->first();
 
     $wishlistsData = WishLists::where('user_id', '=', $users->id)->get(); //Gettin Wishlist data
     $events = array();
@@ -79,14 +79,14 @@ class WishlistsController extends Controller
     return view('tempview.wishlist', compact('events', 'users'));
   }
 
-  public function redirect() { 
+  public function redirect() {
 
       return redirect()->route('login')->with('msg', 'Please login first before add to wishlist!');
   }
 
-  public function reminder() { 
+  public function reminder() {
     $now = Carbon::tomorrow();
-    $tomorrowDate = $now->format('Y-m-d');    
+    $tomorrowDate = $now->format('Y-m-d');
 
     $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
 
@@ -102,19 +102,20 @@ class WishlistsController extends Controller
               'event_id' => $getTomorrowEvent['id'],
               'event_name' => $getTomorrowEvent['name'],
               'event_image' => $getTomorrowEvent['featured_image'],
+              'event_desc' => $getTomorrowEvent['description'],
               'date' => $tomorrowDate,
               'user' => $getWishlistUser['name'],
               'user_ip_key' => $getWishlistUser['ip_key'],
             );
-            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details));
             $this->send($details);
           }
-        }   
-      } 
+        }
+      }
     }
 
     $now = Carbon::today();
-    $tomorrowDate = $now->format('Y-m-d');    
+    $tomorrowDate = $now->format('Y-m-d');
 
     $getTomorrowEvents = Event::where('event_date', '=', $tomorrowDate)->where("status","=","published")->get();
 
@@ -130,37 +131,42 @@ class WishlistsController extends Controller
               'event_id' => $getTomorrowEvent['id'],
               'event_name' => $getTomorrowEvent['name'],
               'event_image' => $getTomorrowEvent['featured_image'],
+              'event_desc' => $getTomorrowEvent['description'],
               'date' => $tomorrowDate,
               'user' => $getWishlistUser['name'],
               'user_ip_key' => $getWishlistUser['ip_key'],
             );
             $this->send($details);
-            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details)); 
+            //Mail::to($getWishlistUser['email'])->send(new \App\Mail\eventReminder($details));
           }
-        }   
-      } 
+        }
+      }
     }
 
     return;
-    
+
   }
 
   public function send($details)
     {
+
+        //dd($details);
+
       $featured_image = url($details['event_image']);
+      $featured_desc = strip_tags(strlen($details['event_desc']) > 50 ? substr($details['event_desc'],0,50)."..." : $details['event_desc']);
       $event_detail_page = url("/events/".$details['event_id']);
         $notify = $details;
         $Settings = Settings::get('general');
-        
+
         if (!empty($details['user_ip_key'])) {
-            Notification::send($details['user_ip_key'], new PushNotification("Reminder", "Upcomming Event Reminder", $event_detail_page, $featured_image, (isset($Settings['site_logo'])) ? $Settings['site_logo'] : ''));
+            Notification::send($details['user_ip_key'], new PushNotification($details['event_name'], $featured_desc, $event_detail_page, $featured_image, (isset($Settings['site_fav'])) ? $Settings['site_fav'] : ''));
             echo "Notified.";
             return;
-            //return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']); 
+            //return back()->with(['msg' => 'Notification Sent.', 'msg_type' => 'success']);
         }
         echo "Some thing went wrong";
         return;
-        //return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']); 
+        //return back()->with(['msg' => 'Some thing went wrong', 'msg_type' => 'danger']);
     }
 
 }
