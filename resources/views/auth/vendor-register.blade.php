@@ -24,7 +24,7 @@
         <div class="container">
             @if(session('msg'))
                 <div class="alert alert-success">
-                    {{session('msg')}}                                            
+                    {{session('msg')}}
                 </div>
             @endif
             <br>
@@ -166,7 +166,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>                                    
+                            </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-sm-12 mb-3 mb-sm-0 input-field">
@@ -327,27 +327,27 @@
 //   hiddenInput.setAttribute('value', token.id);
 //   form.appendChild(hiddenInput);
 
-  
+
 //   form.submit();
 // }
-    
+
     // handle links with @href started with '#' only
 $(document).on('click', 'a[href^="#"]', function(e) {
     // target element id
     var id = $(this).attr('href');
-    
+
     // target element
     var $id = $(id);
     if ($id.length === 0) {
         return;
     }
-    
+
     // prevent standard hash navigation (avoid blinking in IE)
     e.preventDefault();
-    
+
     // top position relative to the document
     var pos = $id.offset().top;
-    
+
     // animated top scrolling
     $('body, html').animate({scrollTop: pos});
 });
@@ -361,14 +361,14 @@ $(document).on('click', 'a[href^="#"]', function(e) {
             {
              $(this).parent('label').removeClass('active');
             }
-           
+
        });
 
       //  $('#btn_next').on('click',function() {
       //   if ($('#plan').val() != '') {
       //     $('.payment_div').removeClass('d-none');
       //     $('.secSignup').removeClass('d-none');
-      //     $('.secSponsor').removeClass('pb-100');          
+      //     $('.secSponsor').removeClass('pb-100');
       //   }
       //   else{
       //     alert('Please Select A Package To Continue');
@@ -418,8 +418,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "{{$globalGateaway->getValue('client_key')}}";
-        authData.apiLoginID = "{{$globalGateaway->getValue('login_key')}}";
+        authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
+        authData.apiLoginID = "2KD4hR4Qbfh";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 
@@ -448,7 +448,7 @@ function sendPaymentDataToAnet(argument) {
                     if(response.messages.message[i].code == "E_WC_06" ){
                         $(".expMonth").text("Please provide valid expiration date.");
                         $(".expMonth").mask("12/24", { placeholder: " ", autoclear: false });
-                        
+
                     }
                     if(response.messages.message[i].code == "E_WC_07" ){
                         $(".expYear").text("Please provide valid expiration year.");
@@ -460,11 +460,11 @@ function sendPaymentDataToAnet(argument) {
                     if(response.messages.message[i].code == "E_WC_20" ){
                         $(".cardNumber").text("Invalid Credit Card.");
                     }
-                    
+
                         console.log(
                             response.messages.message[i].code + ": " +
                             response.messages.message[i].text
-                        );    
+                        );
 
 
                     i = i + 1;
@@ -542,13 +542,13 @@ $(function(){
   });
 });
 
-$(document).ready(function(){  
-        $('#phone').mask('(999)-999-9999'); 
+$(document).ready(function(){
+        $('#phone').mask('(999)-999-9999');
         $('#cardNumber').mask('0000 0000 0000 0000');
         $('#expMonth').mask('00');
         $('#expYear').mask('0000');
         $('#cardCode').mask('0000');
-    }); 
+    });
 </script>
 <style type="text/css">
     .form_seprator{

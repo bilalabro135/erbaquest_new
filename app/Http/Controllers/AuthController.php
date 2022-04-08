@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         $credentials = $request->getCredentials();
         $fieldType = filter_var($credentials['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        
+
 
         if (Auth::attempt(array($fieldType => $credentials['username'], 'password' => $credentials['password']), request()->has('remember'))) {
             $request->session()->regenerate();
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'authenticate' => 'Credentials do not matched our records.'
-        ])->withInput();    
+        ])->withInput();
     }
     public function logout()
     {
@@ -47,9 +47,14 @@ class AuthController extends Controller
         $Settings = Settings::get('registration');
         return view('auth.login', compact('Settings'));
     }
-    public function verificationNotice()
+    public function verificationNotice(Request $request)
     {
-         return view('auth.verify-email');
+        $requestUser = $request->user();
+        if($requestUser['email_verified_at']){
+            return Redirect::route('account.edit');
+        }else{
+            return view('auth.verify-email');
+        }
     }
     public function register(RegisterRequest $request){
         $Settings = Settings::get('registration');
@@ -76,7 +81,7 @@ class AuthController extends Controller
         else{
             $user->save();
             $user->assign($userData['role']);
-            Auth::loginUsingId($user->id);   
+            Auth::loginUsingId($user->id);
             $user->sendEmailVerificationNotification($user);
             return Redirect::route('verification.notice')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
         }

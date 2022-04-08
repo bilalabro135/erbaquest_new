@@ -25,12 +25,12 @@ use App\Models\VendorProfile;
 use App\Models\Area;
 use App\Models\WishLists;
 use App\Models\AssignRoles;
-use App\Models\Reviews; 
+use App\Models\Reviews;
 
 use Validator;
 use DataTables;
 use Bouncer;
-use Redirect; 
+use Redirect;
 use View;
 use Carbon\Carbon;
 class EventController extends Controller
@@ -138,11 +138,24 @@ class EventController extends Controller
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
+        $vendorProfiles = array();
+        if(count($vendors)){
+            foreach ($vendors as $vendor) {
+                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
+                if($getDataVendorProfile){
+                    $vendorProfiles[] = array(
+                        'id' => $vendor['id'],
+                        'name' =>  $getDataVendorProfile['public_profile_name'],
+                    );
+                }
+            }
+        }
+
         $reviews = Reviews::where("rel_id",$event['id'])->where("type","events")->orderby("created_at","desc")->get();
         $sendReviews = array();
         foreach ($reviews as $review) {
             if($review['user_id']){
-               $getUsers = User::where("id",$review['user_id'])->first(); 
+               $getUsers = User::where("id",$review['user_id'])->first();
                $sendReviews[] = array(
                     'id'    => $review['id'],
                     'profile_image' => $getUsers['profile_image'],
@@ -152,8 +165,8 @@ class EventController extends Controller
                     'quality_rating' => $review['quality_rating'],
                     'price_rating' => $review['price_rating'],
                     'date'         => $this->time_elapsed_string($review['created_at']),
-                );        
-             
+                );
+
             }else{
                 $sendReviews[] = array(
                     'id'    => $review['id'],
@@ -168,7 +181,7 @@ class EventController extends Controller
             }
         }
 
-        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews'));
+        return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews','vendorProfiles'));
     }
 
     public function update(EventRequest $request, Event $event)
@@ -212,12 +225,12 @@ class EventController extends Controller
             $event->vendors()->sync($request->vendors);
         else
             $event->vendors()->sync(array());
-        
+
         if($request->has('amenities'))
             $event->amenities()->sync($request->amenities);
         else
             $event->amenities()->sync(array());
-        
+
         return Redirect::route('events')->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
@@ -275,7 +288,7 @@ class EventController extends Controller
             }
 
             $currentRole= $user->getRoles();
-                    
+
             if(empty($currentRole[0])){
                 $user->assign($request->role);
             }else{
@@ -284,7 +297,7 @@ class EventController extends Controller
                     $user->assign($request->role);
                 }
             }
-            
+
             return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
     }
 
@@ -311,7 +324,7 @@ class EventController extends Controller
                 }
             }
         }
-        
+
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
@@ -326,14 +339,14 @@ class EventController extends Controller
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
         $fname = $request->file('featured_image')->getClientOriginalName();
-        $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+        $request->file('featured_image')->move(public_path().'/uploads/', $fname);
         $event->featured_image =  'uploads/' . $fname;
-        
+
         $image_names = [];
         // loop through images and save to /uploads directory
         foreach ($request->file('gallery') as $image) {
             $name = $image->getClientOriginalName();
-            $image->move(public_path().'/uploads/', $name);  
+            $image->move(public_path().'/uploads/', $name);
             $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
         }
         $event->gallery = serialize($image_names);
@@ -374,7 +387,7 @@ class EventController extends Controller
                 $vendor->event_id = $event->id;
                 $vendor->user_id = $vendorId;
                 $vendor->save();
-            } 
+            }
         }
 
         if($request->has('amenities'))
@@ -393,8 +406,8 @@ class EventController extends Controller
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
         $users = Auth::user();
-        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
-        
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first();
+
         if($users->profile_image){
             $profile_image = env('APP_URL') .$users['profile_image'];
         }else{
@@ -412,7 +425,7 @@ class EventController extends Controller
 
         $users = Auth::user();
         $userRole = AssignRoles::where('entity_id', $users['id'])->first();
-    
+
         if($users->profile_image){
             $profile_image = env('APP_URL') .$users['profile_image'];
         }else{
@@ -484,7 +497,7 @@ class EventController extends Controller
                     $selected = 0;
                     if( in_array($vendor['id'], $setectedvendor) ){
                         $selected = 1;
-                    } 
+                    }
 
                     $vendorProfiles[] = array(
                         'id' => $vendor['id'],
@@ -501,7 +514,7 @@ class EventController extends Controller
                 $selected = 0;
                 if( in_array($getvendor['id'], $setectedvendor) ){
                     $selected = 1;
-                } 
+                }
                 $vendors[] = array(
                     'id'   => $getvendor['id'],
                     'name' => $getvendor['name'],
@@ -526,7 +539,7 @@ class EventController extends Controller
                 $selected = 0;
                 if( in_array($allamanity['id'], $setectedameties) ){
                     $selected = 1;
-                } 
+                }
                 $amenities[] = array(
                     'id'   => $allamanity['id'],
                     'name' => $allamanity['name'],
@@ -536,9 +549,9 @@ class EventController extends Controller
             }
         }
 
-        
 
-       // setectedameties    
+
+       // setectedameties
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
 
@@ -546,7 +559,7 @@ class EventController extends Controller
         return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries','getDataVendorProfile','vendorProfiles'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
-    {       
+    {
         $eventDetail = $request->getEventData();
         $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
 
@@ -554,14 +567,14 @@ class EventController extends Controller
 
         if($request->featured_image){
             $fname = time().".".$request->featured_image->extension();
-            $request->file('featured_image')->move(public_path().'/uploads/', $fname);     
+            $request->file('featured_image')->move(public_path().'/uploads/', $fname);
             $event->featured_image =  'uploads/' . $fname;
             $featured_image = 'uploads/' . $fname;
         }
         if($request->gallery){
             foreach ($request->file('gallery') as $image) {
                 $name = $image->getClientOriginalName();
-                $image->move(public_path().'/uploads/', $name);  
+                $image->move(public_path().'/uploads/', $name);
                 $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
             }
             $gallery = serialize($image_names);
@@ -606,17 +619,17 @@ class EventController extends Controller
                 $vendor->event_id = $event->id;
                 $vendor->user_id = $vendorId;
                 $vendor->save();
-            } 
+            }
         }
 
 
-        
+
         if($request->has('amenities'))
             $event->amenities()->sync($request->amenities);
         else
             $event->amenities()->sync(array());
-        
-        
+
+
         if ($eventDetail['status'] == 'draft') {
             $baseUrl = config('app.url')."events/".$event->id;
             return redirect($baseUrl);
@@ -669,7 +682,7 @@ class EventController extends Controller
 
 
         $count = $events->count();
-        $request->limit = ($request->limit) ? $request->limit : 9; 
+        $request->limit = ($request->limit) ? $request->limit : 9;
         $events = $events->offset($request->offset)->limit($request->limit)->get();
         $loadmore = false;
         $data['loadmore'] = false;
@@ -698,7 +711,7 @@ class EventController extends Controller
         $action_delete = url("/events-draft/delete/{$id}");
 
         $reviews =  Reviews::where('rel_id',$id)->where('type','events')->orderBy('created_at', 'desc')->get();
-        
+
         $sendReviews = array();
         foreach ($reviews as $review) {
             if($review['user_id']){
@@ -708,7 +721,7 @@ class EventController extends Controller
                     $profile_image = env('APP_URL') .$getUsers['profile_image'];
                 }else{
                     $profile_image = "";
-                } 
+                }
 
                $sendReviews[] = array(
                     'id'    => $review['id'],
@@ -719,15 +732,15 @@ class EventController extends Controller
                     'quality_rating' => $review['quality_rating'],
                     'price_rating' => $review['price_rating'],
                     'date'         => $this->time_elapsed_string($review['created_at']),
-                );        
-             
+                );
+
             }else{
-                
+
                 if($review['featured_image']){
                     $profile_image = env('APP_URL') .$review['featured_image'];
                 }else{
                     $profile_image = "";
-                } 
+                }
                 $sendReviews[] = array(
                     'id'    => $review['id'],
                     'profile_image' => $profile_image,
@@ -758,7 +771,7 @@ class EventController extends Controller
             }
           }
         }
-   
+
 
         if ($event != null) {
             return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
@@ -852,7 +865,7 @@ class EventController extends Controller
            'status' => 'published'
         ]);
 
-        return Redirect("/events")->with(['msg' => 'Event Updated', 'msg_type' => 'success']);    
+        return Redirect("/events")->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
    }
 
    public function upcomingEvent()
@@ -862,46 +875,46 @@ class EventController extends Controller
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '>', $now)->get();
         $users->role = $userRole['role_id'];
-        return view('tempview.upcoming-event', compact('events','users'));   
+        return view('tempview.upcoming-event', compact('events','users'));
    }
    public function draftEvent()
    {
         $users = Auth::user();
-        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first();
         $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
         $users->role = $userRole['role_id'];
-        return view('tempview.draft-event', compact('events','users'));   
+        return view('tempview.draft-event', compact('events','users'));
    }
    public function pastEvent()
    {
         $users = Auth::user();
-        $userRole = AssignRoles::where('entity_id', $users['id'])->first(); 
+        $userRole = AssignRoles::where('entity_id', $users['id'])->first();
 
         $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '<', $now)->get(); //
         $users->role = $userRole['role_id'];
-        return view('tempview.past-event', compact('events','users'));   
+        return view('tempview.past-event', compact('events','users'));
    }
 
-    public function search(SearchRequest $request) {      
+    public function search(SearchRequest $request) {
     $event_data = "?amenities=".$request->checkedData;
-    // $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get(); 
-    // $event_data = array();  
-    // foreach ($getEvnets as $getEvnet) { 
-    //   $geteventdata = Event::where("id",$getEvnet['event_id'])->first();    
-    //   if($geteventdata){    
-    //     $event_data[] = array(  
-    //         "id"   => $geteventdata['id'],  
-    //         "name" => $geteventdata['name'],    
-    //         "featured_image"   => $geteventdata['featured_image'],  
-    //         "description"   => $geteventdata['description'],    
-    //         "event_date"   => $geteventdata['event_date'],  
-    //         "id"   => $geteventdata['id'],  
-    //     );  
-    //   } 
-    // }   
-    return response()->json($event_data); 
+    // $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get();
+    // $event_data = array();
+    // foreach ($getEvnets as $getEvnet) {
+    //   $geteventdata = Event::where("id",$getEvnet['event_id'])->first();
+    //   if($geteventdata){
+    //     $event_data[] = array(
+    //         "id"   => $geteventdata['id'],
+    //         "name" => $geteventdata['name'],
+    //         "featured_image"   => $geteventdata['featured_image'],
+    //         "description"   => $geteventdata['description'],
+    //         "event_date"   => $geteventdata['event_date'],
+    //         "id"   => $geteventdata['id'],
+    //     );
+    //   }
+    // }
+    return response()->json($event_data);
    }
 
 }
