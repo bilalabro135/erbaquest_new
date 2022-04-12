@@ -4165,23 +4165,26 @@ color: #ff0000;
 }
 .posdcast_timeline ul li h4 span.icon {
 	font-size: 40px;
-    position: absolute;
-    left: 0px;
-    top: -10px;
+  position: absolute;
+  left: 0px;
+  top: -10px;
 }
 .posdcast_timeline ul li h4 span.text{
   color: #000;
   margin-left: 50px;
-  }
+}
 .posdcast_timeline ul li{
   margin-right: 50px;
-  }
+}
 .posdcast_timeline ul li:nth-child(3){
   margin-right: 50px;
-  }
+}
 .podcast-box .detail .list-play h4 .text{
   color: #000;
-  }
+}
+.amenties_filter ul li label img {
+  max-width: 30px;
+}
 
 @media (min-width: 320px) and (max-width: 767px) {
   p {

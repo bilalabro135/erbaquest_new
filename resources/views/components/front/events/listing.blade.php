@@ -35,7 +35,7 @@
         <h5>
           {{$event->organizer->name}} 
 
-          <img src="{{(isset($event->organizer->profile_image)) ? env('APP_URL').$event->organizer->profile_image : asset('/images/avatar.png')}}">
+          <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}">
         </h5>
         @endif
       </div>
