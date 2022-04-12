@@ -4185,6 +4185,13 @@ color: #ff0000;
 .amenties_filter ul li label img {
   max-width: 30px;
 }
+.add-to-cal h4 {
+  display: inline-block;
+  color: #212529;
+}
+.event-detail h4 i {
+  color: #2c9044;
+}
 
 @media (min-width: 320px) and (max-width: 767px) {
   p {

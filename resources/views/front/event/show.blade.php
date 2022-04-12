@@ -310,10 +310,14 @@
                 <a class="heart-link" href="javascript:void(0);">
                   <i class=" @if($InWishList) fas @else far @endif fa-heart" aria-hidden="true"></i>
                 </a>
-                <a class="" target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text={{$event->name}}&dates={{ \Carbon\Carbon::parse($event['event_date'])->format('Ymd')}}/{{ \Carbon\Carbon::parse($event['event_date'])->addDays(1)->format('Ymd')}}&details={!! $event->description !!}&location={{$event->address}}"><i class="far fa-calendar-alt" aria-hidden="true"></i></a>
               </div>
               <div style="clear: both;"></div>
               <p><span class="dt-tag">{{date('d-m-Y', strtotime($event['event_date']))}}</span></p>
+              <div class="add-to-cal">
+                <a class="" target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text={{$event->name}}&dates={{ \Carbon\Carbon::parse($event['event_date'])->format('Ymd')}}/{{ \Carbon\Carbon::parse($event['event_date'])->addDays(1)->format('Ymd')}}&details={!! $event->description !!}&location={{$event->address}}">
+                  <h4>ADD TO CALENDER: <i class="far fa-calendar-alt" aria-hidden="true"></i></h4>
+                </a>
+              </div>
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
               	<iframe src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q={{$event->address}}&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
