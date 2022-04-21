@@ -49,7 +49,8 @@
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end align-items-center">
-                    <i class="fab fa-vimeo"></i>
+                    <!-- <i class="fab fa-vimeo"></i> -->
+                    <i class="fab fa-patreon"></i>
                 </div>
                 <div class="col-md-9">
                     <div class="form-group">

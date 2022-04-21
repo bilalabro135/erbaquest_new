@@ -65,7 +65,7 @@ class EventsSearch extends Component
 
         $this->events_count = $event->count();
 
-        $this->countries = Area::all();
+        $this->countries = Area::orderBy('name')->get();
 
         $this->sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
         $component = Components::where('name', 'events-search')->first();

@@ -49,12 +49,8 @@
                 </div>
                 @endforeach
                 <div class="col-sm-12 col-md-8">
-                    <div class="sponsorBecome">
-                        <h3 class="ft-blanka ftw-bold_36">BECOME A SPONSOR</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                        <button class="btn-custom" type="button" data-bs-toggle="modal" data-bs-target="#sponsorForm">CLICK HERE</button>
-
-                            <!-- Modal -->
+                    <x-front.section.vendor-become-sponsor />
+                        <!-- Modal -->
                         <div class="modal fade" id="sponsorForm" tabindex="-1" aria-labelledby="sponsorFormLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -110,7 +106,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
