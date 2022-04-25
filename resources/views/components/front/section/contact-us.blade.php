@@ -8,8 +8,9 @@
               @if(isset($location['heading']))
                 <h3>{!! $location['heading'] !!}</h3>
               @endif
-              <!-- <h3>FIND US IN GREECE</h3> -->
-              <p>Cras ultricies ligula sed magna dictum porta. Proin eget <br> tortor risus.</p>
+               @if(isset($location['description']))
+                <p>{!! $location['description'] !!}</p>
+              @endif
           </div>
         </div>
       </div>
