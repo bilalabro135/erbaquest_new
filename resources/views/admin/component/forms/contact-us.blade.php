@@ -71,8 +71,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="background_preview">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#background', '#background_preview', 'Background');">Remove</a></small>)</label>
-                        <div class="lfm file-upload" id="background_preview" data-input="background" data-preview="background_preview">
+                        <label for="background_preview{{$i}}">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage('#background', '#background_preview{{$i}}', 'Background');">Remove</a></small>)</label>
+                        <div class="lfm file-upload" id="background_preview{{$i}}" data-input="background" data-preview="background_preview{{$i}}">
                         @if(isset($field['background']))
                         <img src="{{asset($field['background'])}}" style="height: 5rem;">
                         @else
@@ -112,14 +112,16 @@
             // $('.remove').unbind();
             $('.add').click(function() {
 
-                 var tableString = `<div class="row locationRow"><div class="col-md-12"><div class="form-group"><label for="heading">{{ __("Location Heading") }}</label><input id="heading" type="text" class="form-control" name="fields[` + count + `][heading]" required="" placeholder="{{ __("Location Heading") }}" autocomplete="heading" autofocus> </div></div><div class="col-md-12"><div class="form-group"><label for="description">{{ __("Location Description") }}</label><textarea style="height: 100px;" id="description" type="text" class="form-control  " name="fields[` + count + `][description]" required="" placeholder="{{ __("Location description") }}"  autocomplete="description" autofocus></textarea></div></div> <div class="col-md-6"><div class="form-group"><label for="background_preview">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage("#background", "#background_preview", "Background");">Remove</a></small>)</label><div class="lfm file-upload" id="background_preview" data-input="background" data-preview="background_preview">Background </div><input type="hidden" name="fields[` + count + `][background]" value="" id="background"> </div> </div><div class="col-md-6 locationAddRemove"><input  class="remove" onclick="removeRow(this)" type="button" value="remove" /></div></div>`;
+                 var tableString = `<div class="row locationRow"><div class="col-md-12"><div class="form-group"><label for="heading">{{ __("Location Heading") }}</label><input id="heading" type="text" class="form-control" name="fields[` + count + `][heading]" required="" placeholder="{{ __("Location Heading") }}" autocomplete="heading" autofocus> </div></div><div class="col-md-12"><div class="form-group"><label for="description">{{ __("Location Description") }}</label><textarea style="height: 100px;" id="description" type="text" class="form-control  " name="fields[` + count + `][description]" required="" placeholder="{{ __("Location description") }}"  autocomplete="description" autofocus></textarea></div></div> <div class="col-md-6"><div class="form-group"><label for="background_preview`+ count +`">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage("#background", "#background_preview`+ count +`", "Background");">Remove</a></small>)</label><div class="lfm file-upload" id="background_preview`+ count +`" data-input="background" data-preview="background_preview`+ count +`">Background </div><input type="hidden" name="fields[` + count + `][background]" value="" id="background"> </div> </div><div class="col-md-6 locationAddRemove"><input  class="remove" onclick="removeRow(this)" type="button" value="remove" /></div></div>`;
+
 
                 // $('.add').unbind();
                 $(".locationRow").last().after(tableString);
               
                 count = count + 1;
-                console.log(count);
-                  // setupHandlers();
+                var route_prefix = "{{route('unisharp.lfm.show')}}";
+                $('.lfm').filemanager('image', {prefix: route_prefix});
+                // setupHandlers();
             });
 
             function removeRow(elem){
