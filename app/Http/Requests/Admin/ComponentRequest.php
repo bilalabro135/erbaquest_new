@@ -40,6 +40,11 @@ class ComponentRequest extends FormRequest
         foreach($this->get('fields') as $k => $v){
             $fields[$k] = str_replace(env('APP_URL'), '', $v);
         }
+
+        if ($this->get('name') == 'contact-us') {
+            $fields = array_values($fields);
+        }
+
         $this->merge(['fields' => $fields]);
         return [
             'name' => $this->get('name'),

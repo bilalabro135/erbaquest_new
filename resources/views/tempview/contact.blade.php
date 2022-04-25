@@ -20,25 +20,8 @@
                 {{session('msg')}}                                            
             </div>
         @endif
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <div class="locate-box left">
-              <div class="deail">
-                <h3>FIND US IN GREECE</h3>
-                <p>Cras ultricies ligula sed magna dictum porta. Proin eget <br> tortor risus.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6">
-            <div class="locate-box right">
-              <div class="deail">
-                <h3>FIND US IN NEW YORK</h3>
-                <p>Cras ultricies ligula sed magna dictum porta. Proin eget <br> tortor risus.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <x-front.section.contact-us />
+        
         <div class="row ct-sect">
           <div class="col-sm-12 col-md-4">
             <div class="info-box">

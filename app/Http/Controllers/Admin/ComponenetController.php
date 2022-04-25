@@ -26,6 +26,9 @@ class ComponenetController extends Controller
     public function save(ComponentRequest $request)
     {
         $settings = $request->getComponentSettings();
+
+        // dd($settings);
+
         $count = Components::where('name', $settings['name'])->count();
         if ($count < 1) {
             $component = new Components();
