@@ -21,36 +21,7 @@
             </div>
         @endif
         <x-front.section.contact-us />
-        
-        <div class="row ct-sect">
-          <div class="col-sm-12 col-md-4">
-            <div class="info-box">
-              <figure>
-                <img src="images/info-1.png">
-              </figure>
-              <h4>CALL CENTER</h4>
-              <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur.</p>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <div class="info-box">
-              <figure>
-                <img src="images/info-2.png">
-              </figure>
-              <h4>MAIL US</h4>
-              <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur.</p>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-4">
-            <div class="info-box">
-              <figure>
-                <img src="images/info-3.png">
-              </figure>
-              <h4>NEAREST BRANCH</h4>
-              <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur.</p>
-            </div>
-          </div>
-        </div>
+        <x-front.section.contact-info />
 
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">

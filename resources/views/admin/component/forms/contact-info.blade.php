@@ -10,22 +10,22 @@
             </button>
         </div>
         <div class="card-body">
-            <div class="locationsMain">
+            <div class="ContactInfoMain">
                 @empty($fields)
-                    <div class="row locationRow">
+                    <div class="row contactInfoRow">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="heading">{{ __('Location Heading') }}</label>
+                                <label for="heading">{{ __('Info Heading') }}</label>
                                 <input id="heading" type="text" class="form-control  " name="fields[0][heading]" 
-                                 required="" placeholder="{{ __('Location Heading') }}"  value="{{old('fields.heading')}}"
+                                 required="" placeholder="{{ __('Info Heading') }}"  value="{{old('fields.heading')}}"
                                  value=""   autocomplete="heading" autofocus>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="description">{{ __('Location Description') }}</label>
+                                <label for="description">{{ __('Info Description') }}</label>
                                 <textarea style="height: 100px;" id="description" type="text" class="form-control " name="fields[0][description]" 
-                                 required="" placeholder="{{ __('Location description') }}"  autocomplete="description" autofocus>{{old('fields.description')}}</textarea>
+                                 required="" placeholder="{{ __('Info description') }}"  autocomplete="description" autofocus>{{old('fields.description')}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -44,12 +44,12 @@
                     </div>
                 @else
                 @foreach($fields as $i =>  $field)
-                    <div class="row locationRow">
+                    <div class="row contactInfoRow">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="heading">{{ __('Location Heading') }}</label>
+                                <label for="heading">{{ __('Info Heading') }}</label>
                                 <input id="heading" type="text" class="form-control  @error('fields.heading') is-invalid @enderror" name="fields[{{$i}}][heading]" 
-                                 required="" placeholder="{{ __('Location Heading') }}" @if(old('fields.heading')) value="{{old('fields.heading')}}"
+                                 required="" placeholder="{{ __('Info Heading') }}" @if(old('fields.heading')) value="{{old('fields.heading')}}"
                                 @else value="{{ (isset($field['heading'])) ? $field['heading'] : '' }}"  @endif autocomplete="heading" autofocus>
                                 @error("fields.heading")
                                     {{$message}}
@@ -58,9 +58,9 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="description">{{ __('Location Description') }}</label>
+                                <label for="description">{{ __('Info Description') }}</label>
                                 <textarea style="height: 100px;" id="description" type="text" class="form-control  @error('fields.description') is-invalid @enderror" name="fields[{{$i}}][description]" 
-                                 required="" placeholder="{{ __('Location description') }}"  autocomplete="description" autofocus>@if(old('fields.description')){{old('fields.description')}}@else{{ (isset($field['description'])) ? $field['description'] : '' }}@endif</textarea>
+                                 required="" placeholder="{{ __('Info description') }}"  autocomplete="description" autofocus>@if(old('fields.description')){{old('fields.description')}}@else{{ (isset($field['description'])) ? $field['description'] : '' }}@endif</textarea>
                                 @error("fields.description")
                                     {{$message}}
                                 @enderror
@@ -104,11 +104,11 @@
         var count = {{ (isset($i)) ? ($i + 1 ) : 1  }} ;
             $('.add').click(function() {
 
-                var tableString = `<div class="row locationRow"><div class="col-md-12"><div class="form-group"><label for="heading">{{ __("Location Heading") }}</label><input id="heading" type="text" class="form-control" name="fields[` + count + `][heading]" required="" placeholder="{{ __("Location Heading") }}" autocomplete="heading" autofocus> </div></div><div class="col-md-12"><div class="form-group"><label for="description">{{ __("Location Description") }}</label><textarea style="height: 100px;" id="description" type="text" class="form-control  " name="fields[` + count + `][description]" required="" placeholder="{{ __("Location description") }}"  autocomplete="description" autofocus></textarea></div></div> <div class="col-md-6"><div class="form-group"><label for="background_preview`+ count +`">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage("#background`+ count +`", "#background_preview`+ count +`", "Background");">Remove</a></small>)</label><div class="lfm file-upload" id="background_preview`+ count +`" data-input="background`+ count +`" data-preview="background_preview`+ count +`">Background </div><input type="hidden" name="fields[` + count + `][background]" value="" id="background`+ count +`"> </div> </div><div class="col-md-6 locationAddRemove"><input  class="remove" onclick="removeRow(this)" type="button" value="remove" /></div></div>`;
+                var tableString = `<div class="row contactInfoRow"><div class="col-md-12"><div class="form-group"><label for="heading">{{ __("Info Heading") }}</label><input id="heading" type="text" class="form-control" name="fields[` + count + `][heading]" required="" placeholder="{{ __("Info Heading") }}" autocomplete="heading" autofocus> </div></div><div class="col-md-12"><div class="form-group"><label for="description">{{ __("Info Description") }}</label><textarea style="height: 100px;" id="description" type="text" class="form-control  " name="fields[` + count + `][description]" required="" placeholder="{{ __("Info description") }}"  autocomplete="description" autofocus></textarea></div></div> <div class="col-md-6"><div class="form-group"><label for="background_preview`+ count +`">Background Image (<small ><a class="text-danger" href="javascript:void(0)" onclick="removeImage("#background`+ count +`", "#background_preview`+ count +`", "Background");">Remove</a></small>)</label><div class="lfm file-upload" id="background_preview`+ count +`" data-input="background`+ count +`" data-preview="background_preview`+ count +`">Background </div><input type="hidden" name="fields[` + count + `][background]" value="" id="background`+ count +`"> </div> </div><div class="col-md-6 locationAddRemove"><input  class="remove" onclick="removeRow(this)" type="button" value="remove" /></div></div>`;
 
 
                 // $('.add').unbind();
-                $(".locationRow").last().after(tableString);
+                $(".contactInfoRow").last().after(tableString);
               
                 count = count + 1;
                 var route_prefix = "{{route('unisharp.lfm.show')}}";
@@ -117,7 +117,7 @@
             });
 
             function removeRow(elem){
-                $(elem).parents('.locationRow').remove();
+                $(elem).parents('.contactInfoRow').remove();
             }
     </script>
 
