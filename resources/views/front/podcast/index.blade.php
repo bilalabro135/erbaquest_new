@@ -50,6 +50,9 @@
                                 @if($podcastsData->stitcher_link)
                                     <li><a target="_blank" href="{{ $podcastsData->stitcher_link }}"><i class="fas fa-sticky-note"></i> Stitcher</a></li>
                                 @endif
+                                @if($podcastsData->youtube_link)
+                                    <li><a target="_blank" href="{{ $podcastsData->youtube_link }}"><i class="fab fa-youtube"></i> Youtube</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -68,23 +71,25 @@
                       <li>{{ $additional_info['duration'] }}</li>
                     </ul>
                     {!! $podcastsData->description !!}
+
+                    @if($additional_info['gallery'])
                     <div class="posdcast_timeline podcast_episode_time">
                         <h4>Episode timeline</h4>
                         <ul>
-                            @if($additional_info['gallery'])
-                                @foreach($additional_info['gallery'] as $gallery)
-                                    <li class="list-play">
-                                        <a href="{{route('posts.show', ['pages' => 'podcast', 'id' => $podcastsData->id])}}?episode={{ $gallery['sort'] + 1 }}">
-                                            <h4>
-                                                <span class="icon"><i class="far fa-play-circle"></i></span>
-                                                <span class="text">{{ $gallery['alt'] }}</span>
-                                            </h4>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            @endif
+                            @foreach($additional_info['gallery'] as $gallery)
+                            <li class="list-play">
+                                <a href="{{route('posts.show', ['pages' => 'podcast', 'id' => $podcastsData->id])}}?episode={{ $gallery['sort'] + 1 }}">
+                                    <h4>
+                                        <span class="icon"><i class="far fa-play-circle"></i></span>
+                                        <span class="text">{{ $gallery['alt'] }}</span>
+                                    </h4>
+                                </a>
+                            </li>
+                            @endforeach   
                         </ul>
                     </div>
+                    @endif
+
                     {!! $podcastsData->patreon_message !!}
                 </div>
             </div>

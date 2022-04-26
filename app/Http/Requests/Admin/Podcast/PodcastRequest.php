@@ -78,6 +78,7 @@ class PodcastRequest extends FormRequest
             'spotify_link' => $this->get('spotify_link') ,
             'gm_link' => $this->get('gm_link') ,
             'stitcher_link' => $this->get('stitcher_link') ,
+            'youtube_link' => $this->get('youtube_link') ,
             
             'pt_message' => $this->get('pt_message') ,
             

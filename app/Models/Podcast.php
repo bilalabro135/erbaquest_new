@@ -26,6 +26,7 @@ class Podcast extends Model
         'spotify',
         'google_music',
         'stitcher_link',
+        'youtube_link',
         'sub_heading',
         'patreon_message',
     ];

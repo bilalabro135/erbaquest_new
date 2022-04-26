@@ -91,6 +91,7 @@ class PodcastController extends Controller
         $podcast->spotify = $podcastDetail['spotify_link'];
         $podcast->google_music = $podcastDetail['gm_link'];
         $podcast->stitcher_link = $podcastDetail['stitcher_link'];
+        $podcast->youtube_link = $podcastDetail['youtube_link'];
 
         $podcast->patreon_message = $podcastDetail['pt_message'];
 
@@ -145,6 +146,7 @@ class PodcastController extends Controller
             'spotify' => $podcastDetail['spotify_link'],
             'google_music' => $podcastDetail['gm_link'],
             'stitcher_link' => $podcastDetail['stitcher_link'],
+            'youtube_link' => $podcastDetail['youtube_link'],
             'patreon_message' => $podcastDetail['pt_message'],
         ]);
         if($request->has('cat'))

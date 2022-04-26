@@ -111,6 +111,16 @@
                             </div>
 
                             <div class="form-group ">
+                                <label for="youtube_link">Youtube Link</label>
+                                <input id="youtube_link" class="form-control @error('youtube_link') is-invalid @enderror" type="text" name="youtube_link" value="{{ (old('youtube_link')) ? old('youtube_link') : $podcast->youtube_link }}" placeholder="Youtube Link">
+                                @error('youtube_link')
+                                    <div class="text-danger">
+                                        {{$message}}                                            
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="form-group ">
                                 <label for="pt_message">Additional Message:</label>
                                 <textarea id="pt_message" class="form-control @error('pt_message') is-invalid @enderror" type="text" name="pt_message" placeholder="Additional Message"> 
                                     {{ (old('pt_message')) ? old('pt_message') : $podcast->patreon_message }}
