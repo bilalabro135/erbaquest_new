@@ -406,7 +406,7 @@ ul#menu-main-menu {
 
 .sec-Banner .banner-sponsors .logos ul li {
   margin-left: 50px;
-  min-height: 110px;
+  min-height: 115px;
   display: flex;
   align-items: center;
 }
@@ -2302,7 +2302,7 @@ button#uploadImg span.clr-green {
   padding: 40px 60px;
   border-radius: 15px;
   text-align: center;
-  margin-top: -340px;
+  margin-top: -30%;
 }
 
 .sponsorBecome .btn-custom {
