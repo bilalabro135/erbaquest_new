@@ -343,6 +343,7 @@ ul#menu-main-menu {
   height: 766px;
   text-align: center;
   background-attachment: fixed;
+  background-position: center;
 }
 
 .sec-Banner .banner-text h1 {
