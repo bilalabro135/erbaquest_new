@@ -310,6 +310,11 @@ class EventController extends Controller
 
     public function frontcreate()
     {
+        $userAuth = auth()->user();
+        if ($userAuth->isAn('Dev')) {
+            return Redirect::route('events.add');
+        }
+
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
         $vendorProfiles = array();

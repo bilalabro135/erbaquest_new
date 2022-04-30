@@ -1,4 +1,4 @@
-<?php 
+<?php
 	$explode = explode("/",$_SERVER['REQUEST_URI']);
 	$second_last = $explode[count($explode)-2];
 	$page = end($explode);
@@ -12,7 +12,7 @@
         <li class="<?php if($second_last.'/'.$page == 'account/edit'){ echo 'current'; } ?>">
           <a href="{{route('account.edit')}}">Account Setting</a>
         </li>
-        @if( $users->role == 3 )
+        @if( $users->role == 3 || $users->role == 2 )
         <li class="have_child-items <?php if($second_last.'/'.$page == 'events/my-event' || $second_last.'/'.$page == 'events/edit' || $second_last.'/'.$page == 'account/draft-events' || $second_last.'/'.$page == 'account/past-events' || $second_last.'/'.$page == 'account/upcoming-event'){ echo 'current'; } ?>">
           <span class="down-icon"><i class="fas fa-chevron-down"></i></span>
           <a href="{{route('my.event')}}">My Events</a>
@@ -46,7 +46,7 @@
             <a href="{{route('payment.option')}}">Payment Option</a>
           </li>
         @endif
-        
+
         <li class="<?php if($second_last.'/'.$page == 'account/wishlist'){ echo 'current'; } ?>">
           <a href="{{route('wishlist')}}">Wishlist</a>
         </li>

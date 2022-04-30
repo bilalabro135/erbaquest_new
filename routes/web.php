@@ -89,7 +89,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/users', [UserController::class, 'index'])->name('users')->middleware('role:viewUsers');
     Route::get('/users/get', [UserController::class, 'getUsers'])->name('users.get')->middleware('role:viewUsers');
     Route::get('/users/add', [UserController::class, 'addUsers'])->name('users.add')->middleware('role:addUsers');
-    Route::post('/users/store', [UserController::class, 'storeUser'])->name('users.store')->middleware('role:addUsers');    
+    Route::post('/users/store', [UserController::class, 'storeUser'])->name('users.store')->middleware('role:addUsers');
     Route::get('/users/{user:id}/edit', [UserController::class, 'editUsers'])->name('users.edit')->middleware('role:updateUsers,editItself');
     Route::post('/users/update', [UserController::class, 'updateUsers'])->name('users.update')->middleware('role:updateUsers,editItself');
     Route::get('/users/{id}/delete', [UserController::class, 'deleteuser'])->name('users.delete')->middleware('role:deleteUsers');
@@ -112,7 +112,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/pages/{pages:id}/update/', [PagesController::class, 'update'])->name('pages.update')->middleware('role:updatePages');
     Route::get('/pages/{pages:id}/delete', [PagesController::class, 'destroy'])->name('pages.delete')->middleware('role:deletePages');
 
-    // Menus    
+    // Menus
     Route::get('/menus/{type}', [MenuController::class, 'index'])->name('menus')->middleware('role:viewMenus');
     Route::post('/menus/add', [MenuController::class, 'store'])->name('menus.store')->middleware('role:addMenus');
 
@@ -140,7 +140,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/podcasts/categories/add', [CategoryController::class, 'store'])->name('podcast.categories.store');
     Route::get('/podcasts/categories/{category:id}/edit/', [CategoryController::class, 'edit'])->name('podcast.categories.edit');
     Route::post('/podcasts/categories/{category:id}/update/', [CategoryController::class, 'update'])->name('podcast.categories.update');
-    Route::get('/podcasts/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('podcast.categories.delete');    
+    Route::get('/podcasts/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('podcast.categories.delete');
     Route::get('/podcasts/categories/{category:id}/delete', [CategoryController::class, 'destroy'])->name('podcast.categories.delete');
 
 
@@ -159,7 +159,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/blogs/categories/{category:id}/delete', [CategoryController::class, 'blogsDestroy'])->name('categories.delete')->middleware('role:deleteCategories');
 
 
-    //Notification 
+    //Notification
     Route::get('/notification/', [SendNotification::class, 'index'])->name('notification')->middleware('role:allowNotifications');
     Route::post('/notification/send', [SendNotification::class, 'send'])->name('notification.send')->middleware('role:allowNotifications');
 
@@ -177,7 +177,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/newsletter/get', [NewsletterController::class, 'getNewsletter'])->name('newsletter.get');
     Route::get('/newsletter/{newsletter:id}/delete', [NewsletterController::class, 'destroy'])->name('newsletter.delete');
 
-    
+
 
     // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('admin.contact');
@@ -187,7 +187,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     //admin order
     Route::get('payment', [UserController::class, 'getPayment'])->name('admin.payment');
     Route::get('paymentList', [UserController::class, 'getPaymentList'])->name('admin.paymentList');
-    Route::get('payment/{order:id}', [UserController::class, 'paymentView'])->name('admin.payemnt.view');  
+    Route::get('payment/{order:id}', [UserController::class, 'paymentView'])->name('admin.payemnt.view');
 
     // Amenities
     Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities')->middleware('role:viewAmenities');
@@ -234,7 +234,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     //admin comment
 
     Route::post('user/review/delete', [UserController::class, 'deleteComment'])->name('comment.delete');
-    Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');    
+    Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');
 
 });
 
@@ -246,14 +246,13 @@ Route::post('/review/event/submit', [EventController::class, 'submitReviwes'])->
 Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 // Front Events
-Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'isOrganizer', 'verified');
-Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'isOrganizer', 'verified');
+Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'verified');
+Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'verified');
 Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.event')->middleware('role:updateEvents');
 Route::get('/events/my-event/', [EventController::class, 'myevents'])->name('my.event')->middleware('role:updateEvents');
 Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');
 Route::post('/events/frontupdate/{event:id}',[EventController::class,'frontupdate'])->name('front.events.frontupdate')->middleware('role:updateEvents');
 Route::get('/events/delete/{event:id}', [EventController::class, 'frontdestroy'])->name('front.events.delete')->middleware('role:deleteEvents');
-
 Route::get('/events-draft/delete/{event:id}', [EventController::class, 'frontDraftDestroy'])->name('front.events-draft.delete')->middleware('role:deleteEvents');
 
 Route::get('/events/publish/{event:id}', [EventController::class, 'publishDraft'])->name('front.events.publist');
@@ -270,7 +269,7 @@ Route::get('/account/payment-option',[UserController::class, 'paymentOption'])->
 Route::post('/account/payment-update',[UserController::class, 'UpdatepaymentOption'])->name('payment.update')->middleware('auth','verified');
 Route::get('/account/payment-list',[UserController::class, 'paymentList'])->name('payment.list')->middleware('auth','verified');
 
-// 
+//
 Route::get('/account', [AccountController::class, 'redirect'])->name('redirect.account.edit')->middleware('auth', 'verified');
 Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth', 'verified');
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'verified');
@@ -290,7 +289,7 @@ Route::get('/account/past-events',[EventController::class, 'pastEvent'])->name('
 Route::get('/podcast/{id}', [PodcastController::class, 'show'])->name('podcast.show');
 
 // Contact Form
-Route::get('/contact', [ContactController::class, 'contactForm'])->name('contact-form'); 
+Route::get('/contact', [ContactController::class, 'contactForm'])->name('contact-form');
 Route::post('/contact-form', [ContactController::class, 'sendEmail'])->name('contact-form.store');
 
 Route::group(['front'],  function () {

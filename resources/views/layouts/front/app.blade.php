@@ -42,7 +42,7 @@
 @php
 $user = auth()->user();
 if(isset($user)){
-  if ($user->isAn('Organizer')){
+  if ($user->isAn('Organizer') || $user->isAn('Vendor')){
 @endphp
   <style type="text/css">
     .eventClass{
@@ -68,7 +68,7 @@ if(isset($user)){
         @if(isset($topbar) && !empty($topbar))
         <div class="topbar">
           <ul class="topbar-list">
-            @foreach($topbar as $i => $menu)  
+            @foreach($topbar as $i => $menu)
               @if(Auth::check())
                 @if($menu->visible_for_auth == 1)
                   <li class="{{(count($menu->children)) ? 'nav-item dropdown' : ''}}" id="{{$menu->attr_id}}">
@@ -105,7 +105,7 @@ if(isset($user)){
         @endif
           <nav class="navbar navbar-expand-xl p-0">
               <div class="navbar-brand">
-                <a href="{{route('home')}}"> 
+                <a href="{{route('home')}}">
                 @if($globalsettings->getValue('site_logo'))
                     <img src="{{ $globalsettings->getValue('site_logo') }}"  alt="{{ ($globalsettings->getValue('site_title')) ? $globalsettings->getValue('site_title') : config('app.name', 'Laravel') }}" >
                   @else
@@ -130,7 +130,7 @@ if(isset($user)){
           </nav>
       </div>
     </header>
-    
+
     @yield('content')
     <div class="footer_widget">
       <div class="container">
@@ -176,7 +176,7 @@ if(isset($user)){
               @if($globalsettings->getValue('telephone'))
               <li>
                 <a href="tel:{{$globalsettings->getValue('telephone')}}">
-                <i class="fas fa-phone-volume"></i>{{$globalsettings->getValue('telephone')}}</a>                
+                <i class="fas fa-phone-volume"></i>{{$globalsettings->getValue('telephone')}}</a>
               </li>
               @endif
               @if($globalsettings->getValue('email'))
@@ -229,19 +229,19 @@ if(isset($user)){
     </footer>
 
 <style type="text/css">
-    
+
 </style>
- 
+
  <script src="{{ asset('js/front/app.js' ) }}"></script>
 
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging-compat.js"></script>
   <script src="{{ asset('js/pushnotification.js') }}"></script>
- 
+
  <script type="text/javascript">
       $(document).ready(function(){
-        setTimeout(function(){ 
+        setTimeout(function(){
           $(window).scroll(function(){
                 var sticky = $('#masthead'),
                 scroll = $(window).scrollTop();
