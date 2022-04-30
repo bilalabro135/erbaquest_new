@@ -875,12 +875,19 @@ class EventController extends Controller
 
    public function upcomingEvent()
    {
-        $users = Auth::user();
+       $users = Auth::user();
+
+       if($users->profile_image){
+           $profile_image = env('APP_URL') .$users['profile_image'];
+       }else{
+           $profile_image = "";
+       }
+
         $userRole = AssignRoles::where('entity_id', $users['id'])->first();
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '>', $now)->get();
         $users->role = $userRole['role_id'];
-        return view('tempview.upcoming-event', compact('events','users'));
+        return view('tempview.upcoming-event', compact('events','users','profile_image'));
    }
    public function draftEvent()
    {
@@ -888,7 +895,14 @@ class EventController extends Controller
         $userRole = AssignRoles::where('entity_id', $users['id'])->first();
         $events = Event::where('status', 'draft')->where('user_id', Auth::user()->id)->get();
         $users->role = $userRole['role_id'];
-        return view('tempview.draft-event', compact('events','users'));
+
+        if($users['profile_image']){
+           $profile_image = env('APP_URL') .$users['profile_image'];
+        }else{
+           $profile_image = "";
+        }
+
+        return view('tempview.draft-event', compact('events','users', 'profile_image'));
    }
    public function pastEvent()
    {
@@ -899,7 +913,14 @@ class EventController extends Controller
         $now = date('Y-m-d');
         $events = Event::where('status', 'published')->where('user_id', Auth::user()->id)->whereDate('event_date', '<', $now)->get(); //
         $users->role = $userRole['role_id'];
-        return view('tempview.past-event', compact('events','users'));
+
+        if($users['profile_image']){
+           $profile_image = env('APP_URL') .$users['profile_image'];
+       }else{
+           $profile_image = "";
+       }
+
+        return view('tempview.past-event', compact('events','users','profile_image'));
    }
 
     public function search(SearchRequest $request) {

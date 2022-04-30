@@ -20,7 +20,7 @@
 	            <div class="row">
                 @if(session('msg'))
                   <div class="alert alert-{{session('msg_type')}}">
-                      {{session('msg')}}                                            
+                      {{session('msg')}}
                   </div>
                   @endif
                 <div class="alert alert-danger" style="display: none;">
@@ -39,9 +39,9 @@
                             <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
                           <div class="author">
                             <p>{{$event['area']}}</p>
-                            @if(!empty($event->organizer->profile_image))
+                            @if(!empty($profile_image))
                             <div class="figure">
-                              <img src="{{($event->organizer->profile_image != 'null') ? $event->organizer->profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
+                              <img src="{{($profile_image != 'null') ? $profile_image : asset('images/avatar.png') }}" alt="{{$event->organizer->name}}">
                             </div>
                             @endif
                           </div>
@@ -69,7 +69,7 @@
 @endsection
 
 @push('scripts')
-<script type="text/javascript">    
+<script type="text/javascript">
   $('ul.menu_list li .down-icon').on('click',function(){
     $(this).parent('li').toggleClass('current');
     $(this).parent('li').find('ul.sub-menu').slideToggle();
