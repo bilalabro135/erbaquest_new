@@ -58,7 +58,7 @@
                     </div>
   	              @endforeach
                 @else
-                  <p>No Draft Events Found.</p>
+                  <p>No Events Found.</p>
                 @endif
             	</div>
           	</div>
