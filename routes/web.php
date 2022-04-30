@@ -248,6 +248,7 @@ Route::post('/newsletter/store', [NewsletterController::class, 'store'])->name('
 // Front Events
 Route::get('/events/create', [EventController::class, 'frontcreate'])->name('events.create')->middleware('auth', 'verified');
 Route::post('/events/add', [EventController::class, 'frontstore'])->name('front.events.store')->middleware('auth', 'verified');
+Route::get('/events/clone/{event:id}', [EventController::class, 'clone'])->name('events.clone')->middleware('auth', 'verified');
 Route::get('/events/edit/', [EventController::class, 'frontedit'])->name('edit.event')->middleware('role:updateEvents');
 Route::get('/events/my-event/', [EventController::class, 'myevents'])->name('my.event')->middleware('role:updateEvents');
 Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])->name('front.events.update')->middleware('role:updateEvents');

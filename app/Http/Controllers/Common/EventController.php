@@ -44,21 +44,21 @@ class EventController extends Controller
     {
         $model = Event::query();
         return DataTables::eloquent($model)
-        ->addColumn('action', function($row){
-             $actionBtn = '';
-                if(Bouncer::can('updatePackages')){
-                    $actionBtn .='<a href="' . route('events.edit', ['event' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
+            ->addColumn('action', function ($row) {
+                $actionBtn = '';
+                if (Bouncer::can('updatePackages')) {
+                    $actionBtn .= '<a href="' . route('events.edit', ['event' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
                 }
-                if(Bouncer::can('deleteevents')){
-                $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('events.delete', ['event' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
+                if (Bouncer::can('deleteevents')) {
+                    $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' . route('events.delete', ['event' => $row->id]) . '"><i class="fas fa-trash-alt"></i></a>';
                 }
                 return $actionBtn;
-        })
-        ->addColumn('organizer', function($row){
-            return $row->organizer->value('name');
-        })
-        ->rawColumns(['action'])
-        ->toJson();
+            })
+            ->addColumn('organizer', function ($row) {
+                return $row->organizer->value('name');
+            })
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
     public function create()
@@ -67,13 +67,13 @@ class EventController extends Controller
         $vendors = User::whereIs('Vendor')->get();
 
         $vendorProfiles = array();
-        if(count($vendors)){
+        if (count($vendors)) {
             foreach ($vendors as $vendor) {
-                $getDataVendorProfile = VendorProfile::where("user_id",$vendor['id'])->first();
-                if($getDataVendorProfile){
+                $getDataVendorProfile = VendorProfile::where("user_id", $vendor['id'])->first();
+                if ($getDataVendorProfile) {
                     $vendorProfiles[] = array(
                         'id' => $vendor['id'],
-                        'name' =>  $getDataVendorProfile['public_profile_name'],
+                        'name' => $getDataVendorProfile['public_profile_name'],
                     );
                 }
             }
@@ -82,9 +82,71 @@ class EventController extends Controller
         $amenities = Amenity::all();
         $tyoesOfEvents = EventType::all();
         $countries = Area::all();
-        return view('admin.events.add', compact('users', 'vendors', 'amenities', 'tyoesOfEvents','countries','vendorProfiles'));
+        return view('admin.events.add', compact('users', 'vendors', 'amenities', 'tyoesOfEvents', 'countries', 'vendorProfiles'));
     }
 
+    public function clone($id)
+    {
+        $events = Event::where("events.id", $id)->first();
+        if ($events) {
+            $eventDetail = $events;
+            $event = new Event();
+            $event->name = $eventDetail['name'];
+            //$event->slug = $eventDetail['slug'];
+            $event->featured_image = str_replace(env('APP_URL'), "", $eventDetail['featured_image']);
+            $event->gallery = $eventDetail['gallery'];
+            $event->description = $eventDetail['description'];
+            $event->event_date = $eventDetail['event_date'];
+            $event->address = $eventDetail['address'];
+            $event->type = $eventDetail['type'];
+            $event->door_dontation = $eventDetail['door_dontation'];
+            $event->vip_dontation = $eventDetail['vip_dontation'];
+            $event->vip_perk = $eventDetail['vip_perk'];
+            $event->charity = $eventDetail['charity'];
+            $event->cost_of_vendor = $eventDetail['cost_of_vendor'];
+            $event->vendor_space_available = $eventDetail['vendor_space_available'];
+            $event->area = $eventDetail['area'];
+            $event->height = $eventDetail['height'];
+            $event->capacity = $eventDetail['capacity'];
+            $event->ATM_on_site = $eventDetail['ATM_on_site'];
+            $event->tickiting_number = $eventDetail['tickiting_number'];
+            $event->vendor_number = $eventDetail['vendor_number'];
+            $event->user_number = $eventDetail['user_number'];
+            $event->website_link = $eventDetail['website_link'];
+            $event->user_id = $eventDetail['user_id'];
+            $event->facebook = $eventDetail['facebook'];
+            $event->twitter = $eventDetail['twitter'];
+            $event->linkedin = $eventDetail['linkedin'];
+            $event->instagram = $eventDetail['instagram'];
+            $event->youtube = $eventDetail['youtube'];
+            $event->status = 'draft';
+            $event->featured = $eventDetail['featured'];
+            $event->save();
+
+            //vendors insertion
+            $getVendors = Vendor::where("event_id",$id)->get();
+            if(count($getVendors)){
+                foreach ($getVendors as $getVendor){
+                    $vendor = new Vendor();
+                    $vendor->event_id = $event->id;
+                    $vendor->user_id = $getVendor['user_id'];
+                    $vendor->save();
+                }
+            }
+            //amenities insertion
+            $getAmenities = EventAmenity::where("event_id",$id)->get();
+            if(count($getAmenities)){
+                foreach ($getAmenities as $getAmenity){
+                    $amenity = new EventAmenity();
+                    $amenity->event_id = $event->id;
+                    $amenity->amenity_id = $getAmenity['amenity_id'];
+                    $amenity->save();
+                }
+            }
+
+            return Redirect::route('front.events.update', ['event' => $event->id])->with(['msg' => 'Event Inserted', 'msg_type' => 'success']);
+        }
+    }
     public function store(EventRequest $request)
     {
         $eventDetail = $request->getEventData();

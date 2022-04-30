@@ -20,7 +20,7 @@
 	            <div class="row">
                 @if(session('msg'))
                   <div class="alert alert-{{session('msg_type')}}">
-                      {{session('msg')}}                                            
+                      {{session('msg')}}
                   </div>
                   @endif
                 @if(count($events))
@@ -62,6 +62,7 @@
                             <p class="event_description">{!!$event->description!!}</p>
                           </div>
                           <a href="{{ $event->id }}/edit" class="md-link">EDIT</a>
+                            <a href="clone/{{ $event->id }}" class="md-link customeBorder">CLONE</a>
                           <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $event->id }}">
                             DELETE
                           </button>
@@ -85,7 +86,7 @@
                       </div>
                     </div>
 
-  	              	
+
   	              	@endforeach
                   @else
                     <p>No Events Found!</p>
@@ -101,11 +102,24 @@
 
 @push('scripts')
 <script type="text/javascript">
-  
+
         $('ul.menu_list li .down-icon').on('click',function(){
           $(this).parent('li').toggleClass('current');
           $(this).parent('li').find('ul.sub-menu').slideToggle();
         })
 </script>
-
 @endpush
+<style>
+
+    .customeBorder{
+        color: #ed9a01 !important;margin-left: 15px;border-left: 1px #eaeaea solid;padding-left: 18px;
+    }
+    .customeBorder:after{
+        background-color: #ed9a01 !important;
+    }
+    .event-box_list a.customeBorder:hover:after, .media-box a.customeBorder:hover:after{
+        width: 77% !important;
+        right: 0px;
+        left: initial !important;
+    }
+</style>
