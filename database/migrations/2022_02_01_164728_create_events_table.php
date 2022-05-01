@@ -20,7 +20,12 @@ class CreateEventsTable extends Migration
             $table->longText('featured_image')->nullable();
             $table->longText('description')->nullable();
             $table->longText('gallery')->nullable();
-            $table->date('event_date');
+            $table->date('event_date')->nullable();
+
+            $table->tinyInteger('is_recurring');
+            $table->enum('day_dropdown',array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'));
+            $table->enum('recurring_type',array('weekly', 'monthly', 'yearly'));
+
             $table->longText('address')->nullable();
             $table->longText('type')->nullable();
             $table->decimal('door_dontation')->nullable();
