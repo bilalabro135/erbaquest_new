@@ -45,7 +45,11 @@
         <ul class="owl-carousel owl-theme">
           @foreach($sponsors as $sponsor)
           <li class="item">
-            <img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}">
+            @if($sponsor->external_url)
+                <a target="_blank" href="{{ $sponsor->external_url }}"><img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}"></a>
+            @else
+                <img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}">
+            @endif
           </li>
           @endforeach
         </ul>

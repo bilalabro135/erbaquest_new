@@ -47,6 +47,7 @@ class SponsorController extends Controller
         $sponsor->name = $request->name;
         $sponsor->featured_image = str_replace(env('APP_URL'),"",$request->featured_image) ;
         $sponsor->order = $request->order;
+        $sponsor->external_url = $request->url;
         $sponsor->save();
         return Redirect::route('sponsors')->with(['msg' => 'Sponsor Inserted', 'msg_type' => 'success']);
     }

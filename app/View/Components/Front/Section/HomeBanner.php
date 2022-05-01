@@ -30,7 +30,7 @@ class HomeBanner extends Component
         $component = Components::where('name', 'home-banner')->first();
         $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
         $this->sponsors = Sponsor::orderBy('order', 'ASC')->get();
-        if (!empty($component)) 
+        if (!empty($component))
             return view('components.front.section.home-banner');
     }
 }
