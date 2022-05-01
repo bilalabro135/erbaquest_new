@@ -39,7 +39,7 @@ class Listing extends Component
 
         if($this->past  != false)
             $events->whereDate('event_date', '<', $now) ;
-        
+
         $count = $events->count();
 
         if($this->offset)
@@ -54,8 +54,8 @@ class Listing extends Component
         $this->pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
 
         $this->events = $events->get();
-        
-        if (count($this->events)) 
+
+        if (count($this->events))
             return view('components.front.events.listing');
     }
 }

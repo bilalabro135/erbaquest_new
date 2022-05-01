@@ -22,7 +22,7 @@ class EventRequest extends FormRequest
     {
         if(!$this->has('slug')){
             $this->merge(['slug' => \Str::slug($this->get('name'))]);
-        }        
+        }
 
     }
 
@@ -40,7 +40,7 @@ class EventRequest extends FormRequest
             'gallery' => [
                 new GalleryRule()
             ],
-            'event_date' => 'required|date',
+            'event_date' => 'required_if:is_recurring,==,0|date',
             'door_dontation' => 'required',
             'vip_dontation' => 'required',
             'vip_perk' => 'required',
@@ -83,6 +83,9 @@ class EventRequest extends FormRequest
             'description' => ($this->has('description')) ? $this->get('description') : null ,
             'gallery' => ($this->has('gallery')) ? serialize(array_values($this->get('gallery'))) : null,
             'event_date' => $this->get('event_date'),
+            'is_recurring' => $this->get('is_recurring'),
+            'day' => $this->get('day'),
+            'recurring_type' => $this->get('recurring_type'),
             'door_dontation' => $this->get('door_dontation'),
             'vip_dontation' => $this->get('vip_dontation'),
             'area' => ($this->has('area')) ? $this->get('area') : null ,

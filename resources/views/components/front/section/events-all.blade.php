@@ -17,13 +17,13 @@
                     <figure>
                       <div class="wishlist">
                         <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
-                        
+
                           <a href="javascript:;" class="heart-link">
                             @if($event['isWishList'])
                               <i class="fas fa-heart"></i>
                             @else
                               <i class="far fa-heart"></i>
-                            @endif    
+                            @endif
                           </a>
                          @if($event['featured'])
                           <p class="ft-tag">Featured</p>
@@ -49,7 +49,11 @@
                       <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
                         <h3>{{$event['name']}}</h3>
                       </a>
-                      <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                      @if(!$event['is_recurring'])
+                        <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                      @else
+                            <p><b>Day:</b> {{ $event['day_dropdown'] }} <b>Type:</b> {{ $event['recurring_type'] }}</p>
+                      @endif
                       <div class="txt">
                         <p>{!!$event['description']!!}</p>
                       </div>
@@ -62,7 +66,7 @@
                 @endforeach
               @else
                 <p>NO Events Found!</p>
-              @endif     
+              @endif
           </div>
         </div>
       </div>
@@ -76,7 +80,7 @@ $(".heart-link").click(function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
   });
-  var event_id = $(this).prev(".event_wish").val(); 
+  var event_id = $(this).prev(".event_wish").val();
   $.ajax({
     url:'{{route("add.wishlist")}}',
     type:'POST',
@@ -112,11 +116,11 @@ $(".heart-link").click(function() {
 
 
 $(".clcikalert input").click(function() {
-  
+
 
   var checked = [];
   $.each($("input[name='amenties[]']:checked"), function(){
-      checked.push($(this).val()); 
+      checked.push($(this).val());
   });
 
   $.ajaxSetup({
@@ -129,22 +133,22 @@ $(".clcikalert input").click(function() {
     type:'POST',
     data:'checkedData='+checked,
     beforeSend: function() {
-      
+
     },
     success:function(data) {
-      if(data){  
+      if(data){
         const queryString = window.location.search = data;
       }else{
         const queryString = window.location.search = "";
       }
     }
   });
-  
+
 });
 
 $('.sortDropdown').change(function(){
   var data= $(this).val();
-    const queryString = window.location.search;   
+    const queryString = window.location.search;
     if(queryString){
         window.location.search = "&sort="+data;
     }else{
@@ -160,7 +164,7 @@ $('.sortDropdown').change(function(){
 //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 //       }
 //   });
-//   var event_id = $(this).prev(".event_wish").val(); 
+//   var event_id = $(this).prev(".event_wish").val();
 //   $.ajax({
 //     url:'{{route("add.wishlist")}}',
 //     type:'POST',

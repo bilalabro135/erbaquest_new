@@ -57,7 +57,11 @@
                           <a href="../events/{{$event['id']}}">
                             <h3>{{$event->name}}</h3>
                           </a>
-                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                          @if(!$event['is_recurring'])
+                            <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                          @else
+                                <p><b>Day: </b> {{  $event['day_dropdown'] }} <b>Type: </b>{{  $event['recurring_type'] }}</p>
+                          @endif
                           <div class="txt">
                             <p class="event_description">{!!$event->description!!}</p>
                           </div>

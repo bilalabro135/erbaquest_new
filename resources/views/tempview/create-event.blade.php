@@ -36,13 +36,13 @@
                     <input type="text" name="name" placeholder="NAME:" required="required" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file featured_image_main drop-zone">
                     <label>FEATURED PICTURE: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview"><img id="preview_img" src=""></div></label>
-                    
+
                     <button type="button" class="upload_img_btn" id="uploadImg" onchange="Filevalidation()">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
@@ -50,7 +50,7 @@
                     <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" required="required">
                     @error('featured_image')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -60,9 +60,17 @@
                    {!! Form::textarea('description', null, array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
                     @error('description')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
+                  </div>
+                  <div class="col-sm-12 col-md-12 AmentieList is_recurring">
+                      <div class="input-field input-checkbox checkRight">
+                          <label>
+                              Is Recurring?
+                              <input id="is_recurring" type="checkbox" name="is_recurring" value="1">
+                          </label>
+                      </div>
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
                     <label>GALLERY PICTURES: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
@@ -73,7 +81,7 @@
                     <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple required="required">
                     @error('gallery')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -82,10 +90,33 @@
                     <input type="date" name="event_date" required="required" value="{{ old('event_date') }}">
                     @error('event_date')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
+
+                    <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
+                        <label>Days Dropdown: <span class="figure"><img src=""></span></label>
+                        <select name="day" id="day" required="" class="form-control">
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                            <option value="sunday">Sunday</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
+                        <label>Recurring Type: <span class="figure"><img src=""></span></label>
+                        <select name="recurring_type" id="recurring_type" required="" class="form-control">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
                         <label for="pac-input">Address: <span class="figure"><img src="{{asset('images/icons/icon13.png')}}"></span></label>
@@ -99,12 +130,12 @@
                         </div>
                         @error('latitude')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                         @endif
                         @error('longitude')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                         @endif
                     </div>
@@ -119,7 +150,7 @@
                     </select>
                     @error('type')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                     <div class="donation">
@@ -128,7 +159,7 @@
                         <input type="number" name="door_dontation" placeholder="$10.0" required="required" value="{{ old('door_dontation') }}">
                         @error('door_dontation')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -137,7 +168,7 @@
                         <input type="number" name="vip_dontation" placeholder="$500.0" required="required" value="{{ old('vip_dontation') }}">
                         @error('vip_dontation')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -146,7 +177,7 @@
                         <input type="text" name="vip_perk" placeholder="50.0" required="required" value="{{ old('vip_perk') }}">
                         @error('vip_perk')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -155,7 +186,7 @@
                         <input type="text" name="charity" placeholder="10.0" required="required" value="{{ old('charity') }}">
                         @error('charity')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -164,7 +195,7 @@
                         <input type="number" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -179,7 +210,7 @@
                         @endforeach
                         @error('vendorProfile')
                           <div class="text-danger">
-                              {{$message}}                                            
+                              {{$message}}
                           </div>
                         @endif
                       @endif
@@ -199,7 +230,7 @@
                         <li>
                           <a href="javascript:void(0)" onclick="javascript:emailSocialShare('mailto:areeb.ghouri@geeksroot.com?subject=ErbaLogin&body=Check out this site https%3A%2F%2Ferba-quest.geeksroot.net%2F')"><i class="fas fa-envelope"></i>Email</a>
                         </li>
-                        
+
                         <li class="example">
                           <a href="javascript:void(0)" class="btn" data-clipboard-demo data-clipboard-action="copy" data-clipboard-text="https://erba-quest.geeksroot.net/login"><i class="fas fa-copy"></i> Copy Link</a>
                         </li>
@@ -219,7 +250,7 @@
                     </div>
                     @error('vendor_space_available')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -250,10 +281,10 @@
                         @foreach($countries as $country)
                             <option value="{{$country->name}}" @if($country->name == old('area') ) selected="selected" @endif>{{$country->name}}</option>
                         @endforeach
-                    </select> 
+                    </select>
                     @error('area')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -262,7 +293,7 @@
                     <input type="text" name="height" value="{{ old('height') }}" placeholder="100ft" required="required">
                     @error('height')
                       <div class="text-danger">
-                          {{$message}}                                            
+                          {{$message}}
                       </div>
                     @endif
                   </div>
@@ -271,7 +302,7 @@
                     <input type="number" name="capacity" value="{{ old('capacity') }}" placeholder="Capacity" required="required">
                     @error('capacity')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -284,7 +315,7 @@
                     </select>
                     @error('ATM_on_site')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -293,7 +324,7 @@
                     <input class="phone_mask" type="text" name="tickiting_number" placeholder="Ticket Number:" value="{{ old('tickiting_number') }}" required="required">
                     @error('tickiting_number')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -302,7 +333,7 @@
                     <input class="phone_mask" type="text" name="vendor_number" placeholder="Vendor Number:" value="{{old('vendor_number')}}" value="{{ old('vendor_number') }}" required="required" maxlength="14">
                     @error('vendor_number')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -311,7 +342,7 @@
                     <input type="number" name="user_number" placeholder="User Number:" value="{{old('user_number')}}" required="required">
                     @error('user_number')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div> -->
@@ -320,7 +351,7 @@
                     <input type="url" name="website_link" placeholder="http://" value="{{old('website_link')}}">
                     @error('website_link')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -329,7 +360,7 @@
                     <input type="url" name="facebook" placeholder="http://" value="{{old('facebook')}}">
                     @error('facebook')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -338,7 +369,7 @@
                     <input type="url" name="twitter" placeholder="http://"  value="{{old('twitter')}}">
                     @error('twitter')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -347,7 +378,7 @@
                     <input type="url" name="linkedin" placeholder="http://" value="{{old('linkedin')}}">
                     @error('linkedin')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -356,7 +387,7 @@
                     <input type="url" name="instagram" placeholder="http://" value="{{old('instagram')}}">
                     @error('twitter')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -365,7 +396,7 @@
                     <input type="url" name="youtube" placeholder="http://" value="{{old('youtube')}}">
                     @error('youtube')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -382,15 +413,37 @@
       </div>
     </section>
 
+<style>
+    .is_recurring .input-field.input-checkbox label:before{
+        position: initial !important;
+        margin-right: 11px;
+    }
+    .recurring_component{
+        display: none;
+    }
+</style>
+<script>
+    $(document).ready(function (){
+        $(".is_recurring input").click(function (){
+            if($('#is_recurring').is(":checked")){
+                $(".recurring_component").show();
+                $(".input-date input").prop( "disabled", true );
+            }else{
+                $(".recurring_component").hide();
+                $(".input-date input").prop( "disabled", false );
+            }
+        });
+    });
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{$globalMapKey->getValue('map_key')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 <!-- <script src="{{asset('js/front/jquery.mask.min.js') }}"></script> -->
 
-<script>  
-    $(document).ready(function(){  
-        $('.phone_mask').mask('(999)-999-9999'); 
-    });  
-</script>  
+<script>
+    $(document).ready(function(){
+        $('.phone_mask').mask('(999)-999-9999');
+    });
+</script>
 <script>
 	function wcqib_refresh_quantity_increments() {
     jQuery("div.quantity:not(.buttons_added), td.quantity:not(.buttons_added)").each(function(a, b) {
@@ -587,7 +640,7 @@
       var i;
       for (i = 0; i < file.length; ++i) {
 
-      
+
         if (file[i].type.startsWith("image/")) {
           const reader = new FileReader();
 

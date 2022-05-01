@@ -22,7 +22,7 @@ class FrontEventRequest extends FormRequest
     {
         if(!$this->has('slug')){
             $this->merge(['slug' => \Str::slug($this->get('name'))]);
-        }        
+        }
 
     }
 
@@ -38,7 +38,7 @@ class FrontEventRequest extends FormRequest
             'slug' => 'max:255',
             'featured_image' => 'dimensions:min_width=500,min_height=500|exclude_if:checkevent,update|required',
             'gallery' => 'exclude_if:checkevent,update|required',
-            'event_date' => 'required|date',
+            'event_date' => 'required_if:is_recurring,==,0|date', //is_recurring
             'door_dontation' => 'required',
             'vip_dontation' => 'required',
             'vip_perk' => 'required',
@@ -80,6 +80,9 @@ class FrontEventRequest extends FormRequest
             'gallery' => $this->get('gallery'),
             'description' => ($this->has('description')) ? $this->get('description') : null ,
             'event_date' => $this->get('event_date'),
+            'is_recurring' => $this->get('is_recurring'),
+            'day' => $this->get('day'),
+            'recurring_type' => $this->get('recurring_type'),
             'door_dontation' => $this->get('door_dontation'),
             'vip_dontation' => $this->get('vip_dontation'),
             'area' => ($this->has('area')) ? $this->get('area') : null ,

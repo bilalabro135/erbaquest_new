@@ -43,11 +43,15 @@
                         </figure>
                         <div class="detail">
                           <h3>{{$event['name']}}</h3>
-                          <p class="date"><i class="far fa-calendar-alt"></i>{{$event['event_date']}}</p>
+                            @if(!$event['is_recurring'])
+                                <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                            @else
+                                <p><b>Day: </b> {{  $event['day_dropdown'] }} <b>Type: </b>{{  $event['recurring_type'] }}</p>
+                            @endif
                           <div class="txt">
                             <p>{!!$event['description']!!}</p>
                           </div>
-                          <a href="events/{{$event['id']}}" class="link">Details</a>
+                          <a href="../events/{{$event['id']}}" class="link">Details</a>
                         </div>
                       </div>
                     </div>
@@ -71,7 +75,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-      var event_id = $(this).prev(".event_wish").val(); 
+      var event_id = $(this).prev(".event_wish").val();
       $.ajax({
          url:'{{route("remove.wishlist")}}',
          type:'POST',
@@ -86,7 +90,7 @@
           setTimeout(location.reload.bind(location), 2000);
         }
       });
-  });    
+  });
   $('ul.menu_list li .down-icon').on('click',function(){
     $(this).parent('li').toggleClass('current');
     $(this).parent('li').find('ul.sub-menu').slideToggle();

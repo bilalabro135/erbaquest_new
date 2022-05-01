@@ -49,10 +49,19 @@
                                     @endif
                                     </div>
                                 </div>
+
+
+
                                 <div class="col-sm-12 col-md-6">
+
+                                    <div class="form-group custom-control custom-checkbox small is_recurring">
+                                        <input @if($event->is_recurring) checked="checked" @endif type="checkbox"  id="is_recurring" class="custom-control-input"  name="is_recurring" value="1">
+                                        <label for="is_recurring" class="custom-control-label">Is Recurring?</label>
+                                    </div>
+
                                     <div class="form-group">
                                     <label for="event_date">Event Date</label>
-                                    <input type="date"  required="" id="event_date" class="form-control  @error('event_date') is-invalid @enderror" name="event_date" placeholder="Enter Event Name*" value="{{ (old('event_date')) ? old('event_date') : $event->event_date }}">
+                                    <input @if($event->is_recurring) disabled="disabled" @endif type="date"  required="" id="event_date" class="form-control  @error('event_date') is-invalid @enderror" name="event_date" placeholder="Enter Event Name*" value="{{ (old('event_date')) ? old('event_date') : $event->event_date }}">
                                         @error('event_date')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -97,6 +106,33 @@
                                     <a href="javascript:void(0)" class="text-danger mt-2 d-inline-block" onclick="removeImage()">Remove Image</a>
                                     </div>
                                 </div>
+                                <div class="col-sm-12 col-md-6 recurring_component">
+                                    <label>Days Dropdown: {{ $event->day_dropdown  }}</label>
+                                    <select name="day" id="day" required="" class="form-control">
+                                        <option value="monday" @if($event->day_dropdown == 'monday') selected="selected" @endif>Monday</option>
+                                        <option value="tuesday" @if($event->day_dropdown == 'tuesday') selected="selected" @endif>Tuesday</option>
+                                        <option value="wednesday" @if($event->day_dropdown == 'wednesday') selected="selected" @endif>Wednesday</option>
+                                        <option value="thursday" @if($event->day_dropdown == 'thursday') selected="selected" @endif>Thursday</option>
+                                        <option value="friday" @if($event->day_dropdown == 'friday') selected="selected" @endif>Friday</option>
+                                        <option value="saturday" @if($event->day_dropdown == 'saturday') selected="selected" @endif >Saturday</option>
+                                        <option value="sunday" @if($event->day_dropdown == 'sunday') selected="selected" @endif >Sunday</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6 recurring_component">
+                                    <label>Recurring Type:</label>
+                                    <select name="recurring_type" id="recurring_type" required="" class="form-control">
+                                        <option value="weekly" @if($event->recurring_type == 'weekly') selected="selected" @endif>Weekly</option>
+                                        <option value="monthly" @if($event->recurring_type == 'monthly') selected="selected" @endif >Monthly</option>
+                                        <option value="yearly" @if($event->recurring_type == 'yearly') selected="selected" @endif>Yearly</option>
+                                    </select>
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
                                 <div class="col-sm-12">
                                     <div class="card shadow mb-4">
                                         <div class="card-header">
@@ -683,7 +719,35 @@
         var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
         thisfolder.find(".onsubmit").hide();
         thisfolder.find(".ondelete").show();
-    });;
+    });
+</script>
+
+<style>
+    .is_recurring .input-field.input-checkbox label:before{
+        position: initial !important;
+        margin-right: 11px;
+    }
+</style>
+
+@if(!$event->is_recurring)
+    <style>
+        .recurring_component{
+            display: none;
+        }
+    </style>
+@endif
+<script>
+    $(document).ready(function (){
+        $(".is_recurring input").click(function (){
+            if($('#is_recurring').is(":checked")){
+                $(".recurring_component").show();
+                $("#event_date").prop( "disabled", true );
+            }else{
+                $(".recurring_component").hide();
+                $("#event_date").prop( "disabled", false );
+            }
+        });
+    });
 </script>
 @endsection
 

@@ -69,7 +69,10 @@ class WishlistsController extends Controller
        		'featured_image' => $getevents['featured_image'],
        		'description' => $getevents['description'],
        		'event_date' => $getevents['event_date'],
-       		'area' => $getevents['area'],
+            'area' => $getevents['area'],
+            'is_recurring' => $getevents['is_recurring'],
+            'day_dropdown' => $getevents['day_dropdown'],
+            'recurring_type' => $getevents['recurring_type'],
        	);
       }
     }

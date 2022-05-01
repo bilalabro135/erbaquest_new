@@ -39,10 +39,10 @@ class EventsAll extends Component
         $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
         $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
-        if ($search != '') 
+        if ($search != '')
             $event->where('name', 'LIKE', "%{$search}%");
 
-        if ($location != '') 
+        if ($location != '')
             $event->where('area', $location);
 
         if ($sort != '') {
@@ -67,7 +67,7 @@ class EventsAll extends Component
             }
             if($getIds){
                 $event->whereIn('id', $getIds);
-            }  
+            }
         }
 
         $getevents = $event->get();
@@ -98,6 +98,9 @@ class EventsAll extends Component
                     'event_date' => $getevent['event_date'],
                     'area' => $getevent['area'],
                     'user_profile' => $profile_image,
+                    'is_recurring' => $getevent['is_recurring'],
+                    'day_dropdown' => $getevent['day_dropdown'],
+                    'recurring_type' => $getevent['recurring_type'],
                     'featured'     =>   $getevent['featured'],
                 );
             }

@@ -2660,7 +2660,7 @@ input.vendor_list {
     background-image: none;
     border-color: #b5b5b5;
     box-shadow: none;
-} 
+}
 .Socialshare ul li a:focus+.Socialshare ul li a, .Socialshare ul li a:focus {
     outline: 0;
     box-shadow:none;
@@ -3667,7 +3667,7 @@ button.delete-event:hover:after {
   display: none;
 }
 .ft-event .alert-success a{
-  color: #0f5132; 
+  color: #0f5132;
 }
 .ft-event .alert-danger a{
   color: #842029;
@@ -3866,7 +3866,7 @@ p.error{
 }
 .speedRate:not(:checked) > label:hover,
 .speedRate:not(:checked) > label:hover ~ label {
-    color: #2c9044;  
+    color: #2c9044;
 }
 .speedRate > input:checked + label:hover,
 .speedRate > input:checked + label:hover ~ label,
@@ -3902,7 +3902,7 @@ p.error{
 }
 .qualityRate:not(:checked) > label:hover,
 .qualityRate:not(:checked) > label:hover ~ label {
-    color: #2c9044;  
+    color: #2c9044;
 }
 .qualityRate > input:checked + label:hover,
 .qualityRate > input:checked + label:hover ~ label,
@@ -3939,7 +3939,7 @@ p.error{
 }
 .priceRate:not(:checked) > label:hover,
 .priceRate:not(:checked) > label:hover ~ label {
-    color: #2c9044;  
+    color: #2c9044;
 }
 .priceRate > input:checked + label:hover,
 .priceRate > input:checked + label:hover ~ label,
@@ -4031,7 +4031,7 @@ p.error{
   padding-bottom: 120px;
 }
 .blog_detail .pull_right img {
-  margin-left: 20px;  
+  margin-left: 20px;
 }
 .pckg-box ul li img {
   /*margin-right: 5px;*/
@@ -4188,11 +4188,31 @@ color: #ff0000;
 }
 .add-to-cal h4 {
   display: inline-block;
-  color: #212529;
+    color: #fff;
+    margin-bottom: 0px;
 }
+
 .event-detail h4 i {
   color: #2c9044;
 }
+.add-to-cal h4 i{
+    color:#fff;
+}
+
+.date_head_rec{
+    display: block;
+    }
+.date_rec{
+ float: left;
+    margin-bottom: 20px;
+}
+.date_rec h4{
+    margin-bottom: 7px;
+    font-size: 14px;
+    margin-right: 11px;
+    text-transform: capitalize;
+    }
+
 
 
 
@@ -4551,3 +4571,13 @@ color: #ff0000;
     left: 0px;
   }
 }
+.add-to-cal a{
+    background: #2c9044;
+    padding: 12px;
+    margin: 0px auto;
+    text-align: center;
+    display: block;
+    width: 55%;
+    line-height: 32px;
+    border-radius: 8px;
+    }

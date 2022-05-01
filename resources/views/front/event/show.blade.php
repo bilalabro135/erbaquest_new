@@ -9,7 +9,7 @@
       <div class="container">
         @if(session('msg'))
           <div class="alert alert-{{session('msg_type')}}">
-              {{session('msg')}}                                            
+              {{session('msg')}}
           </div>
         @endif
         <div class="row align-center">
@@ -122,7 +122,7 @@
                 @endif
               </div>
             </div>
-            
+
             @if($event->status == 'draft')
               <div class="social-box">
                 <!-- <h4>Action:</h4> -->
@@ -173,7 +173,7 @@
                         <div class="clearfix"></div>
                         @error('speed')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -195,7 +195,7 @@
                         <div class="clearfix"></div>
                         @error('quality')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -217,7 +217,7 @@
                         <div class="clearfix"></div>
                         @error('price')
                             <div class="text-danger">
-                                {{$message}}                                            
+                                {{$message}}
                             </div>
                         @endif
                       </div>
@@ -227,7 +227,7 @@
                     <textarea name="comment" placeholder="Review"></textarea>
                     @error('comment')
                         <div class="text-danger">
-                            {{$message}}                                            
+                            {{$message}}
                         </div>
                     @endif
                   </div>
@@ -239,7 +239,7 @@
             @endif
             <div class="reviews" @if(!auth()->check()) style="margin-top:0px;" @endif>
               @if($sendReviews)
-                @foreach($sendReviews as $sendReview)                 
+                @foreach($sendReviews as $sendReview)
                   <div class="review-box">
                     <figure>
                       @if(!empty($sendReview['profile_image']))
@@ -258,7 +258,7 @@
                                 @if($i >= $sendReview['speed_rating'])
                                     <i class="far fa-star"></i>
                                 @else
-                                    <i class="fas fa-star"></i> 
+                                    <i class="fas fa-star"></i>
                                 @endif
                             @endfor
                           </span>
@@ -270,7 +270,7 @@
                                 @if($i >= $sendReview['quality_rating'])
                                     <i class="far fa-star"></i>
                                 @else
-                                    <i class="fas fa-star"></i> 
+                                    <i class="fas fa-star"></i>
                                 @endif
                             @endfor
                           </span>
@@ -282,7 +282,7 @@
                                 @if($i >= $sendReview['price_rating'])
                                     <i class="far fa-star"></i>
                                 @else
-                                    <i class="fas fa-star"></i> 
+                                    <i class="fas fa-star"></i>
                                 @endif
                             @endfor
                           </span>
@@ -297,14 +297,22 @@
               @endforeach
             @endif
             </div>
-    
+
           </div>
         </div>
       @endif
     </div>
           <div class="col-sm-12 col-md-5">
             <div class="loct-box">
-              <h4 class="date_head">DATE: <i class="far fa-calendar-alt"></i></h4>
+              @if(!$event->is_recurring)
+               <h4 class="date_head">DATE: <i class="far fa-calendar-alt"></i></h4>
+              @else
+                  <div class="date_rec">
+                    <h4 class="date_head_rec">Day Of recurring: {{ $event->day_dropdown }}</h4>
+                    <h4 class="date_head_rec">Type: {{ $event->recurring_type }}</h4>
+                  </div>
+              @endif
+
               <div class="wishlistIcon">
                 <input type="hidden" class="event_wish" name="event_id" value="{{$event->id}}">
                 <a class="heart-link" href="javascript:void(0);">
@@ -312,12 +320,9 @@
                 </a>
               </div>
               <div style="clear: both;"></div>
-              <p><span class="dt-tag">{{date('d-m-Y', strtotime($event['event_date']))}}</span></p>
-              <div class="add-to-cal">
-                <a class="" target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text={{$event->name}}&dates={{ \Carbon\Carbon::parse($event['event_date'])->format('Ymd')}}/{{ \Carbon\Carbon::parse($event['event_date'])->addDays(1)->format('Ymd')}}&details={!! $event->description !!}&location={{$event->address}}">
-                  <h4>ADD TO CALENDER: <i class="far fa-calendar-alt" aria-hidden="true"></i></h4>
-                </a>
-              </div>
+              @if(!$event->is_recurring)
+                <p><span class="dt-tag">{{date('d-m-Y', strtotime($event['event_date']))}}</span></p>
+               @endif
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
               	<iframe src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q={{$event->address}}&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -357,6 +362,13 @@
                 </li>
                 @endif
               </ul>
+                @if(!$event->is_recurring)
+                    <div class="add-to-cal">
+                        <a class="" target="_blank" href="https://calendar.google.com/calendar/r/eventedit?text={{$event->name}}&dates={{ \Carbon\Carbon::parse($event['event_date'])->format('Ymd')}}/{{ \Carbon\Carbon::parse($event['event_date'])->addDays(1)->format('Ymd')}}&details={!! $event->description !!}&location={{$event->address}}">
+                            <h4>ADD TO CALENDER <i class="far fa-calendar-alt" aria-hidden="true"></i></h4>
+                        </a>
+                    </div>
+                @endif
             </div>
             @if($vendorProfiles)
             <div class="vendor-box">
@@ -439,7 +451,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               }
           });
-          var event_id = $(this).prev(".event_wish").val(); 
+          var event_id = $(this).prev(".event_wish").val();
           $.ajax({
             url:'{{route("add.wishlist")}}',
             type:'POST',

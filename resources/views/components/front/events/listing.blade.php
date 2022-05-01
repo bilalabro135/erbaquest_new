@@ -1,5 +1,5 @@
 @foreach($events as $event)
-<?php  
+<?php
 // echo "<pre>";
 // print_r($event);
 // exit();
@@ -14,12 +14,17 @@
     <div class="detail">
       <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event->id])}}"><h4>{{$event->name}}</h4></a>
       <div class="ev-meta">
-        <p class="date">
-          <i class="far fa-calendar-alt"></i>
-          {{date('d-m-Y', strtotime($event['event_date']))}}
-        </p>
+        @if( !$event['is_recurring'] )
+             <p class="date">
+                <i class="far fa-calendar-alt"></i>
+                {{date('d-m-Y', strtotime($event['event_date']))}}
+            </p>
+       @else
+            <p> <b>Day:</b> {{ $event['day_dropdown'] }} <b>Type:</b> {{ $event['recurring_type'] }} </p>
+       @endif
+
         <p class="tags">
-          @if( $event['featured'] ) 
+          @if( $event['featured'] )
             <span>Fetured</span>
           @endif
         </p>
@@ -33,7 +38,7 @@
         @endif
         @if(!empty($event->organizer->name))
         <h5>
-          {{$event->organizer->name}} 
+          {{$event->organizer->name}}
 
           <img src="{{(isset($event->organizer->profile_image)) ? $event->organizer->profile_image : asset('/images/avatar.png')}}">
         </h5>
@@ -76,7 +81,7 @@
             $(elem).parents('section').find('.load-more').css({'opacity': '60%', 'pointer-events': 'none'});
           }
         }
-      }).done(function(){        
+      }).done(function(){
            $(elem).parents('section').find('.load-more span').fadeOut();
       });
     })

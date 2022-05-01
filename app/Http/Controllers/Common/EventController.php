@@ -97,6 +97,11 @@ class EventController extends Controller
             $event->gallery = $eventDetail['gallery'];
             $event->description = $eventDetail['description'];
             $event->event_date = $eventDetail['event_date'];
+
+            $event->is_recurring = $eventDetail['is_recurring'];
+            $event->day_dropdown = $eventDetail['day_dropdown'];
+            $event->recurring_type = $eventDetail['recurring_type'];
+
             $event->address = $eventDetail['address'];
             $event->type = $eventDetail['type'];
             $event->door_dontation = $eventDetail['door_dontation'];
@@ -157,6 +162,11 @@ class EventController extends Controller
         $event->gallery = $eventDetail['gallery'];
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
+
+        $event->is_recurring = $eventDetail['is_recurring'];
+        $event->day_dropdown = $eventDetail['day'];
+        $event->recurring_type = $eventDetail['recurring_type'];
+
         $event->address = $eventDetail['address'];
         $event->type = $eventDetail['type'];
         $event->door_dontation = $eventDetail['door_dontation'];
@@ -242,7 +252,6 @@ class EventController extends Controller
                 );
             }
         }
-
         return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews','vendorProfiles'));
     }
 
@@ -257,6 +266,9 @@ class EventController extends Controller
             'gallery' =>  $eventDetail['gallery'],
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],
+            'is_recurring' =>  $eventDetail['is_recurring'],
+            'day_dropdown' =>  $eventDetail['day'],
+            'recurring_type' =>  $eventDetail['recurring_type'],
             'address' =>  $eventDetail['address'],
             'type' =>  $eventDetail['type'],
             'door_dontation' =>  $eventDetail['door_dontation'],
@@ -401,6 +413,7 @@ class EventController extends Controller
     public function frontstore(FrontEventRequest $request)
     {
         $eventDetail = $request->getEventData();
+
         $gallery_img = array();
         $event = new Event();
         $event->name = $eventDetail['name'] ;
@@ -429,6 +442,9 @@ class EventController extends Controller
         $event->cost_of_vendor = $eventDetail['cost_of_vendor'];
         $event->vendor_space_available = $eventDetail['vendor_space_available'];
         $event->area = $eventDetail['area'];
+        $event->is_recurring = $eventDetail['is_recurring'];
+        $event->day_dropdown = $eventDetail['day'];
+        $event->recurring_type = $eventDetail['recurring_type'];
         $event->height = $eventDetail['height'];
         $event->capacity = $eventDetail['capacity'];
         $event->ATM_on_site = $eventDetail['ATM_on_site'];
@@ -505,7 +521,10 @@ class EventController extends Controller
 
     public function updateevent($id)
     {
-        $getevents  =  Event::findorFail($id);
+        $AuthUsers = Auth::user();
+
+        $getevents  =  Event::where('user_id', $AuthUsers['id'])->findorFail($id);
+        //dd($getevents);
         $data = array();
         if($getevents){
             $gallery_data = unserialize($getevents['gallery']);
@@ -517,6 +536,9 @@ class EventController extends Controller
                 'description' => $getevents['description'],
                 'gallery' => $gallery_data,
                 'event_date' => $getevents['event_date'],
+                'is_recurring' => $getevents['is_recurring'],
+                'day_dropdown' => $getevents['day_dropdown'],
+                'recurring_type' => $getevents['recurring_type'],
                 'address' => $getevents['address'],
                 'type' => $getevents['type'],
                 'door_dontation' => $getevents['door_dontation'],
@@ -654,6 +676,9 @@ class EventController extends Controller
             'gallery' =>  $gallery,
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],
+            'is_recurring' => $eventDetail['is_recurring'],
+            'day_dropdown' => $eventDetail['day'],
+            'recurring_type' => $eventDetail['recurring_type'],
             'address' =>  $eventDetail['address'],
             'type' =>  $eventDetail['type'],
             'door_dontation' =>  $eventDetail['door_dontation'],
@@ -838,7 +863,6 @@ class EventController extends Controller
             }
           }
         }
-
 
         if ($event != null) {
             return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
