@@ -18,6 +18,7 @@ class CreateSponsorsTable extends Migration
             $table->string('name', 255);
             $table->longText('featured_image', 255);
             $table->integer('order')->nullable();
+            $table->longText('external_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
