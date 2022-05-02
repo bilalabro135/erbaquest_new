@@ -4,7 +4,7 @@
 	@if(isset($pages) && isset($pages->featured_image))
 		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
 	@endif
-	<div class="container cms-content pt-100 pb-100">
+	<div class=" cms-content pt-100">
 	    	<section class="wellcome_sec">
 		<div class="container">
 			<div class="wellcome_main">
@@ -42,13 +42,13 @@
 					<div class="clear"></div>
 				</div>
 				<div class="row">					
-					<div class="col-md-6">
+					<div class="col-md-6 order_one">
 						<div class="about_us_text">
 							<h3>Justin Closser</h3>
 							<p>Justin is a family man, an Iraq Vet, and former alcoholic/addict. Following his time in service, he became a medical marijuana patient and was able to overcome his substance abuse through cultivation and consumption. His passion for cultivation led him to quit his job and enroll in college in anticipation of NY Legalization. He graduated with the SUNY Chancellor's Award for Student Excellence, a member of Phi Theta Kappa, and a Coca Cola Academic Team Gold Scholar. Cultivation runs through his veins, as does helping people - let him help you cultivate your way to success. </p>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 order_two">
 						<div class="img">
 							<img src="{{ asset('images/ezgif.com-gif-maker (2).jpg') }}">
 						</div>
@@ -56,7 +56,7 @@
 					<div class="clear"></div>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 dis_image">
 						<div class="img">
 							<img src="{{ asset('images/ezgif.com-gif-maker (1).jpg') }}">
 						</div>

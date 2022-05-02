@@ -4374,6 +4374,15 @@ color: #ff0000;
     width: 150px;
     height: 110px;
   }
+  .about_us_main .row .col-md-6.order_one{
+    order: 1;
+  }
+  .about_us_main .row .col-md-6.order_two{
+    order: 0;
+  }
+  .wellcome_main .wellcome_text p{
+    padding: 0px !important;
+  }
 }
 @media (min-width: 415px) and (max-width: 767px) {
   .sec-Banner .banner-text h1 {
@@ -4451,6 +4460,9 @@ color: #ff0000;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
+  .wellcome_main .wellcome_text p{
+    padding: 19px 69px !important;
+  }
   .rcVendor-list ul li {
     max-width: 22%;
     height: 160px;
@@ -4581,13 +4593,7 @@ color: #ff0000;
     line-height: 32px;
     border-radius: 8px;
     }
-  body {
-    margin: 0px;
-  }
-  .container {
-    width: 1160px;
-    margin: 0px auto;
-  }
+
   .clear {
       clear: both;
     }
@@ -4626,9 +4632,11 @@ color: #ff0000;
       font-weight: 400;
       color: rgb(38, 38, 42);
       text-transform: uppercase;
+      margin-bottom: 40px;
     }
     .about_us_main .row  {
       display: flex;
+      padding-bottom: 48px;
     }
     .about_us_main .row .col-md-6 {
      // width: 100%;
@@ -4651,3 +4659,13 @@ color: #ff0000;
       height: auto;
       margin-left: 25px;
     }
+    .wellcome_main{
+      padding-bottom: 56px;
+    }
+  .about_us{
+    background-color: rgb(246, 246, 246);
+    padding-top: 56px;
+  }
+  .dis_image{
+    display: block !important; 
+  }
