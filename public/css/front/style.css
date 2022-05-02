@@ -4581,3 +4581,73 @@ color: #ff0000;
     line-height: 32px;
     border-radius: 8px;
     }
+  body {
+    margin: 0px;
+  }
+  .container {
+    width: 1160px;
+    margin: 0px auto;
+  }
+  .clear {
+      clear: both;
+    }
+    .wellcome_main {
+      text-align: center;
+    }
+    .wellcome_main .wellcome_text h2 {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgb(27, 27, 27);
+    }
+    .wellcome_main .wellcome_text p {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgb(94, 94, 94);
+      line-height: 1.5;
+      padding: 10px 260px;
+      margin: 0px;
+    }
+    .wellcome_main .btn_podcast a {
+      text-decoration: none;
+      font-size: 14px;
+      color: rgb(241, 241, 241);
+      background-color: rgb(38, 38, 42);
+      padding: 18px 30px;
+      text-transform: uppercase;
+    }
+    .btn_podcast {
+      margin-top: 50px;
+    }
+    .about_us_main .about_us_text {
+      text-align: center;
+    }
+    .about_us_main .about_us_text h2 {
+      font-size: 39px;
+      font-weight: 400;
+      color: rgb(38, 38, 42);
+      text-transform: uppercase;
+    }
+    .about_us_main .row  {
+      display: flex;
+    }
+    .about_us_main .row .col-md-6 {
+      width: 100%;
+      display: grid;
+      align-items: center;
+    }
+    .about_us_main .about_us_text h3 {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgb(21, 21, 21);
+    }
+    .about_us_main .about_us_text p {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgb(87, 87, 87);
+      line-height: 1.5;
+    }
+    .about_us_main .row .col-md-6 .img img {
+      width: 90%;
+      height: auto;
+      margin-left: 25px;
+    }
