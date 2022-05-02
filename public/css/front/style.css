@@ -4631,7 +4631,7 @@ color: #ff0000;
       display: flex;
     }
     .about_us_main .row .col-md-6 {
-      width: 100%;
+     // width: 100%;
       display: grid;
       align-items: center;
     }
