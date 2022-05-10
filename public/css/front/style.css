@@ -4404,7 +4404,9 @@ color: #ff0000;
   }
   .amenties_filter ul li label:after {
     right: 10px;
-    top: 20px;
+    top: 21px;
+    height: 13px;
+    width: 13px;
   }
 }
 @media (min-width: 415px) and (max-width: 767px) {
