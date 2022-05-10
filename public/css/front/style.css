@@ -3337,7 +3337,7 @@ input.vendor_list {
     left: 10px;
   }
   .amenties_filter ul li label img {
-    max-width: 18px;
+    max-width: 18px !important;
   }
   .amenties_filter ul li label .text {
     font-size: 13px;
