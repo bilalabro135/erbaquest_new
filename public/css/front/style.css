@@ -3319,7 +3319,7 @@ input.vendor_list {
   .sec-Banner .banner-sponsors .text {
     max-width: 100%;
     position: relative;
-    top: -35px;
+    top: 20px;
   }
 
   .banner-text {
