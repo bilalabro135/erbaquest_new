@@ -3325,6 +3325,27 @@ input.vendor_list {
   .banner-text {
     margin-top: -70px;
   }
+  .amenties_filter ul li {
+    padding: 0 5px;
+    margin: 5px 0;
+  }
+  .amenties_filter ul li label {
+    padding: 15px 25px;
+    padding-left: 33px;
+  }
+  .amenties_filter ul li label figure {
+    left: 10px;
+  }
+  .amenties_filter ul li label img {
+    max-width: 18px;
+  }
+  .amenties_filter ul li label .text {
+    font-size: 13px;
+  }
+  .amenties_filter ul li label:after {
+    right: 10px;
+    top: 20px;
+  }
 }
 div#card-element {
   display: flex;
