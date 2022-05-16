@@ -26,7 +26,7 @@ class CreateVendorProfileTable extends Migration
             $table->string('featured_picture')->nullable();
             $table->string('picture')->nullable();
             $table->string('phone')->nullable();
-            $table->longText('descreption')->nullable();
+            $table->longText('description')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

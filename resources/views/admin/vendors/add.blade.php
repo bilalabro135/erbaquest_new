@@ -96,7 +96,7 @@
                             </div>
                             <div class="form-group">
                             <label for="phone">Phone</label>
-                            <input type="text"  class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="{{ old('phone') }}">
+                            <input type="number"  class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="{{ old('phone') }}">
                             @error('phone')
                                 <div class="text-danger">
                                     {{$message}}                                            
@@ -104,9 +104,9 @@
                             @endif
                             </div>
                             <div class="form-group">
-                                <label for="descreption">Descreption</label>
-                                <textarea class="form-control" id="descreption" aria-describedby="emailHelp" required="" placeholder="Enter Descreption" name="descreption">@error('descreption') is-invalid @enderror{{  old('descreption')  }}</textarea>
-                                @error('descreption')
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" aria-describedby="emailHelp" required="" placeholder="Enter Description" name="description">@error('description') is-invalid @enderror{{  old('description')  }}</textarea>
+                                @error('description')
                                     <div class="text-danger">
                                         {{$message}}                                            
                                     </div>
@@ -126,7 +126,7 @@
                             <div class="file-upload" id="lfm" data-input="profile_image" data-preview="lfm" >
                                 Upload Image
                             </div>
-                            @error('profile_image')
+                            @error('featured')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>
@@ -143,7 +143,7 @@
                             <div class="file-upload" id="lfm1" data-input="profile_pic" data-preview="lfm1" >
                                 Upload Image
                             </div>
-                            @error('profile_image')
+                            @error('picture')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>
@@ -162,7 +162,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @error('email_verified_at')
+                            @error('user_id')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>

@@ -61,25 +61,24 @@ class VendorAdminController extends Controller
 
     public function storeUser(Request $request)
     {
-
         $validated = $request->validate([
                 'public_profile_name'   => 'required',
-                'email'                 => 'required',
-                'featured_picture'      => 'required',
+                'email'                 => 'required|email',
+                'featured'              => 'required',
                 'picture'               => 'required',
-                'phone'                 => 'required',
+                'phone'                 => 'required|regex:/^[0-9]+$/',
                 'description'           => 'required',
-                'user_id'               => 'required'
+                'user_id'               => 'required|regex:/^[0-9]+$/'
         ]);
 
-        if (isset($validated['featured'],$validated['picture'])) {
-            $featured = str_replace(env('APP_URL'),"",$validated['featured']);
-            $picture  = str_replace(env('APP_URL'),"",$validated['picture']);
+        if (isset($request['featured'],$request['picture'])) {
+            $featured = str_replace(env('APP_URL'),"",$request['featured']);
+            $picture  = str_replace(env('APP_URL'),"",$request['picture']);
         }
 
         $vendor = VendorProfile::create([
-            'public_profile_name'   => $validated->public_profile_name,
-            'email'                 => $validated->email,
+            'public_profile_name'   => $request->public_profile_name,
+            'email'                 => $request->email,
             'website'               => $request->website,
             'instagram'             => $request->instagram,
             'facebook'              => $request->facebook,
@@ -88,9 +87,9 @@ class VendorAdminController extends Controller
             'linkedin'              => $request->linkedin,
             'featured_picture'      => $featured,
             'picture'               => $picture,
-            'phone'                 => $validated->phone,
-            'descreption'           => $validated->descreption,
-            'user_id'               => $validated->user_id,
+            'phone'                 => $request->phone,
+            'description'           => $request->description,
+            'user_id'               => $request->user_id,
         ]);
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor added', 'msg_type' => 'success']);
