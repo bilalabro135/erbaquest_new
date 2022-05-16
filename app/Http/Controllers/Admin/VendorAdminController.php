@@ -131,7 +131,7 @@ class VendorAdminController extends Controller
         $vendor->featured_picture       = str_replace(env('APP_URL'),"",$request['featured']);
         $vendor->picture                = str_replace(env('APP_URL'),"",$request['picture']);
         $vendor->phone                  = $request->phone;
-        $vendor->description            = $request->descreption;
+        $vendor->descreption            = $request->descreption;
         $vendor->user_id                = $request->user_id;
         $vendor->save();
 
