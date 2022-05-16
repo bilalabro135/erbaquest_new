@@ -125,7 +125,7 @@
                             <div class="file-upload" id="lfm" data-input="profile_image" data-preview="lfm">
                                 Upload Image
                             </div>
-                            @error('profile_image')
+                            @error('featured')
                                 <div class="text-danger">
                                     {{$message}}
                                 </div>
@@ -142,7 +142,7 @@
                             <div class="file-upload" id="lfm1" data-input="profile_pic" data-preview="lfm1" >
                                 Upload Image
                             </div>
-                            @error('profile_image')
+                            @error('picture')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>
@@ -165,7 +165,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @error('email_verified_at')
+                            @error('user_id')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>

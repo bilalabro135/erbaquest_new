@@ -112,28 +112,28 @@ class VendorAdminController extends Controller
     {
         $validated = $request->validate([
                 'public_profile_name'   => 'required',
-                'email'                 => 'required',
-                'featured_picture'      => 'required',
+                'email'                 => 'required|email',
+                'featured'              => 'required',
                 'picture'               => 'required',
-                'phone'                 => 'required',
+                'phone'                 => 'required|regex:/^[0-9]+$/',
                 'description'           => 'required',
-                'user_id'               => 'required'
+                'user_id'               => 'required|regex:/^[0-9]+$/'
         ]);
 
         $vendor = VendorProfile::where('id',$id)->first();
-        $vendor->public_profile_name    = $validated->public_profile_name;
-        $vendor->email                  = $validated->email;
+        $vendor->public_profile_name    = $request->public_profile_name;
+        $vendor->email                  = $request->email;
         $vendor->website                = $request->website;
         $vendor->instagram              = $request->instagram;
         $vendor->facebook               = $request->facebook;
         $vendor->twitter                = $request->twitter;
         $vendor->youtube                = $request->youtube;
         $vendor->linkedin               = $request->linkedin;
-        $vendor->featured_picture       = str_replace(env('APP_URL'),"",$validated['featured']);
-        $vendor->picture                = str_replace(env('APP_URL'),"",$validated['picture']);
-        $vendor->phone                  = $validated->phone;
-        $vendor->description            = $validated->description;
-        $vendor->user_id                = $validated->user_id;
+        $vendor->featured_picture       = str_replace(env('APP_URL'),"",$request['featured']);
+        $vendor->picture                = str_replace(env('APP_URL'),"",$request['picture']);
+        $vendor->phone                  = $request->phone;
+        $vendor->description            = $request->description;
+        $vendor->user_id                = $request->user_id;
         $vendor->save();
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor Updated', 'msg_type' => 'success']);
