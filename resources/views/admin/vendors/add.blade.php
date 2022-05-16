@@ -105,7 +105,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="descreption">Description</label>
-                                <textarea class="form-control" id="descreption" aria-describedby="emailHelp" required="" placeholder="Enter Description" name="descreption">@error('description') is-invalid @enderror{{  old('description')  }}</textarea>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="descreption" aria-describedby="emailHelp" required="" placeholder="Enter Description" name="descreption">{{  old('descreption')  }}</textarea>
                                 @error('descreption')
                                     <div class="text-danger">
                                         {{$message}}                                            
