@@ -134,23 +134,6 @@
                             <a href="javascript:void(0)" class="text-danger mt-2 d-inline-block" onclick="removeImage()">Remove Image</a>
                         </div>
                     </div>
-                    <div class="card shadow profile_image mb-4">
-                        <div class="card-header  py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Picture</h6>
-                        </div>
-                        <div class="card-body">
-                            <input type="hidden" id="profile_pic" name="picture">
-                            <div class="file-upload" id="lfm1" data-input="profile_pic" data-preview="lfm1" >
-                                Upload Image
-                            </div>
-                            @error('picture')
-                                <div class="text-danger">
-                                    {{$message}}                                            
-                                </div>
-                            @endif
-                            <a href="javascript:void(0)" class="text-danger mt-2 d-inline-block" onclick="removePic()">Remove Image</a>
-                        </div>
-                    </div>
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <label for="user_id">Select User*</label>

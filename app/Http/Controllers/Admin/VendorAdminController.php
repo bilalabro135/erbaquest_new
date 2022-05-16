@@ -65,7 +65,6 @@ class VendorAdminController extends Controller
                 'public_profile_name'   => 'required',
                 'email'                 => 'required|email',
                 'featured'              => 'required',
-                'picture'               => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
                 'descreption'           => 'required',
                 'user_id'               => 'required|regex:/^[0-9]+$/'
@@ -86,7 +85,6 @@ class VendorAdminController extends Controller
             'youtube'               => $request->youtube,
             'linkedin'              => $request->linkedin,
             'featured_picture'      => $featured,
-            'picture'               => $picture,
             'phone'                 => $request->phone,
             'descreption'           => $request->descreption,
             'user_id'               => $request->user_id,
@@ -113,7 +111,6 @@ class VendorAdminController extends Controller
                 'public_profile_name'   => 'required',
                 'email'                 => 'required|email',
                 'featured'              => 'required',
-                'picture'               => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
                 'descreption'           => 'required',
                 'user_id'               => 'required|regex:/^[0-9]+$/'
@@ -129,7 +126,6 @@ class VendorAdminController extends Controller
         $vendor->youtube                = $request->youtube;
         $vendor->linkedin               = $request->linkedin;
         $vendor->featured_picture       = str_replace(env('APP_URL'),"",$request['featured']);
-        $vendor->picture                = str_replace(env('APP_URL'),"",$request['picture']);
         $vendor->phone                  = $request->phone;
         $vendor->descreption            = $request->descreption;
         $vendor->user_id                = $request->user_id;

@@ -21,7 +21,6 @@ class VendorProfile extends Model
         'youtube',
         'linkedin',
         'featured_picture',
-        'picture',
         'phone',
         'descreption',
         'user_id',
