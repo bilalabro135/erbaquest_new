@@ -17,7 +17,7 @@ use App\Http\Requests\Common\ReviewRequest;
 use App\Models\UserGatewayProfiles;
 use App\Models\UserPaymentProfiles;
 use App\Models\Reviews; 
-use App\Models\VendorProfile; 
+use App\Models\VendorProfile;
 use App\Models\Subscription; 
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
@@ -61,14 +61,25 @@ class VendorAdminController extends Controller
 
     public function storeUser(Request $request)
     {
-        if (isset($request['featured'],$request['picture'])) {
-            $featured = str_replace(env('APP_URL'),"",$request['featured']);
-            $picture  = str_replace(env('APP_URL'),"",$request['picture']);
+
+        $validated = $request->validate([
+                'public_profile_name'   => 'required',
+                'email'                 => 'required',
+                'featured_picture'      => 'required',
+                'picture'               => 'required',
+                'phone'                 => 'required',
+                'description'           => 'required',
+                'user_id'               => 'required'
+        ]);
+
+        if (isset($validated['featured'],$validated['picture'])) {
+            $featured = str_replace(env('APP_URL'),"",$validated['featured']);
+            $picture  = str_replace(env('APP_URL'),"",$validated['picture']);
         }
 
         $vendor = VendorProfile::create([
-            'public_profile_name'   => $request->public_profile_name,
-            'email'                 => $request->email,
+            'public_profile_name'   => $validated->public_profile_name,
+            'email'                 => $validated->email,
             'website'               => $request->website,
             'instagram'             => $request->instagram,
             'facebook'              => $request->facebook,
@@ -77,15 +88,15 @@ class VendorAdminController extends Controller
             'linkedin'              => $request->linkedin,
             'featured_picture'      => $featured,
             'picture'               => $picture,
-            'phone'                 => $request->phone,
-            'descreption'           => $request->descreption,
-            'user_id'               => $request->user_id,
+            'phone'                 => $validated->phone,
+            'descreption'           => $validated->descreption,
+            'user_id'               => $validated->user_id,
         ]);
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor added', 'msg_type' => 'success']);
     }
 
-    public function editUsers(User $user,$id)
+    public function editUsers(Request $user,$id)
     {
         $vendor = VendorProfile::where('id',$id)->first();
         $users = User::pluck('name','id')->all();
@@ -99,20 +110,30 @@ class VendorAdminController extends Controller
 
     public function updateUser(Request $request,$id)
     {
+        $validated = $request->validate([
+                'public_profile_name'   => 'required',
+                'email'                 => 'required',
+                'featured_picture'      => 'required',
+                'picture'               => 'required',
+                'phone'                 => 'required',
+                'description'           => 'required',
+                'user_id'               => 'required'
+        ]);
+
         $vendor = VendorProfile::where('id',$id)->first();
-        $vendor->public_profile_name    = $request->public_profile_name;
-        $vendor->email                  = $request->email;
+        $vendor->public_profile_name    = $validated->public_profile_name;
+        $vendor->email                  = $validated->email;
         $vendor->website                = $request->website;
         $vendor->instagram              = $request->instagram;
         $vendor->facebook               = $request->facebook;
         $vendor->twitter                = $request->twitter;
         $vendor->youtube                = $request->youtube;
         $vendor->linkedin               = $request->linkedin;
-        $vendor->featured_picture       = str_replace(env('APP_URL'),"",$request['featured']);
-        $vendor->picture                = str_replace(env('APP_URL'),"",$request['picture']);
-        $vendor->phone                  = $request->phone;
-        $vendor->description            = $request->description;
-        $vendor->user_id                = $request->user_id;
+        $vendor->featured_picture       = str_replace(env('APP_URL'),"",$validated['featured']);
+        $vendor->picture                = str_replace(env('APP_URL'),"",$validated['picture']);
+        $vendor->phone                  = $validated->phone;
+        $vendor->description            = $validated->description;
+        $vendor->user_id                = $validated->user_id;
         $vendor->save();
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor Updated', 'msg_type' => 'success']);

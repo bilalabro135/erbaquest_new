@@ -14,6 +14,7 @@
             @csrf
             @method('POST')
             <div class="row">
+                <input type="hidden" name="action" value="edit">
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -41,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="website">Website</label>
-                                <input type="text" class="form-control @error('website') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="website" value="{{ (old('website')) ? old('website') : $vendor->website }}">
+                                <input type="text" class="form-control @error('website') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Website" name="website" value="{{ (old('website')) ? old('website') : $vendor->website }}">
                                 @error('website')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -50,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="instagram">Instagram</label>
-                                <input type="text" class="form-control @error('instagram') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="instagram" value="{{ (old('instagram')) ? old('instagram') : $vendor->instagram }}">
+                                <input type="text" class="form-control @error('instagram') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Instagram" name="instagram" value="{{ (old('instagram')) ? old('instagram') : $vendor->instagram }}">
                                 @error('instagram')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -59,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="facebook">Facebook</label>
-                                <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="facebook" value="{{ (old('facebook')) ? old('facebook') : $vendor->facebook }}">
+                                <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Facebook" name="facebook" value="{{ (old('facebook')) ? old('facebook') : $vendor->facebook }}">
                                 @error('facebook')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -68,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="twitter">Twitter</label>
-                                <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="twitter" value="{{ (old('twitter')) ? old('twitter') : $vendor->twitter }}">
+                                <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Twitter" name="twitter" value="{{ (old('twitter')) ? old('twitter') : $vendor->twitter }}">
                                 @error('twitter')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -77,7 +78,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="youtube">Youtube</label>
-                                <input type="text" class="form-control @error('youtube') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="youtube" value="{{ (old('youtube')) ? old('youtube') : $vendor->youtube }}">
+                                <input type="text" class="form-control @error('youtube') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Youtube" name="youtube" value="{{ (old('youtube')) ? old('youtube') : $vendor->youtube }}">
                                 @error('youtube')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -86,7 +87,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="linkedin">Linkedin</label>
-                                <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="linkedin" value="{{ (old('linkedin')) ? old('linkedin') : $vendor->linkedin }}">
+                                <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="linkedin" name="linkedin" value="{{ (old('linkedin')) ? old('linkedin') : $vendor->linkedin }}">
                                 @error('linkedin')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -95,7 +96,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Enter Username" name="phone" value="{{ (old('phone')) ? old('phone') : $vendor->phone }}">
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="phone" name="phone" value="{{ (old('phone')) ? old('phone') : $vendor->phone }}">
                                 @error('phone')
                                     <div class="text-danger">
                                         {{$message}}                                            

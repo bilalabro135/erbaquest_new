@@ -13,7 +13,8 @@
          <h1 class="h3 mb-4 text-gray-800">Add Vendor Profile</h1>
 
         <form action="{{route('admin.vendor.store')}}" method="POST" autocomplete="off">
-               @csrf
+            @csrf
+            <input type="hidden" name="action" value="store">
             <div class="row">
                 <div class="col-md-9">
                     <div class="card shadow mb-4">
@@ -23,7 +24,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="email">Public profile Name*</label>
-                                <input type="text"  id="username" class="form-control  @error('public_profile_name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name" required="" value="{{old('public_profile_name')}}">        
+                                <input type="text"  id="username" class="form-control  @error('public_profile_name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name" required="" value="{{old('public_profile_name')}}">
                                 @error('public_profile_name')
                                     <div class="text-danger">
                                         {{$message}}                                            
