@@ -23,7 +23,7 @@ class VendorProfile extends Model
         'featured_picture',
         'picture',
         'phone',
-        'descreption',
+        'description',
         'user_id',
     ];
 

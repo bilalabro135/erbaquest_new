@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ComponenetController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Common\EventController;
 use App\Http\Controllers\Common\VendorController;
+use App\Http\Controllers\Admin\VendorAdminController;
 use App\Http\Controllers\Common\WishlistsController;
 use App\Http\Controllers\Common\NewsletterController;
 use App\Http\Controllers\Common\ContactController;
@@ -236,6 +237,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('user/review/delete', [UserController::class, 'deleteComment'])->name('comment.delete');
     Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');
 
+    // Admin Vendor
+    Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');
+    Route::get('/vendor/get', [VendorAdminController::class, 'getUsers'])->name('admin.vendor.get');
+    Route::post('/vendor/delete',[VendorAdminController::class, 'deleteuser'])->name('admin.vendor.delete');
+    Route::get('/vendor/add',[VendorAdminController::class, 'addUsers'])->name('admin.vendor.add');
+    Route::post('/vendor/store',[VendorAdminController::class, 'storeUser'])->name('admin.vendor.store');
+    Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
+    Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
+    Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
 });
 
 

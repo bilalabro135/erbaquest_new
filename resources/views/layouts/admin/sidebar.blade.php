@@ -214,6 +214,23 @@
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
+                Vendors
+            </div>
+            <li class="nav-item {{(request()->is('admin/payment/*') || request()->is('admin/payment') ) ? 'active' : ''}}">
+                <a class="nav-link {{(request()->is('admin/payment/*') || request()->is('admin/payment') ) ? '' : 'collapsed'}} " href="#" data-toggle="collapse" data-target="#vendor"
+                    aria-expanded="true" aria-controls="events">
+                    <i class="fas fa-file"></i>
+                    <span>Vendors</span>
+                </a>
+                <div id="vendor" class="collapse {{(request()->is('admin/vendor/*') || request()->is('admin/payment') ) ? 'show' : ''}}" aria-labelledby="All payment" data-parent="#accordionSidebar">
+                    <div class="bg-primary py-2 collapse-inner rounded">
+                        <a class="collapse-item text-light" href="{{route('admin.vendor')}}">All Vendors</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
                 Contact
             </div>
             <li class="nav-item {{(request()->is('admin/contact/*') || request()->is('admin/contact') ) ? 'active' : ''}}">

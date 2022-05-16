@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'All Media'])
+@extends('layouts.admin.app', ['title' => 'All Users'])
 
 
 
@@ -9,35 +9,32 @@
             {{session('msg')}}                                            
         </div>
         @endif
-         <h1 class="h3 mb-4 text-gray-800">All Media</h1>
+         <h1 class="h3 mb-4 text-gray-800">All Users</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">All Media</h6>
-                @can('addBlogs')
-                <a href="{{route('blogs.add')}}" class="btn btn-primary">Add New</a>
+                <h6 class="m-0 font-weight-bold text-primary">All Users</h6>
+                @can('addUsers')
+                <a href="{{route('admin.vendor.add')}}" class="btn btn-primary">Add New</a>
                 @endcan
             </div>
             <div class="card-body">
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead class="bg-primary text-light">
 	                        <tr>
-                            <th scope="col">ID</th>
-					      <th scope="col">Media Name</th>
-					      <th scope="col">Author</th>
-					      <th scope="col">Status</th>
-					      <th scope="col">Action</th>
+						      <th scope="col">Profile Name</th>
+						      <th scope="col">Email</th>
+						      <th scope="col">Actions</th>
 						    </tr>
                         </thead>
                         <tfoot class="bg-primary text-light">
-	                      	<tr>
-                            <th scope="col">ID</th>
-					      <th scope="col">Media Name</th>
-					      <th scope="col">Author</th>
-					      <th scope="col">Status</th>
-					      <th scope="col">Action</th>
+	                        <tr>
+						      <th scope="col">Profile Name</th>
+						      <th scope="col">Email</th>
+						      <th scope="col">Actions</th>
 						    </tr>
                         </tfoot>
                         <tbody>
@@ -47,6 +44,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('scripts')
 	<script type="text/javascript">
@@ -61,15 +59,13 @@
 		         processing: true,
 		         serverSide: true,
 		         ajax: {
-		          url: "{{ route('blogs.get') }}",
+		          url: "{{ route('admin.vendor.get') }}?role_id={{ app('request')->input('role_id') }}",
 		          type: 'GET',
 		         },
 		         columns: [
-		                  { data: 'id', name: 'id', 'visible': false},
-		                  { data: 'name', name: 'name' },
-		                  { data: 'author', name: 'author' },
-		                  { data: 'status', name: 'status' },
-		                  { data: 'action', name: 'action', orderable: true,searchable: true}
+		                  { data: 'public_profile_name', name: 'public_profile_name' },
+		                  { data: 'email', name: 'email' },
+		                  { data: 'action', name: 'action' },
 		               ],
 		        order: [[0, 'desc']]
 		  });
