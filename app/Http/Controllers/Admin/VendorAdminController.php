@@ -67,7 +67,7 @@ class VendorAdminController extends Controller
                 'featured'              => 'required',
                 'picture'               => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
-                'description'           => 'required',
+                'descreption'           => 'required',
                 'user_id'               => 'required|regex:/^[0-9]+$/'
         ]);
 
@@ -88,7 +88,7 @@ class VendorAdminController extends Controller
             'featured_picture'      => $featured,
             'picture'               => $picture,
             'phone'                 => $request->phone,
-            'description'           => $request->description,
+            'descreption'           => $request->descreption,
             'user_id'               => $request->user_id,
         ]);
 
@@ -115,7 +115,7 @@ class VendorAdminController extends Controller
                 'featured'              => 'required',
                 'picture'               => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
-                'description'           => 'required',
+                'descreption'           => 'required',
                 'user_id'               => 'required|regex:/^[0-9]+$/'
         ]);
 
@@ -131,7 +131,7 @@ class VendorAdminController extends Controller
         $vendor->featured_picture       = str_replace(env('APP_URL'),"",$request['featured']);
         $vendor->picture                = str_replace(env('APP_URL'),"",$request['picture']);
         $vendor->phone                  = $request->phone;
-        $vendor->description            = $request->description;
+        $vendor->description            = $request->descreption;
         $vendor->user_id                = $request->user_id;
         $vendor->save();
 

@@ -104,9 +104,9 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea type="text"  class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Description" name="description">{{$vendor->description }}</textarea>
-                            @error('description')
+                            <label for="descreption">Description</label>
+                            <textarea type="text"  class="form-control @error('descreption') is-invalid @enderror" id="descreption" placeholder="descreption" name="descreption">{{$vendor->descreption }}</textarea>
+                            @error('descreption')
                                 <div class="text-danger">
                                     {{$message}}                                            
                                 </div>
