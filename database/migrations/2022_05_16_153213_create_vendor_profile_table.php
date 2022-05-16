@@ -24,7 +24,6 @@ class CreateVendorProfileTable extends Migration
             $table->string('youtube')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('featured_picture')->nullable();
-            $table->string('picture')->nullable();
             $table->string('phone')->nullable();
             $table->longText('description')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
