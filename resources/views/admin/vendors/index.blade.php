@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'All Users'])
+@extends('layouts.admin.app', ['title' => 'All Vendors'])
 
 
 
@@ -9,15 +9,12 @@
             {{session('msg')}}                                            
         </div>
         @endif
-         <h1 class="h3 mb-4 text-gray-800">All Users</h1>
+         <h1 class="h3 mb-4 text-gray-800">All Vendors</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">All Users</h6>
-                @can('addUsers')
-                <a href="{{route('admin.vendor.add')}}" class="btn btn-primary">Add New</a>
-                @endcan
+                <h6 class="m-0 font-weight-bold text-primary">All Vendors</h6>
             </div>
             <div class="card-body">
 
