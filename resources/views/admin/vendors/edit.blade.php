@@ -123,7 +123,12 @@
                         <div class="card-body">
                             <input type="hidden" id="profile_image" name="featured" value="{{$vendor->featured_picture}}">
                             <div class="file-upload" id="lfm" data-input="profile_image" data-preview="lfm">
-                                Upload Image
+                                @empty($vendor->featured_picture)
+                                    Upload Image
+                                @else
+                                     <img src="{{asset($vendor->featured_picture)}}" style="height: 5rem;">
+                                @endif
+
                             </div>
                             @error('featured')
                                 <div class="text-danger">
