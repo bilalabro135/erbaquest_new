@@ -23,8 +23,8 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="email">Public profile Name*</label>
-                                <input type="text"  id="username" class="form-control  @error('public_profile_name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name" required="" value="{{old('public_profile_name')}}">
+                                <label for="public_profile_name">Public profile Name*</label>
+                                <input type="text"  id="public_profile_name" class="form-control  @error('public_profile_name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name" required="" value="{{old('public_profile_name')}}">
                                 @error('public_profile_name')
                                     <div class="text-danger">
                                         {{$message}}                                            
@@ -122,7 +122,6 @@
                         </div>
                         <div class="card-body">
                             <input type="hidden" id="profile_image" name="featured">
-                            <img class="myImage" src="">
                             <div class="file-upload" id="lfm" data-input="profile_image" data-preview="lfm" >
                                 Upload Image
                             </div>
