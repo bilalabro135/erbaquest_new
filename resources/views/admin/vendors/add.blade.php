@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'Add New User'])
+@extends('layouts.admin.app', ['title' => 'Add New Vendors'])
 
 
 

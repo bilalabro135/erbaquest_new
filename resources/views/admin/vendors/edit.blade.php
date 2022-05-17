@@ -1,4 +1,4 @@
-@extends('layouts.admin.app', ['title' => 'Edit User'])
+@extends('layouts.admin.app', ['title' => 'Edit Vendors'])
 
 @section('content')
     <div class="container">
