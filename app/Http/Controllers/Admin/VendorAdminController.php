@@ -70,9 +70,8 @@ class VendorAdminController extends Controller
                 'user_id'               => 'required|regex:/^[0-9]+$/'
         ]);
 
-        if (isset($request['featured'],$request['picture'])) {
-            $featured = str_replace(env('APP_URL'),"",$request['featured']);
-            $picture  = str_replace(env('APP_URL'),"",$request['picture']);
+        if (isset($request['featured'])) {
+            $request['featured'] = str_replace(env('APP_URL'),"",$request['featured']);
         }
 
         $vendor = VendorProfile::create([
@@ -84,7 +83,7 @@ class VendorAdminController extends Controller
             'twitter'               => $request->twitter,
             'youtube'               => $request->youtube,
             'linkedin'              => $request->linkedin,
-            'featured_picture'      => $featured,
+            'featured_picture'      => $request->featured,
             'phone'                 => $request->phone,
             'descreption'           => $request->descreption,
             'user_id'               => $request->user_id,
