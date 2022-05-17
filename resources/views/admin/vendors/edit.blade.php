@@ -126,7 +126,7 @@
                                 @empty($vendor->featured_picture)
                                     Upload Image
                                 @else
-                                     <img src="{{asset($vendor->featured_picture)}}" style="height: 5rem;">
+                                    <img src="{{asset($vendor->featured_picture)}}" style="height: 5rem;">
                                 @endif
 
                             </div>

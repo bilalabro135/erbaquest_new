@@ -6,7 +6,7 @@
     <div class="container">
         @if(session('msg'))
         <div class="alert alert-{{session('msg_type')}}">
-            {{session('msg')}}                                            
+            {{session('msg')}}
         </div>
         @endif
    
@@ -27,7 +27,7 @@
                                 <input type="text"  id="public_profile_name" class="form-control  @error('public_profile_name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name" required="" value="{{old('public_profile_name')}}">
                                 @error('public_profile_name')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -36,7 +36,7 @@
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" required="" placeholder="Enter Email" name="email" value="{{old('email')}}">
                                 @error('email')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -45,7 +45,7 @@
                                 <input type="url" class="form-control @error('website') is-invalid @enderror" id="website" aria-describedby="emailHelp" placeholder="Enter Website" name="website" value="{{  old('website')  }}">
                                 @error('website')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -54,7 +54,7 @@
                                 <input type="text" class="form-control @error('instagram') is-invalid @enderror" id="instagram" aria-describedby="emailHelp" placeholder="Enter Instagram" name="instagram" value="{{  old('instagram')  }}">
                                 @error('instagram')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -63,7 +63,7 @@
                                 <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="facebook" aria-describedby="emailHelp" placeholder="Enter Facebook" name="facebook" value="{{  old('facebook')  }}">
                                 @error('facebook')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -72,7 +72,7 @@
                                 <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="twitter" aria-describedby="emailHelp" placeholder="Enter Twitter" name="twitter" value="{{  old('twitter')  }}">
                                 @error('twitter')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -81,7 +81,7 @@
                                 <input type="text" class="form-control @error('youtube') is-invalid @enderror" id="youtube" aria-describedby="emailHelp" placeholder="Enter Youtube" name="youtube" value="{{  old('youtube')  }}">
                                 @error('youtube')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -90,7 +90,7 @@
                                 <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="linkedin" aria-describedby="emailHelp" placeholder="Enter Linkedin" name="linkedin" value="{{  old('linkedin')  }}">
                                 @error('linkedin')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -99,7 +99,7 @@
                             <input type="number"  class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="{{ old('phone') }}">
                             @error('phone')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
                             </div>
@@ -108,7 +108,7 @@
                                 <textarea class="form-control @error('description') is-invalid @enderror" id="descreption" aria-describedby="emailHelp" required="" placeholder="Enter Description" name="descreption">{{  old('descreption')  }}</textarea>
                                 @error('descreption')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -127,7 +127,7 @@
                             </div>
                             @error('featured')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
                             <a href="javascript:void(0)" class="text-danger mt-2 d-inline-block" onclick="removeImage()">Remove Image</a>
@@ -146,7 +146,7 @@
                             </div>
                             @error('user_id')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
 
