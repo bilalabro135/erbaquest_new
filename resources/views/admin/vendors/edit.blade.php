@@ -4,7 +4,7 @@
     <div class="container">
         @if(session('msg'))
         <div class="alert alert-{{session('msg_type')}}">
-            {{session('msg')}}                                            
+            {{session('msg')}}
         </div>
         @endif
    
@@ -27,7 +27,7 @@
                             <input type="text"  id="name" class="form-control  @error('name') is-invalid @enderror" name="public_profile_name" placeholder="Enter Full Name*" required="" value="{{ (old('public_profile_name')) ? old('public_profile_name') : $vendor->public_profile_name }}">        
                                 @error('public_profile_name')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -36,7 +36,7 @@
                             <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" required="" placeholder="Enter Email" name="email" value="{{ (old('email')) ? old('email') : $vendor->email }}">
                             @error('email')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
                             </div>
@@ -45,7 +45,7 @@
                                 <input type="text" class="form-control @error('website') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Website" name="website" value="{{ (old('website')) ? old('website') : $vendor->website }}">
                                 @error('website')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -54,7 +54,7 @@
                                 <input type="text" class="form-control @error('instagram') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Instagram" name="instagram" value="{{ (old('instagram')) ? old('instagram') : $vendor->instagram }}">
                                 @error('instagram')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -63,7 +63,7 @@
                                 <input type="text" class="form-control @error('facebook') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Facebook" name="facebook" value="{{ (old('facebook')) ? old('facebook') : $vendor->facebook }}">
                                 @error('facebook')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -72,7 +72,7 @@
                                 <input type="text" class="form-control @error('twitter') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Twitter" name="twitter" value="{{ (old('twitter')) ? old('twitter') : $vendor->twitter }}">
                                 @error('twitter')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -81,7 +81,7 @@
                                 <input type="text" class="form-control @error('youtube') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="Youtube" name="youtube" value="{{ (old('youtube')) ? old('youtube') : $vendor->youtube }}">
                                 @error('youtube')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -90,16 +90,16 @@
                                 <input type="text" class="form-control @error('linkedin') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="linkedin" name="linkedin" value="{{ (old('linkedin')) ? old('linkedin') : $vendor->linkedin }}">
                                 @error('linkedin')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="phone" name="phone" value="{{ (old('phone')) ? old('phone') : $vendor->phone }}">
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="phone" name="phone" value="{{ (old('phone')) ? old('phone') : $vendor->phone }}">
                                 @error('phone')
                                     <div class="text-danger">
-                                        {{$message}}                                            
+                                        {{$message}}
                                     </div>
                                 @endif
                             </div>
@@ -108,7 +108,7 @@
                             <textarea type="text"  class="form-control @error('descreption') is-invalid @enderror" id="descreption" placeholder="Description" name="descreption">{{$vendor->descreption }}</textarea>
                             @error('descreption')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
                             </div>
@@ -155,7 +155,7 @@
                             </div>
                             @error('user_id')
                                 <div class="text-danger">
-                                    {{$message}}                                            
+                                    {{$message}}
                                 </div>
                             @endif
 
