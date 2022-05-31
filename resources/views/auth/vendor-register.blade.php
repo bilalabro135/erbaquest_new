@@ -250,81 +250,6 @@
 @push ('scripts')
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
 <script>
-    // Create a Stripe client.
-// var stripe = Stripe('{{ env("STRIPE_KEY") }}');
-
-// // Create an instance of Elements.
-// var elements = stripe.elements();
-
-// // Custom styling can be passed to options when creating an Element.
-// // (Note that this demo uses a wider set of styles than the guide below.)
-// var style = {
-//   base: {
-//     color: '#32325d',
-//     lineHeight: '18px',
-//     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-//     fontSmoothing: 'antialiased',
-//     fontSize: '16px',
-//     '::placeholder': {
-//       color: '#aab7c4'
-//     }
-//   },
-//   invalid: {
-//     color: '#fa755a',
-//     iconColor: '#fa755a'
-//   }
-// };
-
-// // Create an instance of the card Element.
-// var card = elements.create('card', {style: style});
-
-// // Add an instance of the card Element into the `card-element` <div>.
-// card.mount('#card-element');
-
-// // Handle real-time validation errors from the card Element.
-// card.addEventListener('change', function(event) {
-//   var displayError = document.getElementById('card-errors');
-//   if (event.error) {
-//     displayError.textContent = event.error.message;
-//     $('#card-errors').fadeIn();
-//   } else {
-//     displayError.textContent = '';
-//     $('#card-errors').fadeOut();
-//   }
-// });
-
-// // Handle form submission.
-// var form = document.getElementById('payment-form');
-// form.addEventListener('submit', function(event) {
-//   event.preventDefault();
-
-//   stripe.createToken(card).then(function(result) {
-//     if (result.error) {
-//       // Inform the user if there was an error.
-//       var errorElement = document.getElementById('card-errors');
-//       errorElement.textContent = result.error.message;
-//     $('#card-errors').fadeIn();
-//     } else {
-//       // Send the token to your server.
-//       stripeTokenHandler(result.token);
-//     $('#card-errors').fadeOut();
-//     }
-//   });
-// });
-
-// // Submit the form with the token ID.
-// function stripeTokenHandler(token) {
-//   // Insert the token ID into the form so it gets submitted to the server
-//   var form = document.getElementById('payment-form');
-//   var hiddenInput = document.createElement('input');
-//   hiddenInput.setAttribute('type', 'hidden');
-//   hiddenInput.setAttribute('name', 'stripeToken');
-//   hiddenInput.setAttribute('value', token.id);
-//   form.appendChild(hiddenInput);
-
-
-//   form.submit();
-// }
 
     // handle links with @href started with '#' only
 $(document).on('click', 'a[href^="#"]', function(e) {
@@ -413,8 +338,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "8Gh66WPEx6g99ErzyJgr8YEnPV37g8tS88TJQsw4vH3W4vp5dk7MrUQ6r8b2WqhG";
-        authData.apiLoginID = "2KD4hR4Qbfh";
+        authData.clientKey = "2nE869m3mC3PpfF7PR2V8Hwbw6Jk63nR3sem4EcSQ7Ye3Cp2GAZ9bYzmr6zDQaQn";
+        authData.apiLoginID = "4B59B5F5kv4";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 
