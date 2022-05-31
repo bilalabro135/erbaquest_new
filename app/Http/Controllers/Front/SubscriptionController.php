@@ -99,7 +99,7 @@ class SubscriptionController extends Controller
             $requestsub->setRefId($refId);
             $requestsub->setSubscription($subscription);
             $controller = new AnetController\ARBCreateSubscriptionController($requestsub);
-            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
              
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
             {
@@ -254,7 +254,7 @@ class SubscriptionController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
 
         if ($response != null) {
