@@ -2,7 +2,7 @@
 @section('content')
 
     <script type="text/javascript"
-        src="https://js.authorize.net/v1/Accept.js"
+        src="https://jstest.authorize.net/v1/Accept.js"
         charset="utf-8">
     </script>
 
