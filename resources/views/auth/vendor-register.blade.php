@@ -338,8 +338,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "2nE869m3mC3PpfF7PR2V8Hwbw6Jk63nR3sem4EcSQ7Ye3Cp2GAZ9bYzmr6zDQaQn";
-        authData.apiLoginID = "4B59B5F5kv4";
+        authData.clientKey = "5553dBs9wtXUU3vdmC9aL8NBhSXu2swQ5gTqKcf7h8g75h6B9j23XbSmt2q26ECR";
+        authData.apiLoginID = "2YFQ87mYem";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 
