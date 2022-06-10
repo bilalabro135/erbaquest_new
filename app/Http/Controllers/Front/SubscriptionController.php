@@ -26,9 +26,13 @@ class SubscriptionController extends Controller
 {
    public function create(SubscriptionRequest $request)
     {
-       $authorizeCardNumber = $this->authorizeCreditCard($request);
+        $handle_errors = array(
+            252
+        );
 
-        if($authorizeCardNumber['success']){
+        $authorizeCardNumber = $this->authorizeCreditCard($request);
+
+        if($authorizeCardNumber['success'] && !in_array( $authorizeCardNumber['code'], $handle_errors )){
 
             echo 'working';
 
