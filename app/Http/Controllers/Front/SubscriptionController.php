@@ -285,7 +285,8 @@ class SubscriptionController extends Controller
                     {
                         $errorMessages = $tresponse->getMessages();
                         return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getDescription() . "\n", 'msg_type' => 'error']);
-                        die();
+                        
+                        $responseFromApi = 0;
                     }
                     else
                         $responseFromApi = 1;
