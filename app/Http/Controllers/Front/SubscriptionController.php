@@ -272,8 +272,8 @@ class SubscriptionController extends Controller
                 if ( $tresponse->getErrors() )
                 {
                     $responseFromApi['success'] = FALSE;
-                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getCode();
-                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getText();
+                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getErrorCode();
+                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getErrorText();
                     $responseFromApi['response']= $tresponse->getErrors();
                 }
            
@@ -289,10 +289,9 @@ class SubscriptionController extends Controller
                 $tresponse = $response->getTransactionResponse();
             
                 if ($tresponse != null && $tresponse->getErrors() != null) {
-                    echo '<pre>'; print_r($tresponse->getErrors()); exit;
                     $responseFromApi['success'] = FALSE;
-                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getCode();
-                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getText();
+                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getErrorCode();
+                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getErrorText();
                     $responseFromApi['response']= $tresponse->getErrors();
                 } else {
                     $responseFromApi['success']     = FALSE;
