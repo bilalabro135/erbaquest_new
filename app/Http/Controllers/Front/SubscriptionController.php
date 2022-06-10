@@ -268,7 +268,7 @@ class SubscriptionController extends Controller
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
 
-                if ($tresponse->getErrors() != null)
+                if ( $tresponse->getErrors() )
                 {
                     echo 'condition worked';
                     $errorMessages = $tresponse->getErrors();
