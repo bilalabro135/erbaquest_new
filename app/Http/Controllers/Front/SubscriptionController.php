@@ -268,10 +268,10 @@ class SubscriptionController extends Controller
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
 
-                if ( $tresponse->getErrors() )
+                if ( $response->getErrors() )
                 {
                     echo 'condition worked';
-                    $errorMessages = $tresponse->getErrors();
+                    $errorMessages = $response->getErrors();
                     return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
                     die();
                 }
@@ -279,7 +279,7 @@ class SubscriptionController extends Controller
                     echo 'not working';
                 }
 
-                echo '<pre>'; print_r( $tresponse->getErrors() ); echo '</pre>';
+                echo '<pre>'; print_r( $response->getErrors() ); echo '</pre>';
 
                 exit;
             
