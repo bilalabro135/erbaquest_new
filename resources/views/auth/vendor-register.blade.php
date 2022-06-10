@@ -2,7 +2,7 @@
 @section('content')
 
     <script type="text/javascript"
-        src="https://jstest.authorize.net/v1/Accept.js"
+        src="https://js.authorize.net/v1/Accept.js"
         charset="utf-8">
     </script>
 
@@ -338,8 +338,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "4dnN77xpZQ7Sq8Sp48b3d77TYnS459EMgvXev3pxGn5afJdtGGU2NJ8pk89Z34XW";
-        authData.apiLoginID = "79aR9cjfe7Ss";
+        authData.clientKey = "2nE869m3mC3PpfF7PR2V8Hwbw6Jk63nR3sem4EcSQ7Ye3Cp2GAZ9bYzmr6zDQaQn";
+        authData.apiLoginID = "4B59B5F5kv4";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 

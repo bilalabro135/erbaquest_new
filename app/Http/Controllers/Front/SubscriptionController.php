@@ -151,9 +151,11 @@ class SubscriptionController extends Controller
                return Redirect::route('payment.option')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
 
             }else{
-                echo "ERROR :  Invalid response\n";
+                //echo "ERROR :  Invalid response\n";
                 $errorMessages = $response->getMessages()->getMessage();
-                echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
+                //echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
+
+                return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
             }
         }else{
            return Redirect::route('vendor.register')->with(['msg' => 'Invalid Card', 'msg_type' => 'error']);      
@@ -162,8 +164,10 @@ class SubscriptionController extends Controller
     }
 
 
-    function authorizeCreditCard($cardInfo,$amount = 2.00)
+    function authorizeCreditCard($cardInfo)
     {
+        $get_package    = Package::find($cardInfo->plan);
+        $amount         = $get_package->price;
         
         $cardName = $cardInfo['cardName'];
         $lname = $cardInfo['lname'];
@@ -199,8 +203,8 @@ class SubscriptionController extends Controller
 
         // Create order information
         $order = new AnetAPI\OrderType();
-        $order->setInvoiceNumber("10101");
-        $order->setDescription("Golf Shirts");
+        $order->setInvoiceNumber(time());
+        $order->setDescription($get_package->name);
 
         // Set the customer's Bill To address
         $customerAddress = new AnetAPI\CustomerAddressType();
@@ -216,8 +220,8 @@ class SubscriptionController extends Controller
         // Set the customer's identifying information
         $customerData = new AnetAPI\CustomerDataType();
         $customerData->setType("individual");
-        $customerData->setId("99999456654");
-        $customerData->setEmail("test@example.com");
+        $customerData->setId(time());
+        $customerData->setEmail($cardInfo->email);
 
         // Add values for transaction settings
         $duplicateWindowSetting = new AnetAPI\SettingType();
@@ -236,7 +240,7 @@ class SubscriptionController extends Controller
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authOnlyTransaction"); 
+        $transactionRequestType->setTransactionType("authCaptureTransaction"); 
         $transactionRequestType->setAmount($amount);
         $transactionRequestType->setOrder($order);
         $transactionRequestType->setPayment($paymentOne);
@@ -263,6 +267,7 @@ class SubscriptionController extends Controller
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
+                //echo '<pre>'; print_r( $tresponse ); echo '</pre>'; exit;
             
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     $responseFromApi = 1;
