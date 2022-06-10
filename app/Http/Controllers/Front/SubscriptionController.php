@@ -279,6 +279,8 @@ class SubscriptionController extends Controller
            
                 if ($tresponse != null && $tresponse->getMessages() != null) {
 
+                    echo '<pre>'; print_r( $tresponse->getMessages() ); exit;
+
                     $responseFromApi['success']     = TRUE;
                     $responseFromApi['code']        = $tresponse->getMessages()[0]->getCode();
                     $responseFromApi['message']     = $tresponse->getMessages()[0]->getDescription();
