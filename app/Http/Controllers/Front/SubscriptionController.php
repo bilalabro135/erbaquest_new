@@ -290,20 +290,20 @@ class SubscriptionController extends Controller
                 $tresponse = $response->getTransactionResponse();
             
                 if ($tresponse != null && $tresponse->getErrors() != null) {
-                    $responseFromApi['success']     = FALSE;
-                    $responseFromApi['code']        = 0;
-                    $responseFromApi['message']     = 'Something went wrong!';
-                    $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
+                    $responseFromApi['success'] = FALSE;
+                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getCode();
+                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getText();
+                    $responseFromApi['response']= $tresponse->getErrors();
                 } else {
                     $responseFromApi['success']     = FALSE;
-                    $responseFromApi['code']        = 0;
+                    $responseFromApi['code']        = 2;
                     $responseFromApi['message']     = 'Something went wrong!';
                     $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 }
             }      
         } else {
             $responseFromApi['success']     = FALSE;
-            $responseFromApi['code']        = 0;
+            $responseFromApi['code']        = 3;
             $responseFromApi['message']     = 'Something went wrong!';
             $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
         }
