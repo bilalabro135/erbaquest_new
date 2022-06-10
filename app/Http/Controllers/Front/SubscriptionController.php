@@ -278,20 +278,22 @@ class SubscriptionController extends Controller
                 else{
                     echo 'not working';
                 }
-            echo '<pre>'; print_r( $tresponse->getMessages()[0] ); echo '</pre>';
-
-                exit;
+           
                 if ($tresponse != null && $tresponse->getMessages() != null) {
 
                     if($tresponse->getMessages()[0]->getCode() == 252)
                     {
                         $errorMessages = $tresponse->getMessages();
-                        return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
+                        return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getDescription() . "\n", 'msg_type' => 'error']);
                         die();
                     }
                     else
                         $responseFromApi = 1;
                 }
+
+                 echo '<pre>'; print_r( $tresponse->getMessages()[0] ); echo '</pre>';
+
+                exit;
 
 
                 // Or, print errors if the API request wasn't successful
