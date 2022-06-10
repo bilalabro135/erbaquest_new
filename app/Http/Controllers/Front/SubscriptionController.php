@@ -279,7 +279,7 @@ class SubscriptionController extends Controller
                     echo 'not working';
                 }
 
-                echo '<pre>'; print_r( $tresponse->getMessages() ); echo '</pre>';
+                echo '<pre>'; print_r( $tresponse ); echo '</pre>';
 
                 exit;
             
