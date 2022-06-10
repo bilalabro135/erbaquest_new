@@ -271,7 +271,7 @@ class SubscriptionController extends Controller
                 if ( $response->getErrors() )
                 {
                     echo 'condition worked';
-                    $errorMessages = $response->getErrors();
+                    $errorMessages = $tresponse->getErrors();
                     return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
                     die();
                 }
@@ -279,7 +279,7 @@ class SubscriptionController extends Controller
                     echo 'not working';
                 }
 
-                echo '<pre>'; print_r( $response->getErrors() ); echo '</pre>';
+                echo '<pre>'; print_r( $tresponse->getMessages() ); echo '</pre>';
 
                 exit;
             
