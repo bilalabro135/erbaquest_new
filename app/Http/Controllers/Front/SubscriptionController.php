@@ -26,13 +26,13 @@ class SubscriptionController extends Controller
 {
    public function create(SubscriptionRequest $request)
     {
-
-
        $authorizeCardNumber = $this->authorizeCreditCard($request);
 
-       echo '<pre>'; print_r($authorizeCardNumber); echo '</pre>'; exit;
-
         if($authorizeCardNumber['success']){
+
+            echo 'working';
+
+            echo '<pre>'; print_r($authorizeCardNumber); echo '</pre>'; exit;
 
             $package = Package::where('id', $request->plan)->first();
 
