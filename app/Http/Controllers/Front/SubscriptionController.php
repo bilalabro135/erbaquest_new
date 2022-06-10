@@ -278,7 +278,9 @@ class SubscriptionController extends Controller
                 else{
                     echo 'not working';
                 }
-            
+            echo '<pre>'; print_r( $tresponse->getMessages()[0]->getCode() ); echo '</pre>';
+
+                exit;
                 if ($tresponse != null && $tresponse->getMessages() != null) {
 
                     if($tresponse->getMessages()[0]->getCode() == 252)
@@ -291,9 +293,7 @@ class SubscriptionController extends Controller
                         $responseFromApi = 1;
                 }
 
-                echo '<pre>'; print_r( $tresponse->getMessages()[0]->getCode() ); echo '</pre>';
-
-                exit;
+                
                 // Or, print errors if the API request wasn't successful
             } else {
                 $tresponse = $response->getTransactionResponse();
