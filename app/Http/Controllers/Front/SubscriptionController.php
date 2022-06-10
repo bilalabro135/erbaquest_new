@@ -30,7 +30,9 @@ class SubscriptionController extends Controller
 
        $authorizeCardNumber = $this->authorizeCreditCard($request);
 
-        if($authorizeCardNumber){
+       echo '<pre>'; print_r($authorizeCardNumber); echo '</pre>'; exit;
+
+        if($authorizeCardNumber['success']){
 
             $package = Package::where('id', $request->plan)->first();
 
@@ -151,14 +153,10 @@ class SubscriptionController extends Controller
                return Redirect::route('payment.option')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
 
             }else{
-                //echo "ERROR :  Invalid response\n";
-                $errorMessages = $response->getMessages()->getMessage();
-                //echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
-
-                return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
+                return Redirect::route('vendor.register')->with(['msg' => 'Something went wrong, Try Again!', 'msg_type' => 'error']);
             }
         }else{
-           return Redirect::route('vendor.register')->with(['msg' => 'Invalid Card', 'msg_type' => 'error']);      
+           return Redirect::route('vendor.register')->with(['msg' => 'Invalid Card', 'msg_type' => 'error']);
         }
         
     }
@@ -166,8 +164,9 @@ class SubscriptionController extends Controller
 
     function authorizeCreditCard($cardInfo)
     {
-        $get_package    = Package::find($cardInfo->plan);
-        $amount         = $get_package->price;
+        $get_package                    = Package::find($cardInfo->plan);
+        $amount                         = $get_package->price;
+        $responseFromApi['success']     = FALSE;
         
         $cardName = $cardInfo['cardName'];
         $lname = $cardInfo['lname'];
@@ -228,6 +227,7 @@ class SubscriptionController extends Controller
         $duplicateWindowSetting->setSettingName("duplicateWindow");
         $duplicateWindowSetting->setSettingValue("60");
 
+        /*
         // Add some merchant defined fields. These fields won't be stored with the transaction,
         // but will be echoed back in the response.
         $merchantDefinedField1 = new AnetAPI\UserFieldType();
@@ -237,6 +237,7 @@ class SubscriptionController extends Controller
         $merchantDefinedField2 = new AnetAPI\UserFieldType();
         $merchantDefinedField2->setName("favoriteColor");
         $merchantDefinedField2->setValue("blue");
+        */
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
@@ -247,8 +248,8 @@ class SubscriptionController extends Controller
         $transactionRequestType->setBillTo($customerAddress);
         $transactionRequestType->setCustomer($customerData);
         $transactionRequestType->addToTransactionSettings($duplicateWindowSetting);
-        $transactionRequestType->addToUserFields($merchantDefinedField1);
-        $transactionRequestType->addToUserFields($merchantDefinedField2);
+        //$transactionRequestType->addToUserFields($merchantDefinedField1);
+        //$transactionRequestType->addToUserFields($merchantDefinedField2);
 
         // Assemble the complete transaction request
         $request = new AnetAPI\CreateTransactionRequest();
@@ -270,45 +271,41 @@ class SubscriptionController extends Controller
 
                 if ( $tresponse->getErrors() )
                 {
-                    echo 'condition worked';
-                    $errorMessages = $tresponse->getErrors();
-                    return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
-                    die();
-                }
-                else{
-                    echo 'not working';
+                    $responseFromApi['success'] = FALSE;
+                    $responseFromApi['code']    = $tresponse->getErrors()[0]->getCode();
+                    $responseFromApi['message'] = $tresponse->getErrors()[0]->getText();
+                    $responseFromApi['response']= $tresponse->getErrors();
                 }
            
                 if ($tresponse != null && $tresponse->getMessages() != null) {
 
-                    if($tresponse->getMessages()[0]->getCode() == 252)
-                    {
-                        $errorMessages = $tresponse->getMessages();
-                        return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getDescription() . "\n", 'msg_type' => 'error']);
-                        
-                        $responseFromApi = 0;
-                    }
-                    else
-                        $responseFromApi = 1;
+                    $responseFromApi['success']     = TRUE;
+                    $responseFromApi['code']        = $tresponse->getMessages()[0]->getCode();
+                    $responseFromApi['message']     = $tresponse->getMessages()[0]->getDescription();
+                    $responseFromApi['response']    = $tresponse->getMessages();
                 }
-
-                 echo '<pre>'; print_r( $tresponse->getMessages()[0] ); echo '</pre>';
-
-                exit;
-
 
                 // Or, print errors if the API request wasn't successful
             } else {
                 $tresponse = $response->getTransactionResponse();
             
                 if ($tresponse != null && $tresponse->getErrors() != null) {
-                   $responseFromApi = 0;
+                    $responseFromApi['success']     = FALSE;
+                    $responseFromApi['code']        = 0;
+                    $responseFromApi['message']     = 'Something went wrong!';
+                    $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 } else {
-                    $responseFromApi = 0;
+                    $responseFromApi['success']     = FALSE;
+                    $responseFromApi['code']        = 0;
+                    $responseFromApi['message']     = 'Something went wrong!';
+                    $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 }
             }      
         } else {
-            echo  $responseFromApi = 0;
+            $responseFromApi['success']     = FALSE;
+            $responseFromApi['code']        = 0;
+            $responseFromApi['message']     = 'Something went wrong!';
+            $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
         }
 
         return $responseFromApi;
