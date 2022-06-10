@@ -270,10 +270,18 @@ class SubscriptionController extends Controller
 
                 if ($tresponse->getErrors() != null)
                 {
+                    echo 'condition worked';
                     $errorMessages = $tresponse->getErrors();
                     return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
                     die();
                 }
+                else{
+                    echo 'not working';
+                }
+
+                echo '<pre>'; print_r( $tresponse->getErrors() ); echo '</pre>';
+
+                exit;
             
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     $responseFromApi = 1;
