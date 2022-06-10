@@ -156,7 +156,7 @@ class SubscriptionController extends Controller
                 return Redirect::route('vendor.register')->with(['msg' => 'Something went wrong, Try Again!', 'msg_type' => 'error']);
             }
         }else{
-           return Redirect::route('vendor.register')->with(['msg' => 'Invalid Card', 'msg_type' => 'error']);
+           return Redirect::route('vendor.register')->with(['msg' => $authorizeCardNumber['message'], 'msg_type' => 'error']);
         }
         
     }
