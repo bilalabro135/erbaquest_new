@@ -267,12 +267,17 @@ class SubscriptionController extends Controller
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
-                echo '<pre>'; print_r( $tresponse ); echo '</pre>'; exit;
+                echo '<pre>'; print_r( $tresponse->getErrors() ); echo '</pre>'; exit;
             
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     $responseFromApi = 1;
                 } else {
                     if ($tresponse->getErrors() != null) {
+                        //echo "ERROR :  Invalid response\n";
+                //$errorMessages = $response->getMessages()->getMessage();
+                //echo "Response : " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
+
+                //return Redirect::route('vendor.register')->with(['msg' => $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n", 'msg_type' => 'error']);
                         $responseFromApi = 1;
                     }
                 }
