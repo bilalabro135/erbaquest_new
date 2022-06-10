@@ -33,11 +33,6 @@ class SubscriptionController extends Controller
         $authorizeCardNumber = $this->authorizeCreditCard($request);
 
         if($authorizeCardNumber['success'] && !in_array( $authorizeCardNumber['code'], $handle_errors )){
-
-            echo 'working';
-
-            echo '<pre>'; print_r($authorizeCardNumber); echo '</pre>'; exit;
-
             $package = Package::where('id', $request->plan)->first();
 
             if (empty($package)) {
