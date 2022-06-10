@@ -279,11 +279,14 @@ class SubscriptionController extends Controller
                     echo 'not working';
                 }
 
-                echo '<pre>'; print_r( $tresponse ); echo '</pre>';
+                echo '<pre>'; print_r( $tresponse->getMessages()[0]->getMessageType() ); echo '</pre>';
 
                 exit;
             
                 if ($tresponse != null && $tresponse->getMessages() != null) {
+
+                    //if()
+
                     $responseFromApi = 1;
                 }
                 // Or, print errors if the API request wasn't successful
