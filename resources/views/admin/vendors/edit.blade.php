@@ -94,6 +94,27 @@
                                     </div>
                                 @endif
                             </div>
+
+                            <div class="form-group">
+                                <label for="telegram">Telegram</label>
+                                <input type="text" class="form-control @error('telegram') is-invalid @enderror" id="username" aria-describedby="emailHelp" placeholder="telegram" name="telegram" value="{{ (old('telegram')) ? old('telegram') : $vendor->telegram }}">
+                                @error('telegram')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="discord">discord</label>
+                                <input type="text" class="form-control @error('discord') is-invalid @enderror" id="username" aria-describedby="emailHelp" placeholder="discord" name="discord" value="{{ (old('discord')) ? old('discord') : $vendor->discord }}">
+                                @error('discord')
+                                    <div class="text-danger">
+                                        {{$message}}
+                                    </div>
+                                @endif
+                            </div>
+
                             <div class="form-group">
                                 <label for="phone">Phone</label>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror" id="username" aria-describedby="emailHelp" required="" placeholder="phone" name="phone" value="{{ (old('phone')) ? old('phone') : $vendor->phone }}">
