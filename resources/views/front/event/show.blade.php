@@ -417,6 +417,16 @@
                 	<a href="{{$event->linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
                 @endif
+                @if($event->telegram != null)
+                <li>
+                	<a href="{{$event->telegram}}" target="_blank"><i class="fab fa-telegram"></i></a>
+                </li>
+                @endif
+                @if($event->discord != null)
+                <li>
+                	<a href="{{$event->discord}}" target="_blank"><i class="fab fa-discord"></i></a>
+                </li>
+                @endif
               </ul>
             </div>
           </div>

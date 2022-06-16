@@ -20,6 +20,8 @@ class VendorProfile extends Model
         'twitter',
         'youtube',
         'linkedin',
+        'telegram',
+        'discord',
         'featured_picture',
         'phone',
         'descreption',

@@ -144,6 +144,16 @@
                     <input type="text" name="linkedin" placeholder="LINKEDIN:" value="{{ $users['linkedin'] }}">
                   </div>
 
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>TELEGRAM:</label>
+                    <input type="text" name="telegram" placeholder="TELEGRAM:" value="{{ $users['telegram'] }}">
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>DISCORD:</label>
+                    <input type="text" name="discord" placeholder="DISCORD:" value="{{ $users['discord'] }}">
+                  </div>
+
                   <div class="input-field">
                     <label>DESCRIPTION:</label>
                     <textarea name="descreption" placeholder="DESCRIPTION..">{!! $users['descreption'] !!}</textarea>

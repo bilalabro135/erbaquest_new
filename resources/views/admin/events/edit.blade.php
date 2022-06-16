@@ -393,11 +393,33 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
+                                <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="youtube">Youtube</label>
                                     <input type="url"  required="" id="youtube" class="form-control  @error('youtube') is-invalid @enderror" name="youtube" placeholder="http://" value="{{ (old('youtube')) ? old('youtube') : $event->youtube }}">
                                         @error('youtube')
+                                            <div class="text-danger">
+                                                {{$message}}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                    <label for="telegram">Telegram</label>
+                                    <input type="url"  required="" id="telegram" class="form-control  @error('telegram') is-invalid @enderror" name="telegram" placeholder="http://" value="{{ (old('telegram')) ? old('telegram') : $event->telegram }}">
+                                        @error('telegram')
+                                            <div class="text-danger">
+                                                {{$message}}
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                    <label for="discord">Discord</label>
+                                    <input type="url"  required="" id="discord" class="form-control  @error('discord') is-invalid @enderror" name="discord" placeholder="http://" value="{{ (old('discord')) ? old('discord') : $event->discord }}">
+                                        @error('discord')
                                             <div class="text-danger">
                                                 {{$message}}
                                             </div>

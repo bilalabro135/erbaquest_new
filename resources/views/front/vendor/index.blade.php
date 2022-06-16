@@ -76,6 +76,16 @@
                   <a href="{{$vendorData->linkedin}}" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </li>
                 @endif
+                @if($vendorData->telegram != null)
+                <li>
+                  <a href="{{$vendorData->telegram}}" target="_blank"><i class="fab fa-telegram"></i></a>
+                </li>
+                @endif
+                @if($vendorData->discord != null)
+                <li>
+                  <a href="{{$vendorData->discord}}" target="_blank"><i class="fab fa-discord"></i></a>
+                </li>
+                @endif
               </ul>
             </div>
           </div>

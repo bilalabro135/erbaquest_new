@@ -42,6 +42,8 @@ class Event extends Model
         'linkedin',
         'instagram',
         'youtube',
+        'telegram',
+        'discord',
         'status',
         'user_id',
         'featured',

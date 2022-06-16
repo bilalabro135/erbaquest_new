@@ -124,6 +124,8 @@ class EventController extends Controller
             $event->linkedin = $eventDetail['linkedin'];
             $event->instagram = $eventDetail['instagram'];
             $event->youtube = $eventDetail['youtube'];
+            $event->telegram = $eventDetail['telegram'];
+            $event->discord = $eventDetail['discord'];
             $event->status = 'draft';
             $event->featured = $eventDetail['featured'];
             $event->save();
@@ -457,6 +459,8 @@ class EventController extends Controller
         $event->linkedin = $eventDetail['linkedin'];
         $event->instagram = $eventDetail['instagram'];
         $event->youtube = $eventDetail['youtube'];
+        $event->telegram = $eventDetail['telegram'];
+        $event->discord = $eventDetail['discord'];
         $event->status = $eventDetail['status'];
 
         $user = Auth::user();
@@ -560,6 +564,8 @@ class EventController extends Controller
                 'linkedin' => $getevents['linkedin'],
                 'instagram' => $getevents['instagram'],
                 'youtube' => $getevents['youtube'],
+                'telegram' => $getevents['telegram'],
+                'discord' => $getevents['discord'],
                 'status' => $getevents['status'],
                 'user_id' => $getevents['user_id'],
                 'created_at' => $getevents['created_at'],
@@ -700,6 +706,8 @@ class EventController extends Controller
             'linkedin' =>  $eventDetail['linkedin'],
             'instagram' =>  $eventDetail['instagram'],
             'youtube' =>  $eventDetail['youtube'],
+            'telegram' =>  $eventDetail['telegram'],
+            'discord' =>  $eventDetail['discord'],
             'status' =>  $eventDetail['status'],
         ]);
 

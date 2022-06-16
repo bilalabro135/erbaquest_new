@@ -43,6 +43,8 @@ class VendorController extends Controller
         $users->twitter = (isset($vendorData['twitter'])) ? $vendorData['twitter'] : '';
         $users->youtube = (isset($vendorData['youtube'])) ? $vendorData['youtube'] : '';
         $users->linkedin = (isset($vendorData['linkedin'])) ? $vendorData['linkedin'] : '';
+        $users->telegram = (isset($vendorData['telegram'])) ? $vendorData['telegram'] : '';
+        $users->discord = (isset($vendorData['discord'])) ? $vendorData['discord'] : '';
         $users->featured_picture = (isset($vendorData['featured_picture'])) ? $vendorData['featured_picture'] : '';
         $users->picture = (isset($vendorData['picture'])) ? unserialize($vendorData['picture']) : '';
         $users->show_picture = (isset($vendorData['picture'])) ? $vendorData['picture'] : '';
@@ -82,6 +84,8 @@ class VendorController extends Controller
             $vendor->twitter = $request['twitter'];
             $vendor->youtube = $request['youtube'];
             $vendor->linkedin = $request['linkedin'];
+            $vendor->telegram = $request['telegram'];
+            $vendor->discord = $request['discord'];
             $vendor->phone = $request['phone'];
             $vendor->descreption = $request['descreption'];
             $vendor->featured_picture = $featured_picture;
@@ -119,6 +123,8 @@ class VendorController extends Controller
                 'twitter' => $request['twitter'],
                 'youtube' => $request['youtube'],
                 'linkedin' => $request['linkedin'],
+                'telegram' => $request['telegram'],
+                'discord' => $request['discord'],
                 'featured_picture' => $featured_picture,
                 'picture' => $gallery,
             ]);

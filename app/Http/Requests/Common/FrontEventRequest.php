@@ -55,6 +55,8 @@ class FrontEventRequest extends FormRequest
             'linkedin' => 'max:255',
             'instagram' => 'max:255',
             'youtube' => 'max:255',
+            'telegram' => 'max:255',
+            'discord' => 'max:255',
             'status' => 'required',
         ];
     }
@@ -103,6 +105,8 @@ class FrontEventRequest extends FormRequest
             'instagram' => ($this->has('instagram')) ? $this->get('instagram') : null ,
             'type' => ($this->has('type')) ? $this->get('type') : null ,
             'youtube' => ($this->has('youtube')) ? $this->get('youtube') : null ,
+            'telegram' => ($this->has('telegram')) ? $this->get('telegram') : null ,
+            'discord' => ($this->has('discord')) ? $this->get('discord') : null ,
             'status' => ($this->has('status')) ? $this->get('status') : null ,
             'vip_perk' => $this->get('vip_perk'),
             'charity' => $this->get('charity'),

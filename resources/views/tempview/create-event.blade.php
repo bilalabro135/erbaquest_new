@@ -400,6 +400,24 @@
                         </div>
                     @endif
                   </div>
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>TELEGRAM LINK: <span class="figure"><img src="{{asset('images/icons/youtube-link-icon.png')}}"></span></label>
+                    <input type="url" name="telegram" placeholder="http://" value="{{old('telegram')}}">
+                    @error('telegram')
+                        <div class="text-danger">
+                            {{$message}}
+                        </div>
+                    @endif
+                  </div>
+                  <div class="col-sm-12 col-md-6 input-field">
+                    <label>DISCORD LINK: <span class="figure"><img src="{{asset('images/icons/youtube-link-icon.png')}}"></span></label>
+                    <input type="url" name="discord" placeholder="http://" value="{{old('discord')}}">
+                    @error('discord')
+                        <div class="text-danger">
+                            {{$message}}
+                        </div>
+                    @endif
+                  </div>
                   <div class="input-field input-submit">
                     <input class="event_status" type="hidden" name="status" value="">
                     <button class="btn-custom preview_btn" type="button">PREVIEW AND DRAFT</button>
