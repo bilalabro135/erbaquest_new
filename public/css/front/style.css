@@ -3518,7 +3518,7 @@ button.delete-event:hover:after {
 }
 /*Select2 Css*/
 .select2-container--default .select2-selection--multiple {
-  height: 85px !important;
+  min-height: 85px;
   width: 100% !important;
   padding: 0 28px !important;
   border: 1px solid #dcdcdc !important;
@@ -3536,6 +3536,7 @@ button.delete-event:hover:after {
 /*  display: flex;
   align-items: center;
   height: 100%;*/
+  margin-bottom: 0px;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #1e783b;
@@ -4253,7 +4254,8 @@ color: #ff0000;
     padding-right: 0px;
   }
   .topbar ul li {
-    padding: 0 10px;
+    padding: 0 5px;
+    border-left: 1px solid #ffffff;
   }
   .topbar ul li a {
     font-size: 10px;
@@ -4350,7 +4352,8 @@ color: #ff0000;
     margin-bottom: 10px;
   }
   .input-field input {
-    height: 55px;
+    height: 60px;
+    border-radius: 4px;
   }
   .input-field.input-submit input, .input-field.input-submit button {
     width: 235px;
@@ -4410,7 +4413,76 @@ color: #ff0000;
     height: 13px;
     width: 13px;
   }
+  .createEventForm {
+    padding: 20px;
+  }
+  .input-field.input-submit input, .input-field.input-submit button {
+    font-size: 16px;
+  }
+  .front_event_create .input-field.input-submit button.preview_btn, 
+  .front_event_update .input-field.input-submit button.preview_btn {
+    width: 235px;
+  }
+  .input-field.input-full {
+    padding-right: 0px;
+  }
+  .donation {
+    padding-right: 0px;
+  }
+  .input-field.input-half {
+    width: 100%;
+    padding-right: 0px;
+  }
+  .select2-container--default .select2-selection--multiple {
+    min-height: 60px;
+    border-radius: 4px;
+  }
+  .createEventForm .customDropdown:before {
+    top: 55px;
+  }
+  .createEventForm .customDropdown:after {
+    top: 75px;
+  }
+  .select2-container {
+    width: 100% !important;
+  }
+  .vendor_space_quantity .qty {
+    width: 34%;
+    text-align: center;
+  }
+  .AmentieList ul li {
+    flex: 100%;
+    max-width: 100%;
+    margin-right: 0px;
+  }
+  .select2-container .select2-selection--multiple .select2-selection__rendered {
+    margin-bottom: 4px;
+  }
+  .createEventForm .customDropdown.input-field select {
+    height: 60px;
+    border-radius: 4px;
+  }
+  .input-field textarea {
+    height: 155px;
+  }
+  .topbar {
+    display: block;
+  }
+  .topbar > ul {
+    display: block;
+  }
+  .topbar ul li {
+    display: inline-block;
+  }
+  .input-field label {
+    font-size: 15px;
+    margin-bottom: 9px;
+  }
+
+
 }
+
+
 @media (min-width: 415px) and (max-width: 767px) {
   .sec-Banner .banner-text h1 {
     font-size: 30px;
@@ -4575,6 +4647,25 @@ color: #ff0000;
   .secAccount .col-sm-12.col-md-8 {
     padding-left: 10px;
   }
+  .donation {
+    padding-right: 0%;
+  }
+  .input-field.input-full {
+    padding-right: 0%;
+  }
+  .input-field.input-half {
+    padding-right: 0px;
+  }
+  .input-field label {
+    font-size: 16px;
+  }
+  .vendor_space_quantity .qty {
+    width: 46%;
+  }
+  .donation {
+    padding-right: 0%;
+  }
+
 
 }
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -4601,6 +4692,19 @@ color: #ff0000;
   .nav_arrow .owl-nav button.owl-prev {
     left: 0px;
   }
+  .input-field.input-full {
+    padding-right: 0%;
+  }
+  .donation {
+    padding-right: 0%;
+  }
+  .input-field.input-half {
+    padding-right: 0px;
+  }
+  .vendor_space_quantity .qty {
+    width: 60%;
+  }
+
 }
 @media (min-width: 1200px) and (max-width: 1500px) {
   .nav_arrow .owl-nav button.owl-next {
