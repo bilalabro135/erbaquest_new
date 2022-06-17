@@ -91,7 +91,7 @@ class ContactController extends Controller
             'message' => $input['message'], 
         ), function($message) use ($request){ 
             $message->from($request->email); 
-            $message->to('hurera@geeksroot.com', 'Admin')->subject($request->subject); 
+            $message->to('admin@erbaquest.com', 'Admin')->subject($request->subject); 
         }); 
         return redirect()->back()->with(['msg' => 'Contact Form Submit Successfully']);
     }
