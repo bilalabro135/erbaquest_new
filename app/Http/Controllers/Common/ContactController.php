@@ -90,7 +90,7 @@ class ContactController extends Controller
             'subject' => $input['subject'], 
             'message' => $input['message'], 
         ), function($message) use ($request){ 
-            $message->from($request->email); 
+            // $message->from($request->email); 
             $message->to('admin@erbaquest.com', 'Admin')->subject($request->subject); 
         }); 
         return redirect()->back()->with(['msg' => 'Contact Form Submit Successfully']);
