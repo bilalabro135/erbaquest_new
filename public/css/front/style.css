@@ -4470,6 +4470,7 @@ color: #ff0000;
   }
   .topbar > ul {
     display: block;
+    text-align: center;
   }
   .topbar ul li {
     display: inline-block;
@@ -4477,6 +4478,9 @@ color: #ff0000;
   .input-field label {
     font-size: 15px;
     margin-bottom: 9px;
+  }
+  .topbar-list li.dropdown ul.dropdown-menu li {
+    display: block;
   }
 
 
