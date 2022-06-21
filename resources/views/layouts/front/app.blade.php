@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+  <!-- HTML Meta Tags -->
+<title>Erba Quest</title>
+<meta name="description" content="Stay Lit. Stay Informed. We at ErbaQuest take pride in strengthening community relationships while entertaining and educating the masses. ">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://erbaquest.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Erba Quest">
+<meta property="og:description" content="Stay Lit. Stay Informed. We at ErbaQuest take pride in strengthening community relationships while entertaining and educating the masses. ">
+<meta property="og:image" content="https://erbaquest.com//storage/photos/1/social.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="erbaquest.com">
+<meta property="twitter:url" content="https://erbaquest.com/">
+<meta name="twitter:title" content="Erba Quest">
+<meta name="twitter:description" content="Stay Lit. Stay Informed. We at ErbaQuest take pride in strengthening community relationships while entertaining and educating the masses. ">
+<meta name="twitter:image" content="https://erbaquest.com//storage/photos/1/social.png">
+
+<!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
