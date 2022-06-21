@@ -338,8 +338,8 @@ $(document).on('click', 'a[href^="#"]', function(e) {
 function sendPaymentDataToAnet(argument) {
     $("p.error").hide();
     var authData = {};
-        authData.clientKey = "4dnN77xpZQ7Sq8Sp48b3d77TYnS459EMgvXev3pxGn5afJdtGGU2NJ8pk89Z34XW";
-        authData.apiLoginID = "79aR9cjfe7Ss";
+        authData.clientKey = "{{ env('AUTHORIZE_NET_CLIENT_KEY') }}";
+        authData.apiLoginID = "{{ env('AUTHORIZE_NET_LOGIN_ID') }}";
 
         var insertCreditCard = document.getElementById("cardNumber").value;
 

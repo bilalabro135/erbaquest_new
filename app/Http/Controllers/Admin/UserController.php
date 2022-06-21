@@ -16,8 +16,8 @@ use App\Http\Requests\Common\ReviewRequest;
 
 use App\Models\UserGatewayProfiles;
 use App\Models\UserPaymentProfiles;
-use App\Models\Reviews; 
-use App\Models\Subscription; 
+use App\Models\Reviews;
+use App\Models\Subscription;
 use App\Models\VendorProfile;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
@@ -29,6 +29,13 @@ use Bouncer;
 use Carbon\Carbon;
 class UserController extends Controller
 {
+    public $payment_mode = '';
+
+    public function __construct()
+    {
+        $this->payment_mode = env('AUTHORIZE_MODE');
+    }
+
     public function index()
     {
         return view('admin.users.index');
@@ -40,9 +47,9 @@ class UserController extends Controller
         if($onlyRoleId){
            $fullQuery =  $model->leftjoin("assigned_roles as ar","users.id","=","ar.entity_id")->where('ar.role_id', '=', $onlyRoleId);
         }else{
-           $fullQuery = $model; 
+           $fullQuery = $model;
         }
-        
+
         return DataTables::eloquent($fullQuery)
         ->addColumn('action', function($row){
                 $user_id =  auth()->user()->id;
@@ -53,7 +60,7 @@ class UserController extends Controller
                 if (Bouncer::can('updateRoles') && $row->id != 1 && $user_id != $row->id) {
                     $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="'.route('users.delete', ['id' => $row->id]).'"><i class="fas fa-trash-alt"></i></a>';
                 }
-                
+
                 return $actionBtn;
         })
         ->addColumn('role', function ($row){
@@ -66,7 +73,7 @@ class UserController extends Controller
     public function addUsers()
     {
         $roles = Bouncer::role()->all()->pluck('name');
-        $Settings = Settings::get('registration');        
+        $Settings = Settings::get('registration');
         return view('admin.users.add', compact('roles', 'Settings'));
     }
     public function storeUser(UserRequest $request)
@@ -103,7 +110,7 @@ class UserController extends Controller
             $sendReviews = array();
             foreach ($reviews as $review) {
                 if($review['user_id']){
-                   $getUsers = User::where("id",$review['user_id'])->first(); 
+                   $getUsers = User::where("id",$review['user_id'])->first();
                    $sendReviews[] = array(
                         'id'    => $review['id'],
                         'profile_image' => $getUsers['profile_image'],
@@ -113,8 +120,8 @@ class UserController extends Controller
                         'quality_rating' => $review['quality_rating'],
                         'price_rating' => $review['price_rating'],
                         'date'         => $this->time_elapsed_string($review['created_at']),
-                    );        
-                 
+                    );
+
                 }else{
                     $sendReviews[] = array(
                         'id'    => $review['id'],
@@ -145,19 +152,19 @@ class UserController extends Controller
     }
 
     public function deleteComment(ReviewRequest $request)
-    {   
+    {
         $delete_id =  $request->getRequest()['comment_id'];
         $comment = Reviews::where('id', $delete_id)->delete();
         if ( $comment ) {
             return response()->json(['msg' => 'Comment has been deleted!', 'msg_type' => 'success']);
-        } 
+        }
 
     }
 
     function time_elapsed_string($datetime, $full = false) {
         $now = new Carbon;
         $ago = new Carbon($datetime);
-        
+
         $diff = $now->diff($ago);
 
         $diff->w = floor($diff->d / 7);
@@ -209,7 +216,7 @@ class UserController extends Controller
             }
 
             $currentRole= $user->getRoles();
-                    
+
             if(empty($currentRole[0])){
                 $user->assign($request->role);
             }else{
@@ -218,16 +225,16 @@ class UserController extends Controller
                     $user->assign($request->role);
                 }
             }
-            
+
             return back()->with(['msg' => 'User Updated', 'msg_type' => 'success']);
     }
     public function deleteuser(Request $request)
-    {   
+    {
         if( $request->id != auth()->user()->id && $request->id != 1 ){
             $user = User::where('id', $request->id)->delete();
             if ($user) {
                 return Redirect::back()->with(['msg' => 'User deleted', 'msg_type' => 'success']);
-            } 
+            }
         }
         else{
             abort(404);
@@ -235,11 +242,11 @@ class UserController extends Controller
     }
 
     public function paymentOption()
-    {   
+    {
 
         $creditsData = array();
         $userData = Auth::user();
-        $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
+        $userRole = AssignRoles::where('entity_id', $userData['id'])->first();
         $users = new User;
         $users->role = $userRole['role_id'];
 
@@ -256,11 +263,18 @@ class UserController extends Controller
               $request->setMerchantAuthentication($merchantAuthentication);
               $request->setCustomerProfileId($getProfileId['profile_id']);
               $controller = new AnetController\GetCustomerProfileController($request);
-              $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+                if($this->payment_mode == 'sandbox')
+                {
+                    $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+                }
+                else
+                {
+                    $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+                }
               if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
               {
 
-                if($response->getSubscriptionIds() != null) 
+                if($response->getSubscriptionIds() != null)
                 {
                     $creditsCard = $response->getProfile()->getPaymentProfiles()[0]->getPayment()->getCreditCard()->getCardNumber();
                     $cardType = $response->getProfile()->getPaymentProfiles()[0]->getPayment()->getCreditCard()->getCardType();
@@ -282,10 +296,10 @@ class UserController extends Controller
         );
 
         return view('tempview.payment-option',compact('users','creditsData'));
-        
+
     }
     public function UpdatepaymentOption(CardInfoRequest $requestCardInfo)
-    {   
+    {
 
 
         $authorizeCardNumber = $this->authorizeCreditCard($requestCardInfo);
@@ -316,7 +330,7 @@ class UserController extends Controller
             $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
             $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
                 $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-            
+
             // Set the transaction's refId
             $refId = 'ref' . time();
 
@@ -325,29 +339,36 @@ class UserController extends Controller
             $request->setRefId( $refId);
             $request->setCustomerProfileId($customerProfileId);
             $request->setCustomerPaymentProfileId($customerPaymentProfileId);
-              
+
             $controller = new AnetController\GetCustomerPaymentProfileController($request);
-            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+            if($this->payment_mode == 'sandbox')
+            {
+                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+            }
+            else
+            {
+                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+            }
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
             {
                 $billto = new AnetAPI\CustomerAddressType();
                 $billto = $response->getPaymentProfile()->getbillTo();
-                
+
                 $creditCard = new AnetAPI\CreditCardType();
                 $creditCard->setCardNumber( str_replace(' ', '', $requestCardInfo['cardNumber']));
                 $creditCard->setExpirationDate($expityYear."-".$requestCardInfo['expMonth']);
-                
+
                 $paymentCreditCard = new AnetAPI\PaymentType();
                 $paymentCreditCard->setCreditCard($creditCard);
                 $paymentprofile = new AnetAPI\CustomerPaymentProfileExType();
                 $paymentprofile->setBillTo($billto);
                 $paymentprofile->setCustomerPaymentProfileId($customerPaymentProfileId);
-                $paymentprofile->setPayment($paymentCreditCard);    
+                $paymentprofile->setPayment($paymentCreditCard);
 
                 // We're updating the billing address but everything has to be passed in an update
                 // For card information you can pass exactly what comes back from an GetCustomerPaymentProfile
                 // if you don't need to update that info
-                  
+
                 // Update the Bill To info for new payment type
                 $billto->setFirstName($cardName);
                 $billto->setLastName($lname);
@@ -358,7 +379,7 @@ class UserController extends Controller
                 // $billto->setPhoneNumber("000-000-0000");
                 // $billto->setfaxNumber("999-999-9999");
                 // $billto->setCountry("USA");
-                 
+
                 // Update the Customer Payment Profile object
                $paymentprofile->setBillTo($billto);
 
@@ -369,7 +390,14 @@ class UserController extends Controller
                 $request->setPaymentProfile( $paymentprofile );
 
                 $controller = new AnetController\UpdateCustomerPaymentProfileController($request);
-                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+                if($this->payment_mode == 'sandbox')
+                {
+                    $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+                }
+                else
+                {
+                    $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+                }
                 if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
                 {
                     $message = "Credit Card Information Updated!";
@@ -381,7 +409,7 @@ class UserController extends Controller
                     $errorMessages = 'Somthing went wrong please try later.';
                    return Redirect::route('payment.option')->with(['msg' => $errorMessages, 'msg_type' => 'error']);
                 }
-            
+
                 return $response;
             } else {
                 //echo "Failed to Get Customer Payment Profile :  " . $errorMessages[0]->getCode() . "  " .$errorMessages[0]->getText() . "\n";
@@ -393,11 +421,11 @@ class UserController extends Controller
             return Redirect::route('payment.option')->with(['msg' => $errorMessages, 'msg_type' => 'error']);
         }
 
-    } 
+    }
 
     function authorizeCreditCard($cardInfo,$amount = 2.00)
     {
-        
+
         $cardName = $cardInfo['cardName'];
         $lname = $cardInfo['lname'];
 
@@ -416,7 +444,7 @@ class UserController extends Controller
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-        
+
         // Set the transaction's refId
         $refId = 'ref' . time();
 
@@ -469,7 +497,7 @@ class UserController extends Controller
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction"); 
+        $transactionRequestType->setTransactionType("authCaptureTransaction");
         $transactionRequestType->setAmount($amount);
         $transactionRequestType->setOrder($order);
         $transactionRequestType->setPayment($paymentOne);
@@ -487,7 +515,14 @@ class UserController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        if($this->payment_mode == 'sandbox')
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        }
+        else
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        }
 
 
         if ($response != null) {
@@ -496,7 +531,7 @@ class UserController extends Controller
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
-            
+
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     $responseFromApi = 1;
                 } else {
@@ -507,13 +542,13 @@ class UserController extends Controller
                 // Or, print errors if the API request wasn't successful
             } else {
                 $tresponse = $response->getTransactionResponse();
-            
+
                 if ($tresponse != null && $tresponse->getErrors() != null) {
                    $responseFromApi = 0;
                 } else {
                     $responseFromApi = 0;
                 }
-            }      
+            }
         } else {
             echo  $responseFromApi = 0;
         }
@@ -524,7 +559,7 @@ class UserController extends Controller
     function paymentList()
     {
         $userData = Auth::user();
-        $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
+        $userRole = AssignRoles::where('entity_id', $userData['id'])->first();
         $users = new User;
         $users->role = $userRole['role_id'];
 
@@ -536,7 +571,7 @@ class UserController extends Controller
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-        
+
         // Set the transaction's refId
         $refId = 'ref' . time();
 
@@ -547,8 +582,15 @@ class UserController extends Controller
         //https://github.com/AuthorizeNet/sdk-php/issues/417
         $controller = new AnetController\GetTransactionListForCustomerController($request);
 
-        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        
+        if($this->payment_mode == 'sandbox')
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        }
+        else
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        }
+
         if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
         {
             if(null != $response->getTransactions())
@@ -578,7 +620,7 @@ class UserController extends Controller
         if(!isset($transactionDatas)){
             $transactionDatas = array();
         }
-    
+
 
         return view('tempview.payment',compact('transactionDatas','users'));
 
@@ -594,7 +636,7 @@ class UserController extends Controller
         return DataTables::eloquent($model)
         ->addColumn('action', function($row){
                 $user_id =  auth()->user()->id;
-                
+
                 $actionBtn= '';
                 if(Bouncer::can('updateUsers')){
                 $actionBtn .='<a href="'.route('admin.payemnt.view', ['order' => $row->id]).'" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-eye"></i></a>';
@@ -613,7 +655,7 @@ class UserController extends Controller
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-        
+
         // Set the transaction's refId
         $refId = 'ref' . time();
 
@@ -624,8 +666,15 @@ class UserController extends Controller
         //https://github.com/AuthorizeNet/sdk-php/issues/417
         $controller = new AnetController\GetTransactionListForCustomerController($request);
 
-        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
-        
+        if($this->payment_mode == 'sandbox')
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        }
+        else
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        }
+
         if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
         {
             if(null != $response->getTransactions())

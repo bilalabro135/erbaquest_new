@@ -24,7 +24,14 @@ use Carbon\Carbon;
 
 class SubscriptionController extends Controller
 {
-   public function create(SubscriptionRequest $request)
+    public $payment_mode = '';
+
+    public function __construct()
+    {
+        $this->payment_mode = env('AUTHORIZE_MODE');
+    }
+
+    public function create(SubscriptionRequest $request)
     {
         $handle_errors = array(
             252
@@ -51,9 +58,9 @@ class SubscriptionController extends Controller
            $creditName = explode(" ",$request->name);
            $amount= $package['price'];
            $unit = strtolower($package['reccuring_every'])."s";
-           $intervalLength =  1; 
+           $intervalLength =  1;
            $totalcycles = $package['duration'];
-           $start_date = date('Y-m-d');       
+           $start_date = date('Y-m-d');
            $card_number = str_replace(' ', '', $request->cardNumber);
            $expiry_date = $expityYear."-".$request->expMonth;
            $first_name = $request['cardname'];
@@ -62,7 +69,7 @@ class SubscriptionController extends Controller
             $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
             $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
             $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-             
+
             // Set the transaction's refId
             $refId = 'ref' . time();
             // Subscription Type Info
@@ -79,7 +86,7 @@ class SubscriptionController extends Controller
             $subscription->setPaymentSchedule($paymentSchedule);
             $subscription->setAmount($amount);
             //$subscription->setTrialAmount("0.00");
-             
+
             $creditCard = new AnetAPI\CreditCardType();
             $creditCard->setCardNumber($card_number);
             $creditCard->setExpirationDate($expiry_date);
@@ -87,10 +94,10 @@ class SubscriptionController extends Controller
             $payment->setCreditCard($creditCard);
             $subscription->setPayment($payment);
             $order = new AnetAPI\OrderType();
-            $order->setInvoiceNumber(mt_rand(10000, 99999));   //generate random invoice number     
-            $order->setDescription($package['name']); 
-            $subscription->setOrder($order); 
-             
+            $order->setInvoiceNumber(mt_rand(10000, 99999));   //generate random invoice number
+            $order->setDescription($package['name']);
+            $subscription->setOrder($order);
+
             $billTo = new AnetAPI\NameAndAddressType();
             $billTo->setFirstName($first_name);
             $billTo->setLastName($last_name);
@@ -100,16 +107,23 @@ class SubscriptionController extends Controller
             $requestsub->setRefId($refId);
             $requestsub->setSubscription($subscription);
             $controller = new AnetController\ARBCreateSubscriptionController($requestsub);
-            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
-             
+            if($this->payment_mode == 'sandbox')
+            {
+                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+            }
+            else
+            {
+                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+            }
+
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
             {
 
               $Settings = Settings::get('registration');
-               
+
                $getCustomerProfileId = $response->getProfile()->getCustomerProfileId();
-               $getCustomerPaymentProfileId = $response->getProfile()->getCustomerPaymentProfileId(); 
-                
+               $getCustomerPaymentProfileId = $response->getProfile()->getCustomerPaymentProfileId();
+
                $userData = $request->getUserData();
                 $user = new User;
                 $user->name = $userData['name'];
@@ -128,7 +142,7 @@ class SubscriptionController extends Controller
                 else{
                     $user->save();
                     $user->assign($userData['role']);
-                    Auth::loginUsingId($user->id);   
+                    Auth::loginUsingId($user->id);
                     $user->sendEmailVerificationNotification();
                 }
 
@@ -157,7 +171,7 @@ class SubscriptionController extends Controller
         }else{
            return Redirect::route('vendor.register')->with(['msg' => $authorizeCardNumber['message'], 'msg_type' => 'error']);
         }
-        
+
     }
 
 
@@ -166,7 +180,7 @@ class SubscriptionController extends Controller
         $get_package                    = Package::find($cardInfo->plan);
         $amount                         = $get_package->price;
         $responseFromApi['success']     = FALSE;
-        
+
         $cardName = $cardInfo['cardName'];
         $lname = $cardInfo['lname'];
 
@@ -185,7 +199,7 @@ class SubscriptionController extends Controller
         $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
         $merchantAuthentication->setName(env('AUTHORIZE_NET_LOGIN_ID'));
         $merchantAuthentication->setTransactionKey(env('AUTHORIZE_NET_TRANSACTION_KEY'));
-        
+
         // Set the transaction's refId
         $refId = 'ref' . time();
 
@@ -240,7 +254,7 @@ class SubscriptionController extends Controller
 
         // Create a TransactionRequestType object and add the previous objects to it
         $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("authCaptureTransaction"); 
+        $transactionRequestType->setTransactionType("authCaptureTransaction");
         $transactionRequestType->setAmount($amount);
         $transactionRequestType->setOrder($order);
         $transactionRequestType->setPayment($paymentOne);
@@ -258,7 +272,14 @@ class SubscriptionController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        if($this->payment_mode == 'sandbox')
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
+        }
+        else
+        {
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        }
 
 
         if ($response != null) {
@@ -275,7 +296,7 @@ class SubscriptionController extends Controller
                     $responseFromApi['message'] = $tresponse->getErrors()[0]->getErrorText();
                     $responseFromApi['response']= $tresponse->getErrors();
                 }
-           
+
                 if ($tresponse != null && $tresponse->getMessages() != null) {
                     $responseFromApi['success']     = TRUE;
                     $responseFromApi['code']        = $tresponse->getMessages()[0]->getCode();
@@ -286,7 +307,7 @@ class SubscriptionController extends Controller
                 // Or, print errors if the API request wasn't successful
             } else {
                 $tresponse = $response->getTransactionResponse();
-            
+
                 if ($tresponse != null && $tresponse->getErrors() != null) {
                     $responseFromApi['success'] = FALSE;
                     $responseFromApi['code']    = $tresponse->getErrors()[0]->getErrorCode();
@@ -298,7 +319,7 @@ class SubscriptionController extends Controller
                     $responseFromApi['message']     = 'Something went wrong! 2';
                     $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 }
-            }      
+            }
         } else {
             $responseFromApi['success']     = FALSE;
             $responseFromApi['code']        = 3;
