@@ -51,7 +51,7 @@ class SubscriptionController extends Controller
            $creditName = explode(" ",$request->name);
            $amount= $package['price'];
            $unit = strtolower($package['reccuring_every'])."s";
-           $intervalLength =  0; 
+           $intervalLength =  1; 
            $totalcycles = $package['duration'];
            $start_date = date('Y-m-d');       
            $card_number = str_replace(' ', '', $request->cardNumber);
