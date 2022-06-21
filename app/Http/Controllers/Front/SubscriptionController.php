@@ -57,9 +57,9 @@ class SubscriptionController extends Controller
 
            $creditName = explode(" ",$request->name);
            $amount= $package['price'];
-           $unit = strtolower($package['reccuring_every'])."s";
+           $unit = 'months';//strtolower($package['reccuring_every'])."s";
            $intervalLength =  1;
-           $totalcycles = $package['duration'];
+           $totalcycles = 9999;//$package['duration'];
            $start_date = date('Y-m-d');
            $card_number = str_replace(' ', '', $request->cardNumber);
            $expiry_date = $expityYear."-".$request->expMonth;
@@ -118,7 +118,6 @@ class SubscriptionController extends Controller
 
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
             {
-
               $Settings = Settings::get('registration');
 
                $getCustomerProfileId = $response->getProfile()->getCustomerProfileId();
@@ -166,7 +165,15 @@ class SubscriptionController extends Controller
                return Redirect::route('payment.option')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
 
             }else{
-                return Redirect::route('vendor.register')->with(['msg' => 'Something went wrong, Try Again!', 'msg_type' => 'error']);
+
+                $error_message = 'Something went wrong, Try Again!';
+
+                if($response->getMessages()->getResultCode() == "Error" && isset( $response->getMessages()->getMessage()[0] ))
+                {
+                    $error_message = $response->getMessages()->getMessage()[0]->getText();
+                }
+
+                return Redirect::route('vendor.register')->with(['msg' => $error_message, 'msg_type' => 'error']);
             }
         }else{
            return Redirect::route('vendor.register')->with(['msg' => $authorizeCardNumber['message'], 'msg_type' => 'error']);
