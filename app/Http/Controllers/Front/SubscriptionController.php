@@ -295,14 +295,14 @@ class SubscriptionController extends Controller
                 } else {
                     $responseFromApi['success']     = FALSE;
                     $responseFromApi['code']        = 2;
-                    $responseFromApi['message']     = 'Something went wrong!';
+                    $responseFromApi['message']     = 'Something went wrong! 2';
                     $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 }
             }      
         } else {
             $responseFromApi['success']     = FALSE;
             $responseFromApi['code']        = 3;
-            $responseFromApi['message']     = 'Something went wrong!';
+            $responseFromApi['message']     = 'Something went wrong! 3';
             $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
         }
 
