@@ -68,11 +68,11 @@ class SubscriptionController extends Controller
             // Subscription Type Info
             $subscription = new AnetAPI\ARBSubscriptionType();
             $subscription->setName($package['name']);
-            $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
-            $interval->setLength($intervalLength);
-            $interval->setUnit($unit);
+            // $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
+            // $interval->setLength($intervalLength);
+            // $interval->setUnit($unit);
             $paymentSchedule = new AnetAPI\PaymentScheduleType();
-            $paymentSchedule->setInterval($interval);
+            // $paymentSchedule->setInterval($interval);
             $paymentSchedule->setStartDate(new Carbon($start_date));
             $paymentSchedule->setTotalOccurrences($totalcycles);
             //$paymentSchedule->setTrialOccurrences("1");
