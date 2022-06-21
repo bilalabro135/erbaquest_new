@@ -256,7 +256,7 @@ class UserController extends Controller
               $request->setMerchantAuthentication($merchantAuthentication);
               $request->setCustomerProfileId($getProfileId['profile_id']);
               $controller = new AnetController\GetCustomerProfileController($request);
-              $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+              $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
               if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
               {
 
@@ -327,7 +327,7 @@ class UserController extends Controller
             $request->setCustomerPaymentProfileId($customerPaymentProfileId);
               
             $controller = new AnetController\GetCustomerPaymentProfileController($request);
-            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
             {
                 $billto = new AnetAPI\CustomerAddressType();
@@ -369,7 +369,7 @@ class UserController extends Controller
                 $request->setPaymentProfile( $paymentprofile );
 
                 $controller = new AnetController\UpdateCustomerPaymentProfileController($request);
-                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+                $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
                 if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
                 {
                     $message = "Credit Card Information Updated!";
@@ -487,7 +487,7 @@ class UserController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
 
 
         if ($response != null) {
@@ -547,7 +547,7 @@ class UserController extends Controller
         //https://github.com/AuthorizeNet/sdk-php/issues/417
         $controller = new AnetController\GetTransactionListForCustomerController($request);
 
-        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
         
         if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
         {
@@ -624,7 +624,7 @@ class UserController extends Controller
         //https://github.com/AuthorizeNet/sdk-php/issues/417
         $controller = new AnetController\GetTransactionListForCustomerController($request);
 
-        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
         
         if (($response != null) && ($response->getMessages()->getResultCode() == "Ok"))
         {

@@ -51,7 +51,7 @@ class SubscriptionController extends Controller
            $creditName = explode(" ",$request->name);
            $amount= $package['price'];
            $unit = strtolower($package['reccuring_every'])."s";
-           $intervalLength =  1; 
+           $intervalLength =  0; 
            $totalcycles = $package['duration'];
            $start_date = date('Y-m-d');       
            $card_number = str_replace(' ', '', $request->cardNumber);
@@ -100,7 +100,7 @@ class SubscriptionController extends Controller
             $requestsub->setRefId($refId);
             $requestsub->setSubscription($subscription);
             $controller = new AnetController\ARBCreateSubscriptionController($requestsub);
-            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+            $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
              
             if (($response != null) && ($response->getMessages()->getResultCode() == "Ok") )
             {
@@ -258,7 +258,7 @@ class SubscriptionController extends Controller
 
         // Create the controller and get the response
         $controller = new AnetController\CreateTransactionController($request);
-        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
+        $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
 
 
         if ($response != null) {
