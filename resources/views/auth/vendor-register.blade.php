@@ -1,10 +1,17 @@
 @extends('layouts.front.app')
 @section('content')
 
+@if(env('AUTHORIZE_MODE') == 'sandbox')
     <script type="text/javascript"
         src="https://jstest.authorize.net/v1/Accept.js"
         charset="utf-8">
     </script>
+@else
+    <script type="text/javascript"
+        src="https://js.authorize.net/v1/Accept.js"
+        charset="utf-8">
+    </script>
+@endif
 
     <x-front.page.featured-image title="VENDOR SIGNUP" image="{{asset('images/inner-banner.jpg')}}"/>
 
