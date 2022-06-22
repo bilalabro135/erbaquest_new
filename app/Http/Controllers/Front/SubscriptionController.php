@@ -42,6 +42,9 @@ class SubscriptionController extends Controller
         if($authorizeCardNumber['success'] && !in_array( $authorizeCardNumber['code'], $handle_errors )){
             $package = Package::where('id', $request->plan)->first();
 
+            $transaction_id             = $authorizeCardNumber['transaction_id'] ?? '';
+            $network_transaction_id     = $authorizeCardNumber['network_transaction_id'] ?? '';
+
             if (empty($package)) {
                 abort(404);
             }
@@ -158,9 +161,12 @@ class SubscriptionController extends Controller
                $profileId->profile_id = $getCustomerProfileId;
                $profileId->save();
 
-               $profilePaymentId = new UserPaymentProfiles();
-               $profilePaymentId->user_id = $user->id;
-               $profilePaymentId->payment_profile_id = $getCustomerPaymentProfileId;
+               $profilePaymentId                            = new UserPaymentProfiles();
+               $profilePaymentId->user_id                   = $user->id;
+               $profilePaymentId->transaction_id            = $transaction_id;
+               $profilePaymentId->network_transaction_id    = $network_transaction_id ;
+               $profilePaymentId->subscription_id           = $response->getSubscriptionId();
+               $profilePaymentId->payment_profile_id        = $getCustomerPaymentProfileId;
                $profilePaymentId->save();
                return Redirect::route('payment.option')->with(['msg' => 'Thanks for registration', 'msg_type' => 'success']);
 
@@ -288,13 +294,15 @@ class SubscriptionController extends Controller
             $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::PRODUCTION);
         }
 
-
         if ($response != null) {
             // Check to see if the API request was successfully received and acted upon
             if ($response->getMessages()->getResultCode() == "Ok") {
                 // Since the API request was successful, look for a transaction response
                 // and parse it to display the results of authorizing the card
                 $tresponse = $response->getTransactionResponse();
+
+                $transaction_id         = $tresponse->getTransId() ?? '';
+                $network_transaction_id = $tresponse->getNetworkTransId() ?? '';
 
                 if ( $tresponse->getErrors() )
                 {
@@ -305,10 +313,12 @@ class SubscriptionController extends Controller
                 }
 
                 if ($tresponse != null && $tresponse->getMessages() != null) {
-                    $responseFromApi['success']     = TRUE;
-                    $responseFromApi['code']        = $tresponse->getMessages()[0]->getCode();
-                    $responseFromApi['message']     = $tresponse->getMessages()[0]->getDescription();
-                    $responseFromApi['response']    = $tresponse->getMessages();
+                    $responseFromApi['success']                 = TRUE;
+                    $responseFromApi['code']                    = $tresponse->getMessages()[0]->getCode();
+                    $responseFromApi['message']                 = $tresponse->getMessages()[0]->getDescription();
+                    $responseFromApi['response']                = $tresponse->getMessages();
+                    $responseFromApi['transaction_id']          = $transaction_id;
+                    $responseFromApi['network_transaction_id']  = $network_transaction_id;
                 }
 
                 // Or, print errors if the API request wasn't successful
@@ -323,14 +333,14 @@ class SubscriptionController extends Controller
                 } else {
                     $responseFromApi['success']     = FALSE;
                     $responseFromApi['code']        = 2;
-                    $responseFromApi['message']     = 'Something went wrong! 2';
+                    $responseFromApi['message']     = 'Something went wrong!';
                     $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
                 }
             }
         } else {
             $responseFromApi['success']     = FALSE;
             $responseFromApi['code']        = 3;
-            $responseFromApi['message']     = 'Something went wrong! 3';
+            $responseFromApi['message']     = 'Something went wrong!';
             $responseFromApi['response']    = (object) array('code'=>$responseFromApi['code'],'message'=>$responseFromApi['message']);
         }
 
