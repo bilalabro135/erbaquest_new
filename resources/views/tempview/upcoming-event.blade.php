@@ -43,7 +43,7 @@
                         </figure>
                         <div class="detail">
                           <h3>{{$event['name']}}</h3>
-                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('m-d-Y', strtotime($event['event_date']))}}</p>
                           <div class="txt">
                             <p>{!!$event['description']!!}</p>
                           </div>

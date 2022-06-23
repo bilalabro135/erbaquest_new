@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @font-face {
   font-family: "Blanka";
   src: url("/fonts/Blanka-Regular.eot");
@@ -7,8 +8,9 @@
   font-style: normal;
   font-display: swap;
 }
+
 .ft-blanka {
-  font-family: "Blanka";
+  font-family: 'Fredoka One', cursive;
 }
 
 * {
@@ -1002,7 +1004,7 @@ text-overflow: ellipsis;
   font-size: 40px;
   margin-bottom: 0;
   margin-top: 60px;
-  font-family: "Blanka";
+  font-family: 'Fredoka One', cursive;
 }
 
 .secSignup h3, .secSignup p {
@@ -2967,6 +2969,12 @@ input.vendor_list {
   max-width: 1170px;
 }
 
+.goonieText {
+  text-align: center;
+  padding: 0px 80px;
+  margin: 50px 0px;
+}
+
 @media screen and (max-width: 414px) {
   .topbar {
     /*display: none;*/
@@ -3344,7 +3352,7 @@ div#card-element {
 }
 
 .cms-content h2, .cms-content h3 {
-  font-family: "Blanka";
+  font-family: 'Fredoka One', cursive;
   margin-bottom: 20px;
   line-height: 1.4;
 }

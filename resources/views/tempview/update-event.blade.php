@@ -57,7 +57,7 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}">
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}" required="required">
                     @error('featured_image')
                         <div class="text-danger">
                             {{$message}}
@@ -108,7 +108,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field input-date">
                     <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
-                    <input type="date" name="event_date" value="{{ $data['event_date'] }}" @if($data['is_recurring']) disabled="disabled" @endif>
+                    <input type="date" name="event_date" required="required" value="{{ $data['event_date'] }}" @if($data['is_recurring']) disabled="disabled" @endif>
                     @error('event_date')
                         <div class="text-danger">
                             {{$message}}
@@ -164,7 +164,7 @@
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
 
-                    <select name="type" required="required">
+                    <select name="type">
                         <option selected="selected">Type: </option>
                         @foreach($tyoesOfEvents as $tyoesOfEvent)
                           <option value="{{$tyoesOfEvent['name']}}" @if($tyoesOfEvent['name'] == $data['type'] ) selected="selected" @endif>{{$tyoesOfEvent['name']}}</option>
@@ -178,7 +178,7 @@
                     <div class="donation">
                       <div class="input-field input-full">
                         <label>EXPECTED DOOR DONATION: <span class="figure"><img src="{{asset('images/icons/icon15.png')}}"></span></label>
-                        <input type="text" name="door_dontation" placeholder="$10.0" required="required" value="{{ $data['door_dontation'] }}">
+                        <input type="text" name="door_dontation" placeholder="$10.0" value="{{ $data['door_dontation'] }}">
                         @error('door_dontation')
                             <div class="text-danger">
                                 {{$message}}
@@ -187,7 +187,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>VIP DONATION: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></label>
-                        <input type="text" name="vip_dontation" placeholder="$500.0" required="required" value="{{ $data['vip_dontation'] }}">
+                        <input type="text" name="vip_dontation" placeholder="$500.0" value="{{ $data['vip_dontation'] }}">
                         @error('vip_dontation')
                             <div class="text-danger">
                                 {{$message}}
@@ -196,7 +196,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>VIP PERKS: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
-                        <input type="text" name="vip_perk" placeholder="$50.0" required="required" value="{{ $data['vip_perk'] }}">
+                        <input type="text" name="vip_perk" placeholder="$50.0" value="{{ $data['vip_perk'] }}">
                         @error('vip_perk')
                             <div class="text-danger">
                                 {{$message}}
@@ -205,7 +205,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>CHARITY: <span class="figure"><img src="{{asset('images/icons/icon16.png')}}"></span></label>
-                        <input type="text" name="charity" placeholder="$10.0" required="required" value="{{ $data['charity'] }}">
+                        <input type="text" name="charity" placeholder="$10.0" value="{{ $data['charity'] }}">
                         @error('charity')
                             <div class="text-danger">
                                 {{$message}}
@@ -265,7 +265,7 @@
                     <label>VENDOR SPACES AVAILABLE:</label>
                     <div class="quantity buttons_added">
                     <input type="button" value="-" class="minus">
-                    <input type="number" value="{{ $data['vendor_space_available'] }}" step="1" name="vendor_space_available"  class="input-text qty text" size="4" pattern="" inputmode="" required="required">
+                    <input type="number" value="{{ $data['vendor_space_available'] }}" step="1" name="vendor_space_available"  class="input-text qty text" size="4" pattern="" inputmode="" >
                     <input type="button" value="+" class="plus">
                     </div>
                     @error('vendor_space_available')
@@ -285,7 +285,7 @@
                           <div class="input-field input-checkbox checkRight @if($amenity['selected']) checked @endif ">
                             <label>
                               <span class="figure"><img src="{{ $amenity['icon'] }}"></span>{{ $amenity['name'] }}
-                              <input id="{{ $amenity['name'] }}{{ $amenity['id'] }}" type="checkbox" name="amenities[]" value="{{$amenity['id']}}" @if($amenity['selected']) checked="checked" @endif required="required">
+                              <input id="{{ $amenity['name'] }}{{ $amenity['id'] }}" type="checkbox" name="amenities[]" value="{{$amenity['id']}}" @if($amenity['selected']) checked="checked" @endif >
                             </label>
                           </div>
                         </li>
@@ -311,7 +311,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>HEIGHT: <span class="figure"><img src="{{asset('images/icons/icon6.png')}}"></span></label>
-                    <input type="text" name="height" value="{{ $data['height'] }}" placeholder="100ft" required="required">
+                    <input type="text" name="height" value="{{ $data['height'] }}" placeholder="100ft" >
                     @error('height')
                       <div class="text-danger">
                           {{$message}}

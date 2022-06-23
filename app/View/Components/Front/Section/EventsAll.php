@@ -21,9 +21,10 @@ class EventsAll extends Component
     public $events;
     public $pageSlug;
     public $selectedParameter;
+    public $past;
     public function __construct()
     {
-        //
+    
     }
 
     /**
@@ -33,12 +34,19 @@ class EventsAll extends Component
      */
     public function render()
     {
+        $now = date('Y-m-d');
         $user = Auth::user();
         $search    = (app('request')->input('search')) ? app('request')->input('search') : '';
         $location    = (app('request')->input('location')) ? app('request')->input('location') : '';
         $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
         $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
+
+        $event->whereDate('event_date', '>', $now);
+
+        if($this->past  != false)
+            
+
         if ($search != '')
             $event->where('name', 'LIKE', "%{$search}%");
 

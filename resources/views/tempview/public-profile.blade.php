@@ -102,7 +102,9 @@
                         @endif 
                       </div>
                     </label>
-                    <button type="button" class="upload_img_btn" id="uploadImg">
+                    <button type="button" class="upload_img_btn" id="uploadImg" data-toggle="tooltip" data-placement="top" title="Multiple images can be added to the gallery, but need to be selected all at once. 
+*note- if using a computer you may want to create a folder for the gallery 
+you would like to have displayed. ">
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
@@ -173,6 +175,9 @@
 
 @push('scripts')
 <script>  
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
     $(document).ready(function(){  
         $('.phone_mask').mask('(999)-999-9999'); 
     });  

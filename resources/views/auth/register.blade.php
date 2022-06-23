@@ -12,11 +12,12 @@
                   SignUp
                 </h3> -->
                 <div class="sign_btns text-center mb-40">
-                  <a href="javascript:;" class="btn-custom active_style showEventSignup">Event Organizer</a>
+                  <a href="javascript:;" class="btn-custom active_style showEventSignup">Become a Goonie</a>
                   @if(count($packages))
                   <a href="{{ route('vendor.register') }}" class="btn-custom showvendorSignup">Vendor</a>
                   @endif
                 </div>
+                <p class="goonieText">The Goonie account is a free user account. With this account you will be able to create events, and leave reviews without a monthly subscription. </p>
                 <!-- Orgnanizer Form -->
                 <div class="row form_area">
                     <div class="col-lg-12">

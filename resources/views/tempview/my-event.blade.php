@@ -49,7 +49,7 @@
                         <div class="detail">
                           <h3>{{$event['name']}}</h3>
                         @if(!$event['is_recurring'])
-                            <p class="date"><i class="far fa-calendar-alt"></i>{{date('d-m-Y', strtotime($event['event_date']))}}</p>
+                            <p class="date"><i class="far fa-calendar-alt"></i>{{date('m-d-Y', strtotime($event['event_date']))}}</p>
                         @else
                             <p><b>Day: </b> {{  $event['day_dropdown'] }} <b>Type: </b>{{  $event['recurring_type'] }}</p>
                         @endif

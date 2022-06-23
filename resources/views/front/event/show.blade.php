@@ -321,7 +321,7 @@
               </div>
               <div style="clear: both;"></div>
               @if(!$event->is_recurring)
-                <p><span class="dt-tag">{{date('d-m-Y', strtotime($event['event_date']))}}</span></p>
+                <p><span class="dt-tag">{{date('m-d-Y', strtotime($event['event_date']))}}</span></p>
                @endif
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
