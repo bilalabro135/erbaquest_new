@@ -74,7 +74,7 @@
 
                                 <div class="col-sm-12 col-md-6 recurring_component">
                                     <label>Days Dropdown:</label>
-                                    <select name="day" id="day" required="" class="form-control">
+                                    <select name="day" id="day" class="form-control">
                                         <option value="monday">Monday</option>
                                         <option value="tuesday">Tuesday</option>
                                         <option value="wednesday">Wednesday</option>
@@ -87,7 +87,7 @@
 
                                 <div class="col-sm-12 col-md-6 recurring_component">
                                     <label>Recurring Type:</label>
-                                    <select name="recurring_type" id="recurring_type" required="" class="form-control">
+                                    <select name="recurring_type" id="recurring_type" class="form-control">
                                         <option value="weekly">Weekly</option>
                                         <option value="monthly">Monthly</option>
                                         <option value="yearly">Yearly</option>
@@ -122,7 +122,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input type="text"  required="" id="address" class="form-control  @error('address') is-invalid @enderror" name="address" placeholder="Address" value="{{old('address')}}">
+                                    <input type="text"  id="address" class="form-control  @error('address') is-invalid @enderror" name="address" placeholder="Address" value="{{old('address')}}" required="">
                                         @error('address')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -133,8 +133,8 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="type">Type Of Event</label>
-                                    <!-- <input type="text"  required="" id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
-                                    <select name="type" required="required" class="form-control">
+                                    <!-- <input type="text"  id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
+                                    <select name="type" class="form-control">
                                         <option selected="selected">Type:</option>
                                         @foreach($tyoesOfEvents as $tyoesOfEvent)
                                         <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
@@ -150,7 +150,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="door_dontation">EXPECTED DOOR DONATION</label>
-                                    <input type="number"  required="" id="door_dontation" class="form-control  @error('door_dontation') is-invalid @enderror" name="door_dontation" placeholder="$100.00" value="{{old('door_dontation')}}">
+                                    <input type="number"   id="door_dontation" class="form-control  @error('door_dontation') is-invalid @enderror" name="door_dontation" placeholder="$100.00" value="{{old('door_dontation')}}">
                                         @error('door_dontation')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -161,7 +161,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vip_dontation">VIP DONATION</label>
-                                    <input type="number"  required="" id="vip_dontation" class="form-control  @error('vip_dontation') is-invalid @enderror" name="vip_dontation" placeholder="$10.0" value="{{old('vip_dontation')}}">
+                                    <input type="number"   id="vip_dontation" class="form-control  @error('vip_dontation') is-invalid @enderror" name="vip_dontation" placeholder="$10.0" value="{{old('vip_dontation')}}">
                                         @error('vip_dontation')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -172,7 +172,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vip_perk">VIP Perks</label>
-                                    <input type="text"  required="" id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="Vip Perks" value="{{old('vip_perk')}}">
+                                    <input type="text"   id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="Vip Perks" value="{{old('vip_perk')}}">
                                         @error('vip_perk')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -183,7 +183,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="charity">Charity</label>
-                                    <input type="text"  required="" id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{old('charity')}}">
+                                    <input type="text"   id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{old('charity')}}">
                                         @error('charity')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -194,7 +194,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="cost_of_vendor">Cost Of Vendor</label>
-                                    <input type="number"  required="" id="cost_of_vendor" class="form-control  @error('cost_of_vendor') is-invalid @enderror" name="cost_of_vendor" placeholder="$10.0" value="{{old('cost_of_vendor')}}">
+                                    <input type="number"   id="cost_of_vendor" class="form-control  @error('cost_of_vendor') is-invalid @enderror" name="cost_of_vendor" placeholder="$10.0" value="{{old('cost_of_vendor')}}">
                                         @error('cost_of_vendor')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -205,7 +205,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vendor_space_available">Vendor Space Available</label>
-                                    <input type="number"  required="" id="vendor_space_available" class="form-control  @error('vendor_space_available') is-invalid @enderror" name="vendor_space_available" placeholder="10" value="{{old('vendor_space_available')}}">
+                                    <input type="number"   id="vendor_space_available" class="form-control  @error('vendor_space_available') is-invalid @enderror" name="vendor_space_available" placeholder="10" value="{{old('vendor_space_available')}}">
                                         @error('vendor_space_available')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -216,9 +216,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="area">Area</label>
-                                    <!-- <input type="number"  required="" id="area" class="form-control  @error('area') is-invalid @enderror" name="area" placeholder="$10.0" value="{{old('area')}}">  -->
+                                    <!-- <input type="number"   id="area" class="form-control  @error('area') is-invalid @enderror" name="area" placeholder="$10.0" value="{{old('area')}}">  -->
 
-                                    <select name="area" id="area" required="" class="form-control">
+                                    <select name="area" id="area"  class="form-control">
                                         <option value="">Select Location</option>
                                         @foreach($countries as $country)
                                             <option value="{{$country->name}}">{{$country->name}}</option>
@@ -235,9 +235,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="height">Height</label>
-                                    <!-- <input type="number"  required="" id="height" class="form-control  @error('height') is-invalid @enderror" name="height" placeholder="$10.0" value="{{old('height')}}"> -->
+                                    <!-- <input type="number"   id="height" class="form-control  @error('height') is-invalid @enderror" name="height" placeholder="$10.0" value="{{old('height')}}"> -->
 
-                                    <input type="text" name="height" id="height" required="required" class="form-control">
+                                    <input type="text" name="height" id="height" class="form-control">
                                     @error('height')
                                         <div class="text-danger">
                                             {{$message}}
@@ -248,8 +248,8 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="capacity">Capacity</label>
-                                    <!-- <input type="number"  required="" id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->
-                                    <input type="number" name="capacity" id="capacity" required="required" class="form-control">
+                                    <!-- <input type="number"   id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->
+                                    <input type="number" name="capacity" id="capacity" class="form-control">
                                     @error('capacity')
                                         <div class="text-danger">
                                             {{$message}}
@@ -260,9 +260,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="ATM_on_site">ATM On Site</label>
-                                    <!-- <input type="number"  required="" id="ATM_on_site" class="form-control  @error('ATM_on_site') is-invalid @enderror" name="ATM_on_site" placeholder="$10.0" value="{{old('ATM_on_site')}}">  -->
+                                    <!-- <input type="number"   id="ATM_on_site" class="form-control  @error('ATM_on_site') is-invalid @enderror" name="ATM_on_site" placeholder="$10.0" value="{{old('ATM_on_site')}}">  -->
 
-                                    <select name="ATM_on_site" id="ATM_on_site" required="" class="form-control">
+                                    <select name="ATM_on_site" id="ATM_on_site"  class="form-control">
                                         <option value="Yes" selected>Yes</option>
                                         <option value="No">No</option>
                                     </select>
@@ -277,7 +277,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="tickiting_number">Ticketing Phone Number: </label>
-                                    <input type="number"  required="" id="tickiting_number" class="form-control  @error('tickiting_number') is-invalid @enderror" name="tickiting_number" placeholder="Ticketing Phone Number" value="{{old('tickiting_number')}}">
+                                    <input type="number"   id="tickiting_number" class="form-control  @error('tickiting_number') is-invalid @enderror" name="tickiting_number" placeholder="Ticketing Phone Number" value="{{old('tickiting_number')}}">
                                         @error('tickiting_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -288,7 +288,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="vendor_number">Vendor Number</label>
-                                    <input type="number"  required="" id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{old('vendor_number')}}">
+                                    <input type="number"   id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{old('vendor_number')}}">
                                         @error('vendor_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -299,7 +299,7 @@
                                 <!-- <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="user_number">User Number</label>
-                                    <input type="tel"  required="" id="user_number" class="form-control  @error('user_number') is-invalid @enderror" name="user_number" placeholder="+1 234 567 890" value="{{old('user_number')}}">
+                                    <input type="tel"   id="user_number" class="form-control  @error('user_number') is-invalid @enderror" name="user_number" placeholder="+1 234 567 890" value="{{old('user_number')}}">
                                         @error('user_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -310,7 +310,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="website_link">Website Link</label>
-                                    <input type="url"  required="" id="website_link" class="form-control  @error('website_link') is-invalid @enderror" name="website_link" placeholder="http://" value="{{old('website_link')}}">
+                                    <input type="url"   id="website_link" class="form-control  @error('website_link') is-invalid @enderror" name="website_link" placeholder="http://" value="{{old('website_link')}}">
                                         @error('website_link')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -321,7 +321,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="facebook">Facebook</label>
-                                    <input type="url"  required="" id="facebook" class="form-control  @error('facebook') is-invalid @enderror" name="facebook" placeholder="http://" value="{{old('facebook')}}">
+                                    <input type="url"   id="facebook" class="form-control  @error('facebook') is-invalid @enderror" name="facebook" placeholder="http://" value="{{old('facebook')}}">
                                         @error('facebook')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -332,7 +332,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="twitter">Twitter</label>
-                                    <input type="url"  required="" id="twitter" class="form-control  @error('twitter') is-invalid @enderror" name="twitter" placeholder="http://" value="{{old('twitter')}}">
+                                    <input type="url"   id="twitter" class="form-control  @error('twitter') is-invalid @enderror" name="twitter" placeholder="http://" value="{{old('twitter')}}">
                                         @error('twitter')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -343,7 +343,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="linkedin">Linkedin</label>
-                                    <input type="url"  required="" id="linkedin" class="form-control  @error('linkedin') is-invalid @enderror" name="linkedin" placeholder="http://" value="{{old('linkedin')}}">
+                                    <input type="url"   id="linkedin" class="form-control  @error('linkedin') is-invalid @enderror" name="linkedin" placeholder="http://" value="{{old('linkedin')}}">
                                         @error('linkedin')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -354,7 +354,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="instagram">Instagram</label>
-                                    <input type="url"  required="" id="instagram" class="form-control  @error('instagram') is-invalid @enderror" name="instagram" placeholder="http://" value="{{old('instagram')}}">
+                                    <input type="url"   id="instagram" class="form-control  @error('instagram') is-invalid @enderror" name="instagram" placeholder="http://" value="{{old('instagram')}}">
                                         @error('instagram')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -365,7 +365,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="youtube">Youtube</label>
-                                    <input type="url"  required="" id="youtube" class="form-control  @error('youtube') is-invalid @enderror" name="youtube" placeholder="http://" value="{{old('youtube')}}">
+                                    <input type="url"   id="youtube" class="form-control  @error('youtube') is-invalid @enderror" name="youtube" placeholder="http://" value="{{old('youtube')}}">
                                         @error('youtube')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -376,7 +376,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="telegram">Telegram</label>
-                                    <input type="url"  required="" id="telegram" class="form-control  @error('telegram') is-invalid @enderror" name="telegram" placeholder="http://" value="{{old('telegram')}}">
+                                    <input type="url"   id="telegram" class="form-control  @error('telegram') is-invalid @enderror" name="telegram" placeholder="http://" value="{{old('telegram')}}">
                                         @error('telegram')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -387,7 +387,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="discord">Discord</label>
-                                    <input type="url"  required="" id="discord" class="form-control  @error('discord') is-invalid @enderror" name="discord" placeholder="http://" value="{{old('discord')}}">
+                                    <input type="url"   id="discord" class="form-control  @error('discord') is-invalid @enderror" name="discord" placeholder="http://" value="{{old('discord')}}">
                                         @error('discord')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -428,7 +428,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="status">Select Status*</label>
-                                <select name="status" id="status" required="" class="form-control">
+                                <select name="status" id="status"  class="form-control">
                                     <option value="">Select Status</option>
                                     <option value="published" selected>Published</option>
                                     <option value="draft">Draft</option>
@@ -442,7 +442,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="user_id">Select Organizer*</label>
-                                <select name="user_id" id="user_id" required="" class="form-control">
+                                <select name="user_id" id="user_id" class="form-control">
                                     <option value="">Select Organizer</option>
                                     @foreach($users as $user)
                                         <option value="{{$user->id}}" {{(auth()->user()->id == $user->id) ? 'selected="selected"' : ''}}>{{$user->name}}</option>

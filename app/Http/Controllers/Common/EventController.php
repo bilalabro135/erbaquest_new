@@ -55,7 +55,9 @@ class EventController extends Controller
                 return $actionBtn;
             })
             ->addColumn('organizer', function ($row) {
-                return $row->organizer->value('name');
+                if($row->organizer != null){
+                    return $row->organizer->value('name');
+                }
             })
             ->rawColumns(['action'])
             ->toJson();

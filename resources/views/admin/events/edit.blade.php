@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="form-group">
                                     <label for="type">Type Of Event</label>
-                                    <!-- <input type="text"  required="" id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
+                                    <!-- <input type="text"  id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
 
                                     <select name="type" required="required" class="form-control">
                                         <option selected="selected">Type:</option>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-6 recurring_component">
                                     <label>Days Dropdown: {{ $event->day_dropdown  }}</label>
-                                    <select name="day" id="day" required="" class="form-control">
+                                    <select name="day" id="day" class="form-control">
                                         <option value="monday" @if($event->day_dropdown == 'monday') selected="selected" @endif>Monday</option>
                                         <option value="tuesday" @if($event->day_dropdown == 'tuesday') selected="selected" @endif>Tuesday</option>
                                         <option value="wednesday" @if($event->day_dropdown == 'wednesday') selected="selected" @endif>Wednesday</option>
@@ -121,7 +121,7 @@
 
                                 <div class="col-sm-12 col-md-6 recurring_component">
                                     <label>Recurring Type:</label>
-                                    <select name="recurring_type" id="recurring_type" required="" class="form-control">
+                                    <select name="recurring_type" id="recurring_type" class="form-control">
                                         <option value="weekly" @if($event->recurring_type == 'weekly') selected="selected" @endif>Weekly</option>
                                         <option value="monthly" @if($event->recurring_type == 'monthly') selected="selected" @endif >Monthly</option>
                                         <option value="yearly" @if($event->recurring_type == 'yearly') selected="selected" @endif>Yearly</option>
@@ -172,7 +172,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input type="text"  required="" id="address" class="form-control  @error('address') is-invalid @enderror" name="address" placeholder="Address" value="{{ (old('address')) ? old('address') : $event->address }}">
+                                    <input type="text" required=""  id="address" class="form-control  @error('address') is-invalid @enderror" name="address" placeholder="Address" value="{{ (old('address')) ? old('address') : $event->address }}">
                                         @error('address')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -183,7 +183,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="door_dontation">EXPECTED DOOR DONATION</label>
-                                    <input type="number"  required="" id="door_dontation" class="form-control  @error('door_dontation') is-invalid @enderror" name="door_dontation" placeholder="$100.00" value="{{ (old('door_dontation')) ? old('door_dontation') : $event->door_dontation }}">
+                                    <input type="number"  id="door_dontation" class="form-control  @error('door_dontation') is-invalid @enderror" name="door_dontation" placeholder="$100.00" value="{{ (old('door_dontation')) ? old('door_dontation') : $event->door_dontation }}">
                                         @error('door_dontation')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -194,7 +194,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vip_dontation">VIP DONATION</label>
-                                    <input type="number"  required="" id="vip_dontation" class="form-control  @error('vip_dontation') is-invalid @enderror" name="vip_dontation" placeholder="$10.0" value="{{ (old('vip_dontation')) ? old('vip_dontation') : $event->vip_dontation }}">
+                                    <input type="number"  id="vip_dontation" class="form-control  @error('vip_dontation') is-invalid @enderror" name="vip_dontation" placeholder="$10.0" value="{{ (old('vip_dontation')) ? old('vip_dontation') : $event->vip_dontation }}">
                                         @error('vip_dontation')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -205,7 +205,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vip_perk">VIP Perks</label>
-                                    <input type="text"  required="" id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="$10.0" value="{{ (old('vip_perk')) ? old('vip_perk') : $event->vip_perk }}">
+                                    <input type="text"  id="vip_perk" class="form-control  @error('vip_perk') is-invalid @enderror" name="vip_perk" placeholder="$10.0" value="{{ (old('vip_perk')) ? old('vip_perk') : $event->vip_perk }}">
                                         @error('vip_perk')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -216,7 +216,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="charity">Charity</label>
-                                    <input type="text"  required="" id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{ (old('charity')) ? old('charity') : $event->charity }}">
+                                    <input type="text"  id="charity" class="form-control  @error('charity') is-invalid @enderror" name="charity" placeholder="$10.0" value="{{ (old('charity')) ? old('charity') : $event->charity }}">
                                         @error('charity')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -227,7 +227,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="cost_of_vendor">Cost Of Vendor</label>
-                                    <input type="number"  required="" id="cost_of_vendor" class="form-control  @error('cost_of_vendor') is-invalid @enderror" name="cost_of_vendor" placeholder="$10.0" value="{{ (old('cost_of_vendor')) ? old('cost_of_vendor') : $event->cost_of_vendor }}">
+                                    <input type="number"  id="cost_of_vendor" class="form-control  @error('cost_of_vendor') is-invalid @enderror" name="cost_of_vendor" placeholder="$10.0" value="{{ (old('cost_of_vendor')) ? old('cost_of_vendor') : $event->cost_of_vendor }}">
                                         @error('cost_of_vendor')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -238,7 +238,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
                                     <label for="vendor_space_available">Vendor Space Available</label>
-                                    <input type="number"  required="" id="vendor_space_available" class="form-control  @error('vendor_space_available') is-invalid @enderror" name="vendor_space_available" placeholder="10" value="{{ (old('vendor_space_available')) ? old('vendor_space_available') : $event->vendor_space_available }}">
+                                    <input type="number"  id="vendor_space_available" class="form-control  @error('vendor_space_available') is-invalid @enderror" name="vendor_space_available" placeholder="10" value="{{ (old('vendor_space_available')) ? old('vendor_space_available') : $event->vendor_space_available }}">
                                         @error('vendor_space_available')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -249,9 +249,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="area">Area</label>
-                                    <!-- <input type="number"  required="" id="area" class="form-control  @error('area') is-invalid @enderror" name="area" placeholder="$10.0" value="{{old('area')}}">  -->
+                                    <!-- <input type="number"  id="area" class="form-control  @error('area') is-invalid @enderror" name="area" placeholder="$10.0" value="{{old('area')}}">  -->
 
-                                    <select name="area" id="area" required="" class="form-control">
+                                    <select name="area" id="area" class="form-control">
                                         <option value=""></option>
                                         @foreach($countries as $country)
                                             <option value="{{$country->name}}" {{(isset($event->area) && $event->area == $country->name) ? 'selected="selected"' : ''}}>{{$country->name}}</option>
@@ -279,7 +279,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="capacity">Capacity</label>
-                                    <!-- <input type="number"  required="" id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->
+                                    <!-- <input type="number"  id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->
                                     <input type="number" name="capacity" id="capacity" class="form-control" required="required" value="{{ $event->capacity }}">
                                     @error('capacity')
                                         <div class="text-danger">
@@ -291,9 +291,9 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="ATM_on_site">ATM On Site</label>
-                                    <!-- <input type="number"  required="" id="ATM_on_site" class="form-control  @error('ATM_on_site') is-invalid @enderror" name="ATM_on_site" placeholder="$10.0" value="{{old('ATM_on_site')}}">  -->
+                                    <!-- <input type="number"  id="ATM_on_site" class="form-control  @error('ATM_on_site') is-invalid @enderror" name="ATM_on_site" placeholder="$10.0" value="{{old('ATM_on_site')}}">  -->
 
-                                    <select name="ATM_on_site" id="ATM_on_site" required="" class="form-control">
+                                    <select name="ATM_on_site" id="ATM_on_site" class="form-control">
                                         <option value="Yes" selected {{(isset($event->ATM_on_site) && $event->ATM_on_site == "Yes") ? 'selected="selected"' : ''}}>Yes</option>
                                         <option value="No" {{(isset($event->ATM_on_site) && $event->ATM_on_site == "No") ? 'selected="selected"' : ''}}>No</option>
                                     </select>
@@ -308,7 +308,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="tickiting_number">Tickiting Number</label>
-                                    <input type="number"  required="" id="tickiting_number" class="form-control  @error('tickiting_number') is-invalid @enderror" name="tickiting_number" placeholder="$10.0" value="{{ (old('tickiting_number')) ? old('tickiting_number') : $event->tickiting_number }}">
+                                    <input type="number"  id="tickiting_number" class="form-control  @error('tickiting_number') is-invalid @enderror" name="tickiting_number" placeholder="$10.0" value="{{ (old('tickiting_number')) ? old('tickiting_number') : $event->tickiting_number }}">
                                         @error('tickiting_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -319,7 +319,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="vendor_number">Vendor Number</label>
-                                    <input type="number"  required="" id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{ (old('vendor_number')) ? old('vendor_number') : $event->vendor_number }}">
+                                    <input type="number"  id="vendor_number" class="form-control  @error('vendor_number') is-invalid @enderror" name="vendor_number" placeholder="+1 234 567 890" value="{{ (old('vendor_number')) ? old('vendor_number') : $event->vendor_number }}">
                                         @error('vendor_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -330,7 +330,7 @@
                                 <!-- <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="user_number">User Number</label>
-                                    <input type="tel"  required="" id="user_number" class="form-control  @error('user_number') is-invalid @enderror" name="user_number" placeholder="+1 234 567 890" value="{{ (old('user_number')) ? old('user_number') : $event->user_number }}">
+                                    <input type="tel"  id="user_number" class="form-control  @error('user_number') is-invalid @enderror" name="user_number" placeholder="+1 234 567 890" value="{{ (old('user_number')) ? old('user_number') : $event->user_number }}">
                                         @error('user_number')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -341,7 +341,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="website_link">Website Link</label>
-                                    <input type="url"  required="" id="website_link" class="form-control  @error('website_link') is-invalid @enderror" name="website_link" placeholder="http://" value="{{ (old('website_link')) ? old('website_link') : $event->website_link }}">
+                                    <input type="url"  id="website_link" class="form-control  @error('website_link') is-invalid @enderror" name="website_link" placeholder="http://" value="{{ (old('website_link')) ? old('website_link') : $event->website_link }}">
                                         @error('website_link')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -352,7 +352,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="facebook">Facebook</label>
-                                    <input type="url"  required="" id="facebook" class="form-control  @error('facebook') is-invalid @enderror" name="facebook" placeholder="http://" value="{{ (old('facebook')) ? old('facebook') : $event->facebook }}">
+                                    <input type="url"  id="facebook" class="form-control  @error('facebook') is-invalid @enderror" name="facebook" placeholder="http://" value="{{ (old('facebook')) ? old('facebook') : $event->facebook }}">
                                         @error('facebook')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -363,7 +363,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="twitter">Twitter</label>
-                                    <input type="url"  required="" id="twitter" class="form-control  @error('twitter') is-invalid @enderror" name="twitter" placeholder="http://" value="{{ (old('twitter')) ? old('twitter') : $event->twitter }}">
+                                    <input type="url"  id="twitter" class="form-control  @error('twitter') is-invalid @enderror" name="twitter" placeholder="http://" value="{{ (old('twitter')) ? old('twitter') : $event->twitter }}">
                                         @error('twitter')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -374,7 +374,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="linkedin">Linkedin</label>
-                                    <input type="url"  required="" id="linkedin" class="form-control  @error('linkedin') is-invalid @enderror" name="linkedin" placeholder="http://" value="{{ (old('linkedin')) ? old('linkedin') : $event->linkedin }}">
+                                    <input type="url"  id="linkedin" class="form-control  @error('linkedin') is-invalid @enderror" name="linkedin" placeholder="http://" value="{{ (old('linkedin')) ? old('linkedin') : $event->linkedin }}">
                                         @error('linkedin')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -385,7 +385,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="instagram">Instagram</label>
-                                    <input type="url"  required="" id="instagram" class="form-control  @error('instagram') is-invalid @enderror" name="instagram" placeholder="http://" value="{{ (old('instagram')) ? old('instagram') : $event->instagram }}">
+                                    <input type="url"  id="instagram" class="form-control  @error('instagram') is-invalid @enderror" name="instagram" placeholder="http://" value="{{ (old('instagram')) ? old('instagram') : $event->instagram }}">
                                         @error('instagram')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -396,7 +396,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="youtube">Youtube</label>
-                                    <input type="url"  required="" id="youtube" class="form-control  @error('youtube') is-invalid @enderror" name="youtube" placeholder="http://" value="{{ (old('youtube')) ? old('youtube') : $event->youtube }}">
+                                    <input type="url"  id="youtube" class="form-control  @error('youtube') is-invalid @enderror" name="youtube" placeholder="http://" value="{{ (old('youtube')) ? old('youtube') : $event->youtube }}">
                                         @error('youtube')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -407,7 +407,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="telegram">Telegram</label>
-                                    <input type="url"  required="" id="telegram" class="form-control  @error('telegram') is-invalid @enderror" name="telegram" placeholder="http://" value="{{ (old('telegram')) ? old('telegram') : $event->telegram }}">
+                                    <input type="url"  id="telegram" class="form-control  @error('telegram') is-invalid @enderror" name="telegram" placeholder="http://" value="{{ (old('telegram')) ? old('telegram') : $event->telegram }}">
                                         @error('telegram')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -418,7 +418,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="discord">Discord</label>
-                                    <input type="url"  required="" id="discord" class="form-control  @error('discord') is-invalid @enderror" name="discord" placeholder="http://" value="{{ (old('discord')) ? old('discord') : $event->discord }}">
+                                    <input type="url"  id="discord" class="form-control  @error('discord') is-invalid @enderror" name="discord" placeholder="http://" value="{{ (old('discord')) ? old('discord') : $event->discord }}">
                                         @error('discord')
                                             <div class="text-danger">
                                                 {{$message}}
