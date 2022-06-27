@@ -36,20 +36,20 @@ class EventRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'max:255',
-            'featured_image' => 'required',
+            'featured_image' => 'nullable',
             'gallery' => [
                 new GalleryRule()
             ],
             'event_date' => 'required_if:is_recurring,==,0|date',
-            'door_dontation' => 'required',
-            'vip_dontation' => 'required',
-            'vip_perk' => 'required',
-            'charity' => 'required',
+            'door_dontation' => 'nullable',
+            'vip_dontation' => 'nullable',
+            'vip_perk' => 'nullable',
+            'charity' => 'nullable',
             'area' => 'max:100',
             'capacity' => 'max:255',
             'ATM_on_site' => 'max:255',
-            'tickiting_number' => ['required', new Telephone()],
-            'vendor_number' => ['required', new Telephone()],
+            'tickiting_number' => ['nullable', new Telephone()],
+            'vendor_number' => ['nullable', new Telephone()],
             //'user_number' => ['required', new Telephone()],
             'website_link' => 'max:255',
             'facebook' => 'max:255',
@@ -57,8 +57,8 @@ class EventRequest extends FormRequest
             'linkedin' => 'max:255',
             'instagram' => 'max:255',
             'youtube' => 'max:255',
-            'status' => 'required',
-            'user_id' => 'required',
+            'status' => 'nullable',
+            'user_id' => 'nullable',
         ];
     }
 
