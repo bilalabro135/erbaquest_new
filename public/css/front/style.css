@@ -4223,7 +4223,16 @@ color: #ff0000;
     font-size: 14px;
     margin-right: 11px;
     text-transform: capitalize;
-    }
+}
+.eventTypeVal {
+  font-weight: 500;
+  margin-right: 5px;
+  display: inline-block;
+}
+.eventTypeVal:after {
+  content: ',';
+}
+
 
 
 

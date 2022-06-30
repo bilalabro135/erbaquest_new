@@ -59,6 +59,15 @@
                                 <input type="text" id="url" class="form-control" name="url" placeholder="Enter Url" value="{{old('url')}}">
                             </div>
 
+                            <div class="form-group">
+                                <label for="slidersponsor">Add in Slider</label>
+                                <input id="slidersponsor" type="checkbox" name="slidersponsor" />
+                            </div>
+                            <div class="form-group">
+                                <label for="featuredsponsor">Add in Featured</label>
+                                <input id="featuredsponsor" type="checkbox" name="featuredsponsor" />
+                            </div>
+
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary btn-block px-5">
                                     {{ __('Add') }}

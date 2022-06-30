@@ -66,6 +66,14 @@
                                 <input type="text" id="url" class="form-control" name="url" placeholder="Enter Url" value="{{ (old('url')) ? old('url') : $sponsor->external_url }}">
                             </div>
 
+                            <div class="form-group">
+                                <label for="slidersponsor">Add in Slider</label>
+                                <input id="slidersponsor" type="checkbox" name="slidersponsor" {{$sponsor->slidersponsor == 1 ? 'checked': '' }} />
+                            </div>
+                            <div class="form-group">
+                                <label for="featuredsponsor">Add in Featured</label>
+                                <input id="featuredsponsor" type="checkbox" name="featuredsponsor" {{$sponsor->featuredsponsor == 1 ? 'checked': '' }} />
+                            </div>
 
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary btn-block px-5">

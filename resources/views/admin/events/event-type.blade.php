@@ -97,7 +97,7 @@
 		         columns: [
 		                  { data: 'id', name: 'id', 'visible': false},
 		                  { data: 'name', name: 'name' },
-		                  { data: 'action', name: 'action', orderable: true,searchable: true}
+		                  { data: 'action', name: 'action'}
 		               ],
 		        order: [[0, 'desc']]
 		  });

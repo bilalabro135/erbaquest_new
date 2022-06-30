@@ -132,6 +132,8 @@ class EventController extends Controller
             $event->featured = $eventDetail['featured'];
             $event->save();
 
+
+            
             //vendors insertion
             $getVendors = Vendor::where("event_id",$id)->get();
             if(count($getVendors)){
@@ -172,7 +174,9 @@ class EventController extends Controller
         $event->recurring_type = $eventDetail['recurring_type'];
 
         $event->address = $eventDetail['address'];
-        $event->type = $eventDetail['type'];
+        
+        $event->type = json_encode($eventDetail['type']);
+
         $event->door_dontation = $eventDetail['door_dontation'];
         $event->vip_dontation = $eventDetail['vip_dontation'];
         $event->vip_perk = $eventDetail['vip_perk'];
@@ -197,6 +201,10 @@ class EventController extends Controller
         $event->featured = $eventDetail['featured'];
         $event->save();
 
+            
+        // if($request->has('type'))
+        //     $event->tyoesOfEvents()->attach($request->tyoesOfEvents);
+        
         if($request->has('vendors'))
             $event->vendors()->attach($request->vendors);
 
@@ -256,12 +264,20 @@ class EventController extends Controller
                 );
             }
         }
+        if($event->type != 'null'){
+            $event->type = json_decode($event->type, true);
+        }
+        // echo "<pre>";
+        // print_r($event->type);
+        // exit();
         return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews','vendorProfiles'));
     }
 
     public function update(EventRequest $request, Event $event)
     {
         $eventDetail = $request->getEventData();
+
+       
         //dd($eventDetail);
         $event->update([
             'name' =>  $eventDetail['name'],
@@ -274,7 +290,7 @@ class EventController extends Controller
             'day_dropdown' =>  $eventDetail['day'],
             'recurring_type' =>  $eventDetail['recurring_type'],
             'address' =>  $eventDetail['address'],
-            'type' =>  $eventDetail['type'],
+            'type' =>  json_encode($eventDetail['type']),
             'door_dontation' =>  $eventDetail['door_dontation'],
             'vip_dontation' =>  $eventDetail['vip_dontation'],
             'vip_perk' =>  $eventDetail['vip_perk'],
@@ -428,17 +444,23 @@ class EventController extends Controller
 
         $image_names = [];
         // loop through images and save to /uploads directory
-        foreach ($request->file('gallery') as $image) {
-            $name = $image->getClientOriginalName();
-            $image->move(public_path().'/uploads/', $name);
-            $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+        if(isset($request->gallery)){
+            foreach ($request->file('gallery') as $image) {
+                $name = $image->getClientOriginalName();
+                $image->move(public_path().'/uploads/', $name);
+                $image_names[] = array('url' =>  'uploads/' . $name, 'alt' => '');
+            }
+            $event->gallery = serialize($image_names);
         }
-        $event->gallery = serialize($image_names);
+        
 
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
         $event->address = $eventDetail['address'];
-        $event->type = $eventDetail['type'];
+        // $event->type = $eventDetail['type'];
+
+        $event->type = json_encode($eventDetail['type']);
+
         $event->door_dontation = $eventDetail['door_dontation'];
         $event->vip_dontation = $eventDetail['vip_dontation'];
         $event->vip_perk = $eventDetail['vip_perk'];
@@ -546,7 +568,10 @@ class EventController extends Controller
                 'day_dropdown' => $getevents['day_dropdown'],
                 'recurring_type' => $getevents['recurring_type'],
                 'address' => $getevents['address'],
-                'type' => $getevents['type'],
+                
+                // 'type' => $getevents['type'],
+                'type' =>  json_encode($getevents['type']),
+
                 'door_dontation' => $getevents['door_dontation'],
                 'vip_dontation' => $getevents['vip_dontation'],
                 'vip_perk' => $getevents['vip_perk'],
@@ -736,7 +761,9 @@ class EventController extends Controller
             $baseUrl = config('app.url')."events/".$event->id;
             return redirect($baseUrl);
         }
-
+        echo '<pre>';
+        print_r($event->type);
+        exit;
         return Redirect::route('pages.show', ['pages' => 'events'])->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
@@ -747,6 +774,8 @@ class EventController extends Controller
         if ($event) {
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
         }
+
+
         abort(404);
     }
 
@@ -873,8 +902,9 @@ class EventController extends Controller
             }
           }
         }
-
+        
         if ($event != null) {
+            $event->type = json_decode($event->type);
             return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
         }
         abort(404);
@@ -916,19 +946,31 @@ class EventController extends Controller
         $model = EventType::query();
         return DataTables::eloquent($model)
         ->addColumn('action', function($row){
+            // print_r($row);
+            // exit();
              $actionBtn = '';
-                if(Bouncer::can('updateEventType')){
-                    $actionBtn .='<a href="' . route('event.type.edit', ['event_type' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
-                }
-                if(Bouncer::can('deleteEventType')){
-                $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('event.type.delete', ['event_type' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
-                }
+                // if(Bouncer::can('updateEventType')){
+                    $actionBtn .='<a href="' . route('event.type.edit', ['eventtype' => $row->id]) . '" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
+                // }
+                // if(Bouncer::can('deleteEventType')){
+                $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="' .route('event.type.delete', ['eventtype' => $row->id]). '"><i class="fas fa-trash-alt"></i></a>';
+                // }
                 return $actionBtn;
         })
 
         ->rawColumns(['action'])
         ->toJson();
     }
+
+    public function editeventtype($id)
+    {
+        $eventType = EventType::where('id', $id)->first();
+        if ($eventType) {
+            return view('admin.events.edit-event-type', compact('eventType'));
+        }
+        abort(404);
+    }
+
 
     public function storeeventtype(EventTypeRequest $request)
     {
@@ -938,16 +980,10 @@ class EventController extends Controller
         return back()->with(['msg' => 'Event Type Inserted', 'msg_type' => 'success']);
     }
 
-    public function editeventtype(EventType $EventType)
-    {
-        return view('admin.events.edit-event-type', compact('event_type'));
-    }
 
     public function updateeventtype(EventTypeRequest $request, EventType $EventType)
     {
-        $event_type->update([
-            'name' => $request->name,
-        ]);
+        EventType::where('id', $request->id)->update(['name' => $request->name]);
         return Redirect::route('event.type')->with(['msg' => 'Event Type Updated', 'msg_type' => 'success']);
     }
     public function destroyeeventtype($id)

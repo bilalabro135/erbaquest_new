@@ -57,6 +57,18 @@
                                             </div>
                                         @endif
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="event_date">Event Time</label>
+                                        <input type="time"  id="event_time" class="form-control  @error('event_time') is-invalid @enderror" name="event_time" placeholder="Enter Event Name*" value="{{old('event_time')}}">
+                                        @error('event_date')
+                                            <div class="text-danger">
+                                                {{$message}}
+                                            </div>
+                                        @endif
+                                    </div>
+                                    
+
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <label for="featured_image">Featured Image</label>
@@ -134,12 +146,21 @@
                                     <div class="form-group">
                                     <label for="type">Type Of Event</label>
                                     <!-- <input type="text"  id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
-                                    <select name="type" class="form-control">
-                                        <option selected="selected">Type:</option>
-                                        @foreach($tyoesOfEvents as $tyoesOfEvent)
-                                        <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
-                                        @endforeach
+                                   
+                                    
+                                    <select class="js-example-basic-multiple form-control" name="type[]" multiple="multiple">
+                                        @if($tyoesOfEvents)
+                                            @foreach($tyoesOfEvents as $tyoesOfEvent)
+                                            <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
+                                            @endforeach
+                                            @error('tyoesOfEvent')
+                                            <div class="text-danger">
+                                                {{$message}}
+                                            </div>
+                                            @endif
+                                        @endif
                                     </select>
+
                                         @error('type')
                                             <div class="text-danger">
                                                 {{$message}}
@@ -571,6 +592,9 @@
                 $("#event_date").prop( "disabled", false );
             }
         });
+    });
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
     });
 </script>
 @endsection

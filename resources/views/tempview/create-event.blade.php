@@ -142,12 +142,22 @@
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
-                    <select name="type" value="{{ old('type') }}">
-                        <option value="">Type:</option>
-                        @foreach($tyoesOfEvents as $tyoesOfEvent)
-                        <option value="{{$tyoesOfEvent['name']}}" @if($tyoesOfEvent['name'] == old('type') ) selected="selected" @endif>{{$tyoesOfEvent['name']}}</option>
-                        @endforeach
+                    
+
+                    <select class="js-example-basic-multiple form-control" name="type[]" multiple="multiple">
+                        @if($tyoesOfEvents)
+                            @foreach($tyoesOfEvents as $tyoesOfEvent)
+                            <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
+                            @endforeach
+                            @error('tyoesOfEvent')
+                            <div class="text-danger">
+                                {{$message}}
+                            </div>
+                            @endif
+                        @endif
                     </select>
+
+
                     @error('type')
                         <div class="text-danger">
                             {{$message}}

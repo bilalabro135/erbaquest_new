@@ -220,8 +220,9 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/events/type-event', [EventController::class, 'typeeventindex'])->name('event.type')->middleware('role:viewEvents');
     Route::get('/events/type-event/get', [EventController::class, 'geteventtype'])->name('event.type.get')->middleware('role:viewEvents');
     Route::post('/events/type-event/add', [EventController::class, 'storeeventtype'])->name('event.type.store')->middleware('role:addAreas');
-    Route::get('/events/{eventtype:id}/edit/', [EventController::class, 'editeventtype'])->name('event.type.edit')->middleware('role:updateEventType');
-    Route::get('/events/{eventtype:id}/delete', [EventController::class, 'destroy'])->name('event.type.delete')->middleware('role:deleteEventType');
+    Route::get('/events/{eventtype:id}/eventedit', [EventController::class, 'editeventtype'])->name('event.type.edit');
+    Route::get('/events/{eventtype:id}/eventdelete', [EventController::class, 'destroyeeventtype'])->name('event.type.delete');
+    Route::post('/events/eventtypeupdate', [EventController::class, 'updateeventtype'])->name('event.type.update');
 
     // Sponsors
     Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors')->middleware('role:viewSponsors');

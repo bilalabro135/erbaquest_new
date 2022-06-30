@@ -12,9 +12,8 @@
 
 
          <div class="row">
-         	@can('updateAreas')
 		    	<div class="col-md-12">
-		    		<form class="user" action="{{route('areas.update', ['area' => $area->id])}}" method="POST">
+		    		<form class="user" action="{{route('event.type.update')}}" method="POST">
 		    			@csrf
 		    		<div class="card shadow">
 		    			<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -26,7 +25,8 @@
 				            	<div class="col-md-12">		            		
 					            	<div class="form-group">
 					            		<label for="name">Name*</label>
-					            		<input type="text" required="" name="name" value="{{ (old('name')) ? old('name') : $area->name }}" id="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">
+										<input type="hidden" name="id" value="{{ $eventType->id }}">
+					            		<input type="text" required="" name="name" value="{{ (old('name')) ? old('name') : $eventType->name }}" id="name" placeholder="Name" class="form-control @error('name') is-invalid @enderror">
 					            		@error('name')
 					            			{{$message}}
 					            		@enderror
@@ -42,7 +42,6 @@
 		    		</div>
 			    	</form>
 		    	</div>
-         	@endcan
 
          </div>
 

@@ -164,12 +164,29 @@
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
 
-                    <select name="type">
-                        <option selected="selected">Type: </option>
-                        @foreach($tyoesOfEvents as $tyoesOfEvent)
-                          <option value="{{$tyoesOfEvent['name']}}" @if($tyoesOfEvent['name'] == $data['type'] ) selected="selected" @endif>{{$tyoesOfEvent['name']}}</option>
-                        @endforeach
+                   
+
+                    <select class="js-example-basic-multiple" name="type[]" multiple="multiple">
+                      @if($tyoesOfEvents)
+                          @foreach($tyoesOfEvents as $tyoesOfEvent)
+                              @if($tyoesOfEvent->type != 'null')
+                                  <?php
+                                  $selected = '';
+                                  if(in_array($tyoesOfEvent['name'], $tyoesOfEvent->type) === TRUE){
+                                      $selected = "selected='selected'";
+                                  }
+                                  ?>
+                                  <option value="{{$tyoesOfEvent['name']}}" {{ $selected }}>{{$tyoesOfEvent['name']}}</option>
+                              @endif
+                          @endforeach
+                          @error('tyoesOfEvent')
+                          <div class="text-danger">
+                              {{$message}}
+                          </div>
+                          @endif
+                      @endif
                     </select>
+
                     @error('type')
                         <div class="text-danger">
                             {{$message}}

@@ -328,10 +328,17 @@
               	<iframe src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q={{$event->address}}&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
               </div>
               <p>{{$event->address}}</p>
-              @if($event->type != null)
-              <h4>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></h4>
-              <p class="clr-green mb-40">{{$event->type}}</p>
+
+            
+
+              @if(count($event->type))
+                <h4>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></h4>
+                @foreach($event->type as $type)
+                  <span class="eventTypeVal clr-green mb-40">{{$type}}</span>
+                @endforeach
               @endif
+
+
               @if($event->door_dontation != null)
               <h4>EXPECTED DOOR DONATION: <span class="figure"><img src="{{asset('images/icons/icon15.png')}}"></span></h4>
               <p class="clr-green mb-40">${{$event->door_dontation}}</p>

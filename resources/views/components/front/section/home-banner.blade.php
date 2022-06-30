@@ -43,15 +43,17 @@
       </div>
       <div class="logos">
         <ul class="owl-carousel owl-theme">
-          @foreach($sponsors as $sponsor)
-          <li class="item">
-            @if($sponsor->external_url)
-                <a target="_blank" href="{{ $sponsor->external_url }}"><img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}"></a>
-            @else
-                <img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}">
+            @foreach($sponsors as $sponsor)
+            @if($sponsor->slidersponsor)
+            <li class="item">
+              @if($sponsor->external_url)
+                  <a target="_blank" href="{{ $sponsor->external_url }}"><img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}"></a>
+              @else
+                  <img src="{{asset($sponsor->featured_image)}}" alt="{{asset($sponsor->featured_image)}}">
+              @endif
+            </li>
             @endif
-          </li>
-          @endforeach
+            @endforeach
         </ul>
       </div>
     </div>

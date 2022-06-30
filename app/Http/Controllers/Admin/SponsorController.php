@@ -48,6 +48,12 @@ class SponsorController extends Controller
         $sponsor->featured_image = str_replace(env('APP_URL'),"",$request->featured_image) ;
         $sponsor->order = $request->order;
         $sponsor->external_url = $request->url;
+        if(isset($request->slidersponsor )) {
+            $sponsor->slidersponsor = 1;
+        }
+        if(isset($request->featuredsponsor )) {
+            $sponsor->featuredsponsor = 1;
+        }
         $sponsor->save();
         return Redirect::route('sponsors')->with(['msg' => 'Sponsor Inserted', 'msg_type' => 'success']);
     }
@@ -59,11 +65,23 @@ class SponsorController extends Controller
 
     public function update(SponsorRequest $request, Sponsor $sponsor)
     {
+        $slidersponsor = 0;
+        $featuredsponsor = 0;
+        if(isset($request->slidersponsor )) {
+            $slidersponsor = 1;
+        }
+        if(isset($request->featuredsponsor )) {
+            $featuredsponsor = 1;
+        }
+
+      
         $sponsor->update([
             'name' => $request->name,
             'featured_image' => str_replace(env('APP_URL'),"",$request->featured_image),
             'order' => $request->order,
             'external_url' => $request->url,
+            'slidersponsor' => $slidersponsor,
+            'featuredsponsor' => $featuredsponsor,
         ]);
 
         return Redirect::route('sponsors')->with(['msg' => 'Sponsor Updated', 'msg_type' => 'success']);

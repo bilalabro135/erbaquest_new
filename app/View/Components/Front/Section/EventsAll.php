@@ -38,7 +38,7 @@ class EventsAll extends Component
         $user = Auth::user();
         $search    = (app('request')->input('search')) ? app('request')->input('search') : '';
         $location    = (app('request')->input('location')) ? app('request')->input('location') : '';
-        $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : '';
+        $sort    = (app('request')->input('sort')) ? app('request')->input('sort') : 'event_date';
         $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
 
@@ -91,7 +91,7 @@ class EventsAll extends Component
                     }
                 }
                 $user_data = User::where("id","=",$getevent['user_id'])->first();
-                if($user_data['profile_image']){
+                if(isset($user_data['profile_image'])){
                     $profile_image = env('APP_URL') .$user_data['profile_image'];
                 }else{
                     $profile_image = "";

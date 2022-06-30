@@ -72,12 +72,29 @@
                                     <label for="type">Type Of Event</label>
                                     <!-- <input type="text"  id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
 
-                                    <select name="type" required="required" class="form-control">
-                                        <option selected="selected">Type:</option>
-                                        @foreach($tyoesOfEvents as $tyoesOfEvent)
-                                        <option value="{{$tyoesOfEvent['name']}}" {{(isset($event->type) && $event->type == $tyoesOfEvent['name']) ? 'selected="selected"' : ''}}>{{$tyoesOfEvent['name']}}</option>
-                                        @endforeach
+
+                                    <select class="js-example-basic-multiple form-control" name="type[]" multiple="multiple">
+                                        @if($tyoesOfEvents)
+                                            @foreach($tyoesOfEvents as $tyoesOfEvent)
+                                                @if($event->type != 'null')
+                                                    <?php
+                                                    $selected = '';
+                                                    if(in_array($tyoesOfEvent['name'], $event->type) === TRUE){
+                                                        $selected = "selected='selected'";
+                                                    }
+                                                    ?>
+                                                    <option value="{{$tyoesOfEvent['name']}}" {{ $selected }}>{{$tyoesOfEvent['name']}}</option>
+                                                @endif
+                                            @endforeach
+                                            @error('tyoesOfEvent')
+                                            <div class="text-danger">
+                                                {{$message}}
+                                            </div>
+                                            @endif
+                                        @endif
                                     </select>
+
+                               
 
                                         @error('type')
                                             <div class="text-danger">
@@ -268,7 +285,7 @@
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                     <label for="height">Height</label>
-                                    <input type="text" name="height" id="height" class="form-control" value="{{ $event->height }}" required="required">
+                                    <input type="text" name="height" id="height" class="form-control" value="{{ $event->height }}">
                                     @error('height')
                                         <div class="text-danger">
                                             {{$message}}
@@ -280,7 +297,7 @@
                                     <div class="form-group">
                                     <label for="capacity">Capacity</label>
                                     <!-- <input type="number"  id="capacity" class="form-control  @error('capacity') is-invalid @enderror" name="capacity" placeholder="$10.0" value="{{old('capacity')}}">   -->
-                                    <input type="number" name="capacity" id="capacity" class="form-control" required="required" value="{{ $event->capacity }}">
+                                    <input type="number" name="capacity" id="capacity" class="form-control" value="{{ $event->capacity }}">
                                     @error('capacity')
                                         <div class="text-danger">
                                             {{$message}}
@@ -769,6 +786,9 @@
                 $("#event_date").prop( "disabled", false );
             }
         });
+    });
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
     });
 </script>
 @endsection
