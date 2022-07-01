@@ -57,7 +57,7 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}" required="required">
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" value="{{ $data['featured_image'] }}">
                     @error('featured_image')
                         <div class="text-danger">
                             {{$message}}
@@ -84,7 +84,50 @@
                         </div>
                     </div>
 
-                  <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
+                  
+                  <div class="col-sm-12 col-md-6 input-field input-date">
+                    <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
+                    <input type="date" name="event_date" required="required" value="{{ $data['event_date'] }}" @if($data['is_recurring']) disabled="disabled" @endif>
+                    @error('event_date')
+                        <div class="text-danger">
+                            {{$message}}
+                        </div>
+                    @endif
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field input-time">
+                    <label>Time: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
+                    <input type="time" name="event_time" value="{{ $data['event_time'] }}">
+                    @error('event_date')
+                        <div class="text-danger">
+                            {{$message}}
+                        </div>
+                    @endif
+                  </div>
+
+                  <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
+                        <label>Days Dropdown: <span class="figure"><img src=""></span></label>
+                        <select name="day" id="day" required="" class="form-control">
+                            <option value="monday" @if( $data["day_dropdown"] == "monday") selected="selected"  @endif>Monday</option>
+                            <option value="tuesday" @if( $data["day_dropdown"] == "tuesday") selected="selected"  @endif>Tuesday</option>
+                            <option value="wednesday" @if( $data["day_dropdown"] == "wednesday") selected="selected"  @endif>Wednesday</option>
+                            <option value="thursday" @if( $data["day_dropdown"] == "thursday") selected="selected"  @endif>Thursday</option>
+                            <option value="friday" @if( $data["day_dropdown"] == "friday") selected="selected"  @endif>Friday</option>
+                            <option value="saturday" @if( $data["day_dropdown"] == "saturday") selected="selected"  @endif>Saturday</option>
+                            <option value="sunday" @if( $data["day_dropdown"] == "sunday") selected="selected"  @endif>Sunday</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
+                        <label>Recurring Type: <span class="figure"><img src=""></span></label>
+                        <select name="recurring_type" id="recurring_type" required="" class="form-control">
+                            <option value="weekly" @if( $data["recurring_type"] == "weekly") selected="selected"  @endif>Weekly</option>
+                            <option value="monthly" @if( $data["recurring_type"] == "monthly") selected="selected"  @endif>Monthly</option>
+                            <option value="yearly" @if( $data["recurring_type"] == "yearly") selected="selected"  @endif>Yearly</option>
+                        </select>
+                    </div>
+
+                  <div class="col-sm-12 col-md-12 input-field input-file drop-zonemul">
                     <label>GALLERY PICTURES:
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
                       <div class="preview1">
@@ -106,37 +149,8 @@
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field input-date">
-                    <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
-                    <input type="date" name="event_date" required="required" value="{{ $data['event_date'] }}" @if($data['is_recurring']) disabled="disabled" @endif>
-                    @error('event_date')
-                        <div class="text-danger">
-                            {{$message}}
-                        </div>
-                    @endif
-                  </div>
 
-                    <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
-                        <label>Days Dropdown: <span class="figure"><img src=""></span></label>
-                        <select name="day" id="day" required="" class="form-control">
-                            <option value="monday" @if( $data["day_dropdown"] == "monday") selected="selected"  @endif>Monday</option>
-                            <option value="tuesday" @if( $data["day_dropdown"] == "tuesday") selected="selected"  @endif>Tuesday</option>
-                            <option value="wednesday" @if( $data["day_dropdown"] == "wednesday") selected="selected"  @endif>Wednesday</option>
-                            <option value="thursday" @if( $data["day_dropdown"] == "thursday") selected="selected"  @endif>Thursday</option>
-                            <option value="friday" @if( $data["day_dropdown"] == "friday") selected="selected"  @endif>Friday</option>
-                            <option value="saturday" @if( $data["day_dropdown"] == "saturday") selected="selected"  @endif>Saturday</option>
-                            <option value="sunday" @if( $data["day_dropdown"] == "sunday") selected="selected"  @endif>Sunday</option>
-                        </select>
-                    </div>
-
-                    <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
-                        <label>Recurring Type: <span class="figure"><img src=""></span></label>
-                        <select name="recurring_type" id="recurring_type" required="" class="form-control">
-                            <option value="weekly" @if( $data["recurring_type"] == "weekly") selected="selected"  @endif>Weekly</option>
-                            <option value="monthly" @if( $data["recurring_type"] == "monthly") selected="selected"  @endif>Monthly</option>
-                            <option value="yearly" @if( $data["recurring_type"] == "yearly") selected="selected"  @endif>Yearly</option>
-                        </select>
-                    </div>
+                    
 
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
@@ -169,14 +183,14 @@
                     <select class="js-example-basic-multiple" name="type[]" multiple="multiple">
                       @if($tyoesOfEvents)
                           @foreach($tyoesOfEvents as $tyoesOfEvent)
-                              @if($tyoesOfEvent->type != 'null')
-                                  <?php
-                                  $selected = '';
-                                  if(in_array($tyoesOfEvent['name'], $tyoesOfEvent->type) === TRUE){
-                                      $selected = "selected='selected'";
-                                  }
-                                  ?>
-                                  <option value="{{$tyoesOfEvent['name']}}" {{ $selected }}>{{$tyoesOfEvent['name']}}</option>
+                              @if($data['type'] != null)
+                                @if(in_array($tyoesOfEvent['name'], $data['type']) === TRUE)
+                                    <option value="{{$tyoesOfEvent['name']}}" selected="selected">{{$tyoesOfEvent['name']}}</option>
+                                @else
+                                    <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>    
+                                @endif
+                              @else
+                                <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option> 
                               @endif
                           @endforeach
                           @error('tyoesOfEvent')

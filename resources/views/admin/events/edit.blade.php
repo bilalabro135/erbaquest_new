@@ -1,4 +1,3 @@
-
 @extends('layouts.admin.app', ['title' => 'Edit Event'])
 
 @section('head')
@@ -68,6 +67,13 @@
                                             </div>
                                         @endif
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="event_date">Event Time</label>
+                                        <!-- <input @if($event->event_time) @endif type="date"  required="" id="event_date" class="form-control  name="event_time" placeholder="Enter Event Name*" value="{{ (old('event_time')) ? old('event_time') : $event->event_time }}"> -->
+                                        <input type="time" id="event_time" class="form-control " name="event_time" placeholder="Enter Event Name*" value="{{ (old('event_time')) ? old('event_time') : $event->event_time }}">
+                                    </div>
+
                                     <div class="form-group">
                                     <label for="type">Type Of Event</label>
                                     <!-- <input type="text"  id="type" class="form-control  @error('type') is-invalid @enderror" name="type" placeholder="Enter Event Name*" value="{{old('type')}}">    -->
@@ -76,15 +82,15 @@
                                     <select class="js-example-basic-multiple form-control" name="type[]" multiple="multiple">
                                         @if($tyoesOfEvents)
                                             @foreach($tyoesOfEvents as $tyoesOfEvent)
-                                                @if($event->type != 'null')
-                                                    <?php
-                                                    $selected = '';
-                                                    if(in_array($tyoesOfEvent['name'], $event->type) === TRUE){
-                                                        $selected = "selected='selected'";
-                                                    }
-                                                    ?>
-                                                    <option value="{{$tyoesOfEvent['name']}}" {{ $selected }}>{{$tyoesOfEvent['name']}}</option>
-                                                @endif
+                                                @if($event->type != null)
+                                                    @if(in_array($tyoesOfEvent['name'], $event->type) === TRUE)
+                                                        <option value="{{$tyoesOfEvent['name']}}" selected="selected">{{$tyoesOfEvent['name']}}</option>
+                                                    @else
+                                                        <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>    
+                                                    @endif
+                                                @else
+                                                    <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>   
+                                                @endif    
                                             @endforeach
                                             @error('tyoesOfEvent')
                                             <div class="text-danger">

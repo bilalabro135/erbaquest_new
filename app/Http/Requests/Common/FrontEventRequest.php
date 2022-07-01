@@ -82,6 +82,7 @@ class FrontEventRequest extends FormRequest
             'gallery' => $this->get('gallery'),
             'description' => ($this->has('description')) ? $this->get('description') : null ,
             'event_date' => $this->get('event_date'),
+            'event_time' => $this->get('event_time'),
             'is_recurring' => $this->get('is_recurring'),
             'day' => $this->get('day'),
             'recurring_type' => $this->get('recurring_type'),

@@ -18,6 +18,7 @@ class Event extends Model
         'description',
         'gallery',
         'event_date',
+        'event_time',
         'is_recurring',
         'day_dropdown',
         'recurring_type',

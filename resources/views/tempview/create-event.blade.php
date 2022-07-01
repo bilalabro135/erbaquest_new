@@ -72,23 +72,21 @@
                           </label>
                       </div>
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field input-file drop-zonemul">
-                    <label>GALLERY PICTURES: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
-                    <button type="button" class="upload_img_btn" id="uploadImg1">
-                      <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
-                      <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
-                    </button>
-                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple>
-                    @error('gallery')
+                  
+                  <div class="col-sm-12 col-md-6 input-field input-date">
+                    <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
+                    <input type="date" name="event_date" required="required" value="{{ old('event_date') }}">
+                    @error('event_date')
                         <div class="text-danger">
                             {{$message}}
                         </div>
                     @endif
                   </div>
-                  <div class="col-sm-12 col-md-6 input-field input-date">
-                    <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
-                    <input type="date" name="event_date" required="required" value="{{ old('event_date') }}">
-                    @error('event_date')
+
+                  <div class="col-sm-12 col-md-6 input-field input-time">
+                    <label>Time: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
+                    <input type="time" name="event_time" value="{{ old('event_time') }}">
+                    @error('event_time')
                         <div class="text-danger">
                             {{$message}}
                         </div>
@@ -116,6 +114,20 @@
                             <option value="yearly">Yearly</option>
                         </select>
                     </div>
+
+                    <div class="col-sm-12 col-md-12 input-field input-file drop-zonemul">
+                    <label>GALLERY PICTURES: <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span><div class="preview1"></div></label>
+                    <button type="button" class="upload_img_btn" id="uploadImg1">
+                      <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
+                      <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
+                    </button>
+                    <input type="file" id="myFile1" name="gallery[]" class="upload_file upload_file_multi" multiple>
+                    @error('gallery')
+                        <div class="text-danger">
+                            {{$message}}
+                        </div>
+                    @endif
+                  </div>
 
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">

@@ -168,6 +168,7 @@ class EventController extends Controller
         $event->gallery = $eventDetail['gallery'];
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
+        $event->event_time = $eventDetail['event_time'];
 
         $event->is_recurring = $eventDetail['is_recurring'];
         $event->day_dropdown = $eventDetail['day'];
@@ -175,7 +176,7 @@ class EventController extends Controller
 
         $event->address = $eventDetail['address'];
         
-        $event->type = json_encode($eventDetail['type']);
+        $event->type = ($eventDetail['type']) ? json_encode($eventDetail['type']) : '';
 
         $event->door_dontation = $eventDetail['door_dontation'];
         $event->vip_dontation = $eventDetail['vip_dontation'];
@@ -216,6 +217,7 @@ class EventController extends Controller
 
     public function edit(Event $event)
     {
+       // dd($event);
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
         $amenities = Amenity::all();
@@ -264,12 +266,19 @@ class EventController extends Controller
                 );
             }
         }
-        if($event->type != 'null'){
-            $event->type = json_decode($event->type, true);
+
+        if($event->type != null){
+            $jsonDecode = json_decode($event->type, true);
+            if(!$jsonDecode){
+                $event->type =  array($event->type); 
+            }else{
+                $event->type =  $jsonDecode;
+            }
         }
-        // echo "<pre>";
-        // print_r($event->type);
-        // exit();
+
+
+
+
         return view('admin.events.edit', compact('users', 'vendors', 'event', 'amenities', 'tyoesOfEvents','countries','sendReviews','vendorProfiles'));
     }
 
@@ -277,8 +286,7 @@ class EventController extends Controller
     {
         $eventDetail = $request->getEventData();
 
-       
-        //dd($eventDetail);
+
         $event->update([
             'name' =>  $eventDetail['name'],
             'slug' =>  $eventDetail['slug'],
@@ -286,11 +294,12 @@ class EventController extends Controller
             'gallery' =>  $eventDetail['gallery'],
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],
+            'event_time' =>  $eventDetail['event_time'],
             'is_recurring' =>  $eventDetail['is_recurring'],
             'day_dropdown' =>  $eventDetail['day'],
             'recurring_type' =>  $eventDetail['recurring_type'],
             'address' =>  $eventDetail['address'],
-            'type' =>  json_encode($eventDetail['type']),
+            'type' =>  ($eventDetail['type']) ? json_encode($eventDetail['type']) : null,
             'door_dontation' =>  $eventDetail['door_dontation'],
             'vip_dontation' =>  $eventDetail['vip_dontation'],
             'vip_perk' =>  $eventDetail['vip_perk'],
@@ -456,6 +465,7 @@ class EventController extends Controller
 
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
+        $event->event_time = $eventDetail['event_time'];
         $event->address = $eventDetail['address'];
         // $event->type = $eventDetail['type'];
 
@@ -514,6 +524,7 @@ class EventController extends Controller
 
     public function frontedit(Event $event)
     {
+
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
         $users = Auth::user();
@@ -526,6 +537,8 @@ class EventController extends Controller
         }
 
         $users->role = $userRole['role_id'];
+
+
 
         return view('tempview.edit-event', compact('events','profile_image','users'));
     }
@@ -552,10 +565,20 @@ class EventController extends Controller
         $AuthUsers = Auth::user();
 
         $getevents  =  Event::where('user_id', $AuthUsers['id'])->findorFail($id);
-        //dd($getevents);
+
         $data = array();
         if($getevents){
             $gallery_data = unserialize($getevents['gallery']);
+            
+            if($getevents['type'] != null){
+                $jsonDecode = json_decode($getevents['type'], true);
+                if(!$jsonDecode){
+                    $getevents['type'] =  array($getevents['type']); 
+                }else{
+                    $getevents['type'] =  $jsonDecode;
+                }
+            }
+
             $data = array(
                 'id' => $getevents['id'],
                 'name' => $getevents['name'],
@@ -564,13 +587,14 @@ class EventController extends Controller
                 'description' => $getevents['description'],
                 'gallery' => $gallery_data,
                 'event_date' => $getevents['event_date'],
+                'event_time' => $getevents['event_time'],
                 'is_recurring' => $getevents['is_recurring'],
                 'day_dropdown' => $getevents['day_dropdown'],
                 'recurring_type' => $getevents['recurring_type'],
                 'address' => $getevents['address'],
                 
                 // 'type' => $getevents['type'],
-                'type' =>  json_encode($getevents['type']),
+                'type' => $getevents['type'],
 
                 'door_dontation' => $getevents['door_dontation'],
                 'vip_dontation' => $getevents['vip_dontation'],
@@ -599,7 +623,7 @@ class EventController extends Controller
                 'updated_at' => $getevents['updated_at'],
                 'deleted_at' => $getevents['deleted_at'],
             );
-        };
+        }
 
         $getSelectedVendorIds = Vendor::where("event_id",$getevents['id'])->get();
         $setectedvendor = array();
@@ -683,6 +707,7 @@ class EventController extends Controller
     public function frontupdate(FrontEventRequest $request, Event $event)
     {
         $eventDetail = $request->getEventData();
+
         $featured_image = ($eventDetail['featured_image'] != '') ? str_replace(env('APP_URL'),"",$eventDetail['featured_image']) : $event->featured_image;
 
         $gallery = ($eventDetail['gallery'] != '') ? $eventDetail['gallery'] : $event->gallery;
@@ -709,6 +734,7 @@ class EventController extends Controller
             'gallery' =>  $gallery,
             'description' =>  $eventDetail['description'],
             'event_date' =>  $eventDetail['event_date'],
+            'event_time' =>  $eventDetail['event_time'],
             'is_recurring' => $eventDetail['is_recurring'],
             'day_dropdown' => $eventDetail['day'],
             'recurring_type' => $eventDetail['recurring_type'],
@@ -761,9 +787,7 @@ class EventController extends Controller
             $baseUrl = config('app.url')."events/".$event->id;
             return redirect($baseUrl);
         }
-        echo '<pre>';
-        print_r($event->type);
-        exit;
+
         return Redirect::route('pages.show', ['pages' => 'events'])->with(['msg' => 'Event Updated', 'msg_type' => 'success']);
     }
 
@@ -904,7 +928,17 @@ class EventController extends Controller
         }
         
         if ($event != null) {
-            $event->type = json_decode($event->type);
+            
+            if($event->type != null){
+                $jsonDecode = json_decode($event->type, true);
+                if(!$jsonDecode){
+                    $event->type =  array($event->type); 
+                }else{
+                    $event->type =  $jsonDecode;
+                }
+            }
+
+            
             return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
         }
         abort(404);

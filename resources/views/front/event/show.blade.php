@@ -323,6 +323,14 @@
               @if(!$event->is_recurring)
                 <p><span class="dt-tag">{{date('m-d-Y', strtotime($event['event_date']))}}</span></p>
                @endif
+              @if($event->event_time)
+               <h4 class="date_head">Time: <i class="fas fa-clock"></i></h4>
+              @endif
+              <div class="clearfix"></div> 
+              @if($event->event_time)
+                <p><span class="dt-tag">{{date('h:i A', strtotime($event['event_time']))}}</span></p>
+              @endif
+
               <h4>ADDRESS: <i class="fas fa-map-marker-alt"></i></h4>
               <div class="mapFrame">
               	<iframe src="https://maps.google.com/maps?width=100%25&height=400&hl=en&q={{$event->address}}&t=&z=14&ie=UTF8&iwloc=B&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -330,8 +338,7 @@
               <p>{{$event->address}}</p>
 
             
-
-              @if(count($event->type))
+              @if($event->type != null)
                 <h4>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></h4>
                 @foreach($event->type as $type)
                   <span class="eventTypeVal clr-green mb-40">{{$type}}</span>
