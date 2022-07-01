@@ -192,7 +192,7 @@ class EventController extends Controller
         $event->vendor_number = $eventDetail['vendor_number'];
         $event->user_number = $eventDetail['user_number'];
         $event->website_link = $eventDetail['website_link'];
-        $event->user_id = $eventDetail['user_id'];
+        $event->user_id = ($eventDetail['user_id']) ? $eventDetail['user_id'] : 1;
         $event->facebook = $eventDetail['facebook'];
         $event->twitter = $eventDetail['twitter'];
         $event->linkedin = $eventDetail['linkedin'];
