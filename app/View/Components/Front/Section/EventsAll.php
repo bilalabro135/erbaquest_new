@@ -42,7 +42,7 @@ class EventsAll extends Component
         $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
 
-        $event->whereDate('event_date', '>', $now);
+        //$event->whereDate('event_date', '>', $now);
 
         if($this->past  != false)
             
@@ -83,34 +83,36 @@ class EventsAll extends Component
         $events = array();
         if( count($getevents) ){
             foreach ($getevents as $getevent) {
-                $isWishList = 0;
-                if($user){
-                    $wishlistExist = WishLists::where('event_id', '=', $getevent['id'])->where('user_id', '=', $user->id)->first();
-                    if ($wishlistExist !== null) {
-                        $isWishList = 1;
+                if($getevent['event_date'] > $now || $getevent['is_recurring']){
+                    $isWishList = 0;
+                    if($user){
+                        $wishlistExist = WishLists::where('event_id', '=', $getevent['id'])->where('user_id', '=', $user->id)->first();
+                        if ($wishlistExist !== null) {
+                            $isWishList = 1;
+                        }
                     }
+                    $user_data = User::where("id","=",$getevent['user_id'])->first();
+                    if(isset($user_data['profile_image'])){
+                        $profile_image = env('APP_URL') .$user_data['profile_image'];
+                    }else{
+                        $profile_image = "";
+                    }
+                    $events[] = array(
+                        'id' => $getevent['id'],
+                        'name' => $getevent['name'],
+                        'slug' => $getevent['slug'],
+                        'isWishList' => $isWishList,
+                        'featured_image' => $getevent['featured_image'],
+                        'description' => $getevent['description'],
+                        'event_date' => $getevent['event_date'],
+                        'area' => $getevent['area'],
+                        'user_profile' => $profile_image,
+                        'is_recurring' => $getevent['is_recurring'],
+                        'day_dropdown' => $getevent['day_dropdown'],
+                        'recurring_type' => $getevent['recurring_type'],
+                        'featured'     =>   $getevent['featured'],
+                    );       
                 }
-                $user_data = User::where("id","=",$getevent['user_id'])->first();
-                if(isset($user_data['profile_image'])){
-                    $profile_image = env('APP_URL') .$user_data['profile_image'];
-                }else{
-                    $profile_image = "";
-                }
-                $events[] = array(
-                    'id' => $getevent['id'],
-                    'name' => $getevent['name'],
-                    'slug' => $getevent['slug'],
-                    'isWishList' => $isWishList,
-                    'featured_image' => $getevent['featured_image'],
-                    'description' => $getevent['description'],
-                    'event_date' => $getevent['event_date'],
-                    'area' => $getevent['area'],
-                    'user_profile' => $profile_image,
-                    'is_recurring' => $getevent['is_recurring'],
-                    'day_dropdown' => $getevent['day_dropdown'],
-                    'recurring_type' => $getevent['recurring_type'],
-                    'featured'     =>   $getevent['featured'],
-                );
             }
         }
         $this->selectedParameter = $explodeAm;

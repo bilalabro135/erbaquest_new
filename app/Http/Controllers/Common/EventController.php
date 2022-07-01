@@ -852,7 +852,6 @@ class EventController extends Controller
     public function show(Pages $pages, $id)
     {
         $event = Event::where('id', $id)->first();
-
         $user = Auth::user();
         $InWishList = 0;
         if($user){
@@ -939,7 +938,7 @@ class EventController extends Controller
             }
 
             
-            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
+
         }
         abort(404);
     }

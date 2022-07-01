@@ -1559,7 +1559,7 @@ text-overflow: ellipsis;
 }
 
 .SortFilter {
-  display: flex;
+//  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
@@ -1582,6 +1582,7 @@ text-overflow: ellipsis;
 
 .input-field.customDropdown {
   position: relative;
+  float: right;
 }
 
 .input-field.customDropdown:after {
@@ -4820,4 +4821,7 @@ color: #ff0000;
   }
   .dis_image{
     display: block !important; 
+  }
+  .SortFilter p{
+    display: none;
   }
