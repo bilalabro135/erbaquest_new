@@ -314,7 +314,7 @@ class EventController extends Controller
             'vendor_number' =>  $eventDetail['vendor_number'],
             'user_number' =>  $eventDetail['user_number'],
             'website_link' =>  $eventDetail['website_link'],
-            'user_id' =>  $eventDetail['user_id'],
+            'user_id' =>  ($eventDetail['user_id']) ? $eventDetail['user_id'] : 1,
             'facebook' =>  $eventDetail['facebook'],
             'twitter' =>  $eventDetail['twitter'],
             'linkedin' =>  $eventDetail['linkedin'],
