@@ -937,8 +937,7 @@ class EventController extends Controller
                 }
             }
 
-            
-
+            return view('front.event.show', compact('event', 'pages','action_edit','action_status','action_delete','InWishList','sendReviews','vendorProfiles'));
         }
         abort(404);
     }
