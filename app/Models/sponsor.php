@@ -14,7 +14,7 @@ class Sponsor extends Model
         'featured_image',
         'order',
         'external_url',
-        'slidersponsor',
+        'slidersponsor', 
         'featuredsponsor'
     ];
 }
