@@ -63,7 +63,7 @@ class SubscriptionController extends Controller
            $unit = 'months';//strtolower($package['reccuring_every'])."s";
            $intervalLength =  1;
            $totalcycles = 9999;//$package['duration'];
-           $start_date = date('Y-m-d');
+           $start_date = Carbon::now()->addMonths(1);
            $card_number = str_replace(' ', '', $request->cardNumber);
            $expiry_date = $expityYear."-".$request->expMonth;
            $first_name = $request['cardname'];
@@ -83,7 +83,7 @@ class SubscriptionController extends Controller
             $interval->setUnit($unit);
             $paymentSchedule = new AnetAPI\PaymentScheduleType();
             $paymentSchedule->setInterval($interval);
-            $paymentSchedule->setStartDate(new Carbon($start_date));
+            $paymentSchedule->setStartDate($start_date);
             $paymentSchedule->setTotalOccurrences($totalcycles);
             //$paymentSchedule->setTrialOccurrences("1");
             $subscription->setPaymentSchedule($paymentSchedule);
