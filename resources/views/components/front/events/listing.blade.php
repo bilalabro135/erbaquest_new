@@ -25,7 +25,7 @@
 
         <p class="tags">
           @if( $event['featured'] )
-            <span>Fetured</span>
+            <span>Featured</span>
           @endif
         </p>
       </div>

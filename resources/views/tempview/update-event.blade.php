@@ -84,7 +84,7 @@
                         </div>
                     </div>
 
-                  
+
                   <div class="col-sm-12 col-md-6 input-field input-date">
                     <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
                     <input type="date" name="event_date" required="required" value="{{ $data['event_date'] }}" @if($data['is_recurring']) disabled="disabled" @endif>
@@ -150,7 +150,7 @@
                     @endif
                   </div>
 
-                    
+
 
                   <div class="col-sm-12 col-md-6">
                     <div class="input-field input-locate">
@@ -178,7 +178,7 @@
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
 
-                   
+
 
                     <select class="js-example-basic-multiple" name="type[]" multiple="multiple">
                       @if($tyoesOfEvents)
@@ -187,10 +187,10 @@
                                 @if(in_array($tyoesOfEvent['name'], $data['type']) === TRUE)
                                     <option value="{{$tyoesOfEvent['name']}}" selected="selected">{{$tyoesOfEvent['name']}}</option>
                                 @else
-                                    <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>    
+                                    <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
                                 @endif
                               @else
-                                <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option> 
+                                <option value="{{$tyoesOfEvent['name']}}">{{$tyoesOfEvent['name']}}</option>
                               @endif
                           @endforeach
                           @error('tyoesOfEvent')
@@ -245,7 +245,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>COST TO VEND: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
-                        <input type="text" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ $data['cost_of_vendor'] }}">
+                        <input type="text" name="cost_of_vendor" placeholder="$30.0" value="{{ $data['cost_of_vendor'] }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
                                 {{$message}}
@@ -328,7 +328,7 @@
 
                   <div class="col-sm-12 col-md-6 input-field customDropdown">
                     <label>AREA: <span class="figure"><img src="{{asset('images/icons/icon5.png')}}"></span></label>
-                    <select name="area" id="area" required="" class="form-control">
+                    <select name="area" id="area" class="form-control">
                         <option value="">Select Location</option>
                         @foreach($countries as $country)
                             <option value="{{$country->name}}" @if($country->name == $data['area'] ) selected="selected" @endif>{{$country->name}}</option>

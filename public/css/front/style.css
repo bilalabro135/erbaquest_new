@@ -1953,13 +1953,15 @@ ul.vipGuest li {
   list-style: none;
   padding: 0;
   margin-bottom: 0;
-  display: flex;
+  //display: flex;
   margin-top: 20px;
   /*justify-content: center;*/
 }
 
 .social-box ul li {
   margin-right: 14px;
+    float:left;
+    margin-bottom: 10px;
 }
 
 .social-box ul li a {
@@ -4437,7 +4439,7 @@ color: #ff0000;
   .input-field.input-submit input, .input-field.input-submit button {
     font-size: 16px;
   }
-  .front_event_create .input-field.input-submit button.preview_btn, 
+  .front_event_create .input-field.input-submit button.preview_btn,
   .front_event_update .input-field.input-submit button.preview_btn {
     width: 235px;
   }
@@ -4820,7 +4822,7 @@ color: #ff0000;
     padding-top: 56px;
   }
   .dis_image{
-    display: block !important; 
+    display: block !important;
   }
   .SortFilter p{
     display: none;

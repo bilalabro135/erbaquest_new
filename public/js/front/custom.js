@@ -48,14 +48,14 @@ if (place.geometry.viewport) {
   place.formatted_address;
   infowindow.open(map, marker);
 });
-  google.maps.event.addDomListener(input, 'keydown', function(event) { 
-    if (event.keyCode === 13) { 
-        event.preventDefault(); 
+  google.maps.event.addDomListener(input, 'keydown', function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
     }
   });
 }
 
-// Edit Map 
+// Edit Map
 function editMap() {
   const map = new google.maps.Map(document.getElementById("edit_googlemap"), {
     center: { lat: 40.749933, lng: -73.98633 },
@@ -104,9 +104,9 @@ if (place.geometry.viewport) {
   place.formatted_address;
   infowindow.open(map, marker);
 });
-  google.maps.event.addDomListener(input, 'keydown', function(event) { 
-    if (event.keyCode === 13) { 
-        event.preventDefault(); 
+  google.maps.event.addDomListener(input, 'keydown', function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
     }
   });
 }
@@ -156,7 +156,6 @@ $(function() {
     rules: {
       name: "required",
       featured_image: {
-        required: true,
         extension: "png|jpg|jpeg",
         maxfilesize: 2,
       },
@@ -175,7 +174,7 @@ $(function() {
       // vip_dontation: "required",
       // vip_perk: "required",
       // charity: "required",
-      cost_of_vendor: "required",
+      //cost_of_vendor: "required",
       // vendor_list: "required",
       // vendor_space_available: "required",
       // amenities: "required",
@@ -220,7 +219,6 @@ $(function() {
     messages: {
       name: "The name field is required.",
       featured_image: {
-        required:"The FEATURED PICTURE field is required.",
         extension:"Please use .PNG .JPG .JPEG format",
         maxfilesize:"File size must be less than 2MB",
       },
@@ -236,7 +234,7 @@ $(function() {
       //vip_dontation: "The Date field is required.",
       //vip_perk: "The VIP PERKS field is required.",
       //charity: "The CHARITY field is required.",
-      cost_of_vendor: "The COST TO VEND field is required.",
+      //cost_of_vendor: "The COST TO VEND field is required.",
       // vendor_list: "The VENDOR field is required.",
       //vendor_space_available: "The VENDOR SPACES AVAILABLE field is required.",
       // amenities: "The AMENTIES field is required.",
@@ -287,7 +285,7 @@ $(function() {
       //vip_dontation: "required",
       //vip_perk: "required",
       //charity: "required",
-      cost_of_vendor: "required",
+      //cost_of_vendor: "required",
       // vendor_list: "required",
       // vendor_space_available: "required",
       // amenities: "required",
@@ -338,7 +336,7 @@ $(function() {
       //vip_dontation: "The Date field is required.",
       //vip_perk: "The VIP PERKS field is required.",
       //charity: "The CHARITY field is required.",
-      cost_of_vendor: "The COST TO VEND field is required.",
+      //cost_of_vendor: "The COST TO VEND field is required.",
       // vendor_list: "The VENDOR field is required.",
       //vendor_space_available: "The VENDOR SPACES AVAILABLE field is required.",
       // amenities: "The AMENTIES field is required.",
@@ -459,7 +457,7 @@ $(function(){
         required: true,
         email: true
       },
-      
+
     },
     messages: {
       first_name: "The name first name is required.",
@@ -483,7 +481,7 @@ $(function(){
       speed: "required",
       quality: "required",
       price: "required",
-      comment: "required",  
+      comment: "required",
     },
     messages: {
       speed: "This field is required.",

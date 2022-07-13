@@ -19,11 +19,13 @@
             </h3>
             <p class="event_detail_text">{!!$event->description!!}</p>
           </div>
-          <div class="col-sm-12 col-md-6">
-            <figure class="m-0">
-              <img src="{{asset($event->featured_image)}}">
-            </figure>
-          </div>
+          @if($event->featured_image)
+              <div class="col-sm-12 col-md-6">
+                <figure class="m-0">
+                  <img src="{{asset($event->featured_image)}}">
+                </figure>
+              </div>
+          @endif
         </div>
         <?php
         	$gallery = $event->gallery;
@@ -326,7 +328,7 @@
               @if($event->event_time)
                <h4 class="date_head">Time: <i class="fas fa-clock"></i></h4>
               @endif
-              <div class="clearfix"></div> 
+              <div class="clearfix"></div>
               @if($event->event_time)
                 <p><span class="dt-tag">{{date('h:i A', strtotime($event['event_time']))}}</span></p>
               @endif
@@ -337,7 +339,7 @@
               </div>
               <p>{{$event->address}}</p>
 
-            
+
               @if($event->type != null)
                 <h4>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></h4>
                 @foreach($event->type as $type)
@@ -406,6 +408,11 @@
             <div class="social-box">
               <h4>SOCIAL LINKS:</h4>
               <ul>
+                @if($event->website_link != null)
+                  <li>
+                    <a href="{{$event->website_link}}" target="_blank"><i class="fas fa-link"></i></a>
+                  </li>
+                @endif
               	@if($event->instagram != null)
                 <li>
                 	<a href="{{$event->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -441,6 +448,7 @@
                 	<a href="{{$event->discord}}" target="_blank"><i class="fab fa-discord"></i></a>
                 </li>
                 @endif
+                  <div class="clearfix"></div>
               </ul>
             </div>
           </div>

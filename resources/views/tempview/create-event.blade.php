@@ -47,7 +47,7 @@
                       <span class="figure"><img src="{{asset('images/uploadIcon.png')}}"></span>
                       <span class="txt">Click Here to Upload File or <span class="clr-green">Browse</span></span>
                     </button>
-                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input" required="required">
+                    <input type="file" id="myFile" name="featured_image" class="upload_file drop-zone__input">
                     @error('featured_image')
                         <div class="text-danger">
                             {{$message}}
@@ -72,7 +72,7 @@
                           </label>
                       </div>
                   </div>
-                  
+
                   <div class="col-sm-12 col-md-6 input-field input-date">
                     <label>DATE: <span class="figure"><img src="{{asset('images/icons/icon12.png')}}"></span></label>
                     <input type="date" name="event_date" required="required" value="{{ old('event_date') }}">
@@ -154,7 +154,7 @@
                   </div>
                   <div class="col-sm-12 col-md-6 customDropdown input-field">
                     <label>TYPE OF EVENT: <span class="figure"><img src="{{asset('images/icons/icon14.png')}}"></span></label>
-                    
+
 
                     <select class="js-example-basic-multiple form-control" name="type[]" multiple="multiple">
                         @if($tyoesOfEvents)
@@ -214,7 +214,7 @@
                       </div>
                       <div class="input-field input-half">
                         <label>COST TO VEND: <span class="figure"><img src="{{asset('images/icons/icon17.png')}}"></span></label>
-                        <input type="number" name="cost_of_vendor" placeholder="$30.0" required="required" value="{{ old('cost_of_vendor') }}">
+                        <input type="number" name="cost_of_vendor" placeholder="$30.0" value="{{ old('cost_of_vendor') }}">
                         @error('cost_of_vendor')
                             <div class="text-danger">
                                 {{$message}}

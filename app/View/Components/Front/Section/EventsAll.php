@@ -24,7 +24,7 @@ class EventsAll extends Component
     public $past;
     public function __construct()
     {
-    
+
     }
 
     /**
@@ -42,10 +42,9 @@ class EventsAll extends Component
         $amenities    = (app('request')->input('amenities')) ? app('request')->input('amenities') : '';
         $event = Event::where('status', 'published');
 
-        //$event->whereDate('event_date', '>', $now);
 
-        if($this->past  != false)
-            
+        //if($this->past  != false)
+            //$event->whereDate('event_date', '>', $now);
 
         if ($search != '')
             $event->where('name', 'LIKE', "%{$search}%");
@@ -111,7 +110,7 @@ class EventsAll extends Component
                         'day_dropdown' => $getevent['day_dropdown'],
                         'recurring_type' => $getevent['recurring_type'],
                         'featured'     =>   $getevent['featured'],
-                    );       
+                    );
                 }
             }
         }

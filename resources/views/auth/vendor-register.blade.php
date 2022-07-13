@@ -18,9 +18,9 @@
     <div class="card o-hidden border-0 pb-100 pt-100">
         <div class="card-body p-0">
             <div class="sign_btns text-center mb-40">
-              <a href="{{ route('register') }}" class="btn-custom showEventSignup">Event Organizer</a>
+              <a href="{{ route('register') }}" class="btn-custom showEventSignup">Become a Goonie</a>
               @if(count($packages))
-              <a href="{{ route('vendor.register') }}" class="btn-custom active_style showvendorSignup">Vendor</a>
+              <a href="{{ route('vendor.register') }}" class="btn-custom active_style showvendorSignup">Verified Brands</a>
               @endif
             </div>
         </div>

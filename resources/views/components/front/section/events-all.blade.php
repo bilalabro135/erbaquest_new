@@ -30,9 +30,13 @@
                          @endif
                       </div>
                       <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
-                        <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
+                          @if($event['featured_image'])
+                            <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
+                          @else
+                            <img src="{{asset('images/placeholder.jpg')}}" alt="{{$event['name']}}">
+                          @endif
                       </a>
-                      <div class="author">
+                       <div class="author">
                         <p>{{$event['area']}}</p>
                         @if(!empty($event['user_profile']))
                         <div class="figure">

@@ -133,7 +133,7 @@ class EventController extends Controller
             $event->save();
 
 
-            
+
             //vendors insertion
             $getVendors = Vendor::where("event_id",$id)->get();
             if(count($getVendors)){
@@ -175,7 +175,7 @@ class EventController extends Controller
         $event->recurring_type = $eventDetail['recurring_type'];
 
         $event->address = $eventDetail['address'];
-        
+
         $event->type = ($eventDetail['type']) ? json_encode($eventDetail['type']) : '';
 
         $event->door_dontation = $eventDetail['door_dontation'];
@@ -202,10 +202,10 @@ class EventController extends Controller
         $event->featured = $eventDetail['featured'];
         $event->save();
 
-            
+
         // if($request->has('type'))
         //     $event->tyoesOfEvents()->attach($request->tyoesOfEvents);
-        
+
         if($request->has('vendors'))
             $event->vendors()->attach($request->vendors);
 
@@ -270,7 +270,7 @@ class EventController extends Controller
         if($event->type != null){
             $jsonDecode = json_decode($event->type, true);
             if(!$jsonDecode){
-                $event->type =  array($event->type); 
+                $event->type =  array($event->type);
             }else{
                 $event->type =  $jsonDecode;
             }
@@ -447,9 +447,17 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $eventDetail['name'] ;
         $event->slug = $eventDetail['slug'] ;
-        $fname = $request->file('featured_image')->getClientOriginalName();
-        $request->file('featured_image')->move(public_path().'/uploads/', $fname);
-        $event->featured_image =  'uploads/' . $fname;
+        if($request->file('featured_image')){
+            $fname = $request->file('featured_image')->getClientOriginalName();
+            $request->file('featured_image')->move(public_path().'/uploads/', $fname);
+            $event->featured_image =  'uploads/' . $fname;
+        }else{
+            $fname = "";
+            $event->featured_image =  "";
+        }
+
+
+
 
         $image_names = [];
         // loop through images and save to /uploads directory
@@ -461,7 +469,7 @@ class EventController extends Controller
             }
             $event->gallery = serialize($image_names);
         }
-        
+
 
         $event->description = $eventDetail['description'];
         $event->event_date = $eventDetail['event_date'];
@@ -569,11 +577,11 @@ class EventController extends Controller
         $data = array();
         if($getevents){
             $gallery_data = unserialize($getevents['gallery']);
-            
+
             if($getevents['type'] != null){
                 $jsonDecode = json_decode($getevents['type'], true);
                 if(!$jsonDecode){
-                    $getevents['type'] =  array($getevents['type']); 
+                    $getevents['type'] =  array($getevents['type']);
                 }else{
                     $getevents['type'] =  $jsonDecode;
                 }
@@ -592,7 +600,7 @@ class EventController extends Controller
                 'day_dropdown' => $getevents['day_dropdown'],
                 'recurring_type' => $getevents['recurring_type'],
                 'address' => $getevents['address'],
-                
+
                 // 'type' => $getevents['type'],
                 'type' => $getevents['type'],
 
@@ -925,13 +933,13 @@ class EventController extends Controller
             }
           }
         }
-        
+
         if ($event != null) {
-            
+
             if($event->type != null){
                 $jsonDecode = json_decode($event->type, true);
                 if(!$jsonDecode){
-                    $event->type =  array($event->type); 
+                    $event->type =  array($event->type);
                 }else{
                     $event->type =  $jsonDecode;
                 }

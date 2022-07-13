@@ -14,7 +14,7 @@
                 <div class="sign_btns text-center mb-40">
                   <a href="javascript:;" class="btn-custom active_style showEventSignup">Become a Goonie</a>
                   @if(count($packages))
-                  <a href="{{ route('vendor.register') }}" class="btn-custom showvendorSignup">Vendor</a>
+                  <a href="{{ route('vendor.register') }}" class="btn-custom showvendorSignup">Verified Brands</a>
                   @endif
                 </div>
                 <p class="goonieText">The Goonie account is a free user account. With this account you will be able to create events, and leave reviews without a monthly subscription. </p>
@@ -63,10 +63,10 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <div class="row form-group">
-                                    
+
                                     <div class="col-sm-12 mb-3 mb-sm-0 input-field">
                                         <label>Address</label>
                                         <input id="address" type="text" class="form-control form-control-user @error('address') is-invalid @enderror" name="address" value="{{ old('username') }}" autocomplete="address" autofocus placeholder="Address">
@@ -137,9 +137,9 @@
 <!-- <script src="https://js.stripe.com/v3/"></script> -->
 
 <script>
-    $(document).ready(function(){  
-        $('.phone_mask').mask('(999)-999-9999'); 
-    }); 
+    $(document).ready(function(){
+        $('.phone_mask').mask('(999)-999-9999');
+    });
     // Create a Stripe client.
 // var stripe = Stripe('{{ env("STRIPE_KEY") }}');
 
@@ -212,7 +212,7 @@
 //   hiddenInput.setAttribute('value', token.id);
 //   form.appendChild(hiddenInput);
 
-  
+
 //   form.submit();
 // }
     $(document).ready(function() {
@@ -224,14 +224,14 @@
             {
              $(this).parent('label').removeClass('active');
             }
-           
+
        });
 
       //  $('#btn_next').on('click',function() {
       //   if ($('#plan').val() != '') {
       //     $('.payment_div').removeClass('d-none');
       //     $('.secSignup').removeClass('d-none');
-      //     $('.secSponsor').removeClass('pb-100');          
+      //     $('.secSponsor').removeClass('pb-100');
       //   }
       //   else{
       //     alert('Please Select A Package To Continue');
