@@ -766,7 +766,7 @@ text-overflow: ellipsis;
 .rcVendor-list ul li {
   max-width: 16.5%;
   flex: 17%;
-  height: 175px;
+ // height: 175px;
   display: flex;
   align-items: center;
   justify-content: center;
