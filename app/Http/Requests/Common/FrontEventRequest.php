@@ -37,7 +37,8 @@ class FrontEventRequest extends FormRequest
             'name' => 'required|max:255',
             'slug' => 'max:255',
             'featured_image' => 'dimensions:min_width=500,min_height=500|exclude_if:checkevent,update',
-            'gallery' => 'exclude_if:checkevent,update',
+            'gallery' => 'array|max:2000',
+            'gallery.*' => 'image|mimes:jpg,jpeg,png|max:2000',
             'event_date' => 'required_if:is_recurring,==,0|date', //is_recurring
             // 'door_dontation' => 'required',
             // 'vip_dontation' => 'required',

@@ -156,13 +156,14 @@ $(function() {
     rules: {
       name: "required",
       featured_image: {
+        required: false,
         extension: "png|jpg|jpeg",
         maxfilesize: 2,
       },
       'gallery[]': {
         required: false,
         extension: "png|jpg|jpeg",
-        maxfilesize: 2,
+          maxfilesize: 2,
       },
       event_date: {
         required: true,
@@ -219,6 +220,7 @@ $(function() {
     messages: {
       name: "The name field is required.",
       featured_image: {
+        required:"The FEATURED PICTURE field is required.",
         extension:"Please use .PNG .JPG .JPEG format",
         maxfilesize:"File size must be less than 2MB",
       },
