@@ -3621,7 +3621,7 @@ button.delete-event:hover:after {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.event-box_list p{
+.event-box_list .txt{
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
