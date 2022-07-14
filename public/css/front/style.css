@@ -766,12 +766,16 @@ text-overflow: ellipsis;
 .rcVendor-list ul li {
   max-width: 16.5%;
   flex: 17%;
- // height: 175px;
+   //height: 175px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-right: 1px solid #3c7f4d;
   border-bottom: 1px solid #3c7f4d;
+    overflow: hidden;
+}
+.rcVendor-list a{
+    height: 180px;
 }
 
 .rcVendor-list ul.btm-list {
@@ -3376,11 +3380,11 @@ div#card-element {
 }
 
 .rcVendor-list ul li img {
-  height: 100%;
-  width: 100%;
-  padding: 30px;
-  -o-object-fit: scale-down;
-     object-fit: scale-down;
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+    -o-object-fit: contain;
+    object-fit: contain;
 }
 
 .topbar ul li a {
