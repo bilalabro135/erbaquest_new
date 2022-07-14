@@ -6,7 +6,7 @@
       <h3 class="ft-blanka vc_heading text-center clr-white">Upcoming Events</h3>
     @endif
     <div class="row event-grids">
-        <x-front.events.listing limit="1" upcoming="true"/>
+        <x-front.events.listing limit="4" upcoming="true"/>
     </div>
   </div>
 </section>

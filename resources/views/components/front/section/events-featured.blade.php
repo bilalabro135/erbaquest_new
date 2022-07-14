@@ -6,7 +6,7 @@
           <h3 class="ft-blanka vc_heading vc_heading-green text-center">Featured Events</h3>
         @endif
         <div class="row event-grids">
-          <x-front.events.listing featured="true" limit="6" />
+          <x-front.events.listing featured="true" limit="4" />
         </div>
       </div>
     </section>

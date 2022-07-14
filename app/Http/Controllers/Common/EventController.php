@@ -835,7 +835,7 @@ class EventController extends Controller
         $events = Event::where('status', 'published');
 
         if (isset($request->featured) && $request->featured != 'false') {
-            $events->where('is_featured', 1);
+            $events->where('featured', 1);
         }
         if(isset($request->upcoming) && $request->upcoming  != 'false')
             $events->whereDate('event_date', '>', $now) ;

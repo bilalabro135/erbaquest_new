@@ -26,9 +26,10 @@ class EventsFeatured extends Component
     public function render()
     {
         $component = Components::where('name', 'events-featured')->first();
+
         $this->fields = (isset($component->fields)) ? unserialize($component->fields) : array();
 
-        if (!empty($component)) 
+        if (!empty($component))
             return view('components.front.section.events-featured');
     }
 }
