@@ -469,10 +469,142 @@
                         </div>
                     @endif
                   </div>
-                  <div class="input-field input-submit">
+                  <div class="input-field input-submit my-three-btn">
                     <input class="event_status" type="hidden" name="status" value="">
                     <button class="btn-custom preview_btn" type="button">PREVIEW AND DRAFT</button>
                     <button class="btn-custom update_submit_btn" type="button">SUBMIT</button>
+                  </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Generate Ticket</h5>
+                        <button type="button" class="btn close text-dark">X</button>
+                      </div>
+                      <div class="modal-body p-4 row">
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Total tickets available:<span class="figure"></label>
+                          <input type="number" name="total" value="{{$tickets->total}}">
+                          @error('total')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Ticket price:<span class="figure"></span></label>
+                          <input type="text" name="price" value="{{$tickets->price}}">
+                          @error('price')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>User quantity<span class="figure"></span></label>
+                          <input type="number" name="qty"  value="{{$tickets->qty}}">
+                          @error('qty')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Discount code<span class="figure"></span></label>
+                          <input type="text" name="discount_code" value="{{$tickets->discount_code}}">
+                          @error('discount_code')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Discount percentage <span class="figure"></span></label>
+                          <input type="text" name="discount_percentage" value="{{$tickets->discount_percentage}}">
+                          @error('discount_percentage')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Max utilization<span class="figure"></span></label>
+                          <input type="number" name="max_utilization" value="{{$tickets->max_utilization}}">
+                          @error('max_utilization')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Start date<span class="figure"></span></label>
+                          <input type="date" name="start_date" value="{{$tickets->start_date}}">
+                          @error('start_date')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>End date<span class="figure"></span></label>
+                          <input type="date" name="end_date" value="{{$tickets->end_date}}">
+                          @error('end_date')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>VIP ticket<span class="figure"></span></label>
+                          <input type="text" name="vip_ticket" value="{{$tickets->vip_ticket}}">
+                          @error('vip_ticket')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>Total VIP tickets<span class="figure"></span></label>
+                          <input type="number" name="total_vip" value="{{$tickets->total_vip}}">
+                          @error('total_vip')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>VIP ticket price<span class="figure"></span></label>
+                          <input type="text" name="vip_ticket_price" value="{{$tickets->vip_ticket_price}}">
+                          @error('vip_ticket_price')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-6 input-field mt-4">
+                          <label>User quantity to buy today<span class="figure"></span></label>
+                          <input type="number" name="user_qty" value="{{$tickets->user_qty}}">
+                          @error('user_qty')
+                              <div class="text-danger">
+                                  {{$message}}
+                              </div>
+                          @endif
+                        </div>
+                        <div class="col-sm-12 col-md-12 input-field mt-4 customDropdown">
+                          <label>Status<span class="figure"></span></label>
+                          <select name="ticket_status" class="form-control">
+                              <option disabled>--Please select--</option>
+                              <option value="published" @if( $tickets["status"] == "publish") selected @endif>Publish</option>
+                              <option value="draft" @if( $tickets["status"] == "draft") selected @endif>Draft</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer modal-footer-btn">
+                        <button type="button" class="btn btn-success close text-light">Save</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               <!-- </form> -->
@@ -507,6 +639,13 @@
                   $(".input-date input").prop( "disabled", false );
               }
           });
+      });
+      $('#openModal').click(function(){
+        $('#exampleModal').addClass('showModal');
+        $('.modal-dialog').slideDown();
+      });
+      $('.close').click(function(){
+        $('#exampleModal').removeClass('showModal');
       });
   </script>
 

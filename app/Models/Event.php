@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table='events';
     // protected $softDelete = true;
@@ -60,5 +62,9 @@ class Event extends Model
     public function amenities()
     {
         return $this->belongsToMany(Amenity::class, 'event_amenities', 'event_id', 'amenity_id');
+    }
+    public function ticket()
+    {
+        return $this->hasMany(Ticket::class,'event_id', 'id');
     }
 }

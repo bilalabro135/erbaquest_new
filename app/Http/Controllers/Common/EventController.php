@@ -16,6 +16,7 @@ use App\Http\Requests\Common\SearchRequest;
 
 use App\Models\User;
 use App\Models\Pages;
+use App\Models\Ticket;
 use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Amenity;
@@ -505,9 +506,28 @@ class EventController extends Controller
         $event->discord = $eventDetail['discord'];
         $event->status = $eventDetail['status'];
 
+
         $user = Auth::user();
         $event->user_id = $user->id;
         $event->save();
+
+
+        $ticket = new Ticket();
+        $ticket->event_id               = $event->id;
+        $ticket->total                  = $request['total'];
+        $ticket->price                  = $request['price'];
+        $ticket->qty                    = $request['qty'];
+        $ticket->discount_code          = $request['discount_code'];
+        $ticket->discount_percentage    = $request['discount_percentage'];
+        $ticket->max_utilization        = $request['max_utilization'];
+        $ticket->start_date             = $request['start_date'];
+        $ticket->end_date               = $request['end_date'];
+        $ticket->vip_ticket             = $request['vip_ticket'];
+        $ticket->total_vip              = $request['total_vip'];
+        $ticket->vip_ticket_price       = $request['vip_ticket_price'];
+        $ticket->user_qty               = $request['user_qty'];
+        $ticket->status                 = $request['ticket_status'];
+        $ticket->save();
 
         //adding vendor id and event id in in vendor table
         if ($eventDetail['vendor_list']) {
@@ -573,6 +593,7 @@ class EventController extends Controller
         $AuthUsers = Auth::user();
 
         $getevents  =  Event::where('user_id', $AuthUsers['id'])->findorFail($id);
+        $tickets    =  Ticket::where('event_id', $id)->first();
 
         $data = array();
         if($getevents){
@@ -710,7 +731,7 @@ class EventController extends Controller
         $countries = Area::all();
 
 
-        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries','getDataVendorProfile','vendorProfiles'));
+        return view('tempview.update-event', compact('data', 'vendors', 'amenities', 'tyoesOfEvents','countries','getDataVendorProfile','vendorProfiles','tickets'));
     }
     public function frontupdate(FrontEventRequest $request, Event $event)
     {
@@ -772,6 +793,23 @@ class EventController extends Controller
             'status' =>  $eventDetail['status'],
         ]);
 
+        $ticket                         = Ticket::where('event_id',$event->id)->first();
+        $ticket->total                  =  $request['total'];
+        $ticket->price                  =  $request['price'];
+        $ticket->qty                    =  $request['qty'];
+        $ticket->discount_code          =  $request['discount_code'];
+        $ticket->discount_percentage    =  $request['discount_percentage'];
+        $ticket->max_utilization        =  $request['max_utilization'];
+        $ticket->start_date             =  $request['start_date'];
+        $ticket->end_date               =  $request['end_date'];
+        $ticket->vip_ticket             =  $request['vip_ticket'];
+        $ticket->total_vip              =  $request['total_vip'];
+        $ticket->vip_ticket_price       =  $request['vip_ticket_price'];
+        $ticket->user_qty               =  $request['user_qty'];
+        $ticket->status                 =  $request['status'];
+        $ticket->event_id               =  $event->id;
+        $ticket->save();
+
         //adding vendor id and event id in in vendor table
         Vendor::where('event_id', $event->id)->delete();
         if ($eventDetail['vendor_list']) {
@@ -802,6 +840,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::where('id', $id)->delete();
+        Ticket::where('event_id', $id)->delete();
         WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
@@ -814,6 +853,7 @@ class EventController extends Controller
     public function frontdestroy($id)
     {
         $event = Event::where('id', $id)->delete();
+        Ticket::where('event_id', $id)->delete();
         WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::back()->with(['msg' => 'Event deleted', 'msg_type' => 'success']);
@@ -969,7 +1009,8 @@ class EventController extends Controller
 
     public function frontDraftDestroy($id)
     {
-        $event = Event::where('id', $id)->delete();
+        $event  = Event::where('id', $id)->delete();
+        Ticket::where('event_id', $id)->delete();
         WishLists::where('event_id', $id)->delete();
         if ($event) {
             return Redirect::route('draft.account')->with(['msg' => 'Event deleted', 'msg_type' => 'success']);

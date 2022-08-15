@@ -72,6 +72,25 @@
                 <p>NO Events Found!</p>
               @endif
           </div>
+          <!-- Modal form -->
+          <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $event['id'] }}">
+                            DELETE
+                          </button>
+          <div class="modal fade delete_event_popup" id="exampleModal_{{ $event['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="popup_close">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="{{route('front.events.delete', ['event'=> $event['id']])}}" class="btn btn-primary">Confirm</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 </section>

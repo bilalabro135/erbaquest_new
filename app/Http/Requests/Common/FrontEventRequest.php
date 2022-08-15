@@ -38,7 +38,7 @@ class FrontEventRequest extends FormRequest
             'slug' => 'max:255',
             'featured_image' => 'dimensions:min_width=500,min_height=500|exclude_if:checkevent,update',
             'gallery' => 'array|max:2000',
-            'gallery.*' => 'image|mimes:jpg,jpeg,png|max:2000',
+            'gallery.*' => 'image|mimes:jpg,jpeg,png|max:3000',
             'event_date' => 'required_if:is_recurring,==,0|date', //is_recurring
             // 'door_dontation' => 'required',
             // 'vip_dontation' => 'required',
@@ -59,6 +59,8 @@ class FrontEventRequest extends FormRequest
             'telegram' => 'max:255',
             'discord' => 'max:255',
             'status' => 'required',
+            'start_date' => 'sometimes|after_or_equal:today',
+            'end_date' => 'sometimes|after:start_date',
         ];
     }
 

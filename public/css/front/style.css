@@ -4832,3 +4832,38 @@ color: #ff0000;
   .SortFilter p{
     display: none;
   }
+  .modal.fade.showModal {
+    opacity: 1;
+    display: block;
+    transition: 0.4s;
+    background: #2125298a;
+  }
+  .modal.fade.showModal .modal-dialog{
+    transition: 0.4s;
+    transform: translate(0,-10px);
+    max-width: 60%;
+  }
+  .modal-footer-btn button{
+    background: #2c9044;
+    color: #fff;
+    border-radius: 50px;
+    padding: 5px 30px;
+    font-size: 18px;
+    border: 2px solid #2c9044;
+  }
+  .modal-footer-btn button:hover{
+    border: 2px solid #2c9044;
+    background: #fff;
+    color: #2c9044;
+  }
+  .view_ticket{
+    float: right;
+  }
+  .modal.fade .modal-dialog .modal-content{
+    border-radius: 20px;
+    box-shadow: 0px 0px 12px 5px #00000038;
+  }
+  .my-three-btn button {
+    margin: 0px 8px !important;
+    text-align: center;
+  }

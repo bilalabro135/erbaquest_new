@@ -247,6 +247,16 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
     Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
     Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
+
+    // Admin Category Vendor
+    Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');
+    Route::get('/vendor/get', [VendorAdminController::class, 'getUsers'])->name('admin.vendor.get');
+    Route::post('/vendor/delete',[VendorAdminController::class, 'deleteuser'])->name('admin.vendor.delete');
+    Route::get('/vendor/add',[VendorAdminController::class, 'addUsers'])->name('admin.vendor.add');
+    Route::post('/vendor/store',[VendorAdminController::class, 'storeUser'])->name('admin.vendor.store');
+    Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
+    Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
+    Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
 });
 
 

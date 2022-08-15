@@ -28,8 +28,8 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="createEventForm margin-tb">
-              <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data">
-                @csrf
+              <!-- <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data"> -->
+              {!! Form::open(array('id'=>'form','enctype'=>'multipart/form-data','class' => 'front_event_create')) !!}
                 <div class="row">
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>NAME OF QUEST: <span class="figure"><img src="{{asset('images/NAME-OF-QUEST.png')}}"></span></label>
@@ -94,7 +94,7 @@
                   </div>
 
                     <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
-                        <label>Days Dropdown: <span class="figure"><img src=""></span></label>
+                        <label>Days Dropdown: <span class="figure"></span></label>
                         <select name="day" id="day" class="form-control">
                             <option value="monday">Monday</option>
                             <option value="tuesday">Tuesday</option>
@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-6 input-field customDropdown recurring_component">
-                        <label>Recurring Type: <span class="figure"><img src=""></span></label>
+                        <label>Recurring Type: <span class="figure"></span></label>
                         <select name="recurring_type" id="recurring_type" class="form-control">
                             <option value="weekly">Weekly</option>
                             <option value="monthly">Monthly</option>
@@ -440,13 +440,13 @@
                         </div>
                     @endif
                   </div>
-                  <div class="input-field input-submit">
+                  <div class="input-field input-submit my-three-btn">
                     <input class="event_status" type="hidden" name="status" value="">
                     <button class="btn-custom preview_btn" type="button">PREVIEW AND DRAFT</button>
                     <button class="btn-custom submit_btn" type="button">SUBMIT</button>
                   </div>
                 </div>
-              </form>
+              {!! Form::close() !!}
             </div>
           </div>
         </div>
@@ -478,6 +478,49 @@
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{$globalMapKey->getValue('map_key')}}&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 <!-- <script src="{{asset('js/front/jquery.mask.min.js') }}"></script> -->
+
+<script>
+        $(document).ready(function () {  
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#form').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('front.events.store') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend:function(){
+                        console.log("sending");
+                    },
+                    success: (data) => {
+                        if(data.success){
+                            this.reset();
+                            alert(data.success);
+                            toastr.success(data.success);
+                        }
+                    },
+                    error: function(data) {
+                        var txt         = '';
+                        console.log(data.responseJSON.errors[0])
+                        for (var key in data.responseJSON.errors) {
+                            txt += data.responseJSON.errors[key];
+                            txt +='<br>';
+                        }
+                        alert(txt);
+                    }
+                });
+            });
+        });
+    </script>
 
 <script>
     $(document).ready(function(){
