@@ -36,7 +36,7 @@ class EventRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'slug' => 'max:255',
-            'featured_image' => 'nullable',
+            'featured_image' => 'nullable|max:10000',
             'gallery' => [
                 new GalleryRule()
             ],

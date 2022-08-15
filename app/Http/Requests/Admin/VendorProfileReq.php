@@ -16,7 +16,7 @@ class VendorProfileReq extends FormRequest
         return [
                 'public_profile_name'   => 'required',
                 'email'                 => 'required',
-                'featured_picture'      => 'required',
+                'featured_picture'      => 'required|max:10000',
                 'phone'                 => 'required',
                 'description'           => 'required',
                 'user_id'               => 'required'

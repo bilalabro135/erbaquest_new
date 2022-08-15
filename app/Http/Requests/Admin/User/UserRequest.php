@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => 'email|unique:users|required|max:255',
-            'profile_image' => 'max:255',
+            'profile_image' => 'max:10000',
             'username' => 'unique:users|required|max:255',
             'phone' => ['required', new Telephone()],
             'password' => 'required|max:255',
