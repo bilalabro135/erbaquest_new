@@ -225,6 +225,7 @@
                 <div id="vendor" class="collapse {{(request()->is('admin/vendor/*') || request()->is('admin/payment') ) ? 'show' : ''}}" aria-labelledby="All payment" data-parent="#accordionSidebar">
                     <div class="bg-primary py-2 collapse-inner rounded">
                         <a class="collapse-item text-light" href="{{route('admin.vendor')}}">All Vendors</a>
+                        <a class="collapse-item text-light" href="{{route('admin.vendor.categories')}}">Vendor Category</a>
                     </div>
                 </div>
             </li>

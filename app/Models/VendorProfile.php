@@ -26,6 +26,7 @@ class VendorProfile extends Model
         'phone',
         'descreption',
         'user_id',
+        'category_id',
     ];
 
 }

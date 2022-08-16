@@ -3,13 +3,14 @@
 
 
 @section('content')
-    <div class="container">
+    <div class="container" id="page-top">
         @if(session('msg'))
         <div class="alert alert-{{session('msg_type')}}">
             {{session('msg')}}                                            
         </div>
         @endif
          <h1 class="h3 mb-4 text-gray-800">All Vendors</h1>
+         <a href="{{route('admin.vendor.category.add')}}" class="link"></a>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -22,15 +23,13 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead class="bg-primary text-light">
 	                        <tr>
-						      <th scope="col">Profile Name</th>
-						      <th scope="col">Email</th>
+						      <th scope="col" width="80%">Name</th>
 						      <th scope="col">Actions</th>
 						    </tr>
                         </thead>
                         <tfoot class="bg-primary text-light">
 	                        <tr>
-						      <th scope="col">Profile Name</th>
-						      <th scope="col">Email</th>
+						      <th scope="col" width="80%">Name</th>
 						      <th scope="col">Actions</th>
 						    </tr>
                         </tfoot>
@@ -56,12 +55,11 @@
 		         processing: true,
 		         serverSide: true,
 		         ajax: {
-		          url: "{{ route('admin.vendor.get') }}?role_id={{ app('request')->input('role_id') }}",
+		          url: "{{ route('admin.vendor.category.get') }}",
 		          type: 'GET',
 		         },
 		         columns: [
-		                  { data: 'public_profile_name', name: 'public_profile_name' },
-		                  { data: 'email', name: 'email' },
+		                  { data: 'name', name: 'name' },
 		                  { data: 'action', name: 'action' },
 		               ],
 		        order: [[0, 'desc']]

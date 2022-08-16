@@ -168,6 +168,21 @@
                                 </div>
                             @endif
 
+                            <label for="category_id">Select Category*</label>
+                            <div class="form-group">
+                                <select name="category_id" id="category_id" required="" class="form-control">
+                                    <option selected disabled>--Please select--</option>
+                                    @foreach($category as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('category_id')
+                                <div class="text-danger">
+                                    {{$message}}
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block px-5">
                                     {{ __('Add') }}

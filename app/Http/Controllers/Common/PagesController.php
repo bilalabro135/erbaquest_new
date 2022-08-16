@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\Page\PageRequest;
 use App\Models\Pages;
 use App\Models\Event;
+use App\Models\VendorCategory;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Redirect;
@@ -167,8 +168,8 @@ class PagesController extends Controller
     }
     public function show(Pages $pages)
     {
-        $events = Event::all();
-        return view("templates.{$pages->template}", compact('pages'));
+        $categories = VendorCategory::pluck('name','id');
+        return view("templates.{$pages->template}", compact('pages','categories'));
     }
 
 }

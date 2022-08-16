@@ -74,6 +74,9 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
      \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
+// Vendor category BA
+    Route::get('/vendor/categories/filter', [VendorAdminController::class, 'VendorCategoryFilter'])->name('admin.categories.filter');
+
 // Admin
 Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->group( function () {
     // Dashboard
@@ -238,7 +241,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('user/review/delete', [UserController::class, 'deleteComment'])->name('comment.delete');
     Route::post('user/review/submit', [UserController::class, 'submitComment'])->name('comment.submit');
 
-    // Admin Vendor
+    // Admin Vendor BA
     Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');
     Route::get('/vendor/get', [VendorAdminController::class, 'getUsers'])->name('admin.vendor.get');
     Route::post('/vendor/delete',[VendorAdminController::class, 'deleteuser'])->name('admin.vendor.delete');
@@ -247,6 +250,15 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
     Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
     Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
+
+    // Vendor category BA
+    Route::get('/vendor/categories', [VendorAdminController::class, 'Vendorindex'])->name('admin.vendor.categories');
+    Route::get('/vendor/categories/get', [VendorAdminController::class, 'GetVendorCategory'])->name('admin.vendor.category.get');
+    Route::get('/vendor/category/add',[VendorAdminController::class, 'AddVendorCategory'])->name('admin.vendor.category.add');
+    Route::get('/vendor/category/delete/{categoryDelete:id}',[VendorAdminController::class, 'deleteVendorCategory'])->name('admin.vendor.category.delete.id');
+    Route::post('/vendor/category/store',[VendorAdminController::class, 'storeCategoryUser'])->name('admin.vendor.category.store');
+    Route::get('/vendor/category/edit/{categoryEdit:id}',[VendorAdminController::class, 'editCategoryUsers'])->name('admin.vendor.category.edit.id');
+    Route::post('/vendor/category/update/{categoryEdit:id}',[VendorAdminController::class, 'updateCategoryUsers'])->name('admin.vendor.category.update.id');
 
     // Admin Category Vendor
     Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');

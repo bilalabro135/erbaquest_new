@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\AssignRoles;
+use App\Models\VendorCategory;
 use App\Models\Settings;
+use App\Models\Pages;
 
 use App\Http\Requests\Admin\User\UserRequest;
 use App\Http\Requests\Admin\User\UserUpdateRequest;
@@ -55,8 +57,9 @@ class VendorAdminController extends Controller
 
     public function addUsers()
     {
-        $users = User::pluck('name','id')->all();
-        return view('admin.vendors.add', compact('users'));
+        $users      = User::pluck('name','id')->all();
+        $category   = VendorCategory::pluck('name','id')->all();
+        return view('admin.vendors.add', compact('users','category'));
     }
 
     public function storeUser(Request $request)
@@ -67,7 +70,8 @@ class VendorAdminController extends Controller
                 'featured'              => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
                 'descreption'           => 'required',
-                'user_id'               => 'required|regex:/^[0-9]+$/'
+                'user_id'               => 'required|regex:/^[0-9]+$/',
+                'category_id'           => 'required'
         ]);
 
         if (isset($request['featured'])) {
@@ -87,6 +91,7 @@ class VendorAdminController extends Controller
             'phone'                 => $request->phone,
             'descreption'           => $request->descreption,
             'user_id'               => $request->user_id,
+            'category_id'           => $request->category_id,
         ]);
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor added', 'msg_type' => 'success']);
@@ -94,14 +99,15 @@ class VendorAdminController extends Controller
 
     public function editUsers(Request $user,$id)
     {
-        $vendor = VendorProfile::where('id',$id)->first();
-        $users = User::pluck('name','id')->all();
+        $vendor     = VendorProfile::where('id',$id)->first();
+        $users      = User::pluck('name','id')->all();
+        $category   = VendorCategory::pluck('name','id')->all();
         if (isset($vendor['picture'],$vendor['featured_picture'])) {
             $vendor['picture']  = ($vendor['picture']) ? env('APP_URL')."/".$vendor['picture'] : '';
             $vendor['featured_picture'] = ($vendor['featured_picture']) ? env('APP_URL')."/".$vendor['featured_picture'] : '';
         }
         // dd($vendor);
-        return view('admin.vendors.edit',compact('vendor','users'));
+        return view('admin.vendors.edit',compact('vendor','users','category'));
     }
 
     public function updateUser(Request $request,$id)
@@ -112,7 +118,8 @@ class VendorAdminController extends Controller
                 'featured'              => 'required',
                 'phone'                 => 'required|regex:/^[0-9]+$/',
                 'descreption'           => 'required',
-                'user_id'               => 'required|regex:/^[0-9]+$/'
+                'user_id'               => 'required|regex:/^[0-9]+$/',
+                'category_id'            => 'required'
         ]);
 
         $vendor = VendorProfile::where('id',$id)->first();
@@ -128,6 +135,7 @@ class VendorAdminController extends Controller
         $vendor->phone                  = $request->phone;
         $vendor->descreption            = $request->descreption;
         $vendor->user_id                = $request->user_id;
+        $vendor->category_id            = $request->category_id;
         $vendor->save();
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor Updated', 'msg_type' => 'success']);
@@ -147,5 +155,91 @@ class VendorAdminController extends Controller
         }
     }
 
+    public function Vendorindex(){
+        return view('admin.vendors.categoryindex');
+    }
+    public function GetVendorCategory(request $ajaxrequest){
+        $data = VendorCategory::query()->select('id','name');
+        // $data = json_encode($data);
 
+        // return compact('data');
+        
+        return DataTables::eloquent($data)
+        ->addColumn('action', function($row){
+                $user_id =  auth()->user()->id;
+                $actionBtn ='<a href="'.route('admin.vendor.category.edit.id', ['categoryEdit' => $row->id]).'" class="mr-1 btn btn-circle btn-sm btn-info"><i class="fas fa-pencil-alt"></i></a>';
+                 $actionBtn .= '<a class="btn-circle btn btn-sm btn-danger" href="'.route('admin.vendor.category.delete.id', ['categoryDelete' => $row->id]).'"><i class="fas fa-trash-alt"></i></a>';
+                
+                return $actionBtn;
+        })
+        ->rawColumns(['action'])
+
+        ->toJson();
+    }
+    public function editCategoryUsers($id)
+    {
+        $category = VendorCategory::findOrfail($id);
+        return view('admin.vendors.editcategory',compact('category'));
+    }
+    public function updateCategoryUsers(request $request,$id)
+    {
+        $validated = $request->validate([
+            'name'               => 'required|min:3|max:100'
+        ]);
+
+        $category           = VendorCategory::where('id',$id)->first();
+        $category->name     = $request->name;
+        $category->save();
+
+        return Redirect::route('admin.vendor.categories')->with(['msg' => 'Vendor Category Updated', 'msg_type' => 'success']);
+    }
+    public function deleteVendorCategory(VendorCategory $category,$id)
+    {
+        $category           = VendorCategory::findOrfail($id)->delete();
+        if ($category) {
+            return Redirect::route('admin.vendor.categories')->with(['msg' => 'Vendor Category Deleted', 'msg_type' => 'success']);
+        }
+    }
+    public function AddVendorCategory()
+    {
+        return view('admin.vendors.addcategory');
+    }
+    public function storeCategoryUser(Request $request)
+    {
+        $validated = $request->validate([
+            'name'               => 'required|min:3|max:100'
+        ]);
+        $vendor = VendorCategory::create([
+            'name'   => $request->name,
+        ]);
+        return Redirect::route('admin.vendor.categories')->with(['msg' => 'Vendor category added', 'msg_type' => 'success']);
+    }
+    public function VendorCategoryFilter(request $data)
+    {
+        if(!(is_numeric($data->cat_id)) || empty($data->cat_id)){
+            $noRecord = '<div class="text-center text-secondary mt-5">
+                            <h3>No record found..!!</h3>
+                        </div>';
+            return response()->json($noRecord);
+        }
+        $vendor     = VendorProfile::where('category_id',$data->cat_id)->paginate(20);
+        $pageSlug   = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
+        // dd($vendor);
+        foreach($vendor as $vendorItem){?>
+            <div class="col-md-3">
+                <div class="vendor_box">
+                    <a href="
+                    <?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendorItem['id']]) ?>">
+                        <img src="<?php echo asset($vendorItem['featured_picture'])?>" alt="<?php echo $vendorItem['public_profile_name'] ?>">
+                    </a>
+                    <a href="<?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendorItem['id']]) ?>"><h3><?php echo $vendorItem['public_profile_name'] ?></h3></a>
+                </div>
+            </div>
+        <?php }
+        
+
+        return;
+        
+    }
 }
+

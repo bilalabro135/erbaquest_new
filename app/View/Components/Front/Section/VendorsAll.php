@@ -7,11 +7,13 @@ use Auth;
 use App\Models\VendorProfile;
 use App\Models\User;
 use App\Models\Pages;
+use App\Models\VendorCategory;
 
 class VendorsAll extends Component
 {
     public $vendors;
     public $pageSlug;
+    public $categories;
     public function __construct()
     {
         //
@@ -28,10 +30,10 @@ class VendorsAll extends Component
         $user = Auth::user();
         // $vendor = new VendorProfile();
         // $vendors = array();
-         $this->vendors = VendorProfile::paginate(20);
+        $this->vendors      = VendorProfile::paginate(20);
+        $this->categories   = VendorCategory::pluck('name','id');
 
-
-        $this->pageSlug = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
+        $this->pageSlug     = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
         // dd($vendors);
         return view('components.front.section.vendors-all');
     }
