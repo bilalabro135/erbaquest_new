@@ -182,8 +182,7 @@
 
                             <label for="category_id">Select Category*</label>
                             <div class="form-group">
-                                <select name="category_id" id="category_id" required="" class="form-control">
-                                    <option selected disabled>--Please select--</option>
+                                <select class="js-example-basic-multiple form-control" required="" id="category_id" name="category_id[]" multiple>
                                     @foreach($category as $key => $value)
                                         @if($key == $vendor->category_id)
                                             <option value="{{$key}}" selected>{{$value}}</option>
@@ -215,6 +214,10 @@
 @section('scripts')
 <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2();
+    });
+
     var route_prefix = "{{route('unisharp.lfm.show')}}";
     $('#lfm').filemanager('image', {prefix: route_prefix});
 
@@ -286,7 +289,3 @@
     });
 </script>
 @endsection
-
-
-
-

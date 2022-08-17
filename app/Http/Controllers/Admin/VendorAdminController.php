@@ -200,7 +200,7 @@ class VendorAdminController extends Controller
             return Redirect::route('admin.vendor.categories')->with(['msg' => 'Vendor Category Deleted', 'msg_type' => 'success']);
         }
     }
-    public function AddVendorCategory()
+    public function addVendorCategory()
     {
         return view('admin.vendors.addcategory');
     }

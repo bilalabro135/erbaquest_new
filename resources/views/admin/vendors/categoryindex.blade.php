@@ -16,6 +16,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">All Vendors</h6>
+                <a href="{{route('admin.vendor.category.add')}}" class="btn btn-sm btn-primary float-right">Add new</a>
             </div>
             <div class="card-body">
 

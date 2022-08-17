@@ -421,6 +421,7 @@ class EventController extends Controller
 
         $users = User::whereIs('Admin', 'Organizer')->get();
         $vendors = User::whereIs('Vendor')->get();
+        // $vendors = Ticket::whereIs('Vendor')->get();
         $vendorProfiles = array();
         if(count($vendors)){
             foreach ($vendors as $vendor) {

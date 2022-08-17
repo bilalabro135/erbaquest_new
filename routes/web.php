@@ -254,7 +254,7 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     // Vendor category BA
     Route::get('/vendor/categories', [VendorAdminController::class, 'Vendorindex'])->name('admin.vendor.categories');
     Route::get('/vendor/categories/get', [VendorAdminController::class, 'GetVendorCategory'])->name('admin.vendor.category.get');
-    Route::get('/vendor/category/add',[VendorAdminController::class, 'AddVendorCategory'])->name('admin.vendor.category.add');
+    Route::get('/vendor/category/add',[VendorAdminController::class, 'addVendorCategory'])->name('admin.vendor.category.add');
     Route::get('/vendor/category/delete/{categoryDelete:id}',[VendorAdminController::class, 'deleteVendorCategory'])->name('admin.vendor.category.delete.id');
     Route::post('/vendor/category/store',[VendorAdminController::class, 'storeCategoryUser'])->name('admin.vendor.category.store');
     Route::get('/vendor/category/edit/{categoryEdit:id}',[VendorAdminController::class, 'editCategoryUsers'])->name('admin.vendor.category.edit.id');
