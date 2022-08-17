@@ -511,24 +511,6 @@ class EventController extends Controller
         $event->user_id = $user->id;
         $event->save();
 
-
-        $ticket = new Ticket();
-        $ticket->event_id               = $event->id;
-        $ticket->total                  = $request['total'];
-        $ticket->price                  = $request['price'];
-        $ticket->qty                    = $request['qty'];
-        $ticket->discount_code          = $request['discount_code'];
-        $ticket->discount_percentage    = $request['discount_percentage'];
-        $ticket->max_utilization        = $request['max_utilization'];
-        $ticket->start_date             = $request['start_date'];
-        $ticket->end_date               = $request['end_date'];
-        $ticket->vip_ticket             = $request['vip_ticket'];
-        $ticket->total_vip              = $request['total_vip'];
-        $ticket->vip_ticket_price       = $request['vip_ticket_price'];
-        $ticket->user_qty               = $request['user_qty'];
-        $ticket->status                 = $request['ticket_status'];
-        $ticket->save();
-
         //adding vendor id and event id in in vendor table
         if ($eventDetail['vendor_list']) {
             foreach ($eventDetail['vendor_list'] as $vendorId) {  //vendor_list
@@ -552,7 +534,6 @@ class EventController extends Controller
 
     public function frontedit(Event $event)
     {
-
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
         $users = Auth::user();
@@ -566,8 +547,6 @@ class EventController extends Controller
 
         $users->role = $userRole['role_id'];
 
-
-
         return view('tempview.edit-event', compact('events','profile_image','users'));
     }
 
@@ -575,6 +554,7 @@ class EventController extends Controller
     {
         $events = Event::where('user_id', Auth::user()->id)->where('status',"=","published")->orderBy('event_date','ASC')->get();
 
+        $tickets = Ticket::all();
         $users = Auth::user();
         $userRole = AssignRoles::where('entity_id', $users['id'])->first();
 
@@ -585,7 +565,7 @@ class EventController extends Controller
         }
         $users->role = $userRole["role_id"];
 
-        return view('tempview.my-event', compact('events','profile_image','users'));
+        return view('tempview.my-event', compact('events','profile_image','users','tickets'));
     }
 
     public function updateevent($id)
@@ -723,7 +703,6 @@ class EventController extends Controller
                 );
             }
         }
-
 
 
        // setectedameties
@@ -1155,5 +1134,147 @@ class EventController extends Controller
     // }
     return response()->json($event_data);
    }
+
+   public function ticketStore(Request $request)
+   {
+        $ticket = new Ticket();
+        $ticket->event_id               = $request['event_id'];
+        $ticket->total                  = $request['total'];
+        $ticket->price                  = $request['price'];
+        $ticket->qty                    = $request['qty'];
+        $ticket->discount_code          = $request['discount_code'];
+        $ticket->discount_percentage    = $request['discount_percentage'];
+        $ticket->max_utilization        = $request['max_utilization'];
+        $ticket->start_date             = $request['start_date'];
+        $ticket->end_date               = $request['end_date'];
+        $ticket->vip_ticket             = $request['vip_ticket'];
+        $ticket->total_vip              = $request['total_vip'];
+        $ticket->vip_ticket_price       = $request['vip_ticket_price'];
+        $ticket->user_qty               = $request['user_qty'];
+        $ticket->status                 = $request['status'];
+        $ticket->save();
+
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        return Redirect::route('my.event')->with(['msg' => 'Ticket created successfully', 'msg_type' => 'success']);
+   }
+
+   public function ticketUpdate(request $request)
+   {
+        $ticket = Ticket::where('event_id',$request->event_id)->first();
+        $ticket->event_id               = $request['event_id'];
+        $ticket->total                  = $request['total'];
+        $ticket->price                  = $request['price'];
+        $ticket->qty                    = $request['qty'];
+        $ticket->discount_code          = $request['discount_code'];
+        $ticket->discount_percentage    = $request['discount_percentage'];
+        $ticket->max_utilization        = $request['max_utilization'];
+        $ticket->start_date             = $request['start_date'];
+        $ticket->end_date               = $request['end_date'];
+        $ticket->vip_ticket             = $request['vip_ticket'];
+        $ticket->total_vip              = $request['total_vip'];
+        $ticket->vip_ticket_price       = $request['vip_ticket_price'];
+        $ticket->user_qty               = $request['user_qty'];
+        $ticket->status                 = $request['status'];
+        $ticket->save();
+
+        $pageSlug = Pages::where('template', 'event')->where('status', 'published')->value('slug');
+        return Redirect::route('my.event')->with(['msg' => 'Ticket updated successfully', 'msg_type' => 'success']);
+   }
+    public function getTicketData(Request $ajaxrequest)
+    {
+        $tickets = Ticket::where('event_id',$ajaxrequest->event_id)->first();
+        if ($tickets && !empty($tickets)) {
+        ?>
+            <div class="modal fade myModalForm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Generate Ticket</h5>
+                      <input type="hidden" name="event_id" value="<?php echo $tickets->event_id ?>">
+                      <button type="button" class="btn close text-dark">x</button>
+                    </div>
+                    <div class="modal-body p-4 row">
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Total tickets available:<span class="figure"></label>
+                        <input type="number" name="total" required="required" placeholder="200..." value="<?php echo $tickets->total ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Ticket price:<span class="figure"></span></label>
+                        <input type="text" name="price" required="required" placeholder="$20" value="<?php echo $tickets->price ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>User quantity<span class="figure"></span></label>
+                        <input type="number" name="qty" required="required" placeholder="Total users quantity" value="<?php echo $tickets->qty ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Discount code<span class="figure"></span></label>
+                        <input type="text" name="discount_code" required="required" placeholder="%Discount" value="<?php echo $tickets->discount_code ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Discount percentage <span class="figure"></span></label>
+                        <input type="text" name="discount_percentage" required="required" placeholder="%..." value="<?php echo $tickets->discount_percentage ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Max utilization<span class="figure"></span></label>
+                        <input type="number" name="max_utilization" required="required" placeholder="2,3,..." value="<?php echo $tickets->max_utilization ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Start date<span class="figure"></span></label>
+                        <input type="date" name="start_date" required="required" value="<?php echo $tickets->start_date ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>End date<span class="figure"></span></label>
+                        <input type="date" name="end_date" required="required" value="<?php echo $tickets->end_date ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>VIP ticket<span class="figure"></span></label>
+                        <input type="text" name="vip_ticket" required="required" placeholder="VIP's ticket" value="<?php echo $tickets->vip_ticket ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>Total VIP tickets<span class="figure"></span></label>
+                        <input type="number" name="total_vip" required="required" placeholder="VIP ticket's?" value="<?php echo $tickets->total_vip ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>VIP ticket price<span class="figure"></span></label>
+                        <input type="text" name="vip_ticket_price" required="required" placeholder="VIP's ticket price $" value="<?php echo $tickets->vip_ticket_price ?>">
+                      </div>
+                      <div class="col-sm-12 col-md-6 input-field mt-4">
+                        <label>User quantity to buy today<span class="figure"></span></label>
+                        <input type="number" name="user_qty" required="required" placeholder="Users can buy?" value="<?php echo $tickets->user_qty ?>">
+                      </div>
+                      <div class='col-sm-12 col-md-12 input-field mt-4 customDropdown'>
+                        <label>Status<span class='figure'></span></label>
+                        <select name='status' class='form-control' required='required' >
+                            <option selected disabled>--Please select--</option>
+                            <option value='published' <?php if(isset($tickets->status) && $tickets->status == 'published') echo 'selected' ?>>Published</option>
+                            <option value='draft' <?php if(isset($tickets->status) && $tickets->status == 'draft') echo 'selected' ?>>Draft</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class='modal-footer modal-footer-btn'>
+                      <button type='submit' class='btn btn-success text-light'>Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }else{?>
+        <div class="modal fade myModalForm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Generate Ticket</h5>
+                      <button type="button" class="btn close text-dark">x</button>
+                    </div>
+                    <div class="modal-body p-4 row">
+                        <h3 class="text-secondary text-center">No record found for this event</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php 
+    }
+    return;
+    }
 
 }

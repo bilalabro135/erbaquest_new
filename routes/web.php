@@ -261,14 +261,14 @@ Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->
     Route::post('/vendor/category/update/{categoryEdit:id}',[VendorAdminController::class, 'updateCategoryUsers'])->name('admin.vendor.category.update.id');
 
     // Admin Category Vendor
-    Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');
-    Route::get('/vendor/get', [VendorAdminController::class, 'getUsers'])->name('admin.vendor.get');
-    Route::post('/vendor/delete',[VendorAdminController::class, 'deleteuser'])->name('admin.vendor.delete');
-    Route::get('/vendor/add',[VendorAdminController::class, 'addUsers'])->name('admin.vendor.add');
-    Route::post('/vendor/store',[VendorAdminController::class, 'storeUser'])->name('admin.vendor.store');
-    Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
-    Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
-    Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
+    // Route::get('/vendor', [VendorAdminController::class, 'index'])->name('admin.vendor');
+    // Route::get('/vendor/get', [VendorAdminController::class, 'getUsers'])->name('admin.vendor.get');
+    // Route::post('/vendor/delete',[VendorAdminController::class, 'deleteuser'])->name('admin.vendor.delete');
+    // Route::get('/vendor/add',[VendorAdminController::class, 'addUsers'])->name('admin.vendor.add');
+    // Route::post('/vendor/store',[VendorAdminController::class, 'storeUser'])->name('admin.vendor.store');
+    // Route::get('/vendor/delete/{adminDelete:id}',[VendorAdminController::class, 'deleteVendor'])->name('admin.vendor.delete.id');
+    // Route::get('/vendor/edit/{adminEdit:id}',[VendorAdminController::class, 'editUsers'])->name('admin.vendor.edit.id');
+    // Route::post('/vendor/update/{id}',[VendorAdminController::class, 'updateUser'])->name('admin.vendor.update.id');
 });
 
 
@@ -288,6 +288,10 @@ Route::get('/events/{event:id}/edit/', [EventController::class, 'updateevent'])-
 Route::post('/events/frontupdate/{event:id}',[EventController::class,'frontupdate'])->name('front.events.frontupdate')->middleware('role:updateEvents');
 Route::get('/events/delete/{event:id}', [EventController::class, 'frontdestroy'])->name('front.events.delete')->middleware('role:deleteEvents');
 Route::get('/events-draft/delete/{event:id}', [EventController::class, 'frontDraftDestroy'])->name('front.events-draft.delete')->middleware('role:deleteEvents');
+
+Route::post('/events/ticket/add', [EventController::class, 'ticketStore'])->name('front.events.ticket.store');
+Route::post('/events/ticket/update', [EventController::class, 'ticketUpdate'])->name('front.events.ticket.update');
+Route::get('/events/ticket/get', [EventController::class, 'getTicketData'])->name('front.events.ticket.get');
 
 Route::get('/events/publish/{event:id}', [EventController::class, 'publishDraft'])->name('front.events.publist');
 Route::view('contact', 'tempview.contact')->name('contact');

@@ -73,9 +73,6 @@
               @endif
           </div>
           <!-- Modal form -->
-          <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $event['id'] }}">
-                            DELETE
-                          </button>
           <div class="modal fade delete_event_popup" id="exampleModal_{{ $event['id'] }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">

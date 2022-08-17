@@ -9,7 +9,7 @@
 				@endforeach
           	@endif
 		</select>
-		<h4 class="card-title"><img class="loader" src="{{asset('images/icons/loader-waiting.gif')}}" style="width: 35px;"></span>
+		<h4 class="card-title"><img class="loader" src="{{asset('images/icons/loader-waiting.gif')}}" style="position: absolute;width: 140px;left: 0;display: none;"></span>
 		<div class="row">
 			@if($vendors)
 	            @foreach($vendors as $vendor)

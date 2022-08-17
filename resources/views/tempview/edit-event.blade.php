@@ -66,6 +66,7 @@
                             <p class="event_description">{!!$event->description!!}</p>
                           </div>
                           <a href="{{ $event->id }}/edit" class="md-link">EDIT</a>
+                            <a href="javascript:void(0)" data="{{$event->id}}" class="md-link edit-ticket-btn openModal event_id">EDIT TICKET</a>
                             <a href="clone/{{ $event->id }}" class="md-link customeBorder">CLONE</a>
                           <button type="button" class="delete-event" data-bs-toggle="modal" data-bs-target="#exampleModal_{{ $event->id }}">
                             DELETE
@@ -101,6 +102,12 @@
         </div>
     </div>
 </section>
+    <!-- Modal -->
+    <form action="{{ route('front.events.ticket.update') }}" method="post" enctype="multipart/form-data" class="myModalForm">
+    @csrf
+    @method('PUT')
+      
+    </form>
 
 @endsection
 
@@ -110,7 +117,33 @@
         $('ul.menu_list li .down-icon').on('click',function(){
           $(this).parent('li').toggleClass('current');
           $(this).parent('li').find('ul.sub-menu').slideToggle();
-        })
+        });
+
+        // $('.openModal').click(function(){
+        //   $('#exampleModal').addClass('showModal');
+        //   $('.modal-dialog').slideDown();
+        // });
+
+        $('.event_id').click(function(){
+          let event_id = $(this).attr('data');
+
+          $.ajax({
+              url:"{{route('front.events.ticket.get')}}",
+              method:"GET",
+              data:{event_id:event_id},
+              beforeSend:function(){
+                  // $('.loader').show();
+              },
+              success:function(data){
+                var len   = 0;
+                  $('.myModalForm').html(data);
+                  $('.close').click(function(){
+                    $('#exampleModal').removeClass('showModal');
+                  });
+                  $('#exampleModal').addClass('showModal');
+            }
+        });
+      });
 </script>
 @endpush
 <style>

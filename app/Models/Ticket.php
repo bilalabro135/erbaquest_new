@@ -25,4 +25,8 @@ class Ticket extends Model
         'user_qty',
         'status'
     ];
+    public function event()
+    {
+        return $this->belongsTo(Event::class,'event_id', 'id');
+    }
 }

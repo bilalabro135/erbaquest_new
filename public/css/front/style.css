@@ -4854,7 +4854,7 @@ color: #ff0000;
   .modal-footer-btn button:hover{
     border: 2px solid #2c9044;
     background: #fff;
-    color: #2c9044;
+    color: #2c9044 !important;
   }
   .view_ticket{
     float: right;
@@ -4866,4 +4866,17 @@ color: #ff0000;
   .my-three-btn button {
     margin: 0px 8px !important;
     text-align: center;
+  }
+  .edit-ticket-btn{
+    color: #51bfba !important;
+  }
+  .event-box_list a.edit-ticket-btn:after{
+    content: "";
+    height: 3px;
+    width: 0%;
+    background: #51bfba !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out !important;
   }

@@ -216,16 +216,10 @@ class VendorAdminController extends Controller
     }
     public function VendorCategoryFilter(request $data)
     {
-        if(!(is_numeric($data->cat_id)) || empty($data->cat_id)){
-            $noRecord = '<div class="text-center text-secondary mt-5">
-                            <h3>No record found..!!</h3>
-                        </div>';
-            return response()->json($noRecord);
-        }
-        $vendor     = VendorProfile::where('category_id',$data->cat_id)->paginate(20);
         $pageSlug   = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
-        // dd($vendor);
-        foreach($vendor as $vendorItem){?>
+        if (!is_numeric($data->cat_id)) {
+            $vendor     = VendorProfile::paginate(20);
+            foreach($vendor as $vendorItem){?>
             <div class="col-md-3">
                 <div class="vendor_box">
                     <a href="
@@ -236,9 +230,23 @@ class VendorAdminController extends Controller
                 </div>
             </div>
         <?php }
-        
-
         return;
+        }else{
+            $vendor     = VendorProfile::where('category_id',$data->cat_id)->paginate(20);
+            // dd($vendor);
+            foreach($vendor as $vendorItem){?>
+                <div class="col-md-3">
+                    <div class="vendor_box">
+                        <a href="
+                        <?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendorItem['id']]) ?>">
+                            <img src="<?php echo asset($vendorItem['featured_picture'])?>" alt="<?php echo $vendorItem['public_profile_name'] ?>">
+                        </a>
+                        <a href="<?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendorItem['id']]) ?>"><h3><?php echo $vendorItem['public_profile_name'] ?></h3></a>
+                    </div>
+                </div>
+            <?php }
+            return;
+        }
         
     }
 }
