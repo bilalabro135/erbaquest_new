@@ -182,7 +182,7 @@
 
                             <label for="category_id">Select Category*</label>
                             <div class="form-group">
-                                <select class="js-example-basic-multiple form-control" required="" id="category_id" name="category_id[]" multiple>
+                                <select class="selectpicker js-com form-control" required="" id="category_id" name="category_id[]" multiple data-live-search="true">
                                     @foreach($category as $key => $value)
                                         @if($key == $vendor->category_id)
                                             <option value="{{$key}}" selected>{{$value}}</option>
@@ -212,11 +212,12 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-      $('.js-example-basic-multiple').select2();
-    });
+    // $(document).ready(function() {
+    //   $('.selectpicker').selectpicker();
+    // });
 
     var route_prefix = "{{route('unisharp.lfm.show')}}";
     $('#lfm').filemanager('image', {prefix: route_prefix});
@@ -286,6 +287,9 @@
         var thisfolder = $(this).parent("li").parent("ul").parent(".action_set").parent(".profile_info");
         thisfolder.find(".onsubmit").hide();
         thisfolder.find(".ondelete").show();
+    });
+    $(document).ready(function() {
+      $('.selectpicker').select2();
     });
 </script>
 @endsection
