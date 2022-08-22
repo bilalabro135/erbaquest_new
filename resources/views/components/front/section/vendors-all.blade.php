@@ -12,8 +12,8 @@
 		            	</li>
 		            @endforeach
 	          	</ul>
-        	</div>
-		</select>
+			<div class="myAjaxLoader" style="width: 110px;position: absolute;left: 0px;margin-top: -110px;"><img src="{{asset('images/icons/loader-waiting.gif')}}"></div>
+        </div>
 		<div class="row existingRecord">
 			@if($vendors)
 	            @foreach($vendors as $vendor)
@@ -51,6 +51,7 @@
     })
 </script>
 <script type="text/javascript">
+	$(".myAjaxLoader").hide();
     $(".clcikalert input").click(function() {
 
 		  var checked = [];
@@ -68,9 +69,12 @@
 		    data: 'keys='+checked,
 		    beforeSend: function() {
 		    	$(".existingRecord").empty();
+		    	$(".myAjaxLoader").show();
+
 		    },
 		    success:function(data) {
 		    	$(".existingRecord").empty();
+		    	$(".myAjaxLoader").hide();
 		    	$( ".existingRecord").html(data);
 		    }
 		 });
