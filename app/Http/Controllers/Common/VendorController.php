@@ -5,6 +5,7 @@ namespace App\Http\Controllers\common;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\VendorCategory;
 use App\Models\User;
 use App\Models\AssignRoles;
 use App\Models\VendorProfile;
@@ -33,7 +34,10 @@ class VendorController extends Controller
     	$users = new User;
         $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
         $vendorData = VendorProfile::where('user_id', $userData['id'])->first();
-
+        if (isset($vendorData->category_id) && !empty($vendorData->category_id)) {
+            $vendorData->category_id = explode(',',$vendorData->category_id);
+        }
+        $category   = VendorCategory::pluck('name','id')->all();
         $users->public_profile_name = (isset($vendorData['public_profile_name'])) ? $vendorData['public_profile_name'] : '';
 
         $users->email = (isset($vendorData['email'])) ? $vendorData['email'] : '';
@@ -53,11 +57,11 @@ class VendorController extends Controller
         $users->user_id = (isset($vendorData['id'])) ? $vendorData['id'] : '';
         $users->role = $userRole['role_id'];
 
-        return view('tempview/public-profile', compact('vendorData','users'));
+        return view('tempview/public-profile', compact('vendorData','users','category'));
     }
     
     public function update(VendorProfileRequest $request, User $user)
-    {        
+    {
     	$currentuser = Auth::user();
         $vendor_data = VendorProfile::where('user_id', $currentuser['id'])->first();
         // dd($vendor_data);
@@ -91,6 +95,7 @@ class VendorController extends Controller
             $vendor->featured_picture = $featured_picture;
             $vendor->picture = $gallery;
             $vendor->user_id = $currentuser['id'];
+            $vendor->category_id = $request['category_id'];
             $vendor->save();
         }else{
             if($request->featured_picture){
@@ -127,6 +132,7 @@ class VendorController extends Controller
                 'discord' => $request['discord'],
                 'featured_picture' => $featured_picture,
                 'picture' => $gallery,
+                'category_id' => $request['category_id'],
             ]);
         }
         return back()->with(['msg' => 'Profile Updated', 'msg_type' => 'success']);
@@ -225,5 +231,37 @@ class VendorController extends Controller
         $reviews->save();
 
         return back()->with(['msg' => 'Review Posted', 'msg_type' => 'success']);
+    }
+
+   //  public function search(Request $request)
+   //  {
+   //      $event_data = "?category=".$request->checkedData;
+        
+   //      return response()->json($event_data);
+   // }
+    public function VendorCategoryFilter(Request $data)
+    {
+        $pageSlug   = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
+        if (!isset($data->keys) || $data->keys == null) {
+            $vendors = VendorProfile::limit(20)->get();
+        }else{
+            $vendors = VendorProfile::where('category_id','LIKE','%'.$data->keys.'%')->paginate(20);
+        }
+        if($vendors){
+            foreach($vendors as $vendor){?>
+                <div class="col-md-3 existingRecord">
+                    <div class="vendor_box">
+                        <a href="<?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendor['id']])?>">
+                            <img src="<?php echo asset($vendor['featured_picture'])?>" alt="<?php echo $vendor['public_profile_name']?>">
+                        </a>
+                        <a href="<?php echo route('posts.show', ['pages' => $pageSlug, 'id' => $vendor['id']])?>"><h3><?php echo $vendor['public_profile_name']?></h3></a>
+                    </div>
+                </div>
+                <?php 
+            }
+        }else{
+            "<p>NO Events Found!</p>";
+        }
+        return;
     }
 }

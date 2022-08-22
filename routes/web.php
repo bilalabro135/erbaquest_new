@@ -74,9 +74,6 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
      \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-// Vendor category BA
-    Route::get('/vendor/categories/filter', [VendorAdminController::class, 'VendorCategoryFilter'])->name('admin.categories.filter');
-
 // Admin
 Route::middleware(['auth', 'verified', 'CanAccessDashboard'])->prefix('admin')->group( function () {
     // Dashboard
@@ -313,6 +310,9 @@ Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.e
 Route::post('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth', 'verified');
 
 Route::post('/searchEvent',[EventController::class, 'search'])->name('search.event');
+
+// Vendor category BA
+Route::post('/vendor/categories/filter', [VendorController::class, 'VendorCategoryFilter'])->name('admin.categories.filter');
 
 Route::post('/addWishlist',[WishlistsController::class, 'store'])->name('add.wishlist');
 Route::post('/removeWishlist',[WishlistsController::class, 'remove'])->name('remove.wishlist')->middleware('auth','verified')->middleware('auth', 'verified');

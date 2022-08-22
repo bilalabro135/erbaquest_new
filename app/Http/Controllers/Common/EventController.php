@@ -1116,7 +1116,8 @@ class EventController extends Controller
         return view('tempview.past-event', compact('events','users','profile_image'));
    }
 
-    public function search(SearchRequest $request) {
+    public function search(SearchRequest $request)
+    {
     $event_data = "?amenities=".$request->checkedData;
     // $getEvnets = EventAmenity::whereIn("amenity_id",$aminities_ids)->select('event_id')->distinct()->get();
     // $event_data = array();
@@ -1133,6 +1134,7 @@ class EventController extends Controller
     //     );
     //   }
     // }
+    // dd($event_data);
     return response()->json($event_data);
    }
 

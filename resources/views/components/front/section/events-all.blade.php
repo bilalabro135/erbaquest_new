@@ -12,61 +12,61 @@
           <div class="main_all_events row">
               @if($events)
                 @foreach($events as $event)
-                <div class="col-sm-12 col-md-4">
-                  <div class="event-box_list" id="event_{{$event['id']}}">
-                    <figure>
-                      <div class="wishlist">
-                        <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
+                  <div class="col-sm-12 col-md-4">
+                    <div class="event-box_list" id="event_{{$event['id']}}">
+                      <figure>
+                        <div class="wishlist">
+                          <input type="hidden" value="{{$event['id']}}" name="event_id" class="event_wish">
 
-                          <a href="javascript:;" class="heart-link">
-                            @if($event['isWishList'])
-                              <i class="fas fa-heart"></i>
+                            <a href="javascript:;" class="heart-link">
+                              @if($event['isWishList'])
+                                <i class="fas fa-heart"></i>
+                              @else
+                                <i class="far fa-heart"></i>
+                              @endif
+                            </a>
+                           @if($event['featured'])
+                            <p class="ft-tag">Featured</p>
+                           @endif
+                        </div>
+                        <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
+                            @if($event['featured_image'])
+                              <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
                             @else
-                              <i class="far fa-heart"></i>
+                              <img src="{{asset('images/placeholder.jpg')}}" alt="{{$event['name']}}">
                             @endif
-                          </a>
-                         @if($event['featured'])
-                          <p class="ft-tag">Featured</p>
-                         @endif
-                      </div>
-                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
-                          @if($event['featured_image'])
-                            <img src="{{asset($event['featured_image'])}}" alt="{{$event['name']}}">
+                        </a>
+                         <div class="author">
+                          <p>{{$event['area']}}</p>
+                          @if(!empty($event['user_profile']))
+                          <div class="figure">
+                            <img src="{{ $event['user_profile'] }}" >
+                          </div>
                           @else
-                            <img src="{{asset('images/placeholder.jpg')}}" alt="{{$event['name']}}">
+                          <div class="figure">
+                            <img src="{{asset('images/avatar.png')}}">
+                          </div>
                           @endif
-                      </a>
-                       <div class="author">
-                        <p>{{$event['area']}}</p>
-                        @if(!empty($event['user_profile']))
-                        <div class="figure">
-                          <img src="{{ $event['user_profile'] }}" >
                         </div>
+                      </figure>
+                      <div class="detail">
+                        <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
+                          <h3>{{$event['name']}}</h3>
+                        </a>
+                        @if(!$event['is_recurring'])
+                          <p class="date"><i class="far fa-calendar-alt"></i>{{date('m-d-Y', strtotime($event['event_date']))}}</p>
                         @else
-                        <div class="figure">
-                          <img src="{{asset('images/avatar.png')}}">
+                              <p><b>Day:</b> {{ $event['day_dropdown'] }} <b>Type:</b> {{ $event['recurring_type'] }}</p>
+                        @endif
+                        <div class="txt">
+                          <p>{!!$event['description']!!}</p>
                         </div>
+                        @if($pageSlug != '')
+                        <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}" class="link">Details</a>
                         @endif
                       </div>
-                    </figure>
-                    <div class="detail">
-                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}">
-                        <h3>{{$event['name']}}</h3>
-                      </a>
-                      @if(!$event['is_recurring'])
-                        <p class="date"><i class="far fa-calendar-alt"></i>{{date('m-d-Y', strtotime($event['event_date']))}}</p>
-                      @else
-                            <p><b>Day:</b> {{ $event['day_dropdown'] }} <b>Type:</b> {{ $event['recurring_type'] }}</p>
-                      @endif
-                      <div class="txt">
-                        <p>{!!$event['description']!!}</p>
-                      </div>
-                      @if($pageSlug != '')
-                      <a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $event['id']])}}" class="link">Details</a>
-                      @endif
                     </div>
                   </div>
-                </div>
                 @endforeach
               @else
                 <p>NO Events Found!</p>

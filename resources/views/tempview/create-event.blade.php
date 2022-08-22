@@ -28,8 +28,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="createEventForm margin-tb">
-              <!-- <form class="front_event_create" action="{{route('front.events.store')}}" method="POST" enctype="multipart/form-data"> -->
-              {!! Form::open(array('id'=>'form','enctype'=>'multipart/form-data','class' => 'front_event_create')) !!}
+              {!! Form::open(array('id'=>'form','enctype'=>'multipart/form-data','class' => 'front_event_create', 'route' => 'front.events.store')) !!}
                 <div class="row">
                   <div class="col-sm-12 col-md-6 input-field">
                     <label>NAME OF QUEST: <span class="figure"><img src="{{asset('images/NAME-OF-QUEST.png')}}"></span></label>
@@ -56,7 +55,6 @@
                   </div>
                   <div class="col-sm-12 input-field">
                     <label>DESCRIPTION: <span class="figure"><img src="{{asset('images/DESCRIPTION_Icon.png')}}"></span></label>
-                   <!--  <textarea name="description" placeholder="DESCRIPTION.."></textarea> -->
                    {!! Form::textarea('description', null, array('placeholder' => 'DESCRIPTION..','rows'=>5, 'class' => 'form-control')) !!}
                     @error('description')
                         <div class="text-danger">

@@ -91,7 +91,7 @@ class VendorAdminController extends Controller
             'phone'                 => $request->phone,
             'descreption'           => $request->descreption,
             'user_id'               => $request->user_id,
-            'category_id'           => $request->category_id,
+            'category_id'           => implode(',',$request->category_id),
         ]);
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor added', 'msg_type' => 'success']);
@@ -100,6 +100,9 @@ class VendorAdminController extends Controller
     public function editUsers(Request $user,$id)
     {
         $vendor     = VendorProfile::where('id',$id)->first();
+        if (isset($vendor->category_id) && !empty($vendor->category_id)) {
+            $vendor->category_id = explode(',',$vendor->category_id);
+        }
         $users      = User::pluck('name','id')->all();
         $category   = VendorCategory::pluck('name','id')->all();
         if (isset($vendor['picture'],$vendor['featured_picture'])) {
@@ -135,7 +138,7 @@ class VendorAdminController extends Controller
         $vendor->phone                  = $request->phone;
         $vendor->descreption            = $request->descreption;
         $vendor->user_id                = $request->user_id;
-        $vendor->category_id            = $request->category_id;
+        $vendor->category_id            = implode(',',$request->category_id);
         $vendor->save();
 
         return Redirect::route('admin.vendor')->with(['msg' => 'Vendor Updated', 'msg_type' => 'success']);

@@ -31,10 +31,9 @@ class VendorsAll extends Component
         // $vendor = new VendorProfile();
         // $vendors = array();
         $this->vendors      = VendorProfile::paginate(20);
-        $this->categories   = VendorCategory::pluck('name','id');
+        $this->categories   = VendorCategory::all();
 
         $this->pageSlug     = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
-        // dd($vendors);
         return view('components.front.section.vendors-all');
     }
 }

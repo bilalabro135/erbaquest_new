@@ -14,14 +14,14 @@
 
          <h1 class="h3 mb-4 text-gray-800">Add New Event</h1>
          @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{route('events.store')}}" method="POST" autocomplete="off" class="user">
             @csrf
             <div class="row">

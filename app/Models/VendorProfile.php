@@ -29,4 +29,11 @@ class VendorProfile extends Model
         'category_id',
     ];
 
+    // public function getCategoryIdAttribute($value)
+    // {
+    //     if (isset($value)) {
+    //         return unserialize($value);
+    //     }
+    // }
+
 }

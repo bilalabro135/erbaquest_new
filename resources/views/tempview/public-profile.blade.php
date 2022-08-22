@@ -66,6 +66,19 @@
                     @enderror
                   </div>
 
+                  <div class="col-sm-12 col-md-12 customDropdown input-field">
+                    <label>VENDOR CATEGORY:</label>
+                    <select class="js-example-basic-multiple form-control" name="category_id[]" multiple="multiple">
+                        @foreach($category as $key => $value)
+                            @if(in_array($key,$vendorData->category_id))
+                                <option value="{{$key}}" selected>{{$value}}</option>
+                            @else
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                  </div>
+
                   <div class="input-field input-file drop-zone">
                     <label>
                       FEATURED PICTURE:
