@@ -70,7 +70,7 @@
                     <label>VENDOR CATEGORY:</label>
                     <select class="js-example-basic-multiple form-control" name="category_id[]" multiple="multiple">
                         @foreach($category as $key => $value)
-                            @if(isset($vendor->category_id) && is_array($vendor->category_id) && in_array($key,$vendor->category_id))
+                            @if(in_array($key,$vendorData->category_id))
                                 <option value="{{$key}}" selected>{{$value}}</option>
                             @else
                                 <option value="{{$key}}">{{$value}}</option>

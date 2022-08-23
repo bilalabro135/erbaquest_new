@@ -75,7 +75,11 @@
 		    success:function(data) {
 		    	$(".existingRecord").empty();
 		    	$(".myAjaxLoader").hide();
-		    	$( ".existingRecord").html(data);
+		    	if (data) {
+		    		$(".existingRecord").html(data);
+		    	}else{
+		    		$(".existingRecord").html("<h2 class='text-center text-secondary'>NO VENDOR FOUND..!!</h2>");
+		    	}
 		    }
 		 });
 

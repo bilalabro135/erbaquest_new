@@ -95,7 +95,7 @@ class VendorController extends Controller
             $vendor->featured_picture = $featured_picture;
             $vendor->picture = $gallery;
             $vendor->user_id = $currentuser['id'];
-            $vendor->category_id = $request['category_id'];
+            $vendor->category_id = implode(",",$request['category_id']);
             $vendor->save();
         }else{
             if($request->featured_picture){
@@ -132,7 +132,7 @@ class VendorController extends Controller
                 'discord' => $request['discord'],
                 'featured_picture' => $featured_picture,
                 'picture' => $gallery,
-                'category_id' => $request['category_id'],
+                'category_id' => implode(",",$request['category_id']),
             ]);
         }
         return back()->with(['msg' => 'Profile Updated', 'msg_type' => 'success']);
@@ -260,7 +260,7 @@ class VendorController extends Controller
                 <?php 
             }
         }else{
-            "<p>NO Events Found!</p>";
+            "<h2 class='text-center text-secondary'>NO VENDOR FOUND..!!</h2>";
         }
         return;
     }
