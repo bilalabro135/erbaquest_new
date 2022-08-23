@@ -184,7 +184,7 @@
                             <div class="form-group">
                                 <select class="selectpicker js-com form-control" required="" id="category_id" name="category_id[]" multiple data-live-search="true">
                                     @foreach($category as $key => $value)
-                                        @if(in_array($key,$vendor->category_id))
+                                        @if(isset($vendor->category_id) && is_array($vendor->category_id) && in_array($key,$vendor->category_id))
                                             <option value="{{$key}}" selected>{{$value}}</option>
                                         @else
                                             <option value="{{$key}}">{{$value}}</option>
