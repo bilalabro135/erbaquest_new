@@ -4,13 +4,19 @@
         	<div class="amenties_filter">
 	         	<ul>
 		            @foreach($categories as $category)
-		            	<li>
+		            	<li class="filter">
 		              		<label class="clcikalert" style="padding-left: 25px;">
 			                	<span class="text">{{$category->name}}</span>
 			                	<input type="checkbox" name="category[]" value="{{$category->id}}">
 		              		</label>
 		            	</li>
 		            @endforeach
+		                <li class="all">
+		            		<label class="selected clcikalert" style="padding-left: 25px;">
+			                	<span class="text">All</span>
+			                	<input type="checkbox" name="all" clas="example" checked>
+		              		</label>
+		              	</li>
 	          	</ul>
 			<div class="myAjaxLoader" style="width: 110px;position: absolute;left: 0px;margin-top: -110px;"><img src="{{asset('images/icons/loader-waiting.gif')}}"></div>
         </div>
@@ -40,8 +46,9 @@
 		</div>
 	</div>
 </section>
+
 <script type="text/javascript">
-    $('.amenties_filter li input').change(function(){
+    $('.filter input').change(function(){
         if($(this).is(':checked')){
             $(this).parent('label').addClass('selected');
         }
@@ -50,10 +57,17 @@
         }
     })
 </script>
+
+<script type="text/javascript">
+$('input.example').on('change', function() {
+  $('input.example').not(this).prop('checked', false);
+});
+
+</script>
+
 <script type="text/javascript">
 	$(".myAjaxLoader").hide();
     $(".clcikalert input").click(function() {
-
 		  var checked = [];
 		  $.each($("input[name='category[]']:checked"), function(){
 		      checked.push($(this).val());
@@ -70,7 +84,6 @@
 		    beforeSend: function() {
 		    	$(".existingRecord").empty();
 		    	$(".myAjaxLoader").show();
-
 		    },
 		    success:function(data) {
 		    	$(".existingRecord").empty();
@@ -82,6 +95,5 @@
 		    	}
 		    }
 		 });
-
 		});
 </script>
