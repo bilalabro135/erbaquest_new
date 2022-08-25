@@ -30,8 +30,8 @@ class VendorController extends Controller
 
     public function view()
     {
-    	$userData = Auth::user();
-    	$users = new User;
+        $userData = Auth::user();
+        $users = new User;
         $userRole = AssignRoles::where('entity_id', $userData['id'])->first(); 
         $vendorData = VendorProfile::where('user_id', $userData['id'])->first();
         if (isset($vendorData->category_id) && !empty($vendorData->category_id)) {
@@ -62,7 +62,7 @@ class VendorController extends Controller
     
     public function update(VendorProfileRequest $request, User $user)
     {
-    	$currentuser = Auth::user();
+        $currentuser = Auth::user();
         $vendor_data = VendorProfile::where('user_id', $currentuser['id'])->first();
         // dd($vendor_data);
         if($vendor_data == null){
@@ -95,7 +95,11 @@ class VendorController extends Controller
             $vendor->featured_picture = $featured_picture;
             $vendor->picture = $gallery;
             $vendor->user_id = $currentuser['id'];
-            $vendor->category_id = implode(",",$request['category_id']);
+            $vendor->category_id = ((isset($request['category_id']))  && ((count($request['category_id'])>0))) 
+                                    ? implode(",",$request['category_id'])
+                                    : null;
+            // $cat_id = isset($request['category_id']) ? $request['category_id'] : null;
+            // $vendor->category_id = implode(",",$cat_id);
             $vendor->save();
         }else{
             if($request->featured_picture){
@@ -132,7 +136,10 @@ class VendorController extends Controller
                 'discord' => $request['discord'],
                 'featured_picture' => $featured_picture,
                 'picture' => $gallery,
-                'category_id' => implode(",",$request['category_id']),
+                'category_id' => ((isset($request['category_id']))  && ((count($request['category_id'])>0))) 
+                        ? implode(",",$request['category_id'])
+                        : null,
+                // 'category_id' => implode(",",$request['category_id']),
             ]);
         }
         return back()->with(['msg' => 'Profile Updated', 'msg_type' => 'success']);

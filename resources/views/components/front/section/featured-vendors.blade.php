@@ -7,7 +7,7 @@
             <li class="item">
               <div class="figure">
               	<a href="{{route('posts.show', ['pages' => $pageSlug, 'id' => $vendor['id']])}}">
-                	<img src="{{asset('/' . $vendor['featured_picture'])}}">
+                	<img src="https://erbaquest.com{{asset($vendor['featured_picture'])}}">
             	</a>
               </div>
             </li>
@@ -37,9 +37,3 @@
 	});
 </script>
 @endpush
-
-
-
-
-
-

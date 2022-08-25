@@ -1,10 +1,10 @@
 @extends('layouts.front.app')
 
 @section('content')
-	@if(isset($pages) && isset($pages->featured_image))
-		<x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
-	@endif
-	    <section class="inner-banner">
+  @if(isset($pages) && isset($pages->featured_image))
+    <x-front.page.featured-image title="{!!$pages->name!!}" image="{{asset($pages->featured_image)}}"/>
+  @endif
+      <section class="inner-banner">
       <div class="container">
         <h1 class="ft-blanka">
           ACCOUNT
@@ -70,11 +70,13 @@
                     <label>VENDOR CATEGORY:</label>
                     <select class="js-example-basic-multiple form-control" name="category_id[]" multiple="multiple">
                         @foreach($category as $key => $value)
-                            @if(in_array($key,$vendorData->category_id))
-                                <option value="{{$key}}" selected>{{$value}}</option>
-                            @else
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endif
+                                @if (isset($key,$vendorData->category_id) )
+                                    @if (in_array($key,$vendorData->category_id))
+                                        <option value="{{$key}}" selected>{{$value}}</option>
+                                    @else{
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endif 
+                                @endif
                         @endforeach
                     </select>
                   </div>
@@ -84,10 +86,10 @@
                       FEATURED PICTURE:
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
                       <div class="preview">
-                      	@if($users['featured_picture'])
+                        @if($users['featured_picture'])
                             <img id="preview_img" src="{{asset($users['featured_picture'])}}">
                         @else
-                        	<img id="preview_img" src="">
+                          <img id="preview_img" src="">
                         @endif 
                       </div>
                     </label>
@@ -108,7 +110,7 @@
                       PICTURE: 
                       <span class="figure"><img src="{{asset('images/ft_profile.png')}}"></span>
                       <div class="preview1">
-                      	@if($users['picture'])
+                        @if($users['picture'])
                           @foreach($users['picture'] as $galleries)
                               <img id="preview_img" src="{{asset($galleries['url'])}}">
                           @endforeach
@@ -233,7 +235,6 @@ you would like to have displayed. ">
       console.info('Trigger:', e.trigger);
       showTooltip(e.trigger, 'Copied!');
   });
-
   clipboardDemos.on('error', function(e) {
       console.error('Action:', e.action);
       console.error('Trigger:', e.trigger);
@@ -282,40 +283,32 @@ you would like to have displayed. ">
 <script>
     document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zone");
-
       dropZoneElement.addEventListener("click", (e) => {
         inputElement.click();
       });
-
       inputElement.addEventListener("change", (e) => {
         if (inputElement.files.length) {
           updateThumbnail(dropZoneElement, inputElement.files[0]);
         }
       });
-
       dropZoneElement.addEventListener("dragover", (e) => {
         e.preventDefault();
         dropZoneElement.classList.add("drop-zone--over");
       });
-
       ["dragleave", "dragend"].forEach((type) => {
         dropZoneElement.addEventListener(type, (e) => {
           dropZoneElement.classList.remove("drop-zone--over");
         });
       });
-
       dropZoneElement.addEventListener("drop", (e) => {
         e.preventDefault();
-
         if (e.dataTransfer.files.length) {
           inputElement.files = e.dataTransfer.files;
           updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
         }
-
         dropZoneElement.classList.remove("drop-zone--over");
       });
     });
-
     /**
      * Updates the thumbnail on a drop zone element.
      *
@@ -323,16 +316,13 @@ you would like to have displayed. ">
      * @param {File} file
      */
     function updateThumbnail(dropZoneElement, file) {
-
       // First time - remove the prompt
       if (dropZoneElement.querySelector(".drop-zone__prompt")) {
         dropZoneElement.querySelector(".drop-zone__prompt").remove();
       }
-
       // Show thumbnail for image files
       if (file.type.startsWith("image/")) {
         const reader = new FileReader();
-
         reader.readAsDataURL(file);
         reader.onload = () => {
           $("#preview_img").attr("src",`${reader.result}`);
@@ -341,60 +331,47 @@ you would like to have displayed. ">
         $("#preview_img").attr("src","");
       }
     }
-
   </script>
 
   <script>
     document.querySelectorAll(".upload_file_multi").forEach((inputElement) => {
       const dropZoneElement = inputElement.closest(".drop-zonemul");
-
       dropZoneElement.addEventListener("click", (e) => {
         inputElement.click();
       });
-
       inputElement.addEventListener("change", (e) => {
         if (inputElement.files.length) {
           updateThumbnailMulti(dropZoneElement, inputElement.files);
         }
       });
-
       dropZoneElement.addEventListener("dragover", (e) => {
         e.preventDefault();
         dropZoneElement.classList.add("drop-zone--over");
       });
-
       ["dragleave", "dragend"].forEach((type) => {
         dropZoneElement.addEventListener(type, (e) => {
           dropZoneElement.classList.remove("drop-zone--over");
         });
       });
-
       dropZoneElement.addEventListener("drop", (e) => {
         e.preventDefault();
-
         if (e.dataTransfer.files.length) {
           inputElement.files = e.dataTransfer.files;
           updateThumbnailMulti(dropZoneElement, e.dataTransfer.files);
         }
-
         dropZoneElement.classList.remove("drop-zone--over");
       });
     });
-
     function updateThumbnailMulti(dropZoneElement, file) {
-
       if (dropZoneElement.querySelector(".drop-zone__prompt")) {
         dropZoneElement.querySelector(".drop-zone__prompt").remove();
       }
       $(".preview1").html('');
-
       var i;
       for (i = 0; i < file.length; ++i) {
-
       
         if (file[i].type.startsWith("image/")) {
           const reader = new FileReader();
-
           reader.readAsDataURL(file[i]);
           reader.onload = () => {
             // console.log(`${reader.result}`);
@@ -412,29 +389,29 @@ you would like to have displayed. ">
 
 @if( $users['user_id'] )
 <script>
-	// Public Profile
-	$(function() {
-	  $(".public_profile_val").validate({
-	    rules: {
-	      public_profile_name: "required",
-	      phone: {
-	        required: true,
-	        phoneUS: true
-	      },
-	      email: {
-	        required: true,
-	        email: true
-	      },
-	      featured_picture: {
-	        required: false,
-	        extension: "png|jpg|jpeg",
-	        maxfilesize: 2,
-	      },
-	      'picture[]': {
-	        required: false,
-	        extension: "png|jpg|jpeg",
-	        maxfilesize: 2,
-	      },
+  // Public Profile
+  $(function() {
+    $(".public_profile_val").validate({
+      rules: {
+        public_profile_name: "required",
+        phone: {
+          required: true,
+          phoneUS: true
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        featured_picture: {
+          required: false,
+          extension: "png|jpg|jpeg",
+          maxfilesize: 2,
+        },
+        'picture[]': {
+          required: false,
+          extension: "png|jpg|jpeg",
+          maxfilesize: 2,
+        },
         website: {
           required: false,
           url: true
@@ -459,24 +436,24 @@ you would like to have displayed. ">
           required: false,
           url: true
         },
-	    },
-	    messages: {
-	      name: "The name field is required.",
-	      phone: "US Based NUMBER is required.",
-	      email: {
-	        required:"The email field is required.",
-	        email:"Please enter correct email.",
-	      },
-	      featured_picture: {
-	        required:"The FEATURED PICTURE field is required.",
-	        extension:"Please use .PNG .JPG .JPEG format",
-	        maxfilesize:"File size must be less than 2MB",
-	      },
-	      'picture[]': {
-	        required:"The PICTURE field is required.",
-	        extension:"Please use .PNG .JPG .JPEG format",
-	        maxfilesize:"File size must be less than 2MB",
-	      },
+      },
+      messages: {
+        name: "The name field is required.",
+        phone: "US Based NUMBER is required.",
+        email: {
+          required:"The email field is required.",
+          email:"Please enter correct email.",
+        },
+        featured_picture: {
+          required:"The FEATURED PICTURE field is required.",
+          extension:"Please use .PNG .JPG .JPEG format",
+          maxfilesize:"File size must be less than 2MB",
+        },
+        'picture[]': {
+          required:"The PICTURE field is required.",
+          extension:"Please use .PNG .JPG .JPEG format",
+          maxfilesize:"File size must be less than 2MB",
+        },
         website_link: {
           url:"Please use the complete link with https:// or http://",
         },
@@ -495,38 +472,38 @@ you would like to have displayed. ">
         youtube: {
           url:"Please use the complete link with https:// or http://",
         },
-	    },
-	    submitHandler: function(form) {
-	      form.submit();
-	    }
-	  });
-	});
+      },
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+  });
 </script>
 @else
 <script>
-	// Public Profile
-	$(function() {
-	  $(".public_profile_val").validate({
-	    rules: {
-	      public_profile_name: "required",
-	      phone: {
-	        required: true,
-	        phoneUS: true
-	      },
-	      email: {
-	        required: true,
-	        email: true
-	      },
-	      featured_picture: {
-	        required: true,
-	        extension: "png|jpg|jpeg",
-	        maxfilesize: 2,
-	      },
-	      'picture[]': {
-	        required: true,
-	        extension: "png|jpg|jpeg",
-	        maxfilesize: 2,
-	      },
+  // Public Profile
+  $(function() {
+    $(".public_profile_val").validate({
+      rules: {
+        public_profile_name: "required",
+        phone: {
+          required: true,
+          phoneUS: true
+        },
+        email: {
+          required: true,
+          email: true
+        },
+        featured_picture: {
+          required: true,
+          extension: "png|jpg|jpeg",
+          maxfilesize: 2,
+        },
+        'picture[]': {
+          required: true,
+          extension: "png|jpg|jpeg",
+          maxfilesize: 2,
+        },
         website: {
           required: false,
           url: true
@@ -551,24 +528,24 @@ you would like to have displayed. ">
           required: false,
           url: true
         },
-	    },
-	    messages: {
-	      name: "The name field is required.",
-	      phone: "US Based NUMBER is required.",
-	      email: {
-	        required:"The email field is required.",
-	        email:"Please enter correct email.",
-	      },
-	      featured_picture: {
-	        required:"The FEATURED PICTURE field is required.",
-	        extension:"Please use .PNG .JPG .JPEG format",
-	        maxfilesize:"File size must be less than 2MB",
-	      },
-	      'picture[]': {
-	        required:"The PICTURE field is required.",
-	        extension:"Please use .PNG .JPG .JPEG format",
-	        maxfilesize:"File size must be less than 2MB",
-	      },
+      },
+      messages: {
+        name: "The name field is required.",
+        phone: "US Based NUMBER is required.",
+        email: {
+          required:"The email field is required.",
+          email:"Please enter correct email.",
+        },
+        featured_picture: {
+          required:"The FEATURED PICTURE field is required.",
+          extension:"Please use .PNG .JPG .JPEG format",
+          maxfilesize:"File size must be less than 2MB",
+        },
+        'picture[]': {
+          required:"The PICTURE field is required.",
+          extension:"Please use .PNG .JPG .JPEG format",
+          maxfilesize:"File size must be less than 2MB",
+        },
         website_link: {
           url:"Please use the complete link with https:// or http://",
         },
@@ -587,12 +564,12 @@ you would like to have displayed. ">
         youtube: {
           url:"Please use the complete link with https:// or http://",
         },
-	    },
-	    submitHandler: function(form) {
-	      form.submit();
-	    }
-	  });
-	});
+      },
+      submitHandler: function(form) {
+        form.submit();
+      }
+    });
+  });
 </script>
 @endif
 
