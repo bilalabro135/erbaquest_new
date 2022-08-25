@@ -245,7 +245,7 @@ class VendorController extends Controller
         if (!isset($data->keys) || $data->keys == null) {
             $vendors = VendorProfile::limit(20)->get();
         }else{
-            $vendors = VendorProfile::where('category_id','LIKE','%'.$data->keys.'%')->paginate(20);
+            $vendors = VendorProfile::where('category_id','LIKE','%'.$data->keys.'%')->paginate(25);
         }
         if($vendors){
             foreach($vendors as $vendor){?>

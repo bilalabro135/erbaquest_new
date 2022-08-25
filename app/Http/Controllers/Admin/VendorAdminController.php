@@ -187,7 +187,7 @@ class VendorAdminController extends Controller
     public function updateCategoryUsers(request $request,$id)
     {
         $validated = $request->validate([
-            'name'               => 'required|min:3|max:100'
+            'name'          => 'required|min:3|max:100'
         ]);
 
         $category           = VendorCategory::where('id',$id)->first();
@@ -210,7 +210,7 @@ class VendorAdminController extends Controller
     public function storeCategoryUser(Request $request)
     {
         $validated = $request->validate([
-            'name'               => 'required|min:3|max:100'
+            'name'   => 'required|min:3|max:100'
         ]);
         $vendor = VendorCategory::create([
             'name'   => $request->name,

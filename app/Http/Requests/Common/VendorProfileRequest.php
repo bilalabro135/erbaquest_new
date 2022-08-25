@@ -28,6 +28,7 @@ class VendorProfileRequest extends FormRequest
             'twitter' => 'max:255',
             'youtube' => 'max:255',
             'linkedin' => 'max:255',
+            'category_id' => 'required',
         ];
     }
     public function getVendorData()
