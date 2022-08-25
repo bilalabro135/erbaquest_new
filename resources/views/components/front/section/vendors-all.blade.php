@@ -3,6 +3,12 @@
 		<h3 class="ft-blanka vc_heading vc_heading-green text-center">VENDORS</h3>
         	<div class="amenties_filter">
 	         	<ul>
+	         		<li class="all">
+	            		<label class="clcikalert allCat selected" style="padding-left: 25px;">
+		                	<span class="text">All</span>
+		                	<input type="checkbox" name="all" class="example" value="all">
+	              		</label>
+	              	</li>
 		            @foreach($categories as $category)
 		            	<li class="filter">
 		              		<label class="clcikalert" style="padding-left: 25px;">
@@ -11,12 +17,6 @@
 		              		</label>
 		            	</li>
 		            @endforeach
-		                <li class="all">
-		            		<label class="selected clcikalert" style="padding-left: 25px;">
-			                	<span class="text">All</span>
-			                	<input type="checkbox" name="all" clas="example" checked>
-		              		</label>
-		              	</li>
 	          	</ul>
 			<div class="myAjaxLoader" style="width: 110px;position: absolute;left: 0px;margin-top: -110px;"><img src="{{asset('images/icons/loader-waiting.gif')}}"></div>
         </div>
@@ -51,11 +51,22 @@
     $('.filter input').change(function(){
         if($(this).is(':checked')){
             $(this).parent('label').addClass('selected');
+            $('.allCat input').parent('label').removeClass('selected');
         }
         else{
-            $(this).parent('label').removeClass('selected');                
+            $(this).parent('label').removeClass('selected');
         }
-    })
+    });
+
+    $('.allCat input').change(function(){
+        if($(this).is(':checked')){
+            $(this).parent('label').addClass('selected');
+            $('.filter input').parent('label').removeClass('selected');
+        }
+        else{
+            $(this).parent('label').removeClass('selected');
+        }
+    });
 </script>
 
 <script type="text/javascript">
@@ -68,9 +79,13 @@ $('input.example').on('change', function() {
 <script type="text/javascript">
 	$(".myAjaxLoader").hide();
     $(".clcikalert input").click(function() {
-		  var checked = [];
+		  var checked	= [];
 		  $.each($("input[name='category[]']:checked"), function(){
 		      checked.push($(this).val());
+		  });
+		  $.each($("input[name='all']:checked"), function(){
+		  		var checked	= [];
+		  		var checked	= "all";
 		  });
 		  $.ajaxSetup({
 		      headers: {

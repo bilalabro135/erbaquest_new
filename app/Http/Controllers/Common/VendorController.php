@@ -249,10 +249,10 @@ class VendorController extends Controller
     public function VendorCategoryFilter(Request $data)
     {
         $pageSlug   = Pages::where('template', 'vendor')->where('status', 'published')->value('slug');
-        if (!isset($data->keys) || $data->keys == null) {
+        if (!isset($data->keys) || $data->keys == null || preg_match_all("/all/i", $data, $matches)) {
             $vendors = VendorProfile::limit(20)->get();
         }else{
-            $vendors = VendorProfile::where('category_id','LIKE','%'.$data->keys.'%')->paginate(25);
+            $vendors = VendorProfile::where('category_id','LIKE','%'.$data->keys.'%')->paginate(20);
         }
         if($vendors){
             foreach($vendors as $vendor){?>
